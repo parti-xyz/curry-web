@@ -44,11 +44,6 @@ gem 'jquery-slick-rails'
 gem 'bootstrap3-datetimepicker-rails'
 gem 'momentjs-rails'
 
-# assets
-source 'https://rails-assets.org' do
-  gem 'rails-assets-trianglify'
-end
-
 # tool
 gem 'axlsx', github: 'randym/axlsx', ref: 'd41258e'
 gem 'axlsx_rails', '~> 0.5.0'

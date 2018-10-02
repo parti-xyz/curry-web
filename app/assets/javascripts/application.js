@@ -23,7 +23,6 @@
 //= require jquery.validate.messages_ko
 //= require jquery.webui-popover
 //= require cocoon
-//= require trianglify
 //= require moment
 //= require bootstrap-datetimepicker
 //= require perfect-scrollbar
@@ -47,21 +46,6 @@ $.is_present = function(obj) {
   return ! $.is_blank(obj);
 }
 $(document).imagesLoaded( { }, function() {
-
-  // trianglify
-  $('.pattern-trianglify').each(function(i, elm) {
-    $elm = $(elm);
-
-    var pattern = Trianglify({
-      width: 1200,
-      height: 600,
-      seed: $(elm).data('trianglify-seed')
-    });
-
-    $elm.css("background-image", "url('" + pattern.png() + "')");
-  });
-
-
   $('.masonry-container').masonry();
   // Initialize Redactor
   $('.redactor').redactor({
