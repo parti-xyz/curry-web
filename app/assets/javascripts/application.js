@@ -46,7 +46,6 @@ $.is_blank = function (obj) {
 $.is_present = function(obj) {
   return ! $.is_blank(obj);
 }
-
 $(document).imagesLoaded( { }, function() {
 
   // trianglify
@@ -298,13 +297,34 @@ $(function(){
   $('.gov-action-form-validation').each(function(i, elm) {
     var $form = $(elm);
 
-    $form.validate({
+    var options = {
       ignore: ':hidden:not(.validate)',
       errorPlacement: function(error, $element) {
         error.insertAfter($element);
         $('.masonry-container').masonry();
       }
-    });
+    };
+    var $grecaptcha_control = $form.find('.gov-action-form-grecaptcha');
+    if($grecaptcha_control.length > 0) {
+      options['submitHandler'] = function (form) {
+        var str_widget_id = $grecaptcha_control.data('grecaptcha_widget_id');
+        if(typeof str_widget_id != 'undefined') {
+          var widget_id = parseInt(str_widget_id, 10);
+          if (grecaptcha.getResponse(widget_id)) {
+            // 2) finally sending form data
+            form.submit();
+          }else{
+            // 1) Before sending we must validate captcha
+            grecaptcha.reset(widget_id);
+            grecaptcha.execute(widget_id);
+          }
+        } else {
+          form.submit();
+        }
+      }
+    }
+
+    $form.validate(options);
   });
 
   $('.gov-action-sidbar').on('click', function(e) {
@@ -429,3 +449,4 @@ $(document).ajaxError(function (e, xhr, settings) {
     UnobtrusiveFlash.showFlashMessage('먼저 로그인해 주세요.', {type: 'notice'})
   }
 });
+

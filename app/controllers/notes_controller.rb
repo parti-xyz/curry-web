@@ -4,6 +4,12 @@ class NotesController < ApplicationController
   invisible_captcha only: [:create]
 
   def create
+    unless verify_recaptcha(model: @note)
+      errors_to_flash(@note)
+      redirect_back(fallback_location: root_path)
+      return
+    end
+
     @note.user = current_user if user_signed_in?
     if user_signed_in? and @note.opinion.respond_to? :voted_by? and @note.opinion.voted_by? current_user
       @note.choice = @note.opinion.fetch_vote_of(current_user).choice

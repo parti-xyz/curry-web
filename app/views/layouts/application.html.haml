@@ -47,6 +47,21 @@
       Chartkick.configure({language: "ko"});
     %script{:src => "https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"}
     %script{:src => "https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"}
+    %script{ src: "https://www.google.com/recaptcha/api.js?onload=$grecaptcha_on_load&render=explicit", async: true, defer: true }
+    :javascript
+      var $grecaptcha_on_load = function() {
+        $('.gov-action-form-grecaptcha').each(function(index, elm) {
+          widget_id = grecaptcha.render(elm, {
+            'sitekey': '#{ENV['RECAPTCHA_SITE_KEY']}',
+            'size': 'invisible',
+            'callback': function(token) {
+              var $form = $(elm).closest('form');
+              $form.submit();
+            }
+          });
+          $(elm).data('grecaptcha_widget_id', widget_id);
+        });
+      }
     = yield :script if content_for?(:script)
 
     - if Rails.env.production?
