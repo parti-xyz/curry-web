@@ -45,8 +45,6 @@
           %br
           = link_to Archive.model_name.human, archives_url(subdomain: root_subdomain)
           %br
-          = link_to Sympathy.model_name.human, sympathies_path(subdomain: root_subdomain)
-          %br
           = link_to '커뮤니티', 'https://parti.xyz'
       - else
         = render "organizations/#{organization.slug}/pages/header", organization: organization
