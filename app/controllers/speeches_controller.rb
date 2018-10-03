@@ -3,6 +3,12 @@ class SpeechesController < ApplicationController
 
   def index
     @campaign = Campaign.find(params[:campaign_id]) if params[:campaign_id]
+    if params[:event_id]
+      @campaign = Campaign.find_by(previous_event_id: params[:event_id])
+      render_404 and return if @campaign.blank?
+      redirect_to speeches_path(campaign_id: @campaign.id)
+      return
+    end
     @speeches = Speech.all.recent.page params[:page]
   end
 
