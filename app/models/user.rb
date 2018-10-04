@@ -9,18 +9,49 @@ class User < ApplicationRecord
 
   # assiciations
   has_many :following_issues, dependent: :destroy
-  has_many :articles, dependent: :destroy
+  has_many :articles, dependent: :nullify
   has_many :people, dependent: :destroy
   has_many :players, dependent: :destroy
   has_many :races, dependent: :destroy
   has_many :thumbs, dependent: :destroy
   has_many :speeches, dependent: :destroy
   has_many :participations, dependent: :destroy
+  has_many :projects, dependent: :restrict_with_exception
   has_many :participated_projects, through: :participations, source: :project
   has_many :archives, dependent: :restrict_with_exception
   has_many :bulk_tasks, dependent: :destroy
   has_many :organizers, dependent: :destroy
-  has_many :campaigns
+  has_many :campaigns, dependent: :restrict_with_exception
+  has_many :agenda_documents, dependent: :nullify
+  has_many :agendas, dependent: :nullify
+  has_many :archive_documents, dependent: :restrict_with_error
+  has_many :comments, dependent: :destroy
+  has_many :deprecated_events, dependent: :nullify
+  has_many :discussions, dependent: :destroy
+  has_many :feedbacks, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :memorials, dependent: :restrict_with_exception
+  has_many :notes, dependent: :destroy
+  has_many :organizations, dependent: :restrict_with_exception
+  has_many :organizers, dependent: :restrict_with_exception
+  has_many :participations, dependent: :destroy
+  has_many :players, dependent: :destroy
+  has_many :races, dependent: :destroy
+  has_many :reports, dependent: :destroy
+  has_many :sent_requests, dependent: :destroy
+  has_many :signs, dependent: :destroy
+  has_many :speeches, dependent: :destroy
+  has_many :statements, dependent: :nullify, foreign_key: :last_updated_user_id
+  has_many :stories, dependent: :restrict_with_exception
+  has_many :surveys, dependent: :restrict_with_exception
+  has_many :polls, dependent: :restrict_with_exception
+  has_many :sympathies, dependent: :restrict_with_exception
+  has_many :timeline_documents, dependent: :restrict_with_exception
+  has_many :timelines, dependent: :restrict_with_exception
+  has_many :wiki_revisions, dependent: :restrict_with_exception
+  has_many :wikis, dependent: :restrict_with_exception
+  has_many :thumbs, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   # validations
   VALID_NICKNAME_REGEX = /\A[ㄱ-ㅎ가-힣a-z0-9_]+\z/i

@@ -1,7 +1,7 @@
 class Agenda < ApplicationRecord
   include Likable
 
-  belongs_to :user
+  belongs_to :user, optional: true
   has_and_belongs_to_many :issues
   has_many :opinions, through: :issues
   has_many :agents, -> { reorder('').distinct }, through: :opinions

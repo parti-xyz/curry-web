@@ -4,7 +4,7 @@ class DeprecatedEvent < ApplicationRecord
   TEMPLATES = %w( default default_with_photo press )
   TEMPLATES_SPECIAL = %w( map_with_assembly any_speech map speech sns )
 
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :project
   has_many :comments, as: :commentable
   has_many :speeches, dependent: :destroy
