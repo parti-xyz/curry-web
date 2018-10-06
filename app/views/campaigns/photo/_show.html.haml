@@ -28,7 +28,7 @@
                   = hidden_field_tag :i_am, 'your_father'
                 = f.hidden_field :commentable_type, value: 'Campaign'
                 = f.hidden_field :commentable_id, value: @campaign.id
-                = invisible_captcha
+                .gov-action-form-grecaptcha
                 - unless user_signed_in?
                   .form-group
                     = f.label :commenter_name
@@ -70,7 +70,7 @@
         = form_for Comment.new, html: { class: 'gov-action-form-validation' } do |f|
           = f.hidden_field :commentable_type, value: 'Campaign'
           = f.hidden_field :commentable_id, value: @campaign.id
-          = invisible_captcha
+          .gov-action-form-grecaptcha
           - unless user_signed_in?
             .form-group
               = f.label :commenter_name
