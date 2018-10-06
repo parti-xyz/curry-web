@@ -18,7 +18,7 @@
           = f.hidden_field :commentable_type, value: commentable.class.name
           = f.hidden_field :commentable_id, value: commentable.id
           = f.hidden_field :mailing, value: :ready
-          = invisible_captcha
+          .gov-action-form-grecaptcha
           - unless user_signed_in?
             .row
               .col-xs-12.col-md-6
