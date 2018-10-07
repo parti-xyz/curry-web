@@ -381,8 +381,6 @@ GEM
       chunky_png
     imgkit (1.6.1)
     inflecto (0.0.2)
-    invisible_captcha (0.10.0)
-      rails (>= 3.2.0)
     ipaddress (0.8.3)
     iso8601 (0.9.1)
     jbuilder (2.6.3)
@@ -770,7 +768,6 @@ DEPENDENCIES
   htmlentities (~> 4.3, >= 4.3.4)
   identicon (~> 0.0.5)
   imgkit (~> 1.6, >= 1.6.1)
-  invisible_captcha
   jbuilder (~> 2.0)
   jquery-rails
   jquery-slick-rails
