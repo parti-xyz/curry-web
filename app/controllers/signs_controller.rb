@@ -1,7 +1,6 @@
 class SignsController < ApplicationController
   before_action :authenticate_user!, except: [:create, :index]
   load_and_authorize_resource except: [:mail_form, :mail]
-  invisible_captcha only: [:create]
 
   def index
     @campaign = Campaign.find params[:campaign_id]
@@ -9,6 +8,12 @@ class SignsController < ApplicationController
   end
 
   def create
+    unless verify_recaptcha(model: @sign)
+      errors_to_flash(@sign)
+      redirect_back(fallback_location: root_path)
+      return
+    end
+
     if user_signed_in? and @sign.campaign.signed?(current_user)
       flash[:notice] = t('messages.already_signed')
       redirect_to(@sign.campaign) and return

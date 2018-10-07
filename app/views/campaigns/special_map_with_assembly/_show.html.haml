@@ -44,7 +44,7 @@
     = f.hidden_field :commentable_type, value: 'Campaign'
     = f.hidden_field :commentable_id, value: @campaign.id
     = f.hidden_field :tag_list
-    = invisible_captcha
+    .gov-action-form-grecaptcha
     - unless user_signed_in?
       .form-group
         = f.label :commenter_name

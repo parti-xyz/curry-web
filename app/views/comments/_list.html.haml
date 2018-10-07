@@ -6,7 +6,7 @@
     = form_for Comment.new, html: { class: 'gov-action-form-validation' } do |f|
       = f.hidden_field :commentable_type, value: commentable.class.name
       = f.hidden_field :commentable_id, value: commentable.id
-      = invisible_captcha
+      .gov-action-form-grecaptcha
       - unless user_signed_in?
         .row
           .col-xs-8.col-md-4

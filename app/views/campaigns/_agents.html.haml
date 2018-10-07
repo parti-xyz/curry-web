@@ -42,7 +42,7 @@
                   = hidden_field_tag :action_assignable_type, value: action_assignable.class.to_s
                   = hidden_field_tag :action_assignable_id, value: action_assignable.id
                   = f.hidden_field :mailing, value: :ready
-                  = invisible_captcha
+                  .gov-action-form-grecaptcha
                   - unless user_signed_in?
                     .row
                       .col-xs-12.col-md-6
