@@ -1,7 +1,6 @@
 class SignsController < ApplicationController
   before_action :authenticate_user!, except: [:create, :index]
   load_and_authorize_resource except: [:mail_form, :mail]
-  invisible_captcha only: [:create]
 
   def index
     @campaign = Campaign.find params[:campaign_id]

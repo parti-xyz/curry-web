@@ -1,7 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, except: [:create, :index, :show]
   load_and_authorize_resource
-  invisible_captcha only: [:create]
 
   def index
     if params[:commentable_type].nil?
