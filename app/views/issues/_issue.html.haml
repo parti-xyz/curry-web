@@ -1,13 +1,14 @@
 .col-lg-3.col-md-3.col-sm-4.col-xs-6
   .issue-card.panel-floating.component-card[issue]
-    = link_to issue do
-      - if issue.agendas.any?
-        .card-image{ style: "height: 140px; background-image: url(#{issue.agendas.first.image.md.url}); background-size: cover; background-position: center center;" }
-    .card-content
+    - if issue.agendas.any?
       = link_to issue do
-        %h4= issue.title
-
+        .card-image{ style: "height: 150px; background-image: url(#{issue.agendas.first.image.md.url}); background-size: cover; background-position: center center;" }
+    .card-content
+      %h4.card-title
+        = link_to issue.title, issue
       .card-description
+        관심 #{issue.following_issues_count}명
+        &middot;
         #{Campaign.model_name.human} #{issue.campaigns.count}개
         &middot;
         의견 #{issue.opinions.count}개

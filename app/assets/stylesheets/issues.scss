@@ -1,5 +1,21 @@
 .component-card.issue-card {
   overflow: visible;
+  border: 0;
+  box-shadow: none;
+  margin-bottom: $font-size-base*3;
+
+  .card-content {
+    padding: 0;
+  }
+  .card-title {
+    margin-bottom: 5px;
+    a {
+      color: $gray-dark;
+    }
+  }
+  .card-description {
+    margin: 5px 0;
+  }
 }
 
 .badge-issue {
