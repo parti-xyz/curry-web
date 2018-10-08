@@ -1,0 +1,16 @@
+.story-card {
+  padding-bottom: $font-size-base*0.5;
+  margin-bottom: $font-size-base*0.5;
+  .media-heading a {
+    color: $gray-darker;
+    font-weight: bold;
+  }
+  .media-content, .media-meta {
+    color: $gray-dark;
+    margin: $font-size-base*0.5 0;
+  }
+  .img-user {
+    width: 24px;
+    height: 24px;
+  }
+}

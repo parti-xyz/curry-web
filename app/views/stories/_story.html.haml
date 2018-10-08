@@ -1,22 +1,26 @@
-.col-lg-3.col-md-4.col-sm-6.col-xs-12
-  .component-card
-    = link_to story do
-      .card-image{ style: "height: 200px; background-image: url(#{story.cover.md}); background-size: cover; background-position: top center;"}
-    .card-content
-      = link_to story, class: 'header' do
-        %h4= story.title
-      .card-description
+.col-xs-12
+  .media.story-card
+    .media-left
+      = link_to story do
+        .media-object{ style: "width: 160px; height: 90px; background-image: url(#{story.cover.md}); background-size: cover; background-position: top center;"}
+    .media-body
+      %h4.media-heading
+        = link_to story.title, story
+
+      .media-content
         = excerpt story.body, length: 100 if story.body.present?
 
-    .card-content.card-extra{style:"border-top:1px solid #e6e6e6"}
-      .pull-right
+      .media-meta
         %span
-          %i.fa.fa-comments
-          #{story.comments.count}
+          - if story.project.present?
+            = link_to story.project.title, story.project
         %span
-          %i.fa.fa-heart
-          = story.merged_likes_count
+          = render 'users/line', user: story.user
 
-      %span.nickname
-        %i.fa.fa-user
-        = link_to story.user.nickname, story.user, class: 'text-muted'
+        %span
+          댓글
+          #{story.comments.count}
+
+        %span
+          좋아요
+          = story.merged_likes_count

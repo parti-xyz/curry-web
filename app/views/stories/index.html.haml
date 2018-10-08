@@ -1,10 +1,11 @@
-.container-fluid
-  %h3.sub-title
-    - if @project.present?
-      = local_assigns[:title_label] || @project.try(:component_title, 'story')
-    - else
-      = Story.model_name.human
+%section.page-block
+  .container-fluid
+    %h3
+      - if @project.present?
+        = local_assigns[:title_label] || @project.try(:component_title, 'story')
+      - else
+        = Story.model_name.human
 
-  - if @stories.any?
-    .row.masonry-container
-      = render @stories
+    - if @stories.any?
+      .row.masonry-container
+        = render @stories
