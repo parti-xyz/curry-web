@@ -47,12 +47,6 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    unless verify_recaptcha(model: @campaign)
-      errors_to_flash(@campaign)
-      redirect_back(fallback_location: root_path)
-      return
-    end
-
     @campaign.user = current_user
     if @campaign.special_slug.present?
       Special.build_campaign @campaign
