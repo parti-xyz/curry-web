@@ -422,6 +422,8 @@ GEM
     magnific-popup-rails (1.1.0)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
+    mailkick (0.3.1)
+      activesupport (>= 4.2)
     mechanize (2.7.5)
       domain_name (~> 0.5, >= 0.5.1)
       http-cookie (~> 1.0)
@@ -774,6 +776,7 @@ DEPENDENCIES
   kaminari (~> 0.17.0)
   letter_opener_web
   magnific-popup-rails (~> 1.1)
+  mailkick
   mechanize (~> 2.7, >= 2.7.5)
   merit
   meta-tags (~> 2.1.0)

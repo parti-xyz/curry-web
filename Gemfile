@@ -101,6 +101,7 @@ gem 'slack-notifier', '~> 1.4'
 gem 'exception_notification', '~> 4.1', '>= 4.1.4'
 gem 'premailer-rails', '~> 1.9', '>= 1.9.2'
 gem 'mjml-rails'
+gem 'mailkick'
 
 # scheduler
 gem 'sidekiq', '~> 4.1'

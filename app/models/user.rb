@@ -6,6 +6,8 @@ class User < ApplicationRecord
          :rememberable, :trackable, :recoverable,
          :omniauthable,
          :omniauth_providers => [:facebook, :twitter]
+  # mail subscription
+  mailkick_user
 
   # assiciations
   has_many :following_issues, dependent: :destroy
