@@ -116,6 +116,9 @@ Rails.application.routes.draw do
     post :create_by_slack, on: :collection
   end
 
+  get 'unsubscribe', to: 'email_subscription#unsubscribe'
+  patch 'update_subscription', to: 'email_subscription#update'
+
   get 'specials/voteaward2018'
 
   class AllTimelineConstraint

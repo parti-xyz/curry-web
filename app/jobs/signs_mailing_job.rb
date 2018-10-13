@@ -10,7 +10,8 @@ class SignsMailingJob
       SignMailer.by_campaigner(sign, title, body).deliver_now
     else
       @campaign.signs.each do |sign|
-        SignMailer.by_campaigner(sign, title, body).deliver_later
+        subscription = EmailSubscription.find_by(email: sign.signer_email, mailerable: @campaign) || EmailSubscription.create!(email: sign.signer_email, use: true, mailerable: @campaign)
+        SignMailer.by_campaigner(sign, title, body).deliver_later if subscription.use
       end
     end
   end

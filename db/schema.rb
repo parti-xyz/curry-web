@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180921124505) do
+ActiveRecord::Schema.define(version: 20181013044510) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -500,6 +500,16 @@ ActiveRecord::Schema.define(version: 20180921124505) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_elections_on_slug", using: :btree
+  end
+
+  create_table "email_subscriptions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
+    t.string   "email"
+    t.boolean  "use"
+    t.string   "mailerable_type"
+    t.integer  "mailerable_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["mailerable_type", "mailerable_id"], name: "index_email_subscriptions_on_mailerable_type_and_mailerable_id", using: :btree
   end
 
   create_table "feedbacks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
