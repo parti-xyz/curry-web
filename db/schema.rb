@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181011144928) do
+ActiveRecord::Schema.define(version: 20180921124505) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -569,19 +569,6 @@ ActiveRecord::Schema.define(version: 20181011144928) do
     t.datetime "updated_at",   null: false
     t.index ["likable_type", "likable_id"], name: "index_likes_on_likable_type_and_likable_id", using: :btree
     t.index ["user_id"], name: "index_likes_on_user_id", using: :btree
-  end
-
-  create_table "mailkick_opt_outs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
-    t.string   "email"
-    t.string   "user_type"
-    t.integer  "user_id"
-    t.boolean  "active",     default: true, null: false
-    t.string   "reason"
-    t.string   "list"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.index ["email"], name: "index_mailkick_opt_outs_on_email", using: :btree
-    t.index ["user_type", "user_id"], name: "index_mailkick_opt_outs_on_user_type_and_user_id", using: :btree
   end
 
   create_table "memorials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
