@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180921124505) do
+ActiveRecord::Schema.define(version: 20181016133519) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -556,6 +556,7 @@ ActiveRecord::Schema.define(version: 20180921124505) do
     t.text     "body",                   limit: 65535
     t.boolean  "has_stance",                           default: false
     t.integer  "agenda_theme_id"
+    t.string   "image"
     t.index ["agenda_theme_id"], name: "index_issues_on_agenda_theme_id", using: :btree
     t.index ["deprecated_agenda_id"], name: "index_issues_on_deprecated_agenda_id", using: :btree
     t.index ["title"], name: "index_issues_on_title", unique: true, using: :btree
