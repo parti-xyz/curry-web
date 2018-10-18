@@ -15,6 +15,10 @@
         = f.collection_select :agenda_theme_id, AgendaTheme.all, :id, :title, {include_blank: '테마 없음'}, { class: 'js-select2 form-control' }
 
       .form-group
+        = f.label :image
+        = f.file_field :image
+
+      .form-group
         = f.label :title
         = f.text_field :title, class: 'form-control'
 
