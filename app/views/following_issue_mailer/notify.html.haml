@@ -1,0 +1,17 @@
+%p
+  #{@user.nickname}님 안녕하세요? 세상을 바꾸는 시민들의 일상 정치 플랫폼, 가브크래프트입니다. #{@user.nickname}님의 관심 이슈
+  %b "#{@issue.title}"
+  에 대한 새로운 캠페인 #{link_to @campaign.title, campaign_url(@campaign)}을 시작합니다.
+
+%div(style="margin-top: 60px;")
+  %table
+    %tr
+      %td
+        %a(href='http://govcraft.org/')
+          %img(src="#{Rails.application.config.action_mailer.asset_host}/email_logo.png" width="40" height="40")
+      %td(style="padding-left: 12px;")
+        %a(href='http://govcraft.org/' target="_blank" style='color: #777; text-decoration: none;')
+          세상을 바꾸는 시민들의 일상 정치 플랫폼
+          %br
+          %strong '빠띠 가브크래프트'
+          http://govcraft.org/
