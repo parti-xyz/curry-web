@@ -56,6 +56,6 @@ class Admin::IssuesController < Admin::BaseController
   private
 
   def issue_params
-    params.require(:issue).permit(:agenda_theme_id, :title, :body, :tag_list, :has_stance, agenda_ids: [])
+    params.require(:issue).permit(:agenda_theme_id, :title, :body, :tag_list, :has_stance, :image, agenda_ids: [])
   end
 end
