@@ -1,14 +1,15 @@
 class EmailSubscriptionController < ApplicationController
   def unsubscribe
-    email = Rails.application.message_verifier(:unsubscribe).verify(params[:id])
-    @subscription = EmailSubscription.find_by(email: email)
+    sign_id = Rails.application.message_verifier(:unsubscribe).verify(params[:id])
+    @sign = Sign.find(sign_id)
     @title = params[:title]
     @link = params[:link]
   end
 
   def update
-    @subscription = EmailSubscription.find(params[:id])
-    if @subscription.update(email_params)
+    @sign = Sign.find(params[:id])
+
+    if @sign.update(subscription_params)
       flash[:notice] = '이메일 수신거부하였습니다.'
       redirect_to root_url
     else
@@ -18,7 +19,7 @@ class EmailSubscriptionController < ApplicationController
   end
 
 private
-  def email_params
-    params.require(:email_subscription).permit(:use)
+  def subscription_params
+    params.require(:sign).permit(:subscribed)
   end
 end

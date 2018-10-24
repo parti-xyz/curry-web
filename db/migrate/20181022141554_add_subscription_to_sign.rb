@@ -4,7 +4,7 @@ class AddSubscriptionToSign < ActiveRecord::Migration[5.0]
       dir.up do
         transaction do
           add_column :signs, :subscribed, :boolean, default: true
-          add_column :signs, :subscribed_at, :timestamp
+          add_column :signs, :subscribed_at, :timestamp, default: -> { 'CURRENT_TIMESTAMP' }
           Sign.update_all "subscribed_at = created_at"
         end
       end

@@ -869,10 +869,10 @@ ActiveRecord::Schema.define(version: 20181022141554) do
 
   create_table "signs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.integer  "user_id"
-    t.integer  "campaign_id",                                         null: false
+    t.integer  "campaign_id",                                                              null: false
     t.text     "body",                  limit: 65535
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.datetime "created_at",                                                               null: false
+    t.datetime "updated_at",                                                               null: false
     t.string   "signer_name"
     t.string   "signer_email"
     t.integer  "reports_count",                       default: 0
@@ -881,7 +881,7 @@ ActiveRecord::Schema.define(version: 20181022141554) do
     t.string   "signer_address"
     t.string   "signer_phone"
     t.boolean  "subscribed",                          default: true
-    t.datetime "subscribed_at"
+    t.datetime "subscribed_at",                       default: -> { "CURRENT_TIMESTAMP" }
     t.index ["campaign_id"], name: "index_signs_on_campaign_id", using: :btree
     t.index ["user_id", "campaign_id"], name: "index_signs_on_user_id_and_campaign_id", unique: true, using: :btree
     t.index ["user_id"], name: "index_signs_on_user_id", using: :btree
