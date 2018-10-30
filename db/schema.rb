@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181016133519) do
+ActiveRecord::Schema.define(version: 20181022141554) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -502,6 +502,16 @@ ActiveRecord::Schema.define(version: 20181016133519) do
     t.index ["slug"], name: "index_elections_on_slug", using: :btree
   end
 
+  create_table "email_subscriptions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
+    t.string   "email"
+    t.boolean  "use"
+    t.string   "mailerable_type"
+    t.integer  "mailerable_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["mailerable_type", "mailerable_id"], name: "index_email_subscriptions_on_mailerable_type_and_mailerable_id", using: :btree
+  end
+
   create_table "feedbacks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.integer  "user_id",    null: false
     t.integer  "survey_id",  null: false
@@ -859,10 +869,10 @@ ActiveRecord::Schema.define(version: 20181016133519) do
 
   create_table "signs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.integer  "user_id"
-    t.integer  "campaign_id",                                         null: false
+    t.integer  "campaign_id",                                                              null: false
     t.text     "body",                  limit: 65535
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.datetime "created_at",                                                               null: false
+    t.datetime "updated_at",                                                               null: false
     t.string   "signer_name"
     t.string   "signer_email"
     t.integer  "reports_count",                       default: 0
@@ -870,6 +880,8 @@ ActiveRecord::Schema.define(version: 20181016133519) do
     t.string   "signer_real_name"
     t.string   "signer_address"
     t.string   "signer_phone"
+    t.boolean  "subscribed",                          default: true
+    t.datetime "subscribed_at",                       default: -> { "CURRENT_TIMESTAMP" }
     t.index ["campaign_id"], name: "index_signs_on_campaign_id", using: :btree
     t.index ["user_id", "campaign_id"], name: "index_signs_on_user_id_and_campaign_id", unique: true, using: :btree
     t.index ["user_id"], name: "index_signs_on_user_id", using: :btree
@@ -1284,7 +1296,6 @@ ActiveRecord::Schema.define(version: 20181016133519) do
     t.index ["user_id"], name: "index_wikis_on_user_id", using: :btree
   end
 
-  add_foreign_key "deprecated_events", "users"
   add_foreign_key "sent_requests", "agents"
   add_foreign_key "sent_requests", "users"
 end

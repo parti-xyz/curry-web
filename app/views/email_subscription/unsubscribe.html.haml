@@ -1,0 +1,16 @@
+%section.page-block.profile-header
+
+%section.page-block
+  .container-fluid
+    %h3
+      %a{href: @link} '#{@title}'
+      에 대한 이메일 수신거부
+    .page-block.page-block-message
+      - if @sign.subscribed
+        %p #{@sign.signer_email}로 이메일을 더 이상 받지 않으려면, 아래 수신 거부 버튼을 클릭하십시오.
+        = form_for(@sign, url: update_subscription_path(id: @sign.id)) do |f|
+          = f.hidden_field(:subscribed, value: false)
+          = f.submit '수신거부', class: "btn btn-primary"
+          = link_to '취소', root_url, class: "btn btn-secondary"
+      - else
+        %p 이미 이메일 수신 거부하였습니다.

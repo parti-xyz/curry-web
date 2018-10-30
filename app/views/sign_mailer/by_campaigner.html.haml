@@ -21,4 +21,4 @@
           %strong '빠띠 가브크래프트'
           http://govcraft.org/
   %p{ style: 'text-align: center; color: #777; font-size: 12px' }
-    수신거부를 원하시면 본 메일을 회신해 주십시오
+    수신거부를 원하시면 #{link_to "여기", unsubscribe_url(id: @unsubscribe, title: @sign.campaign.title, link: campaign_url(@sign.campaign))}를 클릭하십시오

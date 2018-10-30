@@ -10,7 +10,7 @@ class SignsMailingJob
       SignMailer.by_campaigner(sign, title, body).deliver_now
     else
       @campaign.signs.each do |sign|
-        SignMailer.by_campaigner(sign, title, body).deliver_later
+        SignMailer.by_campaigner(sign, title, body).deliver_later if sign.subscribed
       end
     end
   end

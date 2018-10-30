@@ -25,6 +25,7 @@ class SignsController < ApplicationController
     end
 
     @sign.user = current_user if user_signed_in?
+
     if @sign.save
       flash[:sign_notice] = view_context.fill_in(@sign.campaign.thanks_mention, number: @sign.campaign.signs_count) || I18n.t('messages.signed')
     else
