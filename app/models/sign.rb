@@ -23,6 +23,10 @@ class Sign < ApplicationRecord
     user.present? ? user.email : signer_email
   end
 
+  def email_sendable?
+    self.user_email.present? and self.subscribed?
+  end
+
   private
 
   def valid_signer
