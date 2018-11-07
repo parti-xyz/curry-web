@@ -57,6 +57,7 @@ class SignsController < ApplicationController
       flash[:error] = t('messages.signs.mail.empty_signer')
       redirect_back(fallback_location: @campaign)
     end
+    @draft = SignerEmail.where(draft: true, user_id: current_user.id, campaign_id: @campaign.id).order("id DESC").first || SignerEmail.new(title: "", body: "", user_id: current_user.id, campaign_id: @campaign.id)
   end
 
   def mail
@@ -74,6 +75,18 @@ class SignsController < ApplicationController
       flash[:error] = t('messages.signs.mail.blank_preview_email')
       redirect_back(fallback_location: @campaign)
       return
+    end
+
+    email = SignerEmail.where(user_id: current_user.id, campaign_id: @campaign.id, draft: true).last || SignerEmail.new(user_id: current_user.id, campaign_id: @campaign.id)
+    email.title = params[:title]
+    email.body = params[:body]
+    if params[:commit] == "임시 저장"
+      email.save
+      redirect_to mail_form_campaign_signs_path(@campaign)
+      return
+    else
+      email.draft = false
+      email.save
     end
 
     SignsMailingJob.perform_async(@campaign.id, params[:title], params[:body], (params[:preview_email] if params[:preview] == 'true'), current_user.id)
