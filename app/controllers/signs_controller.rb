@@ -82,6 +82,7 @@ class SignsController < ApplicationController
     email.body = params[:body]
     if params[:commit] == "임시 저장"
       email.save
+      flash[:success] = t('messages.signs.mail.save_draft')
       redirect_to mail_form_campaign_signs_path(@campaign)
       return
     else

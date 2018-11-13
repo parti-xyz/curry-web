@@ -1,6 +1,11 @@
 
 .container{style:"margin-bottom: 30px;"}
   %h3 참여자에게 메일 보내기
+  - if @draft.title.present?
+    %div
+      = @draft.updated_at
+      임시 저장하였습니다
+
   = form_tag mail_campaign_signs_path(@campaign) do
     .form-group
       = label_tag :title, "메일 제목"
