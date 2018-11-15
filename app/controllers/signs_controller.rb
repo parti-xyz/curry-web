@@ -57,7 +57,7 @@ class SignsController < ApplicationController
       flash[:error] = t('messages.signs.mail.empty_signer')
       redirect_back(fallback_location: @campaign)
     end
-    @draft = SignerEmail.where(draft: true, user_id: current_user.id, campaign_id: @campaign.id).order("id DESC").first || SignerEmail.new(title: "", body: "", user_id: current_user.id, campaign_id: @campaign.id)
+    @draft = SignerEmail.where(draft: true, user_id: current_user.id, campaign_id: @campaign.id, draft: true).last || SignerEmail.new(title: "", body: "", user_id: current_user.id, campaign_id: @campaign.id)
   end
 
   def mail

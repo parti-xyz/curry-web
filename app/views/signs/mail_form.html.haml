@@ -1,7 +1,7 @@
 
 .container{style:"margin-bottom: 30px;"}
   %h3 참여자에게 메일 보내기
-  - if @draft.title.present?
+  - if @draft.persisted?
     %div
       = @draft.updated_at
       임시 저장하였습니다

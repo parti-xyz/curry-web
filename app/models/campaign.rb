@@ -147,6 +147,7 @@ class Campaign < ApplicationRecord
   has_many :speeches, dependent: :destroy
   has_many :issue_mailings, dependent: :destroy, as: :source
   has_many :email_subscriptions, as: :mailerable
+  has_many :signer_emails, dependent: :destroy
 
   mount_uploader :cover_image, ImageUploader
   mount_uploader :social_image, ImageUploader

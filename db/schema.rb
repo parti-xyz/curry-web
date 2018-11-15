@@ -1310,6 +1310,4 @@ ActiveRecord::Schema.define(version: 20181106153306) do
 
   add_foreign_key "sent_requests", "agents"
   add_foreign_key "sent_requests", "users"
-  add_foreign_key "signer_emails", "campaigns"
-  add_foreign_key "signer_emails", "users"
 end

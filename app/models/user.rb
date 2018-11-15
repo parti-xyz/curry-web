@@ -52,6 +52,7 @@ class User < ApplicationRecord
   has_many :wikis, dependent: :restrict_with_exception
   has_many :thumbs, dependent: :destroy
   has_many :votes, dependent: :destroy
+  has_many :signer_emails
 
   # validations
   VALID_NICKNAME_REGEX = /\A[ㄱ-ㅎ가-힣a-z0-9_]+\z/i
