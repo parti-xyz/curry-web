@@ -1,15 +1,21 @@
 
 .container{style:"margin-bottom: 30px;"}
-  %h3 참여자에게 메일 보내기b
+  %h3 참여자에게 메일 보내기
+  - if @draft.persisted?
+    %div
+      = @draft.updated_at
+      임시 저장하였습니다
+
   = form_tag mail_campaign_signs_path(@campaign) do
     .form-group
       = label_tag :title, "메일 제목"
-      = text_field_tag :title, params[:title], class: "form-control"
+      = text_field_tag :title, @draft.title, class: "form-control"
     .form-group
       = label_tag :body, "메일 내용"
-      ~ text_area_tag :body, params[:body], class: "redactor"
+      ~ text_area_tag :body, @draft.body, class: "redactor"
 
     = submit_tag "보내기", data: {confirm: "정말 보내시겠습니까?" }, class: 'btn btn-primary'
+    = submit_tag "임시 저장", class: 'btn'
 
     %hr
 

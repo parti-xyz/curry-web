@@ -38,6 +38,7 @@ ko:
         blank_preview_email: '내 메일을 입력해 주세요.'
         preview_completed: '내 메일로 미리보기 메일을 보냈습니다.'
         blank_title: '메일의 제목을 입력해 주세요.'
+        save_draft: '임시 저장하였습니다.'
     xlsx_help:
       archive_document:
         id: "비워두면 신규생성, 숫자를 적으면 해당 숫자를 ID로 가지는 자료를 업데이트합니다."
