@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181106153306) do
+ActiveRecord::Schema.define(version: 20181120115116) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -894,6 +894,7 @@ ActiveRecord::Schema.define(version: 20181106153306) do
     t.string   "signer_phone"
     t.boolean  "subscribed",                          default: true
     t.datetime "subscribed_at",                       default: -> { "CURRENT_TIMESTAMP" }
+    t.boolean  "confirm_privacy"
     t.index ["campaign_id"], name: "index_signs_on_campaign_id", using: :btree
     t.index ["user_id", "campaign_id"], name: "index_signs_on_user_id_and_campaign_id", unique: true, using: :btree
     t.index ["user_id"], name: "index_signs_on_user_id", using: :btree
@@ -1310,4 +1311,6 @@ ActiveRecord::Schema.define(version: 20181106153306) do
 
   add_foreign_key "sent_requests", "agents"
   add_foreign_key "sent_requests", "users"
+  add_foreign_key "signer_emails", "campaigns"
+  add_foreign_key "signer_emails", "users"
 end
