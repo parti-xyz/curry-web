@@ -1,17 +1,29 @@
 row_definition = [
   [:created_at, '일시'],
   [:user_name, '성명'],
-  [:signer_address, '주소'],
-  [:signer_phone, '연락처'],
-  [:body, '한마디']
 ]
+
+if @campaign.confirm_privacy.present?
+  if @campaign.use_signer_email?
+    row_definition << [:user_email, '이메일']
+  end
+  if @campaign.use_signer_address?
+    row_definition << [:signer_address, '주소']
+  end
+  if @campaign.use_signer_phone?
+    row_definition << [:signer_phone, '연락처']
+  end
+end
+
+row_definition << ['body'.to_sym, '한마디']
+
 row_titles = row_definition.map { |c| c[1] }
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "서명 #{@campaign.signs_count}건") do |sheet|
   sheet.add_row row_titles
   @campaign.signs.each do |sign|
     sheet.add_row row_definition.map { |c|
-      c[0] == :body ? HTMLEntities.new.decode(strip_tags(sign[c[0]])) : sign.send(c[0])
+      (c[0] == :body) ? HTMLEntities.new.decode(strip_tags(sign.send(c[0]))) : sign.send(c[0])
     }
   end
 end
