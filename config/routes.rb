@@ -178,6 +178,7 @@ Rails.application.routes.draw do
       get :new_access_token
       get :create_access_token
     end
+    get :search, on: :collection
   end
   resources :agencies do
     member do

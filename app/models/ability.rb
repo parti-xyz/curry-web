@@ -9,7 +9,7 @@ class Ability
     can :download, Timeline
     can [:widget, :new_email, :send_email, :theme, :theme_widget, :theme_single_widget], Agenda
     can :vote_widget, Opinion
-    can [:agenda, :new_access_token, :create_access_token], Agent
+    can [:agenda, :new_access_token, :create_access_token, :search], Agent
     can [:new_comment_agent], :all
     can [:download], ArchiveDocument
     can [:update_statement_agent], :all

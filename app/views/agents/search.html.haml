@@ -1,0 +1,37 @@
+%section.page-block
+  .container
+    .panel.panel-default
+      .panel-heading
+        촉구대상
+      .panel-body
+        %p 촉구할 대상 검색 결과
+        - if @searched_agents.try(:any?)
+          %hr
+          %h3 인물
+          - if @searched_agents.count > 50
+            .help 검색 결과가 너무 많습니다. 좀더 정확한 이름을 넣어 주세요.
+          - else
+            .row
+              - @searched_agents.each do |agent|
+                .col-xs-12.col-sm-4
+                  .media
+                    .media-left
+                      = link_to agent_path(agent) do
+                        .image.agent-image.agent-image--mini{style: "background-image: url(#{agent.image.xs.url});"}
+                    .media-body
+                      %strong= agent.name
+                      %br
+                      = agent.organization
+
+        - if @searched_agencies.try(:any?)
+          %hr
+          %h3 조직&middot;기관
+          .row
+            - @searched_agencies.each do |agency|
+              .col-xs-12.col-sm-4
+                .media
+                  .media-left
+                    = link_to agency_path(agency) do
+                      .image.agent-image.agent-image--mini{style: "background-image: url(#{agency.image.xs.url});"}
+                  .media-body
+                    %strong= agency.title

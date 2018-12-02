@@ -13,6 +13,7 @@
 //= require fontcolor
 //= require jssocials
 //= require chartkick
+//= require underscore
 //= require select2
 //= require select2_ko
 //= require jquery.slick
@@ -267,6 +268,39 @@ $(function(){
     },
   });
 
+  $('.gov-action-targets-select').select2({
+    ajax: {
+      url: "/agents/search.json",
+      dataType: 'json',
+      delay: 250,
+      data: function (params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function (data, params) {
+        a = _.map(data.agents, function(el) {
+            return { id: 'agent:' + el.id, name: el.name }
+          })
+        b = _.map(data.agencies, function(el) {
+            return { id: 'agency:' + el.id, name: el.name }
+          })
+        return {
+          results: a.concat(b)
+        };
+      },
+      cache: true
+    },
+    escapeMarkup: function (markup) { return markup; },
+    minimumInputLength: 1,
+    templateResult: function (target) {
+      return target.name
+    },
+    templateSelection: function (target) {
+      return target.name
+    },
+  });
+
   $('.popup-youtube').magnificPopup({
     disableOn: 700,
     type: 'iframe',
@@ -433,4 +467,3 @@ $(document).ajaxError(function (e, xhr, settings) {
     UnobtrusiveFlash.showFlashMessage('먼저 로그인해 주세요.', {type: 'notice'})
   }
 });
-

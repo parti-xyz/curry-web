@@ -9,6 +9,17 @@ class AgentsController < ApplicationController
     end
   end
 
+  def search
+    respond_to do |format|
+      if params[:q].present?
+        @searched_agents = Agent.search_for(params[:q])
+        @searched_agencies = Agency.where('title like ?', "%#{params[:q]}%")
+      end
+      format.json
+      format.html
+    end
+  end
+
   def show
     @agendas = Agenda.where(id: AgendasIssue.where(issue: Issue.where(id: @agent.opinions.select(:issue_id))).select(:agenda_id).distinct)
     if params[:agenda_id].present?

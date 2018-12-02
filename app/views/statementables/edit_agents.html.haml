@@ -4,56 +4,13 @@
 
     .panel.panel-default
       .panel-heading
-        촉구대상 추가
+        촉구대상 검색하여 추가
       .panel-body
         %p 촉구할 대상을 찾아 보세요.
         = form_tag nil, method: :get do
-          = text_field_tag :q, params[:q], class: 'form-control', style: 'display: inline; width: auto'
-          = submit_tag '검색', class: 'btn btn-default'
-        - if @searched_agents.try(:any?)
-          %hr
-          %h3 인물
-          - if @searched_agents.count > 50
-            .help 검색 결과가 너무 많습니다. 좀더 정확한 이름을 넣어 주세요.
-          - else
-            .row
-              - @searched_agents.each do |agent|
-                .col-xs-12.col-sm-4
-                  .media
-                    .media-left
-                      = link_to agent_path(agent) do
-                        .image.agent-image.agent-image--mini{style: "background-image: url(#{agent.image.xs.url});"}
-                    .media-body
-                      %strong= agent.name
-                      %br
-                      = agent.organization
-                    .media-right
-                      - if @statementable.assigned?(agent)
-                        .text-nowrap
-                          %i.fa.fa-check
-                          연결됨
-                      - else
-                        = link_to '연결하기', polymorphic_path([:add_agent, @statementable], agent_id: agent.id, q: params[:q]), method: :put, class: 'btn btn-default btn-xs text-nowrap'
+          = select_tag :action_targets, nil, multiple: true, class: 'form-control gov-action-targets-select', style: 'display: inline;'
+          = submit_tag '추가', class: 'btn btn-default'
 
-        - if @searched_agencies.try(:any?)
-          %hr
-          %h3 조직&middot;기관
-          .row
-            - @searched_agencies.each do |agency|
-              .col-xs-12.col-sm-4
-                .media
-                  .media-left
-                    = link_to agency_path(agency) do
-                      .image.agent-image.agent-image--mini{style: "background-image: url(#{agency.image.xs.url});"}
-                  .media-body
-                    %strong= agency.title
-                  .media-right
-                    - if @statementable.action_targeting?(agency)
-                      .text-nowrap
-                        %i.fa.fa-check
-                        연결됨
-                    - else
-                      = link_to '연결하기', polymorphic_path([:add_action_target, @statementable], action_assignable_id: agency.id, action_assignable_type: Agency, q: params[:q]), method: :put, class: 'btn btn-default btn-xs text-nowrap'
     .panel.panel-default
       .panel-heading
         현재 촉구대상

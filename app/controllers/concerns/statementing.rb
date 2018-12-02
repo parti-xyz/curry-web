@@ -8,6 +8,21 @@ module Statementing
     end
 
     @statementable = fetch_statementable
+
+    if params[:action_targets].present?
+      params[:action_targets].each do |x_id|
+        type, id = x_id.split(':')
+        if type == 'agent'
+          agent = Agent.find(id)
+          @statementable.dedicated_agents << agent unless @statementable.dedicated_agents.include?(agent)
+        elsif type == 'agency'
+          agency = Agency.find(id)
+          @statementable.action_targets.create(action_assignable: agency) unless @statementable.action_targets.exists?(action_assignable: agency)
+        end
+        @statementable.save
+      end
+    end
+
     render 'statementables/edit_agents'
   end
 
