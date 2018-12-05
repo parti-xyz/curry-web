@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
       canonical:   url,
       twitter: {
         site_name: site_name,
-        site: '@parti_xyz',
+        site: '@parti_coop',
         card: 'summary',
         title: title,
         description: description,
