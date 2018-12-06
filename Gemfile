@@ -43,8 +43,6 @@ gem 'html_truncator'
 gem 'jquery-slick-rails'
 gem 'bootstrap3-datetimepicker-rails'
 gem 'momentjs-rails'
-gem 'select2-rails'
-gem 'underscore-rails'
 
 # tool
 gem 'axlsx', github: 'randym/axlsx', ref: 'd41258e'

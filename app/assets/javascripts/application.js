@@ -13,7 +13,7 @@
 //= require fontcolor
 //= require jssocials
 //= require chartkick
-//= require underscore
+//= require lodash
 //= require select2
 //= require select2_ko
 //= require jquery.slick
