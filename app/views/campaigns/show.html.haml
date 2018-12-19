@@ -1,4 +1,7 @@
-= render "campaigns/#{@campaign.template}/show"
+- if params[:test] == 'signs'
+  = render "campaigns/petition_new/show"
+- else
+  = render "campaigns/#{@campaign.template}/show"
 
 :css
   #{@campaign.css}
