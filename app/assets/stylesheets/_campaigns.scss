@@ -9,6 +9,22 @@
       text-align: center;
       li {
         flex: 1;
+        height: 48px;
+        letter-spacing: -0.3px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        &.active {
+          border-bottom: 3px solid $brand-primary;
+        }
+        .count {
+          position: absolute;
+          margin-left: 27px;
+          color: $brand-primary;
+          font-size: 11px;
+          line-height: 1.7em;
+        }
       }
     }
   }
