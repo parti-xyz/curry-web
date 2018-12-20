@@ -1,0 +1,15 @@
+.app-campaigns {
+  .section-cover {
+    .menu {
+      display: flex;
+      height: 48px;
+      align-items: center;
+      padding-left: 0;
+      list-style: none;
+      text-align: center;
+      li {
+        flex: 1;
+      }
+    }
+  }
+}
