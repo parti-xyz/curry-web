@@ -1,15 +1,17 @@
 .app-campaigns {
   .section-cover {
+    $menu-height: 48px;
     .menu {
       display: flex;
-      height: 48px;
+      height: $menu-height;
       align-items: center;
       padding-left: 0;
+      margin-bottom: 0;
       list-style: none;
       text-align: center;
       li {
         flex: 1;
-        height: 48px;
+        height: $menu-height;
         letter-spacing: -0.3px;
         display: flex;
         justify-content: center;
@@ -20,12 +22,18 @@
         }
         .count {
           position: absolute;
-          margin-left: 27px;
+          left: 53px;
           color: $brand-primary;
-          font-size: 11px;
+          font-size: $font-size-small;
           line-height: 1.7em;
         }
       }
+    }
+    .cover-img {
+      height: 260px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
     }
   }
 }

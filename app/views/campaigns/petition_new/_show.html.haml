@@ -14,8 +14,9 @@
         999+
     %li
       명단
-  .cover-img
-    커버 이미지
+  - if @campaign.read_attribute(:cover_image).present?
+    .cover-img{ style: "background-image:url(#{asset_url(@campaign.cover_image_url(:lg))});" }
+
 %section.section-info
   .meta
     .label
