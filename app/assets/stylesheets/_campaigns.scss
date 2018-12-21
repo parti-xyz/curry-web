@@ -36,4 +36,20 @@
       background-position: center;
     }
   }
+  .section-info {
+    .label {
+      background-color: #dadada;
+      border-radius: 2px;
+      letter-spacing: -0.4px;
+      font-weight: normal;
+      font-size: 14px;
+      height: 20px;
+      line-height: 20px;
+      padding-left: 8px;
+      padding-right: 8px;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
 }
