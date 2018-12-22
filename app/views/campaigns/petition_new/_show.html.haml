@@ -18,17 +18,17 @@
     .cover-img{ style: "background-image:url(#{asset_url(@campaign.cover_image_url(:lg))});" }
 
 %section.section-info
-  .meta
-    .label
-      성공
-    .label
-      서명
-    .user
-      .user-img
-        씽이미지
-      .user-name
-        씽
-  .campaign-title
+  .info-card
+    .meta
+      .label
+        성공
+      .label
+        서명
+      .user
+        .user-image-xs{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+        .user-name
+          = @campaign.user.nickname
+    .campaign-title
   .progress-bar
   .sign-btn
 

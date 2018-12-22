@@ -37,18 +37,35 @@
     }
   }
   .section-info {
-    .label {
-      background-color: #dadada;
-      border-radius: 2px;
-      letter-spacing: -0.4px;
-      font-weight: normal;
-      font-size: 14px;
-      height: 20px;
-      line-height: 20px;
-      padding-left: 8px;
-      padding-right: 8px;
-      padding-top: 0;
-      padding-bottom: 0;
+    .info-card {
+      margin: 8px 8px 0;
+      padding: 18px 18px 0;
+    }
+    .meta {
+      .label {
+        background-color: #dadada;
+        border-radius: 2px;
+        letter-spacing: -0.4px;
+        font-weight: normal;
+        font-size: 14px;
+        height: 20px;
+        line-height: 20px;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+    .user {
+      float: right;
+      display: inline;
+      .user-image-xs {
+        vertical-align: text-bottom;
+      }
+      .user-name {
+        line-height: 20px;
+        display: inline;
+      }
     }
   }
 
