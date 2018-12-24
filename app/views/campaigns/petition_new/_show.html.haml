@@ -29,7 +29,17 @@
         .user-name
           = @campaign.user.nickname
     .campaign-title
-  .progress-bar
+      = @campaign.title
+  .campaign-progress
+    .campaign-progress-bar
+      .current-percent
+        25%
+      .signs-bar
+    .campaign-progress-meta.clearfix
+      .signs-count
+        서명 1,144
+      .goal-count
+        목표 5,000
   .sign-btn
 
 %section.section-body

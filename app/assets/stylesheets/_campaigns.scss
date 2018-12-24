@@ -42,6 +42,8 @@
       padding: 18px 18px 0;
     }
     .meta {
+      height: 20px;
+      margin-bottom: 14px;
       .label {
         background-color: #dadada;
         border-radius: 2px;
@@ -65,6 +67,48 @@
       .user-name {
         line-height: 20px;
         display: inline;
+      }
+    }
+    .campaign-title {
+      @extend .text-basic-wrap;
+      @extend .typo-h5;
+    }
+    .campaign-progress-bar {
+      height: 8px;
+      border-radius: 12px;
+      background-color: $gray-light;
+      position: relative;
+      margin-left:  20px;
+      margin-right: 20px;
+      margin-top: 38px;
+      .current-percent {
+        @extend .typo-h6;
+        height: 23px;
+        position: absolute;
+        left: calc(25% - 15px);
+        bottom: 8px;
+        color: $color-brand-primary;
+      }
+      .signs-bar {
+        width: 80px;
+        height: 100%;
+        border-radius: 12px;
+        background-image: linear-gradient(to right, $color-brand-primary-light, $color-brand-primary 66%, $color-brand-primary);
+      }
+    }
+    .campaign-progress-meta {
+      margin-left: 20px;
+      margin-right: 20px;
+      margin-top: 8px;
+      .signs-count {
+        float: left;
+        @extend .typo-overline;
+        color: rgba(0, 0, 0, 0.6);
+      }
+      .goal-count {
+        float: right;
+        @extend .typo-overline;
+        color: $color-brand-primary;
       }
     }
   }

@@ -496,3 +496,18 @@ figure img {
     color: $gray;
   }
 }
+
+.typo-h5 {
+  font-size: $font-size-h5;
+  letter-spacing: $letter-spacing-h5;
+}
+
+.typo-h6 {
+  font-size: $font-size-h6;
+  letter-spacing: $letter-spacing-h6;
+}
+
+.typo-overline {
+  font-size: $font-size-overline;
+  letter-spacing: $letter-spacing-overline;
+}
