@@ -18,41 +18,44 @@
     .cover-img{ style: "background-image:url(#{asset_url(@campaign.cover_image_url(:lg))});" }
 
 %section.section-info
-  .info-card
-    .meta
-      .label
-        성공
-      .label
-        서명
-      .user
-        .user-image-xs{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
-        .user-name
-          = @campaign.user.nickname
-    .campaign-title
-      = @campaign.title
-  .campaign-progress
-    .campaign-progress-bar
-      .current-percent
-        25%
-      .signs-bar
-    .campaign-progress-meta.clearfix
-      .signs-count
-        서명 1,144
-      .goal-count
-        목표 5,000
-  .sign-btn
+  .info-container
+    .info-card
+      .meta
+        .label
+          성공
+        .label
+          서명
+        .user
+          .user-image-xs{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+          .user-name
+            = @campaign.user.nickname
+      .campaign-title
+        = @campaign.title
+    .campaign-progress
+      .campaign-progress-bar
+        .current-percent
+          25%
+        .signs-bar
+      .campaign-progress-meta.clearfix
+        .signs-count
+          서명 1,144
+        .goal-count
+          목표 5,000
+    .sign-btn
+      서명하기
 
 %section.section-body
   .section-title
     캠페인 소개
-  .section-contents
-    안녕하세요. 저희는 1회용컵 사용실태 시민 모니터링단 ‘어쓰’입니다.
-
-    ‘어쓰’는 주요 카페 업체 28곳(자발적 협약 체결 업체, 전국 매장 수 300개 이상 업체)의 수도권 매장 3곳씩 총 84개 매장을 조사했습니다. 그 결과를 바탕으로 28개 기업과 환경부에 대책마련을 촉구하는 캠페인을 열었습니다.
-
-    28개 커피숍과 환경부가 1회용 플라스틱 제품에 대해 대책을 마련하도록 서명에 참여해주세요!
+  .campaign-body
+    %p
+      안녕하세요. 저희는 1회용컵 사용실태 시민 모니터링단 ‘어쓰’입니다.
+    %p
+      ‘어쓰’는 주요 카페 업체 28곳(자발적 협약 체결 업체, 전국 매장 수 300개 이상 업체)의 수도권 매장 3곳씩 총 84개 매장을 조사했습니다. 그 결과를 바탕으로 28개 기업과 환경부에 대책마련을 촉구하는 캠페인을 열었습니다.
+    %p
+      28개 커피숍과 환경부가 1회용 플라스틱 제품에 대해 대책을 마련하도록 서명에 참여해주세요!
   .more
-    더 보기
+    내용 더 보기
 %section.section-orders
   .section-title
     캠페인 촉구
