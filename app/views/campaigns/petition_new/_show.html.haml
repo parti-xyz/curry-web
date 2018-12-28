@@ -1,4 +1,28 @@
+- @background =
+- if @campaign.read_attribute(:cover_image).present?
+  - asset_url(@campaign.cover_image_url(:lg))
+- else
+  - asset_url("default-image.png")
+
 %section.section-cover
+  .cover-overlay
+  .cover-image{ style: "background-image:url(#{@background});" }
+  .info-container
+    .meta
+      .label
+        성공
+      .label
+        서명
+      .agent-info
+        대상: 스타벅스 외 27
+    .campaign-title
+      = @campaign.title
+    .user
+      .user-image-xs{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+      .user-name
+        = @campaign.user.nickname
+
+%section.section-tab
   %ul.menu
     %li.active
       내용
@@ -14,35 +38,20 @@
         999+
     %li
       명단
-  - if @campaign.read_attribute(:cover_image).present?
-    .cover-img{ style: "background-image:url(#{asset_url(@campaign.cover_image_url(:lg))});" }
 
 %section.section-info
-  .info-container
-    .info-card
-      .meta
-        .label
-          성공
-        .label
-          서명
-        .user
-          .user-image-xs{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
-          .user-name
-            = @campaign.user.nickname
-      .campaign-title
-        = @campaign.title
-    .campaign-progress
-      .campaign-progress-bar
-        .current-percent
-          25%
-        .signs-bar
-      .campaign-progress-meta.clearfix
-        .signs-count
-          서명 1,144
-        .goal-count
-          목표 5,000
-    .sign-btn
-      서명하기
+  .campaign-progress
+    .campaign-progress-bar
+      .current-percent
+        25%
+      .signs-bar
+    .campaign-progress-meta.clearfix
+      .signs-count
+        서명 1,144
+      .goal-count
+        목표 5,000
+  .sign-btn
+    서명하기
 
 %section.section-body
   .section-title

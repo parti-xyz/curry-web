@@ -1,58 +1,32 @@
 .app-campaigns {
   .section-cover {
-    $menu-height: 48px;
-    .menu {
-      display: flex;
-      height: $menu-height;
-      align-items: center;
-      padding-left: 0;
-      margin-bottom: 0;
-      list-style: none;
-      text-align: center;
-      li {
-        flex: 1;
-        height: $menu-height;
-        letter-spacing: -0.3px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        &.active {
-          border-bottom: 3px solid $brand-primary;
-        }
-        .count {
-          position: absolute;
-          left: 53px;
-          color: $brand-primary;
-          font-size: $font-size-small;
-          line-height: 1.7em;
-        }
-      }
+    height: 240px;
+    z-index: 1;
+    .cover-overlay {
+      width: 100%;
+      height: 240px;
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.67));
+      position: absolute;
+      z-index: -1;
     }
-    .cover-img {
-      height: 260px;
+    .cover-image {
+      width: 100%;
+      height: 236px;
+      position: absolute;
+      z-index: -2;
+      -webkit-filter: blur(3px);
+      filter: blur(3px);
+      magin-top: 3px;
       background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
     }
-  }
-  .section-info {
-    background-color: white;
     .info-container {
-      margin-bottom: -45px;
-      position: relative;
-      top: -45px;
-    }
-    .info-card {
-      margin: 8px 8px 0;
-      padding: 18px 18px 0;
-      background-color: white;
-      border-radius: 4px;
+      padding: 40px 16px 59px;
     }
     .meta {
-      height: 20px;
-      margin-bottom: 14px;
+      text-align: center;
+      margin-bottom: 24px;
       .label {
+        color: black;
         background-color: #dadada;
         border-radius: 2px;
         letter-spacing: -0.4px;
@@ -64,23 +38,38 @@
         padding-right: 8px;
         padding-top: 0;
         padding-bottom: 0;
+        vertical-align: middle;
+      }
+      .agent-info {
+        color: white;
+        letter-spacing: -0.4px;
+        font-size: 14px;
+        margin-left: 4px;
+        display: inline;
       }
     }
+    .campaign-title {
+      @extend .text-basic-wrap;
+      @extend .typo-h4;
+      color: white;
+      text-align: center;
+    }
     .user {
-      float: right;
-      display: inline;
+      text-align: center;
       .user-image-xs {
         vertical-align: text-bottom;
       }
       .user-name {
         line-height: 20px;
         display: inline;
+        font-size: $font-size-body2;
+        letter-spacing: $letter-spacing-body2;
+        color: white;
       }
     }
-    .campaign-title {
-      @extend .text-basic-wrap;
-      @extend .typo-h5;
-    }
+  }
+  .section-info {
+    background-color: white;
     .campaign-progress-bar {
       height: 8px;
       border-radius: 12px;
@@ -128,6 +117,43 @@
       text-align: center;
       color: white;
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.14);
+    }
+  }
+  .section-tab {
+    $menu-height: 48px;
+    .menu {
+      display: flex;
+      height: $menu-height;
+      align-items: center;
+      padding-left: 0;
+      margin-bottom: 0;
+      list-style: none;
+      text-align: center;
+      li {
+        flex: 1;
+        height: $menu-height;
+        letter-spacing: -0.3px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        &.active {
+          border-bottom: 3px solid $brand-primary;
+        }
+        .count {
+          position: absolute;
+          left: 53px;
+          color: $brand-primary;
+          font-size: $font-size-small;
+          line-height: 1.7em;
+        }
+      }
+    }
+    .cover-img {
+      height: 260px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
     }
   }
   .section-body {
