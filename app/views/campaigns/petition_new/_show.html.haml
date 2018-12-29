@@ -25,31 +25,53 @@
 %section.section-tab
   %ul.menu
     %li.active
-      내용
+      .menu-item
+        내용
     %li
-      촉구
+      .menu-item
+        촉구
     %li
-      의견
-      %span.count
-        999+
+      .menu-item
+        의견
+        %span.count
+          999+
     %li
-      소식
-      %span.count
-        999+
+      .menu-item
+        소식
+        %span.count
+          999+
     %li
-      명단
+      .menu-item
+        명단
 
 %section.section-info
   .campaign-progress
+    .campaign-label
+      .current-message
+        현재 1,113명이 서명하였습니다.
+      5,000명 서명에 동참해주세요.
     .campaign-progress-bar
       .current-percent
         25%
+      .success-badge
+        성공
       .signs-bar
     .campaign-progress-meta.clearfix
       .signs-count
         서명 1,144
       .goal-count
         목표 5,000
+    .campaign-signs
+      .campaign-sign
+        .signer-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+        .signed-message
+          가나다님이 서명하셨습니다.
+      .campaign-sign
+        .signer-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+        .signed-message
+          씽님이 서명하셨습니다.
+
+%section.section-sign-btn
   .sign-btn
     서명하기
 

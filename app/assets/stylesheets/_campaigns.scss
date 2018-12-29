@@ -16,7 +16,7 @@
       z-index: -2;
       -webkit-filter: blur(3px);
       filter: blur(3px);
-      magin-top: 3px;
+      margin-top: 3px;
       background-size: cover;
     }
     .info-container {
@@ -70,21 +70,45 @@
   }
   .section-info {
     background-color: white;
+    .campaign-progress {
+      padding: 24px 16px 40px;
+    }
+    .campaign-label {
+      font-size: 16px;
+      letter-spacing: -1px;
+      color: $gray-caption;
+      .current-message {
+        display: inline;
+        font-weight: 500;
+        color: $gray-dark-message;
+      }
+    }
     .campaign-progress-bar {
-      height: 8px;
+      height: 24px;
       border-radius: 12px;
       background-color: $gray-light;
       position: relative;
-      margin-left:  20px;
-      margin-right: 20px;
-      margin-top: 38px;
+      margin-top: 24px;
       .current-percent {
-        @extend .typo-h6;
-        height: 23px;
+        @extend .typo-body2;
+        margin-top: 3px;
         position: absolute;
-        left: calc(25% - 15px);
-        bottom: 8px;
+        left: 8px;
+        color: white;
+      }
+      .success-badge {
+        background-color: $yellow-gold;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        line-height: 40px;
+        text-align: center;
         color: $color-brand-primary;
+        border: 2px solid white;
+        right: 4px;
+        top: -24px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.14);
       }
       .signs-bar {
         width: 80px;
@@ -94,20 +118,82 @@
       }
     }
     .campaign-progress-meta {
-      margin-left: 20px;
-      margin-right: 20px;
-      margin-top: 8px;
+      margin: 8px 0px 24px;
       .signs-count {
         float: left;
         @extend .typo-overline;
-        color: rgba(0, 0, 0, 0.6);
+        font-weight: 500;
+        color: $gray-caption;
       }
       .goal-count {
         float: right;
         @extend .typo-overline;
-        color: $color-brand-primary;
+        font-weight: 500;
+        color: $gray-caption;
       }
     }
+    .campaign-signs {
+      .campaign-sign {
+        .signer-image {
+          @extend .user-image-sm;
+          margin-bottom: 8px;
+          vertical-align: middle;
+        }
+        .signed-message {
+          @extend .typo-overline;
+          color: $gray-caption;
+          font-weight: 500;
+          display: inline;
+        }
+      }
+    }
+  }
+  .section-tab {
+    $menu-height: 48px;
+    background-color: white;
+    .menu {
+      display: flex;
+      height: $menu-height;
+      align-items: center;
+      padding-left: 0;
+      margin-bottom: 0;
+      list-style: none;
+      text-align: center;
+      border-bottom: 1px solid $color-brand-primary;
+      li {
+        flex: 1;
+        height: $menu-height;
+        letter-spacing: -0.3px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        color: $gray-menu;
+        &.active {
+          border-bottom: 3px solid $color-brand-primary;
+          color: $color-brand-primary-active;
+        }
+        .menu-item {
+          position: relative;
+          .count {
+            position: absolute;
+            top: 0;
+            left: 24px;
+            color: $color-brand-primary;
+            font-size: $font-size-small;
+            line-height: 1.7em;
+          }
+        }
+      }
+    }
+    .cover-img {
+      height: 260px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+  .section-sign-btn {
     .sign-btn {
       margin: 24px 16px;
       line-height: 36px;
@@ -119,45 +205,8 @@
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.14);
     }
   }
-  .section-tab {
-    $menu-height: 48px;
-    .menu {
-      display: flex;
-      height: $menu-height;
-      align-items: center;
-      padding-left: 0;
-      margin-bottom: 0;
-      list-style: none;
-      text-align: center;
-      li {
-        flex: 1;
-        height: $menu-height;
-        letter-spacing: -0.3px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        &.active {
-          border-bottom: 3px solid $brand-primary;
-        }
-        .count {
-          position: absolute;
-          left: 53px;
-          color: $brand-primary;
-          font-size: $font-size-small;
-          line-height: 1.7em;
-        }
-      }
-    }
-    .cover-img {
-      height: 260px;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-  }
   .section-body {
-    margin-top: 60px;
+    margin-top: 8px;
     background-color: white;
     padding: 13px 16px 19px 16px;
     .section-title {
