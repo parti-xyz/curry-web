@@ -168,6 +168,11 @@ class Campaign < ApplicationRecord
     signs_goal_count.present? && signs_goal_count > 0
   end
 
+  def success?
+    return false unless has_goal?
+    percentage >= 100
+  end
+
   def percentage
     has_goal? ? ( signs_count.to_f / signs_goal_count * 100 ).to_i : 100
   end

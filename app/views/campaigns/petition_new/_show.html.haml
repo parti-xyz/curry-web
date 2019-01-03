@@ -1,20 +1,47 @@
-- @background =
-- if @campaign.read_attribute(:cover_image).present?
+- background = if @campaign.read_attribute(:cover_image).present?
   - asset_url(@campaign.cover_image_url(:lg))
 - else
   - asset_url("default-image.png")
+/local 중간에 삽입
+
+/ 중간에 삽입 , div 없음
+- if @campaign.agents.empty?
+  - agent_info = ""
+- elsif @campaign.agents.count == 1
+  - agent_info = "대상: #{@campaign.agents.first.name}"
+- else
+  - agent_info = "대상: #{@campaign.agents.first.name} 외 #{@campaign.agents.count - 1}"
+
+/ number_with_limit
+- comments_count = ""
+- if @campaign.comments.count < 1000
+  - comments_count = "#{@campaign.comments.count}"
+- else
+  - comments_count = "999+"
+
+/ 헬퍼
+- signs_count = ""
+- if @campaign.signs.count < 1000
+  - signs_count = "#{@campaign.signs.count}"
+- else
+  - signs_count = "999+"
 
 %section.section-cover
   .cover-overlay
   .cover-image{ style: "background-image:url(#{@background});" }
   .info-container
     .meta
-      .label
-        성공
+      - if @campaign.success?
+        .label
+          성공
       .label
         서명
-      .agent-info
-        대상: 스타벅스 외 27
+      - if @campaign.agents.any?
+        .agent-info
+          대상: #{@campaign.agents.first.name}
+          - if @campaign.agents.count > 1
+            외 #{@campaign.agents.count - 1}"
+
     .campaign-title
       = @campaign.title
     .user
@@ -33,141 +60,141 @@
     %li
       .menu-item
         의견
-        %span.count
-          999+
+        - unless comments_count.empty?
+          %span.count
+            = comments_count
     %li
       .menu-item
         소식
-        %span.count
-          999+
     %li
       .menu-item
         명단
+        - unless signs_count.empty?
+          %span.count
+            = signs_count
 
 %section.section-info
   .campaign-progress
     .campaign-label
       .current-message
-        현재 1,113명이 서명하였습니다.
-      5,000명 서명에 동참해주세요.
-    .campaign-progress-bar
-      .current-percent
-        25%
-      .success-badge
-        성공
-      .signs-bar
-    .campaign-progress-meta.clearfix
-      .signs-count
-        서명 1,144
-      .goal-count
-        목표 5,000
+        현재 #{number_with_delimiter(@campaign.signs.count, delimiter:",")}명이 서명하였습니다.
+      - if @campaign.has_goal?
+        #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}명
+      서명에 동참해주세요.
+    - if @campaign.has_goal?
+      .campaign-progress-bar
+        .current-percent
+          #{@campaign.percentage}%
+        - if @campaign.success?
+          .success-badge
+            성공
+          .signs-bar{ style: "width: 100%" }
+        - else
+          .signs-bar{ style: "width: #{@campaign.percentage}%" }
+      .campaign-progress-meta.clearfix
+        .signs-count
+          서명 #{number_with_delimiter(@campaign.signs.count, delimiter:",")}
+        .goal-count
+          목표 #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}
     .campaign-signs
-      .campaign-sign
-        .signer-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
-        .signed-message
-          가나다님이 서명하셨습니다.
-      .campaign-sign
-        .signer-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
-        .signed-message
-          씽님이 서명하셨습니다.
-
-%section.section-sign-btn
-  .sign-btn
-    서명하기
+      - @campaign.signs.limit(3).each do |sign|  # @campaign.signs.where.not(user: nil).limit(3).each do |sign|
+        .campaign-sign
+          .signer-image{ style: "background-image:url(#{asset_url(sign.user_image_url)});" }
+          .signed-message
+            #{sign.signer_real_name}님이 서명하셨습니다.
 
 %section.section-body
   .section-title
     캠페인 소개
   .campaign-body
-    %p
-      안녕하세요. 저희는 1회용컵 사용실태 시민 모니터링단 ‘어쓰’입니다.
-    %p
-      ‘어쓰’는 주요 카페 업체 28곳(자발적 협약 체결 업체, 전국 매장 수 300개 이상 업체)의 수도권 매장 3곳씩 총 84개 매장을 조사했습니다. 그 결과를 바탕으로 28개 기업과 환경부에 대책마련을 촉구하는 캠페인을 열었습니다.
-    %p
-      28개 커피숍과 환경부가 1회용 플라스틱 제품에 대해 대책을 마련하도록 서명에 참여해주세요!
-  .more
-    내용 더 보기
-%section.section-orders
-  .section-title
-    캠페인 촉구
-  .order-title
-    지금 스타벅스외 27에 촉구해 주세요
-  .order-info
-    홍길동님외 23분이 촉구에 참여중입니다.
-  .order-users
-    이미지
-  .order-btn
-    촉구 현황 보기
-  .agents
-    .agent
-      .agent-name
-        김은경
-      .agent-organazation
-        환경부
-      .agent-order-btn
-        10번째로 촉구
-    .agent
-      .agent-name
-        스타벅스
-        .statement-btn
-          답변보기
-      .agent-organazation
-        몰라몰라
-      .agent-order-btn
-        100번째로 촉구
-    .more
-      더 보기
-%section.section-share
-  .facebook-btn
-  .twitter-btn
-  .copy-btn
-%section.section-comments
-  .section-title
-    의견
-  .comment-form
-    .comment-box
-    .comment-submit-btn
-      등록
-  .comments
-    .comment
-      .comment-controls
-        %a
-          삭제
-        %a
-          신고
-        %a
-          긴급신고
-        %a
-          박제
-      .comment-left
-        .commenter-img
-          이미지
-      .comment-right
-        .comment-header
-          .nickname
-            장하은
-          %span.sign-info
-            10번째 서명자
-        .comment-body
-          애정하는 매장인데, 촉구합니다!
-        .comment-footer
-          .like
-            .like-image
-            공감해요
-          .date
-            2018.09.03
-    .more
-      더 보기
+    = raw @campaign.body
 
-%section.section-recommends
-  .recommends-title
-    가크의 다양한 캠페인을 만나보세요!
-  .campagins
-    .campaign
-      .campaign-img
-      .progress-bar
-      .campaign-title
-        수감자 자녀의 아동친화적 면접권 보장에 동참해주세요!
-      .sign-btn
-        서명하기
+%section.section-sign-btn
+  .sign-btn
+    .sign-btn-text
+      서명하기
+
+/ %section.section-orders
+/   .section-title
+/     캠페인 촉구
+/   .order-title
+/     지금 스타벅스외 27에 촉구해 주세요
+/   .order-info
+/     홍길동님외 23분이 촉구에 참여중입니다.
+/   .order-users
+/     이미지
+/   .order-btn
+/     촉구 현황 보기
+/   .agents
+/     .agent
+/       .agent-name
+/         김은경
+/       .agent-organazation
+/         환경부
+/       .agent-order-btn
+/         10번째로 촉구
+/     .agent
+/       .agent-name
+/         스타벅스
+/         .statement-btn
+/           답변보기
+/       .agent-organazation
+/         몰라몰라
+/       .agent-order-btn
+/         100번째로 촉구
+/     .more
+/       더 보기
+/ %section.section-share
+/   .facebook-btn
+/   .twitter-btn
+/   .copy-btn
+/ %section.section-comments
+/   .section-title
+/     의견
+/   .comment-form
+/     .comment-box
+/     .comment-submit-btn
+/       등록
+/   .comments
+/     .comment
+/       .comment-controls
+/         %a
+/           삭제
+/         %a
+/           신고
+/         %a
+/           긴급신고
+/         %a
+/           박제
+/       .comment-left
+/         .commenter-img
+/           이미지
+/       .comment-right
+/         .comment-header
+/           .nickname
+/             장하은
+/           %span.sign-info
+/             10번째 서명자
+/         .comment-body
+/           애정하는 매장인데, 촉구합니다!
+/         .comment-footer
+/           .like
+/             .like-image
+/             공감해요
+/           .date
+/             2018.09.03
+/     .more
+/       더 보기
+
+/ %section.section-recommends
+/   .recommends-title
+/     가크의 다양한 캠페인을 만나보세요!
+/   .campagins
+/     .campaign
+/       .campaign-img
+/       .progress-bar
+/       .campaign-title
+/         수감자 자녀의 아동친화적 면접권 보장에 동참해주세요!
+/       .sign-btn
+/         서명하기
 

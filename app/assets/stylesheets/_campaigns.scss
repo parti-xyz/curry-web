@@ -118,7 +118,7 @@
       }
     }
     .campaign-progress-meta {
-      margin: 8px 0px 24px;
+      margin: 8px 0 0;
       .signs-count {
         float: left;
         @extend .typo-overline;
@@ -133,6 +133,7 @@
       }
     }
     .campaign-signs {
+      margin: 24px 0 0;
       .campaign-sign {
         .signer-image {
           @extend .user-image-sm;
@@ -194,31 +195,49 @@
     }
   }
   .section-sign-btn {
+    background-color: #f0f0f0;
+    width: 100%;
+    height: 64px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
     .sign-btn {
-      margin: 24px 16px;
+      margin: 8px 16px;
       line-height: 36px;
-      border-radius: 18px;
-      height: 36px;
+      border-radius: 3px;
+      height: 48px;
       background-color: $color-brand-primary;
       text-align: center;
       color: white;
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.14);
+      .sign-btn-text {
+      }
     }
   }
   .section-body {
     margin-top: 8px;
     background-color: white;
-    padding: 13px 16px 19px 16px;
+    padding: 40px 16px;
     .section-title {
+      margin-bottom: 32px;
+      line-height: 1.71;
+      height: 24px;
+      font-size: 14px;
       font-weight: 500;
-      font-size: 12px;
-      letter-spacing: 0.2px;
-      margin-bottom: 16px;
+      letter-spacing: -0.6px;
+      color: #303030;
     }
     .campaign-body {
       font-size: 16px;
       letter-spacing: -0.5px;
       color: rgba(0,0,0,0.6);
+      p {
+        color: #717171;
+        font-size: 16px;
+        line-height: 1.38;
+        letter-spacing: -0.5px;
+      }
     }
     .more {
       cursor: pointer;
