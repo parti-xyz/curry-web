@@ -1,34 +1,9 @@
-- background = if @campaign.read_attribute(:cover_image).present?
-  - asset_url(@campaign.cover_image_url(:lg))
-- else
-  - asset_url("default-image.png")
-/local 중간에 삽입
-
-/ 중간에 삽입 , div 없음
-- if @campaign.agents.empty?
-  - agent_info = ""
-- elsif @campaign.agents.count == 1
-  - agent_info = "대상: #{@campaign.agents.first.name}"
-- else
-  - agent_info = "대상: #{@campaign.agents.first.name} 외 #{@campaign.agents.count - 1}"
-
-/ number_with_limit
-- comments_count = ""
-- if @campaign.comments.count < 1000
-  - comments_count = "#{@campaign.comments.count}"
-- else
-  - comments_count = "999+"
-
-/ 헬퍼
-- signs_count = ""
-- if @campaign.signs.count < 1000
-  - signs_count = "#{@campaign.signs.count}"
-- else
-  - signs_count = "999+"
-
 %section.section-cover
   .cover-overlay
-  .cover-image{ style: "background-image:url(#{@background});" }
+  - if @campaign.read_attribute(:cover_image).present?
+    .cover-image{ style: "background-image:url(#{asset_url(@campaign.cover_image_url(:lg))});" }
+  - else
+    .cover-image{ style: "background-image:url(#{asset_url("default-image.png")});" }
   .info-container
     .meta
       - if @campaign.success?
@@ -40,7 +15,7 @@
         .agent-info
           대상: #{@campaign.agents.first.name}
           - if @campaign.agents.count > 1
-            외 #{@campaign.agents.count - 1}"
+            외 #{@campaign.agents.count - 1}
 
     .campaign-title
       = @campaign.title
@@ -60,18 +35,18 @@
     %li
       .menu-item
         의견
-        - unless comments_count.empty?
+        - if @campaign.comments.any?
           %span.count
-            = comments_count
+            = number_with_limit(@campaign.comments.count, 1000)
     %li
       .menu-item
         소식
     %li
       .menu-item
         명단
-        - unless signs_count.empty?
+        - if @campaign.signs.any?
           %span.count
-            = signs_count
+            = number_with_limit(@campaign.signs.count, 1000)
 
 %section.section-info
   .campaign-progress
@@ -97,11 +72,11 @@
         .goal-count
           목표 #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}
     .campaign-signs
-      - @campaign.signs.limit(3).each do |sign|  # @campaign.signs.where.not(user: nil).limit(3).each do |sign|
+      - @campaign.signs.recent.limit(3).each do |sign|
         .campaign-sign
           .signer-image{ style: "background-image:url(#{asset_url(sign.user_image_url)});" }
           .signed-message
-            #{sign.signer_real_name}님이 서명하셨습니다.
+            #{sign.user_name}님이 서명하셨습니다.
 
 %section.section-body
   .section-title

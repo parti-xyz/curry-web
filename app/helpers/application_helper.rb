@@ -96,4 +96,12 @@ module ApplicationHelper
 
     render path, options
   end
+
+  def number_with_limit(number, limit)
+    if number < limit
+      number
+    else
+      "#{limit - 1}+"
+    end
+  end
 end
