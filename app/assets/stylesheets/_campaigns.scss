@@ -20,7 +20,19 @@
       background-size: cover;
     }
     .info-container {
-      padding: 40px 16px 59px;
+      // xs - sm - md - lg
+      // xs - (sm md) - lg
+
+      padding: 99px 16px 32px;
+      @media (max-width: $screen-xs-max) {
+        padding: 40px 16px 59px; // padding
+      }
+      @media (min-width: $screen-xs) and (max-width: $screen-sm-max) {
+        padding: 39px 66px 74px; // max-width
+      }
+      @media (min-width: $screen-sm) and (max-width: $screen-md-max) {
+        padding: 98px 80px 32px;
+      }
     }
     .meta {
       text-align: center;
@@ -247,6 +259,317 @@
       font-size: 14px;
       letter-spacing: -0.4px;
       color: rgba(0, 0, 0, 0.38);
+    }
+  }
+  .section-orders {
+    margin-top: 8px;
+    padding: 20px 16px 40px;
+    background-color: white;
+    .section-title {
+      color: #303030;
+      line-height: 24px;
+      font-weight: 500;
+      letter-spacing: -0.6px;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+    .order-title {
+      text-align: center;
+      letter-spacing: 1px;
+      font-weight: 500;
+      color: #2575ef;
+      font-size: 18px;
+      margin-bottom: 16px;
+      .underline {
+        margin-right: -5px;
+        border-bottom: 1px solid #2575ef;
+      }
+    }
+    .order-info {
+      text-align: center;
+      font-size: 14px;
+      color: #717171;
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+    }
+    .order-users {
+      text-align: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      height: 32px;
+      .user-images {
+        height: 32px;
+        padding-left: 5px;
+        display: inline-flex;
+        flex-direction: row-reverse;
+        vertical-align: middle;
+        .overlapped {
+          border: 1px solid white;
+          position: relative;
+          margin-left: -5px;
+          overflow: hidden;
+        }
+        .one {
+          position: relative;
+          z-index: 2;
+        }
+        .two {
+          position: relative;
+          z-index: 1;
+          left: -5px;
+        }
+        .three {
+          position: relative;
+          left: -10px;
+        }
+      }
+      .more {
+        display: inline-block;
+        color: #2575ef;
+        margin: 0 1px 0 0;
+      }
+      .count {
+        letter-spacing: -0.4px;
+        font-size: 14px;
+        margin: 3px 0;
+        padding: 3px 8px;
+        line-height: 20px;
+        display: inline-block;
+        text-align: center;
+        border-radius: 13px;
+        background-color: #2575ef;
+        color: white;
+      }
+    }
+    .agents {
+      .agent {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border: 1px solid #e0e0e0;
+        margin-bottom: 8px;
+        .agent-left {
+          height: 56px;
+        }
+        .agent-answer-not-yet {
+          position: relative;
+          top: -4px;
+          left: -4px;
+          display: inline-block;
+          line-height: 17px;
+          height: 17px;
+          width: 38px;
+          text-align: center;
+          font-size: 11px;
+          background-color: #f7a329;
+          color: white;
+          letter-spacing: -0.4px;
+        }
+        .agent-answer-no {
+          position: relative;
+          top: -4px;
+          left: -4px;
+          display: inline-block;
+          line-height: 17px;
+          height: 17px;
+          width: 38px;
+          text-align: center;
+          font-size: 11px;
+          background-color: #e74c3c;
+          color: white;
+          letter-spacing: -0.4px;
+        }
+        .agent-answer-yes {
+          position: relative;
+          top: -4px;
+          left: -4px;
+          display: inline-block;
+          line-height: 17px;
+          height: 17px;
+          width: 38px;
+          text-align: center;
+          font-size: 11px;
+          background-color: #2575ef;
+          color: white;
+          letter-spacing: -0.4px;
+        }
+        .agent-image {
+          width: 56px;
+          height: 56px;
+          flex: none;
+        }
+        .agent-info {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-left: 11px;
+          margin-right: auto;
+          .agent-name {
+            font-size: 16px;
+            letter-spacing: 1px;
+            font-weight: 500;
+            color: #303030;
+            display: inline;
+          }
+          .statement-btn {
+            display: inline;
+          }
+          .agent-organization {
+            font-size: 11px;
+            letter-spacing: -0.4px;
+            color: #717171;
+          }
+        }
+
+        .agent-order-btn {
+          flex: none;
+          border: 1px solid #2575ef;
+          font-size: 12px;
+          font-weight: 500;
+          letter-spacing: 0.2px;
+          color: #2575ef;
+          text-align: center;
+          margin: 12px 0;
+          padding: 8px;
+          width: 112px;
+          height: 32px;
+        }
+      }
+      .more {
+        text-align: center;
+        font-size: 14px;
+        letter-spacing: -0.4px;
+        color: #717171;
+      }
+    }
+  }
+  .section-comments {
+    padding: 20px 16px;
+    background-color: white;
+    margin-top: 8px;
+    .section-title {
+      font-size: 14px;
+      line-height: 24px;
+      letter-spacing: -0.6px;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .comment-form {
+      display: flex;
+      padding-bottom: 16px;
+      .commenter-image {
+        width: 32px;
+        height: 32px;
+        border-radius: 20px;
+        background-size: cover;
+        background-position: center;
+      }
+      .comment-right {
+        width: 100%;
+        margin-left: 8px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+      }
+      .comment-box {
+        margin-bottom: 8px;
+        border: 1px solid #dedede;
+        background-color: #fafafa;
+        height: 68px;
+      }
+      .comment-submit-btn {
+        font-size: 12px;
+        padding: 8px 16px;
+        background-color: #717171;
+        border-radius: 2px;
+        width: 55px;
+        height: 32px;
+        text-align: center;
+        color: white;
+        margin: 0 0 0 auto;
+      }
+    }
+    .comment {
+      border-top: 1px dashed #dedede;
+      .comment-controls {
+        flex: none;
+        margin: 0 0 0 auto;
+        word-spacing: 16px;
+        text-align: right;
+        a {
+          font-size: 11px;
+          letter-spacing: -0.4px;
+          color: #717171;
+        }
+        a:hover {
+          cursor: pointer;
+        }
+      }
+      .comment-form {
+        .comment-right {
+          .comment-header {
+            margin-top: 6px;
+            .nickname {
+              line-height: 24px;
+              font-size: 14px;
+              letter-spacing: -0.6px;
+              font-weight: 500;
+              .comment-agent {
+                display: inline;
+                vertical-align: middle;
+                line-height: 16px;
+                height: 17px;
+                margin-left: 8px;
+                font-weight: normal;
+                padding: 0 4px;
+                font-size: 11px;
+                letter-spacing: -0.4px;
+                color: white;
+                background-color: #1f88ff;
+              }
+            }
+            .sign-info {
+              font-size: 11px;
+              letter-spacing: -0.4px;
+              color: #2575ef;
+              .date {
+                display: inline;
+                margin-left: 4px;
+                color: #aaaaaa;
+                vertical-align: middle;
+              }
+            }
+          }
+          .commnet-body {
+            font-size: 14px;
+            margin-top: 8px;
+            letter-spacing: -0.4px;
+            color: #303030;
+          }
+          .comment-footer {
+            margin-top: 8px;
+            li {
+              width: 16px;
+              height: 16px;
+            }
+            .liked {
+              display: inline;
+              color: #2575ef;
+            }
+            .not-yet-liked {
+              display: inline;
+              color: #717171;
+            }
+          }
+        }
+      }
+    }
+    .commenter-image {
+      width: 32px;
+      height: 32px;
+      border-radius: 20px;
+      background-size: cover;
+      background-position: center;
     }
   }
 }

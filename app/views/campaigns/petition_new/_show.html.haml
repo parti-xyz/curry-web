@@ -84,82 +84,163 @@
   .campaign-body
     = raw @campaign.body
 
+%section.section-orders
+  .section-title
+    캠페인 촉구
+  .order-title
+    지금
+    %span.underline
+      #{@campaign.agents.first.name}
+      - if @campaign.agents.count > 1
+        외 #{@campaign.agents.count - 1}
+    에 촉구해 주세요
+  .order-info
+    홍길동님외 23분이 촉구에 참여중입니다.
+  .order-users
+    .user-images
+      .user-image-sm.overlapped{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+      .user-image-sm.overlapped{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+      .user-image-sm.overlapped{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+    .more +
+    .count 20
+  .agents
+    .agent
+      .agent-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+        .agent-answer-not-yet
+          무응답
+      .agent-info
+        .agent-name
+          김은경
+        .agent-organization
+          환경부, 환경부장관
+      .agent-order-btn
+        10번째로 촉구하기
+    .agent
+      .agent-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+        .agent-answer-no
+          반대
+      .agent-info
+        .agent-name
+          김은경
+          %i.fa.fa-commenting
+        .agent-organization
+          환경부, 환경부장관
+      .agent-order-btn
+        10번째로 촉구하기
+    .agent
+      .agent-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+        .agent-answer-no
+          반대
+      .agent-info
+        .agent-name
+          김은경
+          %i.fa.fa-commenting
+        .agent-organization
+          환경부, 환경부장관
+      .agent-order-btn
+        10번째로 촉구하기
+    .more
+      더 보기
+
+%section.section-comments
+  .section-title
+    의견
+  .comment-form
+    .commenter-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:xs))});" }
+    .comment-right
+      .comment-box
+      .comment-submit-btn 등록
+  .comments
+    .comment
+      .comment-controls
+        %a
+          삭제
+        %a
+          신고
+        %a
+          긴급신고
+        %a
+          박제
+      .comment-form
+        .commenter-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:sm))});" }
+        .comment-right
+          .comment-header
+            .nickname
+              김은경
+              .comment-agent
+                스타벅스에 촉구
+            %span.sign-info
+              250번째 서명자
+              .date
+                2018.12.05
+          .comment-body
+            정책적으로 막아주세요. 그렇지 않으면 눈가리고 아웅입니다. 지구를 구해주세요.
+          .comment-footer
+            %li.fa.fa-heart.not-yet-liked
+            .not-yet-liked 공감해요
+    .comment
+      .comment-controls
+        %a
+          삭제
+        %a
+          신고
+        %a
+          긴급신고
+        %a
+          박제
+      .comment-form
+        .commenter-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:sm))});" }
+        .comment-right
+          .comment-header
+            .nickname
+              김은경
+              .comment-agent 스타벅스에 촉구
+            %span.sign-info
+              250번째 서명자
+              .date
+                2018.12.05
+          .comment-body
+            정책적으로 막아주세요. 그렇지 않으면 눈가리고 아웅입니다. 지구를 구해주세요.
+          .comment-footer
+            %li.fa.fa-heart.liked
+            .liked 5
+    .comment
+      .comment-controls
+        %a
+          삭제
+        %a
+          신고
+        %a
+          긴급신고
+        %a
+          박제
+      .comment-form
+        .commenter-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:sm))});" }
+        .comment-right
+          .comment-header
+            .nickname
+              김은경
+              .comment-agent
+                스타벅스에 촉구
+            %span.sign-info
+              250번째 서명자
+              .date
+                2018.12.05
+          .comment-body
+            정책적으로 막아주세요. 그렇지 않으면 눈가리고 아웅입니다. 지구를 구해주세요.
+          .comment-footer
+            %li.fa.fa-heart.not-yet-liked
+            .not-yet-liked 공감해요
+
 %section.section-sign-btn
   .sign-btn
     .sign-btn-text
       서명하기
 
-/ %section.section-orders
-/   .section-title
-/     캠페인 촉구
-/   .order-title
-/     지금 스타벅스외 27에 촉구해 주세요
-/   .order-info
-/     홍길동님외 23분이 촉구에 참여중입니다.
-/   .order-users
-/     이미지
-/   .order-btn
-/     촉구 현황 보기
-/   .agents
-/     .agent
-/       .agent-name
-/         김은경
-/       .agent-organazation
-/         환경부
-/       .agent-order-btn
-/         10번째로 촉구
-/     .agent
-/       .agent-name
-/         스타벅스
-/         .statement-btn
-/           답변보기
-/       .agent-organazation
-/         몰라몰라
-/       .agent-order-btn
-/         100번째로 촉구
-/     .more
-/       더 보기
 / %section.section-share
 /   .facebook-btn
 /   .twitter-btn
 /   .copy-btn
-/ %section.section-comments
-/   .section-title
-/     의견
-/   .comment-form
-/     .comment-box
-/     .comment-submit-btn
-/       등록
-/   .comments
-/     .comment
-/       .comment-controls
-/         %a
-/           삭제
-/         %a
-/           신고
-/         %a
-/           긴급신고
-/         %a
-/           박제
-/       .comment-left
-/         .commenter-img
-/           이미지
-/       .comment-right
-/         .comment-header
-/           .nickname
-/             장하은
-/           %span.sign-info
-/             10번째 서명자
-/         .comment-body
-/           애정하는 매장인데, 촉구합니다!
-/         .comment-footer
-/           .like
-/             .like-image
-/             공감해요
-/           .date
-/             2018.09.03
-/     .more
-/       더 보기
 
 / %section.section-recommends
 /   .recommends-title
