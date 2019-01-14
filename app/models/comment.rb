@@ -40,6 +40,10 @@ class Comment < ApplicationRecord
     user.present? ? user.email : commenter_email
   end
 
+  def user_image
+    user.present? ? user.image : 'default-user.png'
+  end
+
   def target_agents_to_s
     self.target_agents.map{ |agent| "#{agent.organization} #{agent.name}" }.join(", ")
   end

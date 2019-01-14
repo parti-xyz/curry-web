@@ -309,19 +309,6 @@
           margin-left: -5px;
           overflow: hidden;
         }
-        .one {
-          position: relative;
-          z-index: 2;
-        }
-        .two {
-          position: relative;
-          z-index: 1;
-          left: -5px;
-        }
-        .three {
-          position: relative;
-          left: -10px;
-        }
       }
       .more {
         display: inline-block;
@@ -351,7 +338,7 @@
         .agent-left {
           height: 56px;
         }
-        .agent-answer-not-yet {
+        .agent-unsure {
           position: relative;
           top: -4px;
           left: -4px;
@@ -365,7 +352,7 @@
           color: white;
           letter-spacing: -0.4px;
         }
-        .agent-answer-no {
+        .agent-disagree {
           position: relative;
           top: -4px;
           left: -4px;
@@ -379,7 +366,7 @@
           color: white;
           letter-spacing: -0.4px;
         }
-        .agent-answer-yes {
+        .agent-agree {
           position: relative;
           top: -4px;
           left: -4px;
@@ -540,11 +527,14 @@
               }
             }
           }
-          .commnet-body {
+          .comment-body {
             font-size: 14px;
             margin-top: 8px;
             letter-spacing: -0.4px;
             color: #303030;
+            p {
+              word-break: keep-all;
+            }
           }
           .comment-footer {
             margin-top: 8px;
