@@ -326,6 +326,8 @@ $(function(){
     if($grecaptcha_control.length > 0) {
       options['submitHandler'] = function (form) {
         var str_widget_id = $grecaptcha_control.data('grecaptcha_widget_id');
+        console.log("========");
+        console.log(str_widget_id);
         if(typeof str_widget_id != 'undefined') {
           var widget_id = parseInt(str_widget_id, 10);
           if (grecaptcha.getResponse(widget_id)) {
