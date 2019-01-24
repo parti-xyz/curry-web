@@ -127,6 +127,9 @@
       display: none;
     }
   }
+  .tab-content {
+    border: 0;
+  }
 
   .section-info {
     background-color: white;
@@ -316,9 +319,15 @@
         align-items: center;
         position: relative;
         color: $gray-menu;
+        a {
+          color: $gray-menu;
+        }
         &.active {
           border-bottom: 3px solid $color-brand-primary;
           color: $color-brand-primary-active;
+          a {
+            color: $color-brand-primary-active;
+          }
         }
         .menu-item {
           position: relative;
@@ -694,6 +703,320 @@
       border-radius: 20px;
       background-size: cover;
       background-position: center;
+    }
+  }
+
+  .section-signer {
+    .section-title {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -1.6px;
+      color: #303030;
+      padding-bottom: 33px;
+      border-bottom: 1px dashed #dedede;
+    }
+    .signers {
+      .signer {
+        border-bottom: 1px dashed #dedede;
+        padding: 15px 0 16px;
+        .signer-header {
+          margin-top: 6px;
+          display: flex;
+          justify-content: space-between;
+          .signer-image {
+            vertical-align: middle;
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            border-radius: 20px;
+            background-size: cover;
+            background-position: center;
+          }
+          .nickname {
+            margin-left: 4px;
+            display: inline;
+            line-height: 24px;
+            font-size: 14px;
+            letter-spacing: -0.6px;
+            font-weight: 500;
+          }
+          .date {
+            display: inline;
+            margin-left: 4px;
+            font-size: 11px;
+            letter-spacing: -0.4px;
+            color: #aaaaaa;
+            vertical-align: middle;
+          }
+          .count {
+            display: inline;
+            font-size: 11px;
+            letter-spacing: -0.4px;
+            color: blue;
+            line-height: 32px;
+          }
+        }
+        .signer-word {
+          font-size: 14px;
+          margin: 8px 0 0 40px;
+          letter-spacing: -0.4px;
+          color: #303030;
+          p {
+            word-break: keep-all;
+          }
+        }
+      }
+    }
+  }
+
+  .section-orders-tab {
+    .orders-tab-title {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -1.6px;
+      color: #303030;
+      margin: 0;
+    }
+    .title-wrap {
+      display: flex;
+      justify-content: space-between;
+    }
+    .orders-tab-title-h5 {
+      margin: 32px 0 0;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: -1px;
+      color: #666666; // #303030; need a hex code
+      .title-left {}
+      .title-right {
+        font-weight: normal;
+        .response-header-text {
+          margin-right: 8px;
+          display: inline-block;
+          font-size: 14px;
+          letter-spacing: -0.4px;
+          color: #717171;
+          line-height: 27px;
+        }
+        .response-header-btn {
+          font-size: 12px;
+          letter-spacing: 0.2px;
+          color: white;
+          background-color: #8b8b8b;
+          display: inline-block;
+          width: 61px;
+          text-align: center;
+          line-height: 24px;
+        }
+      }
+    }
+    .orders-top3 {
+      padding: 40px;
+      border: 1px solid #dedede;
+      margin: 8px 0 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 232px;
+      .order-info {
+        justify-content: space-between;
+        display: flex;
+        .order-image {
+          @extend .user-image-sm;
+          width: 40px;
+          height: 40px;
+        }
+        .order-bar {
+          height: 40px;
+          width: calc(100% - 91px);
+          padding: 16px 8px;
+          .order-bar-count {
+            border-radius: 4px;
+            width: 100%;
+            background-color: #dedede;
+            height: 8px;
+            .order-count {
+              border-radius: 4px;
+              width: 40%;
+              background-color: #2575ef;
+              height: 8px;
+            }
+          }
+        }
+        .order-count-label {
+          line-height: 40px;
+          width: 51px;
+          font-size: 12px;
+          text-align: right;
+        }
+      }
+    }
+    .response-present {
+      padding: 43px 0 40px;
+      margin: 8px 0 0;
+      border: 1px solid #dedede;
+      .response-counts {
+        display: flex;
+        @media (max-width: $screen-sm) {
+          display: inline;
+        }
+        justify-content: space-between;
+        margin: 0 88px;
+        @media (min-width: $screen-sm) and (max-width: $screen-md-min) {
+          margin: 0 5%;
+        }
+        .response-count {
+          display: flex;
+          height: 34px;
+          @media (max-width: $screen-sm) {
+            position: relative;
+            margin-left: 50%;
+            left: -60px;
+          }
+          .response-tag {
+            margin: 3px 0;
+            line-height: 34px;
+            width: 60px;
+            display: inline;
+            color: white;
+            font-size: 16px;
+            letter-spacing: -0.5px;
+            display: inline-block;
+            text-align: center;
+          }
+          .agree { background-color: #13d1a7; }
+          .disagree { background-color: #e74c3c; }
+          .noresponse { background-color: #f7a329; }
+          .count {
+            margin-left: 8px;
+            height: 34px;
+            display: inline;
+            font-size: 28px;
+            font-weight: 500;
+            letter-spacing: -1.8px;
+            color: #303030;
+          }
+        }
+      }
+      .response-text {
+        width: 221px;
+        margin: 24px auto 0;
+        color: #717171;
+        font-size: 14px;
+      }
+      .response-btn {
+        margin: 12px auto 0;
+        border: 1px solid #2575ef;
+        font-size: 14px;
+        color: #2575ef;
+        width: 167px;
+        text-align: center;
+        height: 32px;
+        line-height: 32px;
+      }
+    }
+    .agents {
+      .agent {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border: 1px solid #e0e0e0;
+        margin-bottom: 8px;
+        .agent-left {
+          height: 56px;
+        }
+        .agent-unsure {
+          position: relative;
+          top: -4px;
+          left: -4px;
+          display: inline-block;
+          line-height: 17px;
+          height: 17px;
+          width: 38px;
+          text-align: center;
+          font-size: 11px;
+          background-color: #f7a329;
+          color: white;
+          letter-spacing: -0.4px;
+        }
+        .agent-disagree {
+          position: relative;
+          top: -4px;
+          left: -4px;
+          display: inline-block;
+          line-height: 17px;
+          height: 17px;
+          width: 38px;
+          text-align: center;
+          font-size: 11px;
+          background-color: #e74c3c;
+          color: white;
+          letter-spacing: -0.4px;
+        }
+        .agent-agree {
+          position: relative;
+          top: -4px;
+          left: -4px;
+          display: inline-block;
+          line-height: 17px;
+          height: 17px;
+          width: 38px;
+          text-align: center;
+          font-size: 11px;
+          background-color: #2575ef;
+          color: white;
+          letter-spacing: -0.4px;
+        }
+        .agent-image {
+          width: 56px;
+          height: 56px;
+          flex: none;
+        }
+        .agent-info {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-left: 11px;
+          margin-right: auto;
+          .agent-name {
+            font-size: 16px;
+            letter-spacing: 1px;
+            font-weight: 500;
+            color: #303030;
+            display: inline;
+          }
+          .statement-btn {
+            display: inline;
+          }
+          .agent-organization {
+            font-size: 11px;
+            letter-spacing: -0.4px;
+            color: #717171;
+          }
+        }
+
+        .agent-order-btn {
+          flex: none;
+          border: 1px solid #2575ef;
+          font-size: 12px;
+          font-weight: 500;
+          letter-spacing: 0.2px;
+          color: #2575ef;
+          text-align: center;
+          margin: 12px 0;
+          padding: 8px;
+          width: 112px;
+          height: 32px;
+        }
+      }
+    }
+    .more {
+      cursor: pointer;
+      margin-top: 16px;
+      text-align: center;
+      font-size: 14px;
+      letter-spacing: -0.4px;
+      color: #717171;
     }
   }
 }
