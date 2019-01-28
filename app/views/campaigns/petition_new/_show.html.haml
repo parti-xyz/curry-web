@@ -29,16 +29,17 @@
     %li
       .menu-item
         %a{ "data-toggle" => "tab", "href" => "#content" } 내용
-    %li.active
+    %li
       .menu-item
         %a{ "data-toggle" => "tab", "href" => "#order" } 촉구
     %li
       .menu-item
-        의견
-        - if @campaign.comments.any?
-          %span.count
-            = number_with_limit(@campaign.comments.count, 1000)
-    %li
+        %a{ "data-toggle" => "tab", "href" => "#comment" }
+          의견
+          - if @campaign.comments.any?
+            %span.count
+              = number_with_limit(@campaign.comments.count, 1000)
+    %li.active
       .menu-item
         %a{ "data-toggle" => "tab", "href" => "#story" } 소식
     %li
@@ -119,12 +120,15 @@
         .section-title
           캠페인 촉구
         .order-title
-          지금
-          %span.underline
-            #{@campaign.agents.first.name}
-            - if @campaign.agents.count > 1
-              외 #{@campaign.agents.count - 1}
-          에 촉구해 주세요
+          - if @campaign.agents.any?
+            지금
+            %span.underline
+              #{@campaign.agents.first.name}
+              - if @campaign.agents.count > 1
+                외 #{@campaign.agents.count - 1}
+            에 촉구해 주세요
+          - else
+            촉구 대상를 알려주세요.
         .order-info
           - order_users_with_name = @campaign.comments.joins(:orders).where.not(commenter_name: nil).order("comment_id desc").limit(3)
           - count_order_users = @campaign.comments.joins(:orders).select(:commenter_name, :commenter_email).distinct.count
@@ -153,13 +157,16 @@
             - agents.shuffle.take(3).each do |agent|
               .agent
                 .agent-image{ style: "background-image:url(#{asset_url(agent.image_url(:md))});" }
-                  - case @campaign.statement_of(agent).stance
-                  - when "unsure"
-                    .agent-unsure 무응답
-                  - when "disagree"
-                    .agent-disagree 반대
-                  - when "agree"
-                    .agent-agree 찬성
+                  - unless @campaign.statement_of(agent).present?
+                    .agent-unsure 없음
+                  - else
+                    - case @campaign.statement_of(agent).stance
+                    - when "unsure"
+                      .agent-unsure 무응답
+                    - when "disagree"
+                      .agent-disagree 반대
+                    - when "agree"
+                      .agent-agree 찬성
                 .agent-info
                   .agent-name= agent.name
                   / 소속 이름이 비어있는 경우는?
@@ -253,45 +260,47 @@
                   .comment-footer
                     = render 'likes/button', likable: comment
 
-    #order.tab-pane.fade.in.active
+    #order.tab-pane.fade
       %section.section-orders-tab
-        .orders-tab-title 지금 스타벅스외 27 촉구하기에 참여해 보세요!
+        .orders-tab-title
+          - if @campaign.agents.any?
+            지금 #{@campaign.agents.first.name}
+            - if @campaign.agents.count > 1
+              외 #{@campaign.agents.count - 1}
+            에 촉구해 주세요
+          - else
+            촉구 대상자를 알려주세요.
         .orders-tab-title-h5 촉구 많이한 회원 TOP3
-        .orders-top3
-          .order-info
-            .order-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
-            .order-bar
-              .order-bar-count
-                .order-count
-            .order-count-label 12회 촉구
-          .order-info
-            .order-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
-            .order-bar
-              .order-bar-count
-                .order-count
-            .order-count-label 12회 촉구
-          .order-info
-            .order-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
-            .order-bar
-              .order-bar-count
-                .order-count
-            .order-count-label 12회 촉구
+        - if @campaign.agents.any?
+          .orders-top3
+            - order_count_max = Order.where(comment: @campaign.comments).group(:comment_id).order('count_all desc').limit(1).count.first[1]
+            - Order.where(comment: @campaign.comments).group(:comment_id).order('count_all desc').order('comment_id desc').limit(3).count.each do |comment_id, comment_count|
+              .order-info
+                .order-image{ style: "background-image:url(#{asset_url(Comment.find(comment_id).user_image)});" }
+                .order-bar
+                  .order-bar-count
+                    .order-count{ style: "width: #{comment_count / order_count_max * 100}%"}
+                .order-count-label
+                  = Comment.find(comment_id).user_nickname
+                  %br
+                  #{comment_count}회 촉구
         .orders-tab-title-h5 촉구 응답 현황
         .response-present
           .response-counts
             .response-count
               .response-tag.agree 찬성
-              .count 300
+              .count= Campaign.find(79).statements.group(:stance).count['agree'] || 0
             .response-count
               .response-tag.disagree 반대
-              .count 120
+              .count= Campaign.find(79).statements.group(:stance).count['disagree'] || 0
             .response-count
-              .response-tag.noresponse 찬성
-              .count 50
+              .response-tag.noresponse 무응답
+              .count= Campaign.find(79).statements.group(:stance).count['unsure'] || 0
           .response-text
             반대, 무응답자를 한번에 촉구해보세요.
           .response-btn
-            23명 모두에게 촉구하기
+            #{@campaign.agents.count}명
+            모두에게 촉구하기
         .orders-tab-title-h5.title-wrap
           .title-left 촉구하기-답변보기
           .title-right
@@ -299,34 +308,146 @@
               촉구 대상 중 한 분인가요?
             .response-header-btn
               답변하기
-        .agents
-          .agent
-            .agent-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
-              .agent-unsure 무응답
-            .agent-info
-              .agent-name 홍길동
-              .agent-orginaztion 환경부, 환경부장관
-            .agent-order-btn 10번째로 촉구하기
-          .agent
-            .agent-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
-              .agent-disagree 반대
-            .agent-info
-              .agent-name 홍길동
-              .agent-orginaztion 환경부, 환경부장관
-            .agent-order-btn 10번째로 촉구하기
-          .agent
-            .agent-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
-              .agent-disagree 반대
-            .agent-info
-              .agent-name 홍길동
-              .agent-orginaztion 환경부, 환경부장관
-            .agent-order-btn 10번째로 촉구하기
-        .more 더보기
+        - if agents.any?
+          - agents.shuffle.each do |agent|
+            .agents
+              .agent
+                .agent-image{ style: "background-image:url(#{asset_url(agent.image_url(:md))});" }
+                  - unless @campaign.statement_of(agent).present?
+                    .agent-unsure 없음
+                  - else
+                    - case @campaign.statement_of(agent).stance
+                    - when "unsure"
+                      .agent-unsure 무응답
+                    - when "disagree"
+                      .agent-disagree 반대
+                    - when "agree"
+                      .agent-agree 찬성
+                .agent-info
+                  .agent-name= agent.name
+                  .agent-orginaztion= agent.organization
+                .agent-order-btn
+                  %a{"href": "#", "data-target" => "#agent-request-modal-#{agent.id}", "data-toggle" => "modal", :type => "button" }
+                    #{Order.where(agent_id: agent).where(comment_id: @campaign.comments).count + 1}번째로
+                    촉구하기
+              %div.modal.fade{id: "agent-request-modal-#{agent.id}", :role => "dialog", :tabindex => "-1"}
+                .modal-dialog{:role => "document"}
+                  .modal-content
+                    .modal-header
+                      %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                        %span{"aria-hidden" => "true"} &#215;
+                      %h4.modal-title
+                        = image_tag agent.image.md.url, style: "height: 36px;"
+                        %strong= agent.name
+                        %span.text-muted= agent.organization
+                        에게 촉구하기
+
+                    .modal-body
+                      .comments-form
+                        = form_for Comment.new, html: { class: 'gov-action-form-validation' } do |f|
+                          = f.hidden_field :commentable_type, value: 'Campaign'
+                          = f.hidden_field :commentable_id, value: @campaign.id
+                          = f.hidden_field :target_agent_id, value: agent.id
+                          .gov-action-form-grecaptcha
+                          - unless user_signed_in?
+                            .form-group
+                              = f.label :commenter_name
+                              = f.text_field :commenter_name, class: 'form-control', data: { 'rule-required': true }
+                            .form-group
+                              = f.label :commenter_email, agent.email.present? ? "이메일(#{agent.name}님에게 메일을 발송하려면 반드시 넣어주세요)" : nil
+                              = f.text_field :commenter_email, class: 'form-control'
+                          .form-group
+                            ~ f.text_area :body, placeholder: '촉구합니다...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), data: { 'rule-required': true }
+                          - if agent.email.present?
+                            .form-group
+                              .checkbox
+                                %label
+                                  = f.check_box :mailing, { checked: true }, 'ready', 'disable'
+                                  #{agent.name}님에게 메일로도 발송합니다.
+                          = f.submit '작성', class: 'btn btn-primary btn-block'
+
+          .more 더보기
 
     #comment.tab-pane.fade
-      %h3 의견달기
-    #story.tab-pane.fade
-      %h3 소식
+      %section.section-comments
+        .section-title
+          의견
+        = form_for Comment.new, html: { class: 'comment-form' } do |f|
+          .commenter-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:xs))});" }
+          = f.hidden_field :commentable_type, value: "Campaign"
+          = f.hidden_field :commentable_id, value: @campaign.id
+          .comment-right
+            %a{"class": "comment-box", "href": "#", "data-target" => "#agent-request-modal-comment", "data-toggle" => "modal" }
+            = f.submit '등록', class: 'comment-submit-btn'
+        .comments
+          - @campaign.comments.recent.limit(10).each do |comment|
+            .comment
+              .comment-controls
+                %a
+                  삭제
+                %a
+                  신고
+                %a
+                  긴급신고
+                %a
+                  박제
+              .comment-form
+                .commenter-image{ style: "background-image:url(#{asset_url(comment.user_image)});" }
+                .comment-right
+                  .comment-header
+                    .nickname
+                      = comment.user_nickname
+                      - if comment.target_agents.any?
+                        .comment-agent
+                          = comment.target_agents.shuffle.first.name
+                          - if comment.target_agents.count > 1
+                            외 #{comment.target_agents.count - 1}
+                          에 촉구
+                    %span.sign-info
+                      / comment로 알 수 있는 건.... 촉구? 서명?
+                      - if Order.where(comment: comment).present?
+                        #{Order.where(comment: @campaign.comments).where("comment_id <= ?", comment.id).select(:comment_id).distinct.count}번째 서명자
+                      .date= date_f comment.updated_at
+                  .comment-body
+                    = raw comment.body
+                  .comment-footer
+                    = render 'likes/button', likable: comment
+
+    #story.tab-pane.fade.in.active
+      %section.section-story
+        .section-title 캠페인 소식을 만나 보세요!
+        .stories
+          .story
+            .story-header
+              .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+              .user-nickname 홍길동
+              .date 3일전
+            .story-title 캠페인 서명자 5명을 모아주세요.
+            .story-body
+              이기적인 사회에 따뜻한 마중물이 된 마음을 가진 분 5분이 서명하도록 공유해주세요. 5분이 서명하면 1,000명 서명 모으기 목표가 달성되어 좀 더 나아갈 수 있습니다. 가크인의 적극적인 참여 부탁드려요.
+            .story-footer
+              = render 'likes/button', likable: @campaign.comments.first
+          .story
+            .story-header
+              .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+              .user-nickname 홍길동
+              .date 3일전
+            .story-title 캠페인 서명자 5명을 모아주세요.
+            .story-body
+              이기적인 사회에 따뜻한 마중물이 된 마음을 가진 분 5분이 서명하도록 공유해주세요. 5분이 서명하면 1,000명 서명 모으기 목표가 달성되어 좀 더 나아갈 수 있습니다. 가크인의 적극적인 참여 부탁드려요.
+            .story-footer
+              = render 'likes/button', likable: @campaign.comments.first
+          .story
+            .story-header
+              .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+              .user-nickname 홍길동
+              .date 3일전
+            .story-title 캠페인 서명자 5명을 모아주세요.
+            .story-body
+              이기적인 사회에 따뜻한 마중물이 된 마음을 가진 분 5분이 서명하도록 공유해주세요. 5분이 서명하면 1,000명 서명 모으기 목표가 달성되어 좀 더 나아갈 수 있습니다. 가크인의 적극적인 참여 부탁드려요.
+            .story-footer
+              = render 'likes/button', likable: @campaign.comments.last
+
     #signer.tab-pane.fade
       %section.section-signer
         .section-title

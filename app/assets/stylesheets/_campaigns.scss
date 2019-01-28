@@ -844,7 +844,6 @@
           }
         }
         .order-count-label {
-          line-height: 40px;
           width: 51px;
           font-size: 12px;
           text-align: right;
@@ -1017,6 +1016,65 @@
       font-size: 14px;
       letter-spacing: -0.4px;
       color: #717171;
+    }
+  }
+  .section-story {
+    .section-title {
+      font-size: 14px;
+      letter-spacing: -0.6px;
+      font-weight: 500;
+      color: #303030;
+      line-height: 24px;
+    }
+    .stories {
+      .story {
+        padding: 16px;
+        border: 1px solid #dedede;
+        margin-top: 8px;
+        .story-header {
+          .user-image-sm {
+            display: inline-block;
+            vertical-align: middle;
+          }
+          .user-nickname {
+            display: inline;
+            font-size: 14px;
+            letter-spacing: -0.6px;
+            color: #303030;
+          }
+          .date {
+            display: inline;
+            font-size: 11px;
+            margin-left: 4px;
+            color: #dedede;
+            letter-spacing: -0.4px;
+          }
+        }
+        .story-title {
+          font-weight: 500;
+          margin-top: 6px;
+          font-size: 16px;
+          letter-spacing: -1px;
+          color: #303030;
+        }
+        .story-body {
+          color: #303030;
+          font-size: 14px;
+          letter-spacing: -0.4px;
+          margin-top: 8px;
+          line-height: 20px;
+        }
+        .story-footer {
+          .liked {
+            display: inline;
+            color: #2575ef;
+          }
+          .not-yet-liked {
+            display: inline;
+            color: #717171;
+          }
+        }
+      }
     }
   }
 }
