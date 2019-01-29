@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181120115116) do
+ActiveRecord::Schema.define(version: 20190129142445) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -869,12 +869,14 @@ ActiveRecord::Schema.define(version: 20181120115116) do
 
   create_table "signer_emails", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string   "title"
-    t.text     "body",        limit: 65535
-    t.boolean  "draft",                     default: true
+    t.text     "body",                  limit: 65535
+    t.boolean  "draft",                               default: true
     t.integer  "user_id"
     t.integer  "campaign_id"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.integer  "likes_count",                         default: 0
+    t.integer  "anonymous_likes_count",               default: 0
     t.index ["campaign_id"], name: "index_signer_emails_on_campaign_id", using: :btree
     t.index ["user_id"], name: "index_signer_emails_on_user_id", using: :btree
   end
