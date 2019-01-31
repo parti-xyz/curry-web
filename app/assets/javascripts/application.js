@@ -29,6 +29,7 @@
 //= require perfect-scrollbar
 //= require jquery.waypoints
 //= require sticky
+//= require infinite
 
 UnobtrusiveFlash.flashOptions['timeout'] = 3000;
 
@@ -456,6 +457,10 @@ $(function(){
       direction: 'up',
       offset: 'bottom-in-view'
     })
+  }
+
+  if ($('.infinite-container').length > 0) {
+    var infinite = new Waypoint.Infinite( { element: $('.infinite-container')[0] } );
   }
 
 });

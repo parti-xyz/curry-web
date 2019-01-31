@@ -120,3 +120,136 @@
     word-break: break-all;
   }
 }
+
+.section-comments {
+  padding: 20px 16px;
+  background-color: white;
+  margin-top: 8px;
+  .section-title {
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: -0.6px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .comment-form {
+    display: flex;
+    padding-bottom: 16px;
+    .commenter-image {
+      width: 32px;
+      height: 32px;
+      border-radius: 20px;
+      background-size: cover;
+      background-position: center;
+    }
+    .comment-right {
+      width: 100%;
+      margin-left: 8px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+    }
+    .comment-box {
+      margin-bottom: 8px;
+      border: 1px solid #dedede;
+      background-color: #fafafa;
+      height: 68px;
+    }
+    .comment-submit-btn {
+      font-size: 12px;
+      padding: 8px 16px;
+      background-color: #717171;
+      border-radius: 2px;
+      width: 55px;
+      height: 32px;
+      text-align: center;
+      color: white;
+      margin: 0 0 0 auto;
+    }
+  }
+  .comment {
+    border-top: 1px dashed #dedede;
+    .comment-controls {
+      flex: none;
+      margin: 0 0 0 auto;
+      word-spacing: 16px;
+      text-align: right;
+      a {
+        font-size: 11px;
+        letter-spacing: -0.4px;
+        color: #717171;
+      }
+      a:hover {
+        cursor: pointer;
+      }
+    }
+    .comment-form {
+      .comment-right {
+        .comment-header {
+          margin-top: 6px;
+          .nickname {
+            line-height: 24px;
+            font-size: 14px;
+            letter-spacing: -0.6px;
+            font-weight: 500;
+            .comment-agent {
+              display: inline;
+              vertical-align: middle;
+              line-height: 16px;
+              height: 17px;
+              margin-left: 8px;
+              font-weight: normal;
+              padding: 0 4px;
+              font-size: 11px;
+              letter-spacing: -0.4px;
+              color: white;
+              background-color: #1f88ff;
+            }
+          }
+          .sign-info {
+            font-size: 11px;
+            letter-spacing: -0.4px;
+            color: #2575ef;
+            .date {
+              display: inline;
+              margin-left: 4px;
+              color: #aaaaaa;
+              vertical-align: middle;
+            }
+          }
+        }
+        .comment-body {
+          font-size: 14px;
+          margin-top: 8px;
+          letter-spacing: -0.4px;
+          color: #303030;
+          p {
+            word-break: keep-all;
+          }
+        }
+        .comment-footer {
+          margin-top: 8px;
+          li {
+            width: 16px;
+            height: 16px;
+          }
+          .liked {
+            display: inline;
+            color: #2575ef;
+          }
+          .not-yet-liked {
+            display: inline;
+            color: #717171;
+          }
+        }
+      }
+    }
+  }
+  .commenter-image {
+    width: 32px;
+    height: 32px;
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+  }
+}

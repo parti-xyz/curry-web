@@ -11,6 +11,7 @@ class CommentsController < ApplicationController
       @commentable = @commentable_model.find(params[:commentable_id])
       @comments = @commentable.comments.page(params[:page])
       @comments = @comments.with_target_agent(Agent.find_by(id: params[:agent_id])) if params[:agent_id].present?
+      @test = params[:test]
     end
   end
 
@@ -105,7 +106,8 @@ class CommentsController < ApplicationController
       :full_street_address,
       :tag_list, :image,
       :target_agent_id, :mailing,
-      :toxic
+      :toxic,
+      :test
     )
   end
 end

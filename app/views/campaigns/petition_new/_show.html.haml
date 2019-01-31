@@ -394,9 +394,9 @@
           .comment-right
             %a{"class": "comment-box", "href": "#", "data-target" => "#agent-request-modal-comment", "data-toggle" => "modal" }
             = f.submit '등록', class: 'comment-submit-btn'
-        .comments
-          - @campaign.comments.recent.limit(10).each do |comment|
-            .comment
+        .comments.infinite-container
+          - @campaign.comments.page(1).each do |comment|
+            .comment.infinite-item
               .comment-controls
                 %a
                   삭제
@@ -427,6 +427,8 @@
                     = raw comment.body
                   .comment-footer
                     = render 'likes/button', likable: comment
+        - unless @campaign.comments.page(1).last_page?
+          = link_to '', comments_path(commentable_id: @campaign.id, commentable_type: 'Campaign', page: 2, test: 'signs'), class: "infinite-more-link"
 
     #story.tab-pane.fade.in.active
       %section.section-story
