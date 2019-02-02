@@ -3,6 +3,8 @@
     .comments.infinite-container
       - @comments.each do |comment|
         .comment.infinite-item
+          - if comment.target_agents.any?
+            = hidden_field_tag 'filter-agents', comment.target_agents.select(:name).map{ |x| x.name }.to_json
           .comment-controls
             %a
               삭제

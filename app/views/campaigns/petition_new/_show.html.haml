@@ -394,9 +394,18 @@
           .comment-right
             %a{"class": "comment-box", "href": "#", "data-target" => "#agent-request-modal-comment", "data-toggle" => "modal" }
             = f.submit '등록', class: 'comment-submit-btn'
+        .comment-filter
+          = select_tag "CommentTarget", options_from_collection_for_select(@campaign.agents, :name, :name), class: 'filter-select-agent', include_blank: true, prompt: '촉구대상별 보기'
+          .filters
+            .filter-order-by
+              .order-by-recent 최신순
+              .order-by-like-count 공감순
+            .my-comment 내 글 보기
         .comments.infinite-container
           - @campaign.comments.page(1).each do |comment|
             .comment.infinite-item
+              - if comment.target_agents.any?
+                = hidden_field_tag 'filter-agents', comment.target_agents.select(:name).map{ |x| x.name }.to_json
               .comment-controls
                 %a
                   삭제

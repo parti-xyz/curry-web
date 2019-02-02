@@ -463,6 +463,35 @@ $(function(){
     var infinite = new Waypoint.Infinite( { element: $('.infinite-container')[0] } );
   }
 
+  if ($('#CommentTarget').length > 0) {
+    $('#CommentTarget').change(
+      function() {
+        var target = this.value
+        if (target == "") {
+          $('#comment .comment').filter(
+            function() {
+              $(this).toggle(true)
+            }
+          )
+        } else {
+          $('#comment .comment').filter(
+            function() {
+              if (this.children['filter-agents']) {
+                $(this).toggle(
+                  JSON.parse(
+                    this.children['filter-agents'].value
+                  ).indexOf(target) > -1
+                )
+              } else {
+                $(this).toggle(false)
+              }
+            }
+          )
+        }
+      }
+    )
+  }
+
 });
 
 $(document).ajaxError(function (e, xhr, settings) {

@@ -619,6 +619,40 @@
         margin: 0 0 0 auto;
       }
     }
+    .comment-filter {
+      border-top: 1px dashed #f0f0f0;
+      padding: 16px 0;
+      .filter-select-agent {
+        font-size: 14px;
+        letter-spacing: -0.6px;
+        color: #717171;
+        background-color: white;
+        padding: 9px 8px 7px;
+        border: 1px solid #dedede;
+        width: 100%;
+      }
+      .filters {
+        margin-top: 4px;
+        display: flex;
+        justify-content: space-between;
+        .filter-order-by {
+          letter-spacing: -0.6px;
+          font-size: 14px;
+          display: flex;
+          color: #aaaaaa;
+          .order-by-recent {
+            color: #303030;
+            font-weight: 500;
+          }
+          .order-by-like-count {
+            margin-left: 16px;
+          }
+        }
+        .my-comment {
+          text-decoration: underline;
+        }
+      }
+    }
     .comment {
       border-top: 1px dashed #dedede;
       .comment-controls {
