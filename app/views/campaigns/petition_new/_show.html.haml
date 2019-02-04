@@ -47,14 +47,14 @@
     %li
       .menu-item
         %a{ "data-toggle" => "tab", "href" => "#order" } 촉구
-    %li
+    %li.atcive
       .menu-item
         %a{ "data-toggle" => "tab", "href" => "#comment" }
           의견
           - if @campaign.comments.any?
             %span.count
               = number_with_limit(@campaign.comments.count, 1000)
-    %li.active
+    %li
       .menu-item
         %a{ "data-toggle" => "tab", "href" => "#story" } 소식
     %li
@@ -383,7 +383,7 @@
 
           .more 더보기
 
-    #comment.tab-pane.fade
+    #comment.tab-pane.fade.in.active
       %section.section-comments
         .section-title
           의견
@@ -400,12 +400,15 @@
             .filter-order-by
               .order-by-recent 최신순
               .order-by-like-count 공감순
-            .my-comment 내 글 보기
+            - if user_signed_in?
+              .my-comment 내 글 보기
         .comments.infinite-container
-          - @campaign.comments.page(1).each do |comment|
+          - @campaign.comments.recent.page(1).each do |comment|
             .comment.infinite-item
               - if comment.target_agents.any?
                 = hidden_field_tag 'filter-agents', comment.target_agents.select(:name).map{ |x| x.name }.to_json
+              = hidden_field_tag 'sort-date', comment.updated_at.to_i
+              = hidden_field_tag 'sort-like', comment.merged_likes_count
               .comment-controls
                 %a
                   삭제
@@ -439,7 +442,7 @@
         - unless @campaign.comments.page(1).last_page?
           = link_to '', comments_path(commentable_id: @campaign.id, commentable_type: 'Campaign', page: 2, test: 'signs'), class: "infinite-more-link"
 
-    #story.tab-pane.fade.in.active
+    #story.tab-pane.fade
       %section.section-story
         .section-title 캠페인 소식을 만나 보세요!
         .stories

@@ -492,6 +492,40 @@ $(function(){
     )
   }
 
+  $('.order-by-recent').click(function () {
+    comments = $('#comment .comments').children('.comment').get()
+    comments.sort(function(a, b) {
+      return b.children['sort-date'].value - a.children['sort-date'].value
+    })
+    $.each(comments, function(i,x) { $('#comment .comments').append(x) })
+    $('.order-by-recent').css('color', '#303030')
+    $('.order-by-recent').css('font-weight', '500')
+    $('.order-by-like-count').css('color', '#aaaaaa')
+    $('.order-by-like-count').css('font-weight', 'initial')
+  })
+
+  $('.order-by-like-count').click(function () {
+    comments = $('#comment .comments').children('.comment').get()
+    comments.sort(function(a, b) {
+      return b.children['sort-like'].value - a.children['sort-like'].value
+    })
+    $.each(comments, function(i,x) { $('#comment .comments').append(x) })
+    $('.order-by-like-count').css('color', '#303030')
+    $('.order-by-like-count').css('font-weight', '500')
+    $('.order-by-recent').css('color', '#aaaaaa')
+    $('.order-by-recent').css('font-weight', 'initial')
+  })
+
+  $('.my-comment').click(function() {
+    $.ajax({
+      url: 'http://govcraft.test/comments?commentable_id=79&commentable_type=Campaign&page=1&test=signs&comment_user_id=997'
+    }).done(function(data) {
+      comments = $('.infinite-item', data).get()
+      $.each($('#comment .comment').get(), function(i,x) { x.remove() })
+      $.each(comments, function(i,x) { $('#comment .comments').append(x) })
+    })
+  })
+
 });
 
 $(document).ajaxError(function (e, xhr, settings) {

@@ -9,7 +9,11 @@ class CommentsController < ApplicationController
       @commentable_model = params[:commentable_type].classify.safe_constantize
       render_404 and return if @commentable_model.blank?
       @commentable = @commentable_model.find(params[:commentable_id])
-      @comments = @commentable.comments.page(params[:page])
+      if params[:comment_user_id].present?
+        @comments = @commentable.comments.where(user: User.find(params[:comment_user_id])).recent.page(params[:page])
+      else
+        @comments = @commentable.comments.recent.page(params[:page])
+      end
       @comments = @comments.with_target_agent(Agent.find_by(id: params[:agent_id])) if params[:agent_id].present?
       @test = params[:test]
     end
@@ -107,7 +111,7 @@ class CommentsController < ApplicationController
       :tag_list, :image,
       :target_agent_id, :mailing,
       :toxic,
-      :test
+      :test, :comment_user_id
     )
   end
 end

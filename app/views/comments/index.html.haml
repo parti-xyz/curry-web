@@ -5,6 +5,8 @@
         .comment.infinite-item
           - if comment.target_agents.any?
             = hidden_field_tag 'filter-agents', comment.target_agents.select(:name).map{ |x| x.name }.to_json
+          = hidden_field_tag 'sort-date', comment.updated_at.to_i
+          = hidden_field_tag 'sort-like', comment.merged_likes_count
           .comment-controls
             %a
               삭제
