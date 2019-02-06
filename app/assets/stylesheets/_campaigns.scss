@@ -136,6 +136,29 @@
     .campaign-progress {
       padding: 24px 16px 40px;
     }
+    .campaign-time-to-left {
+      font-size: 14px;
+      letter-spacing: -0.6px;
+      color: #aaaaaa;
+      margin-bottom: 16px;
+      .div {
+        display: inline;
+        margin-right: 4px;
+      }
+      .digit-to-left {
+        font-size: 18px;
+        letter-spacing: -1px;
+        font-weight: 500;
+        color: #303030;
+        display: inline;
+        margin-right: 4px;
+      }
+      .days {
+        font-size: 28px;
+        letter-spacing: -1.8px;
+        margin-right: 2px;
+      }
+    }
     .campaign-label {
       font-size: 16px;
       letter-spacing: -1px;

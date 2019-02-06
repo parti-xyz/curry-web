@@ -526,6 +526,17 @@ $(function(){
     })
   })
 
+  if ($('.campaign-time-to-left').length > 0) {
+    setInterval(function() {
+      var format = function(n) { if (n < 10) {return "0" + n} else return "" + n }
+      var diff = Math.floor(Math.abs(campaign_due_date - (new Date())) / 1000)
+      $('.campaign-time-to-left .days')[0].innerHTML = Math.floor(diff / (24 * 3600))
+      $('.campaign-time-to-left .hours')[0].innerHTML = format(Math.floor((diff % (24 * 3600)) / 3600))
+      $('.campaign-time-to-left .minutes')[0].innerHTML = format(Math.floor((diff % 3600) / 60))
+      $('.campaign-time-to-left .seconds')[0].innerHTML = format(Math.floor(diff % 60))
+    }, 1000)
+  }
+
 });
 
 $(document).ajaxError(function (e, xhr, settings) {

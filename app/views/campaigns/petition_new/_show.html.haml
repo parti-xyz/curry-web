@@ -68,7 +68,22 @@
 %section.section-panel
   %section.section-right
     %section.section-info
+      %script{ type: "text/javascript" }
+        :plain
+          var campaign_due_date = new Date('#{@campaign.created_at}')
       .campaign-progress
+        .campaign-time-to-left.phone-fold
+          / 캠페인 목표 서명수처럼 서명 기한(날짜)가 필요함.
+          남은 시간
+          %br
+          .digit-to-left.days
+            11
+          .div 일
+          .digit-to-left.hours 23
+          .div :
+          .digit-to-left.minutes 00
+          .div :
+          .digit-to-left.seconds 00
         .campaign-label
           .current-message
             현재 #{number_with_delimiter(@campaign.signs.count, delimiter:",")}명이 서명하였습니다.
@@ -209,7 +224,7 @@
                           = f.hidden_field :commentable_type, value: 'Campaign'
                           = f.hidden_field :commentable_id, value: @campaign.id
                           = f.hidden_field :target_agent_id, value: agent.id
-                          .gov-action-form-grecaptcha
+                          .gov-action-form-grecaptcha-x
                           - unless user_signed_in?
                             .form-group
                               = f.label :commenter_name
@@ -363,7 +378,7 @@
                           = f.hidden_field :commentable_type, value: 'Campaign'
                           = f.hidden_field :commentable_id, value: @campaign.id
                           = f.hidden_field :target_agent_id, value: agent.id
-                          .gov-action-form-grecaptcha
+                          .gov-action-form-grecaptcha-x
                           - unless user_signed_in?
                             .form-group
                               = f.label :commenter_name
@@ -523,7 +538,7 @@
           = form_for Comment.new, html: { class: 'gov-action-form-validation' } do |f|
             = f.hidden_field :commentable_type, value: 'Campaign'
             = f.hidden_field :commentable_id, value: @campaign.id
-            .gov-action-form-grecaptcha
+            .gov-action-form
             - unless user_signed_in?
               .form-group
                 = f.label :commenter_name
