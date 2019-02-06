@@ -118,6 +118,15 @@
       display: block;
     }
   }
+  .tablet-fold {
+    display: block;
+    @media (max-width: $screen-sm-max) {
+      display: none;
+    }
+    @media (min-width: $screen-sm) {
+      display: block;
+    }
+  }
   .tablet-hide {
     display: none;
     @media (max-width: $screen-sm-max) {
