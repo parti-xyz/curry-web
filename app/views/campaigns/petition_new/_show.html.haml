@@ -223,7 +223,7 @@
                           = f.hidden_field :commentable_type, value: 'Campaign'
                           = f.hidden_field :commentable_id, value: @campaign.id
                           = f.hidden_field :target_agent_id, value: agent.id
-                          .gov-action-form-grecaptcha-x
+                          .gov-action-form-grecaptcha
                           - unless user_signed_in?
                             .form-group
                               = f.label :commenter_name
@@ -377,7 +377,7 @@
                           = f.hidden_field :commentable_type, value: 'Campaign'
                           = f.hidden_field :commentable_id, value: @campaign.id
                           = f.hidden_field :target_agent_id, value: agent.id
-                          .gov-action-form-grecaptcha-x
+                          .gov-action-form-grecaptcha
                           - unless user_signed_in?
                             .form-group
                               = f.label :commenter_name
@@ -564,7 +564,7 @@
           - else
             = form_for Sign.new(campaign: @campaign), html: { class: 'gov-action-form-validation' } do |f|
               = f.hidden_field :campaign_id
-              .gov-action-form-grecaptcha-x
+              .gov-action-form-grecaptcha
               - if @campaign.use_signer_real_name?
                 .form-group
                   = f.label :signer_real_name, @campaign.signer_real_name_title.presence || t('activerecord.attributes.sign.signer_real_name')
