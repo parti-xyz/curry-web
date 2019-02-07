@@ -53,7 +53,7 @@
           의견
           - if @campaign.comments.any?
             %span.count
-              = number_with_limit(@campaign.comments.count, 1000)
+              = number_with_limit(@campaign.comments.size, 1000)
     %li
       .menu-item
         %a{ "data-toggle" => "tab", "href" => "#story" } 소식
@@ -63,7 +63,7 @@
           서명
           - if @campaign.signs.any?
             %span.count
-              = number_with_limit(@campaign.signs.count, 1000)
+              = number_with_limit(@campaign.signs.size, 1000)
 
 %section.section-panel
   %section.section-right
@@ -86,7 +86,7 @@
           .digit-to-left.seconds 00
         .campaign-label
           .current-message
-            현재 #{number_with_delimiter(@campaign.signs.count, delimiter:",")}명이 서명하였습니다.
+            현재 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}명이 서명하였습니다.
           - if @campaign.has_goal?
             #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}명
           서명에 동참해주세요.
@@ -102,7 +102,7 @@
               .signs-bar{ style: "width: #{@campaign.percentage}%" }
           .campaign-progress-meta.clearfix
             .signs-count
-              서명 #{number_with_delimiter(@campaign.signs.count, delimiter:",")}
+              서명 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}
             .goal-count
               목표 #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}
         .campaign-signs
@@ -506,7 +506,7 @@
     #signer.tab-pane.fade
       %section.section-signer
         .section-title
-          현재 #{@campaign.signs.count}명이 참여하고 있습니다.
+          현재 #{@campaign.signs.size}명이 참여하고 있습니다.
         .signers
           - @campaign.signs.order("id desc").limit(10).each do |sign|
             .signer

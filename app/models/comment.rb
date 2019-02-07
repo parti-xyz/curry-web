@@ -10,7 +10,7 @@ class Comment < ApplicationRecord
 
   geocoded_by :full_street_address
 
-  belongs_to :commentable, polymorphic: true
+  belongs_to :commentable, polymorphic: true, counter_cache: true
   belongs_to :user
   belongs_to :target_agent, optional: true, class_name: Agent
   has_many :target_agents, through: :orders, source: :agent
