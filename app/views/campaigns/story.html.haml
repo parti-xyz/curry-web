@@ -1,0 +1,292 @@
+%section.section-cover
+  .cover-overlay
+  - if @campaign.read_attribute(:cover_image).present?
+    .cover-image{ style: "background-image:url(#{asset_url(@campaign.cover_image_url(:lg))});" }
+  - else
+    .cover-image{ style: "background-image:url(#{asset_url("default-image.png")});" }
+  .info-container
+    .meta
+      - if @campaign.success?
+        .label
+          성공
+      .label
+        서명
+      - if @campaign.agents.any?
+        .agent-info
+          대상: #{@campaign.agents.first.name}
+          - if @campaign.agents.count > 1
+            외 #{@campaign.agents.count - 1}
+      - buttons = capture do
+        - if can? :edit, @campaign
+          = link_to edit_campaign_path(@campaign) do
+            %i.fa.fa-edit{ style: "color:white" }
+        - if can? :edit, @campaign
+          = link_to edit_agents_campaign_path(@campaign) do
+            %i.fa.fa-user{ style: "color:white" }
+        - if can? :mail_signs, @campaign
+          = link_to mail_form_campaign_signs_path(@campaign) do
+            %i.fa.fa-envelope{ style: "color:white" }
+        - if can? :destroy, @campaign
+          = link_to @campaign, method: :delete, data: { confirm: '삭제하시겠습니까?' } do
+            %i.fa.fa-trash{ style: "color:white" }
+      - if buttons.present?
+        = buttons
+
+    .campaign-title
+      = @campaign.title
+    .user
+      .user-image-xs{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+      .user-name
+        = @campaign.user.nickname
+
+%section.section-tab
+  %ul.menu.nav.nav-tabs
+    %li
+      .menu-item
+        = link_to '내용', content_campaign_path
+    %li
+      .menu-item
+        = link_to '촉구', order_campaign_path
+    %li
+      .menu-item
+        %a{ href: "#{comment_campaign_path}" }
+          의견
+          - if @campaign.comments.any?
+            %span.count
+              = number_with_limit(@campaign.comments.size, 1000)
+    %li.active
+      .menu-item
+        소식
+    %li
+      .menu-item
+        %a{ href: "#{signer_campaign_path}" }
+          서명
+          - if @campaign.signs.any?
+            %span.count
+              = number_with_limit(@campaign.signs.size, 1000)
+
+%section.section-panel
+  %section.section-right
+    %section.section-info
+      %script{ type: "text/javascript" }
+        :plain
+          var campaign_due_date = new Date('#{@campaign.created_at}')
+      .campaign-progress
+        .campaign-time-to-left.tablet-fold
+          / 캠페인 목표 서명수처럼 서명 기한(날짜)가 필요함.
+          남은 시간
+          %br
+          .digit-to-left.days
+            11
+          .div 일
+          .digit-to-left.hours 23
+          .div :
+          .digit-to-left.minutes 00
+          .div :
+          .digit-to-left.seconds 00
+        .campaign-label
+          .current-message
+            현재 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}명이 서명하였습니다.
+          - if @campaign.has_goal?
+            #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}명
+          서명에 동참해주세요.
+        - if @campaign.has_goal?
+          .campaign-progress-bar
+            .current-percent
+              #{@campaign.percentage}%
+            - if @campaign.success?
+              .success-badge
+                성공
+              .signs-bar{ style: "width: 100%" }
+            - else
+              .signs-bar{ style: "width: #{@campaign.percentage}%" }
+          .campaign-progress-meta.clearfix
+            .signs-count
+              서명 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}
+            .goal-count
+              목표 #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}
+        .campaign-signs
+          - @campaign.signs.recent.limit(3).each do |sign|
+            .campaign-sign
+              .signer-image{ style: "background-image:url(#{asset_url(sign.user_image_url)});" }
+              .signed-message
+                #{sign.user_name}님이 서명하셨습니다.
+        .campaign-sign-form.tablet-fold
+          .campaign-sign
+            .signer-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+            .signer-nickname
+              = @campaign.user.nickname
+          .campaign-sign-input.nickname{ style: "display: none" }
+            이름
+          .campaign-sign-input.email
+            이메일
+          .campaign-sign-input.word
+            %p 나도 한마디
+            %br
+          %button.btn.btn-danger.btn-lg.btn-block.campaign-sign-btn{"data-target" => "#sign-form-modal", "data-toggle" => "modal", :type => "button"} 서명하기
+          .campaign-sign-privacy-policy
+            서명하기를 누르시면 본 서명의
+            %a 개인정보취급방침
+            에 동의하게 됩니다.
+        .campaign-share.phone-fold
+          .campaign-share-text
+            많은 분들이 캠페인에 참여할 수 있도록 공유해주세요.
+          .campaign-share-buttons
+            %i.fa.fa-facebook-f.campaign-share-button
+            %i.fa.fa-twitter.campaign-share-button
+            %i.fa.fa-clipboard.campaign-share-button
+
+
+  %section.section-left.tab-content
+    #story.tab-pane.fade
+      %section.section-story
+        .section-title 캠페인 소식을 만나 보세요!
+        .stories
+          - SignerEmail.where(campaign_id: @campaign).each do |email|
+            .story
+              .story-header
+                .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+                .user-nickname= @campaign.user.nickname
+                .date= date_f email.updated_at
+              .story-title= email.title
+              .story-body
+                = raw email.body
+              .story-footer
+                = render 'likes/button', likable: email
+
+          / .story
+          /   .story-header
+          /     .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+          /     .user-nickname= @campaign.user.nickname
+          /     .date 3일전
+          /   .story-title 캠페인 서명자 5명을 모아주세요.
+          /   .story-body
+          /     이기적인 사회에 따뜻한 마중물이 된 마음을 가진 분 5분이 서명하도록 공유해주세요. 5분이 서명하면 1,000명 서명 모으기 목표가 달성되어 좀 더 나아갈 수 있습니다. 가크인의 적극적인 참여 부탁드려요.
+          /   .story-footer
+          /     = render 'likes/button', likable: @campaign.comments.first
+          / .story
+          /   .story-header
+          /     .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+          /     .user-nickname 홍길동
+          /     .date 3일전
+          /   .story-title 캠페인 서명자 5명을 모아주세요.
+          /   .story-body
+          /     이기적인 사회에 따뜻한 마중물이 된 마음을 가진 분 5분이 서명하도록 공유해주세요. 5분이 서명하면 1,000명 서명 모으기 목표가 달성되어 좀 더 나아갈 수 있습니다. 가크인의 적극적인 참여 부탁드려요.
+          /   .story-footer
+          /     = render 'likes/button', likable: @campaign.comments.first
+          / .story
+          /   .story-header
+          /     .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+          /     .user-nickname 홍길동
+          /     .date 3일전
+          /   .story-title 캠페인 서명자 5명을 모아주세요.
+          /   .story-body
+          /     이기적인 사회에 따뜻한 마중물이 된 마음을 가진 분 5분이 서명하도록 공유해주세요. 5분이 서명하면 1,000명 서명 모으기 목표가 달성되어 좀 더 나아갈 수 있습니다. 가크인의 적극적인 참여 부탁드려요.
+          /   .story-footer
+          /     = render 'likes/button', likable: @campaign.comments.last
+
+%section.section-sign-btn.js-sticky-sign-button.tablet-hide
+  %button.btn.btn-danger.btn-lg.btn-block.stuck.sign-btn{"data-target" => "#sign-form-modal", "data-toggle" => "modal", :type => "button"}
+    .sign-btn-text 서명하기
+
+%div.modal.fade{id: "agent-request-modal-comment", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &#215;
+        %h4.modal-title 의견 남기기
+
+      .modal-body
+        .comments-form
+          = form_for Comment.new, html: { class: 'gov-action-form-validation' } do |f|
+            = f.hidden_field :commentable_type, value: 'Campaign'
+            = f.hidden_field :commentable_id, value: @campaign.id
+            .gov-action-form
+            - unless user_signed_in?
+              .form-group
+                = f.label :commenter_name
+                = f.text_field :commenter_name, class: 'form-control', data: { 'rule-required': true }
+              .form-group
+                = f.label :commenter_email
+                = f.text_field :commenter_email, class: 'form-control'
+            .form-group
+              ~ f.text_area :body, placeholder: '제 생각은...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), data: { 'rule-required': true }
+            = f.submit '작성', class: 'btn btn-primary btn-block'
+
+- if user_signed_in? and @campaign.signed?(current_user)
+  .sign-panel__form
+    .alert.alert-warning
+      .text-center
+        참여하였습니다
+- else
+  - if @campaign.opened?
+    - sign_form_block = capture do
+      - if @campaign.sign_form_intro.present?
+        %p= @campaign.sign_form_intro
+      .sign-panel__form
+        .alert.alert-danger
+          - if user_signed_in? and @campaign.signed?(current_user)
+          - else
+            = form_for Sign.new(campaign: @campaign), html: { class: 'gov-action-form-validation' } do |f|
+              = f.hidden_field :campaign_id
+              .gov-action-form-grecaptcha
+              - if @campaign.use_signer_real_name?
+                .form-group
+                  = f.label :signer_real_name, @campaign.signer_real_name_title.presence || t('activerecord.attributes.sign.signer_real_name')
+                  = f.text_field :signer_real_name, placeholder: '실명..', class: 'form-control', data: { 'rule-required': true }
+              - else
+                - unless user_signed_in?
+                  .form-group
+                    = f.label :signer_name
+                    = f.text_field :signer_name, placeholder: '이름 혹은 별명..', class: 'form-control', data: { 'rule-required': true }
+              - if @campaign.use_signer_email?
+                - f.object.signer_email = current_user.try(:email)
+                .form-group
+                  = f.label :signer_email, @campaign.signer_email_title.presence || t('activerecord.attributes.sign.signer_email')
+                  = f.text_field :signer_email, placeholder: '이메일', class: 'form-control', data: { 'rule-required': true }
+              - if @campaign.use_signer_address?
+                .form-group
+                  = f.label :signer_address, @campaign.signer_address_title.presence || t('activerecord.attributes.sign.signer_address')
+                  = f.text_field :signer_address, placeholder: '주소', class: 'form-control', data: { 'rule-required': true }
+
+              - if @campaign.use_signer_phone?
+                .form-group
+                  = f.label :signer_phone, @campaign.signer_phone_title.presence || t('activerecord.attributes.sign.signer_phone')
+                  = f.text_field :signer_phone, placeholder: '연락처', class: 'form-control', data: { 'rule-required': true }
+
+              - if @campaign.id == 29
+                = f.hidden_field :extra_29_confirm_join, value: 1
+
+              .form-group
+                = f.label :body, @campaign.sign_title || Sign.human_attribute_name(:body)
+                = f.text_field :body, placeholder: '나는...', class: 'form-control'
+
+              - if @campaign.confirm_privacy.present?
+                %p{ style: "color: gray"}
+                  참여하시면 본 서명의
+                  %span#js-campaign-confirm-privacy
+                    개인정보취급방침
+                  에 동의하게 됩니다.
+                .form-group#js-campaign-confirm-privacy-body{style: "display: none;"}
+                  .panel
+                    .panel-body.text-muted
+                      != @campaign.confirm_privacy
+              .form-group
+                = f.submit "#{@campaign.signs_count+1}번째로 참여하기", class: 'btn btn-danger btn-lg btn-block', data: { disable_with: "진행 중..." }
+
+    #sign-form-modal.modal.fade{:role => "dialog", :tabindex => "-1"}
+      .modal-dialog{:role => "document"}
+        .modal-content
+          .modal-header
+            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+              %span{"aria-hidden" => "true"} &#215;
+            %h4.modal-title 참여하기
+          .modal-body
+            = sign_form_block
+  / - else
+  /   %section
+  /     %nav.navbar.navbar-default.navbar-fixed-bottom{ style: 'min-height: auto; background: transparent; border: 0;'}
+  /       %div{ style: 'margin: 10px; box-shadow: 0 0 24px rgba(0,0,0,.5)' }
+  /         %button.btn.btn-danger.btn-lg.btn-block
+  /           종료되었습니다

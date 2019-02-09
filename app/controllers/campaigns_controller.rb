@@ -3,7 +3,7 @@ class CampaignsController < ApplicationController
   include Statementing
 
   load_and_authorize_resource
-  before_action :reset_meta_tags_for_show, only: :show
+  before_action :reset_meta_tags_for_show, only: [:show, :content]
   before_action :verify_organization
 
   def index
@@ -96,6 +96,41 @@ class CampaignsController < ApplicationController
     @campaign.touch(:closed_at)
     flash[:success] = t('messages.campaigns.close')
     redirect_to @campaign
+  end
+
+  def content
+    @campaign.increment!(:views_count)
+    @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
+    @signs = params[:mode] == 'widget' ? @signs.limit(10) : @signs.page(params[:page])
+
+    if @campaign.template != 'petition'
+      @comments = params[:tag].present? ? @campaign.comments.tagged_with(params[:tag]) : @campaign.comments
+      @comments = params[:toxic].present? ? @comments.where(toxic: true) : @comments.where(toxic: false)
+      @comments = @comments.order('id DESC')
+      @comments = @comments.page(params[:page]).per 50
+    end
+  end
+
+  def order
+    @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
+  end
+
+  def comment
+    @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
+
+    if @campaign.template != 'petition'
+      @comments = params[:tag].present? ? @campaign.comments.tagged_with(params[:tag]) : @campaign.comments
+      @comments = params[:toxic].present? ? @comments.where(toxic: true) : @comments.where(toxic: false)
+      @comments = @comments.order('id DESC')
+      @comments = @comments.page(params[:page]).per 50
+    end
+  end
+
+  def story
+  end
+
+  def signer
+    @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
   end
 
   private

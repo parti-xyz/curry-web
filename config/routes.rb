@@ -89,6 +89,11 @@ Rails.application.routes.draw do
       get 'data'
       put 'close'
       put 'open'
+      get 'content'
+      get 'order'
+      get 'comment'
+      get 'story'
+      get 'signer'
     end
   end
   resources :polls do
