@@ -89,6 +89,7 @@ Rails.application.routes.draw do
       get 'data'
       put 'close'
       put 'open'
+      get 'sign_form'
       get 'content'
       get 'order'
       get 'comment'
