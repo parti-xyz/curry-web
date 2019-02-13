@@ -445,6 +445,7 @@
                           - if comment.target_agents.count > 1
                             외 #{comment.target_agents.count - 1}
                           에 촉구
+                        %i.fa.fa-envelope-open-o
                     %span.sign-info
                       / comment로 알 수 있는 건.... 촉구? 서명?
                       - if Order.where(comment: comment).present?

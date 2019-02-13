@@ -99,7 +99,11 @@ class CampaignsController < ApplicationController
   end
 
   def sign_form
-    render 'campaigns/petition_new/sign_form'
+    if @campaign.template == 'petition'
+      render 'campaigns/petition_new/sign_form'
+    else
+      render_404
+    end
   end
 
   def content
@@ -113,28 +117,30 @@ class CampaignsController < ApplicationController
       @comments = @comments.order('id DESC')
       @comments = @comments.page(params[:page]).per 50
     end
+    render template: 'campaigns/petition_new/content'
   end
 
   def order
     @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
+    if @campaign.template == 'petition'
+      render template: 'campaigns/petition_new/order'
+    else
+      render_404
+    end
   end
 
   def comment
     @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
-
-    if @campaign.template != 'petition'
-      @comments = params[:tag].present? ? @campaign.comments.tagged_with(params[:tag]) : @campaign.comments
-      @comments = params[:toxic].present? ? @comments.where(toxic: true) : @comments.where(toxic: false)
-      @comments = @comments.order('id DESC')
-      @comments = @comments.page(params[:page]).per 50
-    end
+    render template: 'campaigns/petition_new/comment'
   end
 
   def story
+    render template: 'campaigns/petition_new/story'
   end
 
   def signer
     @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
+    render template: 'campaigns/petition_new/signer'
   end
 
   private
