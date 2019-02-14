@@ -537,6 +537,10 @@ $(function(){
     }, 1000)
   }
 
+  $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+  });
+
 });
 
 $(document).ajaxError(function (e, xhr, settings) {
