@@ -1,0 +1,4 @@
+var partial_order_form = "<%= j(render 'campaigns/petition_new/order_form', agent: Agent.find(params[:agent_id])) %>"
+$('body').append(partial_order_form)
+$('#agent-request-modal').on('hide.bs.modal', function(e) { $(this).remove() })
+$('#agent-request-modal').modal()

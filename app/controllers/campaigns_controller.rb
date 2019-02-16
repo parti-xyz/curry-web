@@ -106,6 +106,10 @@ class CampaignsController < ApplicationController
     end
   end
 
+  def order_form
+    render 'campaigns/petition_new/order_form'
+  end
+
   def content
     @campaign.increment!(:views_count)
     @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
@@ -151,7 +155,8 @@ class CampaignsController < ApplicationController
       :use_signer_email, :use_signer_address, :use_signer_real_name, :use_signer_phone,
       :signer_email_title, :signer_address_title, :signer_real_name_title, :signer_phone_title,
       :agent_section_title, :agent_section_response_title, :sign_hidden, :area_id, :issue_id,
-      :special_slug, :sign_form_intro, (:template if params[:action] == 'create'), :slug, :title_to_agent, :message_to_agent)
+      :special_slug, :sign_form_intro, (:template if params[:action] == 'create'), :slug, :title_to_agent, :message_to_agent,
+      :agent_id)
   end
 
   def reset_meta_tags_for_show

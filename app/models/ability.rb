@@ -14,7 +14,7 @@ class Ability
     can [:download], ArchiveDocument
     can [:update_statement_agent], :all
     can [:edit_statements], [Campaign]
-    can [:sign_form, :content, :order, :comment, :story, :signer], Campaign
+    can [:sign_form, :order_form, :content, :order, :comment, :story, :signer], Campaign
 
     if user
       can [:new_email, :send_email], Agenda
