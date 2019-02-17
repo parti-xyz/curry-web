@@ -65,6 +65,10 @@
         .campaign-share-text
           많은 분들이 캠페인에 참여할 수 있도록 공유해주세요.
         .campaign-share-buttons
-          %i.fa.fa-facebook-f.campaign-share-button
-          %i.fa.fa-twitter.campaign-share-button
-          %i.fa.fa-clipboard.campaign-share-button
+          = link_to "https://www.facebook.com/sharer/sharer.php?u=#{campaign_url(@campaign)}", class: 'campaign-share-button', target: '_blank' do
+            %i.fa.fa-facebook-f
+          = link_to "http://twitter.com/share?url=#{campaign_url(@campaign)}", class: 'campaign-share-button', target: '_blank' do
+            %i.fa.fa-twitter
+          = hidden_field_tag "share-url", "#{campaign_url(@campaign)}"
+          = link_to 'javascript:copy_campaign_url()', { "class" => "campaign-share-button campaign-copy-to-clipboard", "data-toggle" => "popover", "data-trigger" => "focus", "data-html" => true, "data-content" => "캠페인 공유 주소를 복사하였습니다.", "style" => "margin-left: 6px"} do
+            %i.fa.fa-clipboard

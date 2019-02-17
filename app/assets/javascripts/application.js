@@ -543,6 +543,22 @@ $(function(){
 
 });
 
+function copy_campaign_url() {
+  if ($('#share-url').length > 0) {
+    var elm = document.createElement('textarea')
+    elm.textContent = $('#share-url')[0].value
+    elm.style.width = 0
+    elm.style.height = 0
+    $('body').append(elm)
+    elm.select()
+    document.execCommand('copy')
+    elm.remove()
+  }
+}
+
+function no_op() {}
+
+
 $(document).ajaxError(function (e, xhr, settings) {
   if(xhr.status == 500) {
     UnobtrusiveFlash.showFlashMessage('뭔가 잘못되었습니다. 곧 고치겠습니다.', {type: 'error'})

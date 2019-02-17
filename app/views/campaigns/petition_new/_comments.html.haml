@@ -32,7 +32,7 @@
                       %li
                         %b #{x[0]}
                         #{x[1]}
-                = link_to '#', { "data-toggle" => "popover", "data-trigger" => "focus", "data-html" => true, "data-content" => "#{popoverblock}", "style" => "margin-left: 6px"} do
+                = link_to 'javascript:no_op()', { "data-toggle" => "popover", "data-trigger" => "focus", "data-html" => true, "data-content" => "#{popoverblock}", "style" => "margin-left: 6px"} do
                   - if Statement.joins(:agent).where(statementable_type: 'Campaign', statementable_id: @campaign.id).where(agent: comment.target_agents).pluck(:'agents.name', :stance).select{ |x| x[1] != "unsure" }.count > 0
                     %i.fa.fa-envelope-open-o
                   - else
