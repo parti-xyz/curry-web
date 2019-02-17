@@ -694,14 +694,12 @@
         margin: 0 0 0 auto;
         word-spacing: 16px;
         text-align: right;
-        a {
-          font-size: 11px;
-          letter-spacing: -0.4px;
-          color: #717171;
-        }
         a:hover {
           cursor: pointer;
         }
+        font-size: 11px;
+        letter-spacing: -0.4px;
+        color: #717171;
       }
       .comment-form {
         .comment-right {

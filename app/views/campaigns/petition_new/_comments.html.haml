@@ -6,14 +6,12 @@
       = hidden_field_tag 'sort-date', comment.updated_at.to_i
       = hidden_field_tag 'sort-like', comment.merged_likes_count
       .comment-controls
-        %a
-          삭제
-        %a
-          신고
-        %a
-          긴급신고
-        %a
-          박제
+        - if can? :destroy, comment
+          = link_to '삭제', comment, method: :delete, data: { confirm: '정망 삭제하시겠습니까?' }
+        - if current_user != comment.user
+          = render 'reports/button', reportable: comment
+          / %a  # TODO: 박제 버튼 구현 방법 고민
+          /   박제
       .comment-form
         .commenter-image{ style: "background-image:url(#{asset_url(comment.user_image)});" }
         .comment-right
