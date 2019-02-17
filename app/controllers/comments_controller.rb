@@ -15,7 +15,6 @@ class CommentsController < ApplicationController
         @comments = @commentable.comments.recent.page(params[:page])
       end
       @comments = @comments.with_target_agent(Agent.find_by(id: params[:agent_id])) if params[:agent_id].present?
-      @test = params[:test]
     end
   end
 

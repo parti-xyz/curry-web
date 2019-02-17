@@ -94,6 +94,7 @@ Rails.application.routes.draw do
       get 'content'
       get 'order'
       get 'comment'
+      get 'comments'
       get 'story'
       get 'signer'
     end

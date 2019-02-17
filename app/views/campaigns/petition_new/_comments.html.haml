@@ -1,0 +1,49 @@
+.comments.infinite-container
+  - comments.each do |comment|
+    .comment.infinite-item
+      - if comment.target_agents.any?
+        = hidden_field_tag 'filter-agents', comment.target_agents.select(:name).map{ |x| x.name }.to_json
+      = hidden_field_tag 'sort-date', comment.updated_at.to_i
+      = hidden_field_tag 'sort-like', comment.merged_likes_count
+      .comment-controls
+        %a
+          삭제
+        %a
+          신고
+        %a
+          긴급신고
+        %a
+          박제
+      .comment-form
+        .commenter-image{ style: "background-image:url(#{asset_url(comment.user_image)});" }
+        .comment-right
+          .comment-header
+            .nickname
+              = comment.user_nickname
+              - if comment.target_agents.any?
+                .comment-agent
+                  = comment.target_agents.shuffle.first.name
+                  - if comment.target_agents.count > 1
+                    외 #{comment.target_agents.count - 1}
+                  에 촉구
+                - popoverblock = capture do
+                  %ul.list-unstyled
+                    - Statement.joins(:agent).where(statementable_type: 'Campaign', statementable_id: @campaign.id).where(agent: comment.target_agents).pluck(:'agents.name', :stance).map{ |x| [x[0], if x[1] == "unsure" then "안읽음" else "읽음" end] }.each do |x|
+                      %li
+                        %b #{x[0]}
+                        #{x[1]}
+                = link_to '#', { "data-toggle" => "popover", "data-trigger" => "focus", "data-html" => true, "data-content" => "#{popoverblock}", "style" => "margin-left: 6px"} do
+                  - if Statement.joins(:agent).where(statementable_type: 'Campaign', statementable_id: @campaign.id).where(agent: comment.target_agents).pluck(:'agents.name', :stance).select{ |x| x[1] != "unsure" }.count > 0
+                    %i.fa.fa-envelope-open-o
+                  - else
+                    %i.fa.fa-envelope-o
+            %span.sign-info
+              - if Order.where(comment: comment).present?
+                #{Order.where(comment: @campaign.comments).where("comment_id <= ?", comment.id).select(:comment_id).distinct.count}번째 서명자
+              .date= date_f comment.updated_at
+          .comment-body
+            = raw comment.body
+          .comment-footer
+            = render 'likes/button', likable: comment
+- unless comments.last_page?
+  = link_to '', comments_campaign_path(commentable_id: @campaign.id, commentable_type: 'Campaign', page: comments.next_page, test: 'signs'), class: "infinite-more-link"

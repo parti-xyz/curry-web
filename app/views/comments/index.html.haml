@@ -1,56 +1,14 @@
-- if @test == 'signs'
-  %section.section-comments
-    .comments.infinite-container
-      - @comments.each do |comment|
-        .comment.infinite-item
-          - if comment.target_agents.any?
-            = hidden_field_tag 'filter-agents', comment.target_agents.select(:name).map{ |x| x.name }.to_json
-          = hidden_field_tag 'sort-date', comment.updated_at.to_i
-          = hidden_field_tag 'sort-like', comment.merged_likes_count
-          .comment-controls
-            %a
-              삭제
-            %a
-              신고
-            %a
-              긴급신고
-            %a
-              박제
-          .comment-form
-            .commenter-image{ style: "background-image:url(#{asset_url(comment.user_image)});" }
-            .comment-right
-              .comment-header
-                .nickname
-                  = comment.user_nickname
-                  - if comment.target_agents.any?
-                    .comment-agent
-                      = comment.target_agents.shuffle.first.name
-                      - if comment.target_agents.count > 1
-                        외 #{comment.target_agents.count - 1}
-                      에 촉구
-                %span.sign-info
-                  - if Order.where(comment: comment).present?
-                    #{Order.where(comment: @commentable.comments).where("comment_id <= ?", comment.id).select(:comment_id).distinct.count}번째 서명자
-                  .date= date_f comment.updated_at
-              .comment-body
-                = raw comment.body
-              .comment-footer
-                = render 'likes/button', likable: comment
-    - unless @comments.last_page?
-      = link_to '', comments_path(commentable_id: @commentable.id, commentable_type: @commentable.class.name, page: @comments.next_page, test: 'signs'), class: "infinite-more-link"
+%section#commentable-block.page-block
+  .container
+    .panel.panel-default.panel-post
+      .panel-heading
+        %h2
+          = link_to @commentable do
+            %small.label.label-danger
+              = @commentable_model.model_name.human
+            = @commentable.try(:title)
 
-- else
-  %section#commentable-block.page-block
-    .container
-      .panel.panel-default.panel-post
-        .panel-heading
-          %h2
-            = link_to @commentable do
-              %small.label.label-danger
-                = @commentable_model.model_name.human
-              = @commentable.try(:title)
-
-  %section#comments-block.page-block.post-block
-    .container
-      .post-block__comments.post-block__comments__no-form
-        = render 'comments/list', commentable: @commentable, comments: @comments, show_form: params[:show_form]
+%section#comments-block.page-block.post-block
+  .container
+    .post-block__comments.post-block__comments__no-form
+      = render 'comments/list', commentable: @commentable, comments: @comments, show_form: params[:show_form]
