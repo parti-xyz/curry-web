@@ -1,0 +1,12 @@
+.signers.infinite-container
+  - signs.each do |sign|
+    .signer.infinite-item
+      .signer-header
+        .signer-info
+          .signer-image{ style: "background-image:url(#{asset_url(sign.user_image_url)});" }
+          .nickname= sign.user_name
+          .date= date_f sign.created_at
+        .count
+          #{@campaign.signs.where("id <= ?", sign).count}번째 서명자
+      .signer-word= sign.body
+= link_to '', signers_campaign_path(@campaign, page: signs.next_page), class: 'infinite-more-link'

@@ -93,10 +93,12 @@ Rails.application.routes.draw do
       get 'order_form'
       get 'content'
       get 'order'
+      get 'agents'
       get 'comment'
       get 'comments'
       get 'story'
       get 'signer'
+      get 'signers'
     end
   end
   resources :polls do

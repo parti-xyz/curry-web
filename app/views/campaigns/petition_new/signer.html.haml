@@ -10,16 +10,6 @@
       %section.section-signer
         .section-title
           현재 #{@campaign.signs.size}명이 참여하고 있습니다.
-        .signers
-          - @campaign.signs.order("id desc").limit(10).each do |sign|
-            .signer
-              .signer-header
-                .signer-info
-                  .signer-image{ style: "background-image:url(#{asset_url(sign.user_image_url)});" }
-                  .nickname= sign.user_name
-                  .date= date_f sign.created_at
-                .count
-                  #{@campaign.signs.where("id <= ?", sign).count}번째 서명자
-              .signer-word= sign.body
+        = render 'campaigns/petition_new/signers', signs: @campaign.signs.order("id desc").page(1)
 
 = render 'campaigns/petition_new/sign_button'

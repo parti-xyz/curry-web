@@ -133,6 +133,10 @@ class CampaignsController < ApplicationController
     end
   end
 
+  def agents
+    render template: 'campaigns/petition_new/agents'
+  end
+
   def comment
     @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
     render template: 'campaigns/petition_new/comment'
@@ -149,6 +153,10 @@ class CampaignsController < ApplicationController
   def signer
     @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
     render template: 'campaigns/petition_new/signer'
+  end
+
+  def signers
+    render template: 'campaigns/petition_new/signers'
   end
 
   private

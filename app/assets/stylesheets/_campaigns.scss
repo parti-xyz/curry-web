@@ -599,9 +599,11 @@
       }
       .more {
         text-align: center;
-        font-size: 14px;
-        letter-spacing: -0.4px;
-        color: #717171;
+        a {
+          font-size: 14px;
+          letter-spacing: -0.4px;
+          color: #717171;
+        }
       }
     }
   }

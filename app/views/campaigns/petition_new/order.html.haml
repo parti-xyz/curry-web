@@ -54,31 +54,9 @@
               촉구 대상 중 한 분인가요?
             .response-header-btn
               답변하기
-        - agents = @campaign.agents
+        - agents = @campaign.agents.page(1).per(3)
         - if agents.any?
-          - agents.each do |agent|
-            .agents
-              .agent
-                .agent-image{ style: "background-image:url(#{asset_url(agent.image_url(:md))});" }
-                  - unless @campaign.statement_of(agent).present?
-                    .agent-unsure 없음
-                  - else
-                    - case @campaign.statement_of(agent).stance
-                    - when "unsure"
-                      .agent-unsure 무응답
-                    - when "disagree"
-                      .agent-disagree 반대
-                    - when "agree"
-                      .agent-agree 찬성
-                .agent-info
-                  .agent-name= agent.name
-                  .agent-orginaztion= agent.organization
-                .agent-order-btn
-                  = link_to order_form_campaign_path(campaign_id: @campaign.id, agent_id: agent.id), remote: true do
-                    #{Order.where(agent_id: agent).where(comment_id: @campaign.comments).count + 1}번째로
-                  촉구하기
-
-
-          .more 더보기
+          = render 'campaigns/petition_new/agents', agents: agents
+          / .more 더보기
 
 = render 'campaigns/petition_new/sign_button'

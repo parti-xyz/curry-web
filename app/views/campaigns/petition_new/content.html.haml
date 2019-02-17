@@ -70,47 +70,10 @@
                   / '환경부장관'을 '횐경부, 환경부장관'으로 원래 데이터를 바꿔야 할지
                   .agent-organization= agent.organization
                 .agent-order-btn
-                  %a{"href": "#", "data-target" => "#agent-request-modal-#{agent.id}", "data-toggle" => "modal", :type => "button" }
+                  = link_to order_form_campaign_path(campaign_id: @campaign.id, agent_id: agent.id), remote: true do
                     #{Order.where(agent_id: agent).where(comment_id: @campaign.comments).count + 1}번째로
-                    촉구하기
-              %div.modal.fade{id: "agent-request-modal-#{agent.id}", :role => "dialog", :tabindex => "-1"}
-                .modal-dialog{:role => "document"}
-                  .modal-content
-                    .modal-header
-                      %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-                        %span{"aria-hidden" => "true"} &#215;
-                      %h4.modal-title
-                        = image_tag agent.image.md.url, style: "height: 36px;"
-                        %strong= agent.name
-                        %span.text-muted= agent.organization
-                        에게 촉구하기
-
-                    .modal-body
-                      .comments-form
-                        = form_for Comment.new, html: { class: 'gov-action-form-validation' } do |f|
-                          = f.hidden_field :commentable_type, value: 'Campaign'
-                          = f.hidden_field :commentable_id, value: @campaign.id
-                          = f.hidden_field :target_agent_id, value: agent.id
-                          .gov-action-form-grecaptcha
-                          - unless user_signed_in?
-                            .form-group
-                              = f.label :commenter_name
-                              = f.text_field :commenter_name, class: 'form-control', data: { 'rule-required': true }
-                            .form-group
-                              = f.label :commenter_email, agent.email.present? ? "이메일(#{agent.name}님에게 메일을 발송하려면 반드시 넣어주세요)" : nil
-                              = f.text_field :commenter_email, class: 'form-control'
-                          .form-group
-                            ~ f.text_area :body, placeholder: '촉구합니다...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), data: { 'rule-required': true }
-                          - if agent.email.present?
-                            .form-group
-                              .checkbox
-                                %label
-                                  = f.check_box :mailing, { checked: true }, 'ready', 'disable'
-                                  #{agent.name}님에게 메일로도 발송합니다.
-                          = f.submit '작성', class: 'btn btn-primary btn-block'
-
-
-            / 촉구 탭 완성 후 링크 추가
-            .more 더 보기
+                  촉구하기
+            .more
+              = link_to '더 보기', order_campaign_path(@campaign)
 
 = render 'campaigns/petition_new/sign_button'
