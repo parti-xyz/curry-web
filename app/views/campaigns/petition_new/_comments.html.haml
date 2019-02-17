@@ -28,12 +28,12 @@
                   에 촉구
                 - popoverblock = capture do
                   %ul.list-unstyled
-                    - Statement.joins(:agent).where(statementable_type: 'Campaign', statementable_id: @campaign.id).where(agent: comment.target_agents).pluck(:'agents.name', :stance).map{ |x| [x[0], if x[1] == "unsure" then "안읽음" else "읽음" end] }.each do |x|
+                    - comment.orders.joins(:agent).pluck(:'agents.name',:read_at).map{ |x| [x[0], if x[1].nil? then '안읽음' else '읽음' end] }.each do |x|
                       %li
                         %b #{x[0]}
                         #{x[1]}
                 = link_to 'javascript:no_op()', { "data-toggle" => "popover", "data-trigger" => "focus", "data-html" => true, "data-content" => "#{popoverblock}", "style" => "margin-left: 6px"} do
-                  - if Statement.joins(:agent).where(statementable_type: 'Campaign', statementable_id: @campaign.id).where(agent: comment.target_agents).pluck(:'agents.name', :stance).select{ |x| x[1] != "unsure" }.count > 0
+                  - if comment.orders.all_read.count > 0
                     %i.fa.fa-envelope-open-o
                   - else
                     %i.fa.fa-envelope-o
