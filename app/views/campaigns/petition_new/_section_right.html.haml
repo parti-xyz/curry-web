@@ -48,13 +48,14 @@
           .signer-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
           .signer-nickname
             = @campaign.user.nickname
-        .campaign-sign-input.nickname{ style: "display: none" }
-          이름
-        .campaign-sign-input.email
-          이메일
-        .campaign-sign-input.word
-          %p 나도 한마디
-          %br
+        = link_to sign_form_campaign_path(@campaign), remote: true do
+          .campaign-sign-input.nickname{ style: "display: none" }
+            이름
+          .campaign-sign-input.email
+            이메일
+          .campaign-sign-input.word
+            %p 나도 한마디
+            %br
         / %button.btn.btn-danger.btn-lg.btn-block.campaign-sign-btn{"data-target" => "#sign-form-modal", "data-toggle" => "modal", :type => "button"}
         = link_to '서명하기', sign_form_campaign_path(@campaign), remote: true, class: "btn btn-danger btn-lg btn-block campaign-sign-btn"
         .campaign-sign-privacy-policy

@@ -1,0 +1,4 @@
+var comment_form = "<%= j(render 'campaigns/petition_new/comment_form')  %>"
+$('body').append(comment_form)
+$('#agent-request-modal-comment').on('hide.bs.modal', function(e) { $(this).remove() })
+$('#agent-request-modal-comment').modal()

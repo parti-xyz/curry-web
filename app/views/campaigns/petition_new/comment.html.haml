@@ -10,13 +10,11 @@
       %section.section-comments
         .section-title
           의견
-        = form_for Comment.new, html: { class: 'comment-form' } do |f|
+        .comment-form
           .commenter-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:xs))});" }
-          = f.hidden_field :commentable_type, value: "Campaign"
-          = f.hidden_field :commentable_id, value: @campaign.id
           .comment-right
-            %a{"class": "comment-box", "href": "#", "data-target" => "#agent-request-modal-comment", "data-toggle" => "modal" }
-            = f.submit '등록', class: 'comment-submit-btn'
+            = link_to '', comment_form_campaign_path(@campaign), remote: true, class: 'comment-box'
+            = link_to '등록', comment_form_campaign_path(@campaign), remote: true, class: 'comment-submit-btn'
         .comment-filter
           = select_tag "CommentTarget", options_from_collection_for_select(@campaign.agents, :name, :name), class: 'filter-select-agent', include_blank: true, prompt: '촉구대상별 보기'
           .filters

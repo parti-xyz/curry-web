@@ -110,6 +110,10 @@ class CampaignsController < ApplicationController
     render 'campaigns/petition_new/order_form'
   end
 
+  def comment_form
+    render 'campaigns/petition_new/comment_form'
+  end
+
   def content
     @campaign.increment!(:views_count)
     @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent

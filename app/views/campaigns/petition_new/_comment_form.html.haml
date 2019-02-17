@@ -1,0 +1,24 @@
+%div.modal.fade{id: "agent-request-modal-comment", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &#215;
+        %h4.modal-title 의견 남기기
+
+      .modal-body
+        .comments-form
+          = form_for Comment.new, html: { class: 'gov-action-form-validation' } do |f|
+            = f.hidden_field :commentable_type, value: 'Campaign'
+            = f.hidden_field :commentable_id, value: @campaign.id
+            .gov-action-form
+            - unless user_signed_in?
+              .form-group
+                = f.label :commenter_name
+                = f.text_field :commenter_name, class: 'form-control', data: { 'rule-required': true }
+              .form-group
+                = f.label :commenter_email
+                = f.text_field :commenter_email, class: 'form-control'
+            .form-group
+              ~ f.text_area :body, placeholder: '제 생각은...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), data: { 'rule-required': true }
+            = f.submit '작성', class: 'btn btn-primary btn-block'
