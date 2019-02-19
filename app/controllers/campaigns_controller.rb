@@ -33,6 +33,10 @@ class CampaignsController < ApplicationController
     if params[:mode] == 'widget'
       render '_widget', layout: 'strip'
     end
+
+    if @campaign.template == 'petition'
+      redirect_to content_campaign_path(@campaign)
+    end
   end
 
   def data
