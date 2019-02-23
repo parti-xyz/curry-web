@@ -1,9 +1,9 @@
-= render 'campaigns/petition_new/section_cover'
+= render 'campaigns/petition/section_cover'
 
-= render 'campaigns/petition_new/section_tab', menu: 'order'
+= render 'campaigns/petition/section_tab', menu: 'order'
 
 %section.section-panel
-  = render 'campaigns/petition_new/section_right'
+  = render 'campaigns/petition/section_right'
 
   %section.section-left.tab-content
     #order.tab-pane.fade.in.active
@@ -56,7 +56,7 @@
               답변하기
         - agents = @campaign.agents.page(1).per(3)
         - if agents.any?
-          = render 'campaigns/petition_new/agents', agents: agents
+          = render 'campaigns/petition/agents', agents: agents
           / .more 더보기
 
-= render 'campaigns/petition_new/sign_button'
+= render 'campaigns/petition/sign_button'

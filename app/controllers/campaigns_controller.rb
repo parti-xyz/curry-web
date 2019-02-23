@@ -3,7 +3,7 @@ class CampaignsController < ApplicationController
   include Statementing
 
   load_and_authorize_resource
-  before_action :reset_meta_tags_for_show, only: [:show, :content]
+  before_action :reset_meta_tags_for_show, only: :show
   before_action :verify_organization
 
   def index
@@ -35,9 +35,26 @@ class CampaignsController < ApplicationController
     end
 
     if @campaign.template == 'petition'
-      redirect_to content_campaign_path(@campaign)
+      #   redirect_to content_campaign_path(@campaign)
+      #   --> view count가 두번 증가
+      render template: 'campaigns/petition/content'
     end
   end
+
+  # def content
+  #   # view
+  #   @campaign.increment!(:views_count)
+  #   @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
+  #   @signs = params[:mode] == 'widget' ? @signs.limit(10) : @signs.page(params[:page])
+
+  #   if @campaign.template != 'petition'
+  #     @comments = params[:tag].present? ? @campaign.comments.tagged_with(params[:tag]) : @campaign.comments
+  #     @comments = params[:toxic].present? ? @comments.where(toxic: true) : @comments.where(toxic: false)
+  #     @comments = @comments.order('id DESC')
+  #     @comments = @comments.page(params[:page]).per 50
+  #   end
+  #   render template: 'campaigns/petition/content'
+  # end
 
   def data
   end
@@ -104,67 +121,53 @@ class CampaignsController < ApplicationController
 
   def sign_form
     if @campaign.template == 'petition'
-      render 'campaigns/petition_new/sign_form'
+      render 'campaigns/petition/sign_form'
     else
       render_404
     end
   end
 
   def order_form
-    render 'campaigns/petition_new/order_form'
+    render 'campaigns/petition/order_form'
   end
 
   def comment_form
-    render 'campaigns/petition_new/comment_form'
-  end
-
-  def content
-    @campaign.increment!(:views_count)
-    @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
-    @signs = params[:mode] == 'widget' ? @signs.limit(10) : @signs.page(params[:page])
-
-    if @campaign.template != 'petition'
-      @comments = params[:tag].present? ? @campaign.comments.tagged_with(params[:tag]) : @campaign.comments
-      @comments = params[:toxic].present? ? @comments.where(toxic: true) : @comments.where(toxic: false)
-      @comments = @comments.order('id DESC')
-      @comments = @comments.page(params[:page]).per 50
-    end
-    render template: 'campaigns/petition_new/content'
+    render 'campaigns/petition/comment_form'
   end
 
   def order
     @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
     if @campaign.template == 'petition'
-      render template: 'campaigns/petition_new/order'
+      render template: 'campaigns/petition/order'
     else
       render_404
     end
   end
 
   def agents
-    render template: 'campaigns/petition_new/agents'
+    render template: 'campaigns/petition/agents'
   end
 
   def comment
     @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
-    render template: 'campaigns/petition_new/comment'
+    render template: 'campaigns/petition/comment'
   end
 
   def comments
-    render template: 'campaigns/petition_new/comments'
+    render template: 'campaigns/petition/comments'
   end
 
   def story
-    render template: 'campaigns/petition_new/story'
+    render template: 'campaigns/petition/story'
   end
 
   def signer
     @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
-    render template: 'campaigns/petition_new/signer'
+    render template: 'campaigns/petition/signer'
   end
 
   def signers
-    render template: 'campaigns/petition_new/signers'
+    render template: 'campaigns/petition/signers'
   end
 
   private

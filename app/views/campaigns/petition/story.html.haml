@@ -1,9 +1,9 @@
-= render 'campaigns/petition_new/section_cover'
+= render 'campaigns/petition/section_cover'
 
-= render 'campaigns/petition_new/section_tab', menu: 'story'
+= render 'campaigns/petition/section_tab', menu: 'story'
 
 %section.section-panel
-  = render 'campaigns/petition_new/section_right'
+  = render 'campaigns/petition/section_right'
 
   %section.section-left.tab-content
     #story.tab-pane.fade
@@ -53,4 +53,4 @@
           /   .story-footer
           /     = render 'likes/button', likable: @campaign.comments.last
 
-= render 'campaigns/petition_new/sign_button'
+= render 'campaigns/petition/sign_button'

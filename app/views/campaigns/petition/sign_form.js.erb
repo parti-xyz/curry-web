@@ -1,5 +1,5 @@
 <% modal_dom_id = "sign-form-modal-#{SecureRandom.uuid}" %>
-var partial_sign_form = '<%= j(render 'campaigns/petition_new/sign_form', modal_dom_id: modal_dom_id ) %>';
+var partial_sign_form = '<%= j(render 'campaigns/petition/sign_form', modal_dom_id: modal_dom_id ) %>';
 $('body').append(partial_sign_form);
 $('#<%= modal_dom_id %>').modal();
 $('#<%= modal_dom_id %>').on('hidden.bs.modal',

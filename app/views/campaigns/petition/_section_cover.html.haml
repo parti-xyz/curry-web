@@ -1,0 +1,54 @@
+%section.section-cover
+  / .cover-overlay
+  / - if @campaign.read_attribute(:cover_image).present?
+  /   .cover-image{ style: "background-image:url(#{asset_url(@campaign.cover_image_url(:lg))});" }
+  / - else
+  /   .cover-image{ style: "background-image:url(#{asset_url("default-image.png")});" }
+  .cover-image{ style: "background-color: #777;" }
+    - uid_header_bg = uid
+    - uid_alpha_linear = uid
+    - uid_mask = uid
+    %svg{height: "100%", width: "100%", preserveAspectRatio: "xMidYMid slice", version: "1.1", xmlns: "http://www.w3.org/2000/svg"}
+      %defs
+        %lineargradient{ id: uid_alpha_linear, x0: "10%", x1: "90%", y1: "0%", y2: "100%" }
+          %stop{:offset => "0%", "stop-color" => "#ffffff", "stop-opacity" => "1"}
+          %stop{:offset => "70%", "stop-color" => "gray", "stop-opacity" => "0.2"}
+        %mask{ id: uid_mask }
+          %rect{:fill => "url(##{uid_alpha_linear})", :height => "100%", :width => "100%", :x => "0", :y => "0"}
+      %filter{ id: uid_header_bg }
+        %fegaussianblur{in: "SourceGraphic", stdDeviation: "2"}
+      %image{externalResourcesRequired: "true", height: "100%", width: "100%", preserveAspectRatio: "xMidYMid slice", style: "filter:url(##{uid_header_bg})", mask: "url(##{uid_mask})", x: "0", y: "0", "xlink:href": (@campaign.read_attribute(:cover_image).present? ? @campaign.cover_image_url(:lg) : asset_url("default-image.png")), "xmlns:xlink": "http://www.w3.org/1999/xlink"}
+  .info-container
+    .meta
+      - if @campaign.success?
+        .label
+          성공
+      .label
+        서명
+      - if @campaign.agents.any?
+        .agent-info
+          대상: #{@campaign.agents.first.name}
+          - if @campaign.agents.count > 1
+            외 #{@campaign.agents.count - 1}
+      - buttons = capture do
+        - if can? :edit, @campaign
+          = link_to edit_campaign_path(@campaign) do
+            %i.fa.fa-edit{ style: "color:white" }
+        - if can? :edit, @campaign
+          = link_to edit_agents_campaign_path(@campaign) do
+            %i.fa.fa-user{ style: "color:white" }
+        - if can? :mail_signs, @campaign
+          = link_to mail_form_campaign_signs_path(@campaign) do
+            %i.fa.fa-envelope{ style: "color:white" }
+        - if can? :destroy, @campaign
+          = link_to @campaign, method: :delete, data: { confirm: '삭제하시겠습니까?' } do
+            %i.fa.fa-trash{ style: "color:white" }
+      - if buttons.present?
+        = buttons
+
+    .campaign-title
+      = @campaign.title
+    .user
+      .user-image-xs{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+      .user-name
+        = @campaign.user.nickname

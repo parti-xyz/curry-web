@@ -1,0 +1,15 @@
+= render 'campaigns/petition/section_cover'
+
+= render 'campaigns/petition/section_tab', menu: 'signer'
+
+%section.section-panel
+  = render 'campaigns/petition/section_right'
+
+  %section.section-left.tab-content
+    #signer.tab-pane.fade.in.active
+      %section.section-signer
+        .section-title
+          현재 #{@campaign.signs.size}명이 참여하고 있습니다.
+        = render 'campaigns/petition/signers', signs: @campaign.signs.order("id desc").page(1)
+
+= render 'campaigns/petition/sign_button'

@@ -104,4 +104,8 @@ module ApplicationHelper
       "#{limit - 1}+"
     end
   end
+
+  def uid
+    "uid-#{SecureRandom.uuid}"
+  end
 end
