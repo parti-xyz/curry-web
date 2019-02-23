@@ -33,28 +33,7 @@ class CampaignsController < ApplicationController
     if params[:mode] == 'widget'
       render '_widget', layout: 'strip'
     end
-
-    if @campaign.template == 'petition'
-      #   redirect_to content_campaign_path(@campaign)
-      #   --> view count가 두번 증가
-      render template: 'campaigns/petition/content'
-    end
   end
-
-  # def content
-  #   # view
-  #   @campaign.increment!(:views_count)
-  #   @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
-  #   @signs = params[:mode] == 'widget' ? @signs.limit(10) : @signs.page(params[:page])
-
-  #   if @campaign.template != 'petition'
-  #     @comments = params[:tag].present? ? @campaign.comments.tagged_with(params[:tag]) : @campaign.comments
-  #     @comments = params[:toxic].present? ? @comments.where(toxic: true) : @comments.where(toxic: false)
-  #     @comments = @comments.order('id DESC')
-  #     @comments = @comments.page(params[:page]).per 50
-  #   end
-  #   render template: 'campaigns/petition/content'
-  # end
 
   def data
   end
