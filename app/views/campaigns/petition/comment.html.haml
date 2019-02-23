@@ -14,10 +14,10 @@
         .filters
           .filters-left
             - if user_signed_in?
-              .my-comment 내 글 보기
+              .my-comment.js-my-comment 내 글 보기
           .filters-right
-            .filter.order-by-recent 최신순
-            .filter.order-by-like-count 공감순
+            .filter.js-order-by-recent 최신순
+            .filter.js-order-by-like-count 공감순
             = select_tag "CommentTarget", options_from_collection_for_select(@campaign.agents, :name, :name), class: 'filter-select-agent', include_blank: true, prompt: '촉구대상별 보기'
       = render 'campaigns/petition/comments', comments: @campaign.comments.recent.page(1)
 

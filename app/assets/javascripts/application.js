@@ -47,6 +47,7 @@ $.is_blank = function (obj) {
 $.is_present = function(obj) {
   return ! $.is_blank(obj);
 }
+
 $(document).imagesLoaded( { }, function() {
   $('.masonry-container').masonry();
   // Initialize Redactor
@@ -238,9 +239,6 @@ $(function(){
       }
     });
   });
-
-
-
 
   $('.gov-action-people-select').select2({
     ajax: {
@@ -459,8 +457,8 @@ $(function(){
     })
   }
 
-  if ($('.infinite-container').length > 0) {
-    var infinite = new Waypoint.Infinite( { element: $('.infinite-container')[0] } );
+  if ($('.js-infinite-container').length > 0) {
+    var infinite = new Waypoint.Infinite( { element: $('.js-infinite-container')[0] } );
   }
 
   if ($('#CommentTarget').length > 0) {
@@ -492,31 +490,31 @@ $(function(){
     )
   }
 
-  $('.order-by-recent').click(function () {
+  $('.js-order-by-recent').click(function () {
     comments = $('#comment .comments').children('.comment').get()
     comments.sort(function(a, b) {
       return b.children['sort-date'].value - a.children['sort-date'].value
     })
     $.each(comments, function(i,x) { $('#comment .comments').append(x) })
-    $('.order-by-recent').css('color', '#303030')
-    $('.order-by-recent').css('font-weight', '500')
-    $('.order-by-like-count').css('color', '#aaaaaa')
-    $('.order-by-like-count').css('font-weight', 'initial')
+    $('.js-order-by-recent').css('color', '#303030')
+    $('.js-order-by-recent').css('font-weight', '500')
+    $('.js-order-by-like-count').css('color', '#aaaaaa')
+    $('.js-order-by-like-count').css('font-weight', 'initial')
   })
 
-  $('.order-by-like-count').click(function () {
+  $('.js-order-by-like-count').click(function () {
     comments = $('#comment .comments').children('.comment').get()
     comments.sort(function(a, b) {
       return b.children['sort-like'].value - a.children['sort-like'].value
     })
     $.each(comments, function(i,x) { $('#comment .comments').append(x) })
-    $('.order-by-like-count').css('color', '#303030')
-    $('.order-by-like-count').css('font-weight', '500')
-    $('.order-by-recent').css('color', '#aaaaaa')
-    $('.order-by-recent').css('font-weight', 'initial')
+    $('.js-order-by-like-count').css('color', '#303030')
+    $('.js-order-by-like-count').css('font-weight', '500')
+    $('.js-order-by-recent').css('color', '#aaaaaa')
+    $('.js-order-by-recent').css('font-weight', 'initial')
   })
 
-  $('.my-comment').click(function() {
+  $('.js-my-comment').click(function() {
     $.ajax({
       url: 'http://govcraft.test/comments?commentable_id=79&commentable_type=Campaign&page=1&test=signs&comment_user_id=997'
     }).done(function(data) {
@@ -526,14 +524,14 @@ $(function(){
     })
   })
 
-  if ($('.campaign-time-to-left').length > 0) {
+  if ($('.js-campaign-time-to-left').length > 0) {
     setInterval(function() {
       var format = function(n) { if (n < 10) {return "0" + n} else return "" + n }
       var diff = Math.floor(Math.abs(campaign_due_date - (new Date())) / 1000)
-      $('.campaign-time-to-left .days')[0].innerHTML = Math.floor(diff / (24 * 3600))
-      $('.campaign-time-to-left .hours')[0].innerHTML = format(Math.floor((diff % (24 * 3600)) / 3600))
-      $('.campaign-time-to-left .minutes')[0].innerHTML = format(Math.floor((diff % 3600) / 60))
-      $('.campaign-time-to-left .seconds')[0].innerHTML = format(Math.floor(diff % 60))
+      $('.js-campaign-time-to-left .days')[0].innerHTML = Math.floor(diff / (24 * 3600))
+      $('.js-campaign-time-to-left .hours')[0].innerHTML = format(Math.floor((diff % (24 * 3600)) / 3600))
+      $('.js-campaign-time-to-left .minutes')[0].innerHTML = format(Math.floor((diff % 3600) / 60))
+      $('.js-campaign-time-to-left .seconds')[0].innerHTML = format(Math.floor(diff % 60))
     }, 1000)
   }
 

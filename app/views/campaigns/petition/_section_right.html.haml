@@ -4,7 +4,7 @@
       :plain
         var campaign_due_date = new Date('#{@campaign.created_at}')
     .campaign-progress
-      .campaign-time-to-left.hidden-xs
+      .campaign-time-to-left.js-campaign-time-to-left.hidden-xs
         / 캠페인 목표 서명수처럼 서명 기한(날짜)가 필요함.
         남은 시간
         %br

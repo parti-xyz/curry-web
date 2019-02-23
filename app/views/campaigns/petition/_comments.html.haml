@@ -1,4 +1,4 @@
-.comments{ class: ('infinite-container' unless local_assigns[:finite]) }
+.comments{ class: ('js-infinite-container' unless local_assigns[:finite]) }
   - comments.each do |comment|
     .comment.infinite-item
       - if comment.target_agents.any?
