@@ -71,5 +71,5 @@
           = link_to "http://twitter.com/share?url=#{campaign_url(@campaign)}", class: 'campaign-share-button', target: '_blank' do
             %i.fa.fa-twitter
           = hidden_field_tag "share-url", "#{campaign_url(@campaign)}"
-          = link_to 'javascript:copy_campaign_url()', { "class" => "campaign-share-button campaign-copy-to-clipboard", "data-toggle" => "popover", "data-trigger" => "focus", "data-html" => true, "data-content" => "캠페인 공유 주소를 복사하였습니다.", "style" => "margin-left: 6px"} do
+          .js-clipboard.campaign-share-button{ 'data-clipboard-text': campaign_url(@campaign), 'data-toggle': 'tooltip', 'data-trigger': 'manual', 'data-title': '캠페인 공유 주소를 복사하였습니다.', style: "margin-left: 6px" }
             %i.fa.fa-clipboard

@@ -30,6 +30,7 @@
 //= require jquery.waypoints
 //= require sticky
 //= require infinite
+//= require clipboard
 
 UnobtrusiveFlash.flashOptions['timeout'] = 3000;
 
@@ -535,24 +536,18 @@ $(function(){
     }, 1000)
   }
 
-  $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
+  //clipboard
+  $('.js-clipboard').each(function() {
+    var clipboard = new Clipboard(this);
+    clipboard.on('success', function(e) {
+      var $target = $(e.trigger);
+      $target.tooltip('show');
+      e.clearSelection();
+
+      setTimeout(function() { $target.tooltip('hide'); }, 1000);
+    });
   });
-
 });
-
-function copy_campaign_url() {
-  if ($('#share-url').length > 0) {
-    var elm = document.createElement('textarea')
-    elm.textContent = $('#share-url')[0].value
-    elm.style.width = 0
-    elm.style.height = 0
-    $('body').append(elm)
-    elm.select()
-    document.execCommand('copy')
-    elm.remove()
-  }
-}
 
 function no_op() {}
 
