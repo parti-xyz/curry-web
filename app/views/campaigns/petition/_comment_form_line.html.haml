@@ -1,0 +1,6 @@
+.comment.comment-form
+  .comment-line
+    .commenter-image{ style: "background-image:url(#{asset_url(user_signed_in? ? current_user.image_url(:xs) : 'default-user.png')});" }
+    .comment-right
+      = link_to '', comment_form_campaign_path(campaign), remote: true, class: 'comment-box'
+      = link_to '등록', comment_form_campaign_path(campaign), remote: true, class: 'comment-submit-btn'

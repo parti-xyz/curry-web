@@ -5,24 +5,20 @@
 %section.section-panel
   = render 'campaigns/petition/section_right'
 
-  %section.section-left.tab-content
-    #comment.tab-pane.fade.in.active
-      %section.section-comments
-        .section-title
-          의견
-        .comment-form
-          .commenter-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:xs))});" }
-          .comment-right
-            = link_to '', comment_form_campaign_path(@campaign), remote: true, class: 'comment-box'
-            = link_to '등록', comment_form_campaign_path(@campaign), remote: true, class: 'comment-submit-btn'
-        .comment-filter
-          = select_tag "CommentTarget", options_from_collection_for_select(@campaign.agents, :name, :name), class: 'filter-select-agent', include_blank: true, prompt: '촉구대상별 보기'
-          .filters
-            .filter-order-by
-              .order-by-recent 최신순
-              .order-by-like-count 공감순
+  %section.section-left
+    %section.section-comments
+      .section-title
+        의견을 공유해 보세요
+      = render 'campaigns/petition/comment_form_line', campaign: @campaign
+      .comment-filter
+        .filters
+          .filters-left
             - if user_signed_in?
               .my-comment 내 글 보기
-        = render 'campaigns/petition/comments', comments: @campaign.comments.recent.page(1)
+          .filters-right
+            .filter.order-by-recent 최신순
+            .filter.order-by-like-count 공감순
+            = select_tag "CommentTarget", options_from_collection_for_select(@campaign.agents, :name, :name), class: 'filter-select-agent', include_blank: true, prompt: '촉구대상별 보기'
+      = render 'campaigns/petition/comments', comments: @campaign.comments.recent.page(1)
 
 = render 'campaigns/petition/sign_button'

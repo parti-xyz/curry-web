@@ -7,6 +7,10 @@ module ApplicationHelper
     end
   end
 
+  def static_day_f(date)
+    date.strftime("%Y년 %m월 %d일")
+  end
+
   def date_f(date)
     timeago_tag date, lang: :ko, limit: 3.days.ago
   end

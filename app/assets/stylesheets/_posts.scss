@@ -50,7 +50,7 @@
     &__signs {
         .sign-panel {
             &__users {
-                border-bottom: 1px solid #dedede;
+                border-bottom: 1px solid $gray-lighter;
                 padding: 14px 0;
                 word-break: keep-all;
             }

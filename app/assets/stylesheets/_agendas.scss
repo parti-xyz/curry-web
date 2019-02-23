@@ -60,6 +60,9 @@
   }
   background-size: cover;
   background-position: center;
+  &.agent-image-top {
+    background-position: top;
+  }
   background-repeat: no-repeat;
   vertical-align: text-top;
   &--mini {

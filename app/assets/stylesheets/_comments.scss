@@ -122,19 +122,16 @@
 }
 
 .section-comments {
-  padding: 20px 16px;
   background-color: white;
-  margin-top: 8px;
-  .section-title {
-    font-size: 14px;
-    line-height: 24px;
-    letter-spacing: -0.6px;
-    font-weight: 500;
-    margin-bottom: 16px;
-  }
-  .comment-form {
+  // .section-title {
+  //   font-size: 14px;
+  //   line-height: 24px;
+  //   letter-spacing: -0.6px;
+  //   font-weight: 500;
+  //   margin-bottom: 16px;
+  // }
+  .comment-line {
     display: flex;
-    padding-bottom: 16px;
     .commenter-image {
       width: 32px;
       height: 32px;
@@ -151,14 +148,14 @@
     }
     .comment-box {
       margin-bottom: 8px;
-      border: 1px solid #dedede;
+      border: 1px solid $gray-lighter;
       background-color: #fafafa;
       height: 68px;
     }
     .comment-submit-btn {
       font-size: 12px;
       padding: 8px 16px;
-      background-color: #717171;
+      background-color: $gray-caption;
       border-radius: 2px;
       width: 55px;
       height: 32px;
@@ -168,22 +165,33 @@
     }
   }
   .comment {
-    border-top: 1px dashed #dedede;
+    border-top: 1px dashed $gray-lighter;
+    padding: 16px 0;
+    position: relative;
+    &.comment-form {
+      border: none;
+    }
+    &.comment-dummy {
+      padding: 0;
+      margin-bottom: 8px;
+    }
     .comment-controls {
-      flex: none;
-      margin: 0 0 0 auto;
       word-spacing: 16px;
-      text-align: right;
+      position: absolute;
+      right: 0;
       a {
-        font-size: 11px;
-        letter-spacing: -0.4px;
-        color: #717171;
+        @extend .typo-mini;
+        color: $gray-caption;
       }
       a:hover {
         cursor: pointer;
       }
+      .reported {
+        color: $gray-menu;
+        @extend .typo-mini;
+      }
     }
-    .comment-form {
+    .comment-line {
       .comment-right {
         .comment-header {
           margin-top: 6px;
@@ -195,25 +203,23 @@
             .comment-agent {
               display: inline;
               vertical-align: middle;
-              line-height: 16px;
               height: 17px;
               margin-left: 8px;
               font-weight: normal;
               padding: 0 4px;
-              font-size: 11px;
-              letter-spacing: -0.4px;
+              @extend .typo-mini;
+              line-height: 16px;
               color: white;
               background-color: #1f88ff;
             }
           }
           .sign-info {
-            font-size: 11px;
-            letter-spacing: -0.4px;
+            @extend .typo-mini;
             color: #2575ef;
             .date {
               display: inline;
               margin-left: 4px;
-              color: #aaaaaa;
+              color: $gray-menu;
               vertical-align: middle;
             }
           }
@@ -222,7 +228,7 @@
           font-size: 14px;
           margin-top: 8px;
           letter-spacing: -0.4px;
-          color: #303030;
+          color: $gray-title;
           p {
             word-break: keep-all;
           }
@@ -239,9 +245,51 @@
           }
           .not-yet-liked {
             display: inline;
-            color: #717171;
+            color: $gray-caption;
           }
         }
+      }
+    }
+  }
+  .comment-filter {
+    border-top: 1px dashed #f0f0f0;
+    padding: 16px 0;
+    $filter-height: 34px;
+    .filter-select-agent {
+      @extend .typo-body3;
+      color: $gray-caption;
+      background-color: white;
+      border: 1px solid $gray-lighter;
+      height: $filter-height;
+      width: 140px;
+      border-radius: 2px;
+      padding: 0 8px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-position: right 50%;
+      background-repeat: no-repeat;
+      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=);
+    }
+    .filters {
+      margin-top: 4px;
+      display: flex;
+      justify-content: space-between;
+      color: $gray-caption;
+      @extend .typo-body3;
+      line-height: $filter-height;
+      .filters-right {
+        display: flex;
+        .active {
+          color:  $gray-title;
+          font-weight: 500;
+        }
+        .filter {
+          margin-right: 16px;
+          white-space: nowrap;
+        }
+      }
+      .my-comment {
+        text-decoration: underline;
       }
     }
   }

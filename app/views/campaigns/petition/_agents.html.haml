@@ -1,7 +1,7 @@
 - agents.each do |agent|
   .agents.infinite-container
     .agent.infinite-item
-      .agent-image{ style: "background-image:url(#{asset_url(agent.image_url(:md))});" }
+      .agent-image.agent-image-top{ style: "background-image:url(#{asset_url(agent.image_url(:md))});" }
         - unless @campaign.statement_of(agent).present?
           .agent-unsure 없음
         - else

@@ -5,75 +5,88 @@
 %section.section-panel
   = render 'campaigns/petition/section_right'
 
-  %section.section-left.tab-content
-    #content.tab-pane.fade.in.active
-      %section.section-body
-        .section-title
-          캠페인 소개
-        .campaign-body
-          = raw @campaign.body
+  %section.section-left
+    %section.section-body
+      .section-title
+        캠페인 소개
+      .campaign-body
+        = raw @campaign.body
 
-      %section.section-orders
-        .section-title
-          캠페인 촉구
-        .order-title
-          - if @campaign.agents.any?
-            지금
-            %span.underline
-              #{@campaign.agents.first.name}
-              - if @campaign.agents.count > 1
-                외 #{@campaign.agents.count - 1}
-            에 촉구해 주세요
-          - else
-            촉구 대상를 알려주세요.
-        .order-info
-          - order_users_with_name = @campaign.comments.joins(:orders).where.not(commenter_name: nil).order("comment_id desc").limit(3)
-          - count_order_users = @campaign.comments.joins(:orders).select(:commenter_name, :commenter_email).distinct.count
-          - if order_users_with_name.any?
-            #{order_users_with_name.first.commenter_name}님
-            - if count_order_users >=1
-              외 #{@campaign.comments.joins(:orders).select(:commenter_name, :commenter_email).distinct.count - 1}분이
-            촉구에 참여중입니다.
-          - elsif count_order_users >= 1
-            이름을 알리지 않은 #{count_order_users}분이 참여하고 있습니다.
-          - else
-            지금 바로 촉구하여 참여해보세요.
-        .order-users
-          - order_users_with_image = User.where(id: @campaign.comments.where.not(user_id: nil).uniq.pluck(:user_id)).limit(3)
-          - if order_users_with_image.any?
-            .user-images
-              - order_users_with_image.reverse.each do |user|
-                .user-image-sm.overlapped{ style: "background-image:url(#{asset_url(user.image_url(:md))});" }
-          -if count_order_users > 3
-            .more +
-            .count= count_order_users - 3
-        - agents = @campaign.agents
-        - if agents.any?
-          / 에어전트를 보여주는 순서는 무작위?
-          .agents
-            - agents.shuffle.take(3).each do |agent|
-              .agent
-                .agent-image{ style: "background-image:url(#{asset_url(agent.image_url(:md))});" }
-                  - unless @campaign.statement_of(agent).present?
-                    .agent-unsure 없음
-                  - else
-                    - case @campaign.statement_of(agent).stance
-                    - when "unsure"
-                      .agent-unsure 무응답
-                    - when "disagree"
-                      .agent-disagree 반대
-                    - when "agree"
-                      .agent-agree 찬성
-                .agent-info
-                  .agent-name= agent.name
-                  / 소속 이름이 비어있는 경우는?
-                  / '환경부장관'을 '횐경부, 환경부장관'으로 원래 데이터를 바꿔야 할지
-                  .agent-organization= agent.organization
-                .agent-order-btn
-                  = link_to order_form_campaign_path(campaign_id: @campaign.id, agent_id: agent.id), remote: true do
-                    #{Order.where(agent_id: agent).where(comment_id: @campaign.comments).count + 1}번째로
-                  촉구하기
-            .more
-              = link_to '더 보기', order_campaign_path(@campaign)
+      .campaign-body-info
+        이 캠페인은 #{static_day_f(@campaign.created_at)}에 시작되었습니다.
+        - if @campaign.issue.present?
+          %br
+          이슈
+          %span.issue= @campaign.issue.title
+    %hr
+    %section.section-orders
+      .section-title
+        캠페인 촉구
+      .order-title
+        - if @campaign.agents.any?
+          지금
+          %span.underline
+            #{@campaign.agents.first.name}
+            - if @campaign.agents.count > 1
+              외 #{@campaign.agents.count - 1}
+          에 촉구해 주세요
+        - else
+          촉구 대상를 알려주세요.
+      .order-info
+        - order_users_with_name = @campaign.comments.joins(:orders).where.not(commenter_name: nil).order("comment_id desc").limit(3)
+        - count_order_users = @campaign.comments.joins(:orders).select(:commenter_name, :commenter_email).distinct.count
+        - if order_users_with_name.any?
+          #{order_users_with_name.first.commenter_name}님
+          - if count_order_users >=1
+            외 #{@campaign.comments.joins(:orders).select(:commenter_name, :commenter_email).distinct.count - 1}분이
+          촉구에 참여중입니다.
+        - elsif count_order_users >= 1
+          이름을 알리지 않은 #{count_order_users}분이 참여하고 있습니다.
+        - else
+          지금 바로 촉구하여 참여해보세요.
+      .order-users
+        - order_users_with_image = User.where(id: @campaign.comments.where.not(user_id: nil).uniq.pluck(:user_id)).limit(3)
+        - if order_users_with_image.any?
+          .user-images
+            - order_users_with_image.reverse.each do |user|
+              .user-image-sm.overlapped{ style: "background-image:url(#{asset_url(user.image_url(:md))});" }
+        -if count_order_users > 3
+          .more +
+          .count= count_order_users - 3
+      - agents = @campaign.agents
+      - if agents.any?
+        / 에어전트를 보여주는 순서는 무작위?
+        .agents
+          - agents.shuffle.take(3).each do |agent|
+            .agent
+              .agent-image.agent-image-top{ style: "background-image:url(#{asset_url(agent.image_url(:md))});" }
+                - unless @campaign.statement_of(agent).present?
+                  .agent-unsure 없음
+                - else
+                  - case @campaign.statement_of(agent).stance
+                  - when "unsure"
+                    .agent-unsure 무응답
+                  - when "disagree"
+                    .agent-disagree 반대
+                  - when "agree"
+                    .agent-agree 찬성
+              .agent-info
+                .agent-name= agent.name
+                / 소속 이름이 비어있는 경우는?
+                / '환경부장관'을 '횐경부, 환경부장관'으로 원래 데이터를 바꿔야 할지
+                .agent-organization= agent.organization
+              .agent-order-btn
+                = link_to order_form_campaign_path(campaign_id: @campaign.id, agent_id: agent.id), remote: true do
+                  #{Order.where(agent_id: agent).where(comment_id: @campaign.comments).count + 1}번째로
+                촉구하기
+      .more
+        = link_to '더 보기', order_campaign_path(@campaign)
+    %hr
+    %section.section-comments
+      .section-title
+        의견
+      = render 'campaigns/petition/comment_form_line', campaign: @campaign
+      = render 'campaigns/petition/comments', comments: @campaign.comments.recent.page(1), finite: true
+      .more
+        = link_to '더 보기', comment_campaign_path(@campaign)
 
-= render 'campaigns/petition/sign_button'

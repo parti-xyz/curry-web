@@ -1,38 +1,23 @@
 .app-campaigns {
+  background-color: #fff;
   .section-cover {
-    height: 240px;
-    z-index: 1;
-    .cover-overlay {
-      width: 100%;
-      height: 240px;
-      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.67));
-      position: absolute;
-      z-index: -1;
-    }
+    position: relative;
     .cover-image {
       width: 100%;
-      height: 236px;
+      height: 100%;
       position: absolute;
-      z-index: -2;
+      top: 0;
+      z-index: -1;
     }
     .info-container {
-      // xs - sm - md - lg
-      // xs - (sm md) - lg
-
-      padding: 99px 16px 32px;
+      padding: 100px 16px 100px;
       @media (max-width: $screen-xs-max) {
-        padding: 40px 16px 59px; // padding
-      }
-      @media (min-width: $screen-xs) and (max-width: $screen-sm-max) {
-        padding: 39px 66px 74px; // max-width
-      }
-      @media (min-width: $screen-sm) and (max-width: $screen-md-max) {
-        padding: 98px 80px 32px;
+        padding: 72px 16px 72px;
       }
     }
     .meta {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       .label {
         color: black;
         background-color: #dadada;
@@ -58,11 +43,16 @@
     }
     .campaign-title {
       @extend .text-basic-wrap;
-      @extend .typo-h4;
+      @extend .typo-h3;
+      font-weight: 500;
       color: white;
       text-align: center;
+      max-width: 787px;
+      margin-right: auto;
+      margin-left: auto;
     }
     .user {
+      margin-top: 18px;
       text-align: center;
       .user-image-xs {
         vertical-align: text-bottom;
@@ -79,28 +69,51 @@
   .section-panel {
     background-color: white;
     padding: 0;
-    @media (min-width: $screen-sm) {
+    @media (min-width: $screen-sm-min) {
       justify-content: center;
       display: flex;
       flex-direction: row-reverse;
-      padding-top: 102px;
+      padding-top: 100px;
+      padding-bottom: 50px;
+      background-color: white;
     }
     .section-right {
-      width: 302px;
-      @media (max-width: $screen-sm-max) {
+      margin-left: 60px;
+      width: 227px;
+      background-color: white;
+      @media (max-width: $screen-xs-max) {
+        padding: 24px 16px 40px;
+        margin-left: 0;
+        border-bottom: 8px solid $gray-lightest;
         width: 100%;
+        @at-root body:not(.app-campaigns-show)#{&} {
+          display: none;
+        }
       }
-      @media (min-width: $screen-sm) and (max-width: $screen-md-max) {
-        width: 227px;
+      @media (min-width: $screen-lg-min) {
+        width: 300px;
       }
     }
     .section-left {
-      width: 580px;
-      @media (max-width: $screen-sm-max) {
+      width: 432px;
+      background-color: white;
+      @media (max-width: $screen-xs-max) {
+        padding: 24px 16px 40px;
         width: 100%;
       }
-      @media (min-width: $screen-sm) and (max-width: $screen-md-max) {
-        width: 432px;
+      @media (min-width: $screen-lg-min) {
+        width: 580px;
+      }
+    }
+    .section-right,
+    .section-left {
+      > section,
+      > hr {
+        @media (max-width: $screen-xs-max) {
+          max-width: 620px;
+          margin-left: auto;
+          margin-right: auto;
+        }
       }
     }
   }
@@ -110,41 +123,14 @@
     @media (max-width: $screen-xs-max) {
       display: none;
     }
-    @media (min-width: $screen-xs) {
-      display: block;
-    }
-  }
-  .tablet-fold {
-    display: block;
-    @media (max-width: $screen-sm-max) {
-      display: none;
-    }
-    @media (min-width: $screen-sm) {
-      display: block;
-    }
-  }
-  .tablet-hide {
-    display: none;
-    @media (max-width: $screen-sm-max) {
-      display: block;
-    }
-    @media (min-width: $screen-sm) and (max-width: $screen-md-max) {
-      display: none;
-    }
-  }
-  .tab-content {
-    border: 0;
   }
 
   .section-info {
     background-color: white;
-    .campaign-progress {
-      padding: 24px 16px 40px;
-    }
     .campaign-time-to-left {
       font-size: 14px;
       letter-spacing: -0.6px;
-      color: #aaaaaa;
+      color: $gray-menu;
       margin-bottom: 16px;
       .div {
         display: inline;
@@ -154,7 +140,7 @@
         font-size: 18px;
         letter-spacing: -1px;
         font-weight: 500;
-        color: #303030;
+        color: $gray-title;
         display: inline;
         margin-right: 4px;
       }
@@ -242,7 +228,7 @@
     .campaign-sign-form {
       margin-top: 25px;
       padding: 24px 0 25px;
-      border-top: 1px solid #dedede;
+      border-top: 1px solid $gray-lighter;
       .campaign-sign {
         .signer-image {
           @extend .user-image-sm;
@@ -259,11 +245,11 @@
       .campaign-sign-input {
         margin-bottom: 8px;
         padding: 8px;
-        border: 1px solid #dedede;
+        border: 1px solid $gray-lighter;
         background-color: #fafafa;
         font-size: 14px;
         letter-spacing: -0.4px;
-        color: #717171;
+        color: $gray-caption;
       }
       .campaign-sign-btn {
         margin: 16px 0 8px;
@@ -273,20 +259,19 @@
         letter-spacing: -0.3px;
         text-align: center;
         color: white;
-        background-color: #2575ef;
+        background-color: $color-brand-primary;
       }
       .campaign-sign-privacy-policy {
-        font-size: 11px;
-        letter-spacing: -0.4px;
-        color: #aaaaaa;
+        @extend .typo-mini;
+        color: $gray-menu;
         a {
-          color: #2575ef
+          color: $color-brand-primary;
         }
       }
     }
     .campaign-share {
       padding-top: 24px;
-      border-top: 1px solid #dedede;
+      border-top: 1px solid $gray-lighter;
       .campaign-share-text {
         margin-bottom: 8px;
         font-size: 14px;
@@ -306,7 +291,7 @@
           border-radius: 20px;
           width: 40px;
           height: 39px;
-          background-color: #f5f5f5;
+          background-color: $gray-lightest;
           line-height: 39px;
           color: #bdbdbd;
         }
@@ -326,15 +311,12 @@
       text-align: center;
       border-bottom: 1px solid $color-brand-primary;
 
-      padding: 0 420px;
-      @media (max-width: $screen-xs-max) {
+      padding: 0 140px;
+      @media (max-width: $screen-sm-max) {
         padding: 0;
       }
-      @media (min-width: $screen-xs) and (max-width: $screen-sm-max) {
-        padding: 0;
-      }
-      @media (min-width: $screen-sm) and (max-width: $screen-md-max) {
-        padding: 0 140px;
+      @media (min-width: $screen-lg-min) {
+        padding: 0 420px;
       }
 
 
@@ -398,28 +380,37 @@
       }
     }
   }
+
+  section > .section-title {
+    margin-bottom: 32px;
+    font-weight: 500;
+    @extend .typo-h5;
+    color: $gray-title;
+  }
+
   .section-body {
-    margin-top: 8px;
     background-color: white;
-    padding: 40px 16px;
-    .section-title {
-      margin-bottom: 32px;
-      line-height: 1.71;
-      height: 24px;
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: -0.6px;
-      color: #303030;
-    }
+    margin-bottom: 70px;
     .campaign-body {
       font-size: 16px;
       letter-spacing: -0.5px;
       color: rgba(0,0,0,0.6);
       p {
-        color: #717171;
+        color: $gray-caption;
         font-size: 16px;
         line-height: 1.38;
         letter-spacing: -0.5px;
+      }
+    }
+    .campaign-body-info {
+      padding: 16px;
+      background-color: $gray-lightest;
+      color: $gray-caption;
+      @extend .typo-body3;
+      font-weight: 500;
+      margin-top: 30px;
+      .issue {
+        color: $color-brand-primary;
       }
     }
     .more {
@@ -433,33 +424,32 @@
     }
   }
   .section-orders {
-    margin-top: 8px;
-    padding: 20px 16px 40px;
+    margin-bottom: 70px;
     background-color: white;
-    .section-title {
-      color: #303030;
-      line-height: 24px;
-      font-weight: 500;
-      letter-spacing: -0.6px;
-      font-size: 14px;
-      margin-bottom: 16px;
-    }
+    // .section-title {
+    //   color: $gray-title;
+    //   line-height: 24px;
+    //   font-weight: 500;
+    //   letter-spacing: -0.6px;
+    //   font-size: 14px;
+    //   margin-bottom: 16px;
+    // }
     .order-title {
       text-align: center;
       letter-spacing: 1px;
       font-weight: 500;
-      color: #2575ef;
+      color: $color-brand-primary;
       font-size: 18px;
       margin-bottom: 16px;
       .underline {
         margin-right: -5px;
-        border-bottom: 1px solid #2575ef;
+        border-bottom: 1px solid $color-brand-primary;
       }
     }
     .order-info {
       text-align: center;
       font-size: 14px;
-      color: #717171;
+      color: $gray-caption;
       letter-spacing: -0.4px;
       margin-bottom: 8px;
     }
@@ -483,7 +473,7 @@
       }
       .more {
         display: inline-block;
-        color: #2575ef;
+        color: $color-brand-primary;
         margin: 0 1px 0 0;
       }
       .count {
@@ -495,7 +485,7 @@
         display: inline-block;
         text-align: center;
         border-radius: 13px;
-        background-color: #2575ef;
+        background-color: $color-brand-primary;
         color: white;
       }
     }
@@ -514,42 +504,39 @@
           top: -4px;
           left: -4px;
           display: inline-block;
-          line-height: 17px;
           height: 17px;
           width: 38px;
           text-align: center;
-          font-size: 11px;
+          @extend .typo-mini;
+          line-height: 17px;
           background-color: #f7a329;
           color: white;
-          letter-spacing: -0.4px;
         }
         .agent-disagree {
           position: relative;
           top: -4px;
           left: -4px;
           display: inline-block;
-          line-height: 17px;
           height: 17px;
           width: 38px;
           text-align: center;
-          font-size: 11px;
+          @extend .typo-mini;
+          line-height: 17px;
           background-color: #e74c3c;
           color: white;
-          letter-spacing: -0.4px;
         }
         .agent-agree {
           position: relative;
           top: -4px;
           left: -4px;
           display: inline-block;
-          line-height: 17px;
           height: 17px;
           width: 38px;
           text-align: center;
-          font-size: 11px;
-          background-color: #2575ef;
+          @extend .typo-mini;
+          line-height: 17px;
+          background-color: $color-brand-primary;
           color: white;
-          letter-spacing: -0.4px;
         }
         .agent-image {
           width: 56px;
@@ -566,26 +553,25 @@
             font-size: 16px;
             letter-spacing: 1px;
             font-weight: 500;
-            color: #303030;
+            color: $gray-title;
             display: inline;
           }
           .statement-btn {
             display: inline;
           }
           .agent-organization {
-            font-size: 11px;
-            letter-spacing: -0.4px;
-            color: #717171;
+            @extend .typo-mini;
+            color: $gray-caption;
           }
         }
 
         .agent-order-btn {
           flex: none;
-          border: 1px solid #2575ef;
+          border: 1px solid $color-brand-primary;
           font-size: 12px;
           font-weight: 500;
           letter-spacing: 0.2px;
-          color: #2575ef;
+          color: $color-brand-primary;
           text-align: center;
           margin: 12px 0;
           padding: 8px;
@@ -593,193 +579,21 @@
           height: 32px;
         }
       }
-      .more {
-        text-align: center;
-        a {
-          font-size: 14px;
-          letter-spacing: -0.4px;
-          color: #717171;
-        }
-      }
-    }
-  }
-  .section-comments {
-    padding: 20px 16px;
-    background-color: white;
-    margin-top: 8px;
-    .section-title {
-      font-size: 14px;
-      line-height: 24px;
-      letter-spacing: -0.6px;
-      font-weight: 500;
-      margin-bottom: 16px;
-    }
-    .comment-form {
-      display: flex;
-      padding-bottom: 16px;
-      .commenter-image {
-        width: 32px;
-        height: 32px;
-        border-radius: 20px;
-        background-size: cover;
-        background-position: center;
-      }
-      .comment-right {
-        width: 100%;
-        margin-left: 8px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-      }
-      .comment-box {
-        margin-bottom: 8px;
-        border: 1px solid #dedede;
-        background-color: #fafafa;
-        height: 68px;
-      }
-      .comment-submit-btn {
-        font-size: 12px;
-        padding: 8px 16px;
-        background-color: #717171;
-        border-radius: 2px;
-        width: 55px;
-        height: 32px;
-        text-align: center;
-        color: white;
-        margin: 0 0 0 auto;
-      }
-    }
-    .comment-filter {
-      border-top: 1px dashed #f0f0f0;
-      padding: 16px 0;
-      .filter-select-agent {
-        font-size: 14px;
-        letter-spacing: -0.6px;
-        color: #717171;
-        background-color: white;
-        padding: 9px 8px 7px;
-        border: 1px solid #dedede;
-        width: 100%;
-      }
-      .filters {
-        margin-top: 4px;
-        display: flex;
-        justify-content: space-between;
-        .filter-order-by {
-          letter-spacing: -0.6px;
-          font-size: 14px;
-          display: flex;
-          color: #aaaaaa;
-          .order-by-recent {
-            color: #303030;
-            font-weight: 500;
-          }
-          .order-by-like-count {
-            margin-left: 16px;
-          }
-        }
-        .my-comment {
-          text-decoration: underline;
-        }
-      }
-    }
-    .comment {
-      border-top: 1px dashed #dedede;
-      .comment-controls {
-        flex: none;
-        margin: 0 0 0 auto;
-        word-spacing: 16px;
-        text-align: right;
-        a:hover {
-          cursor: pointer;
-        }
-        font-size: 11px;
-        letter-spacing: -0.4px;
-        color: #717171;
-      }
-      .comment-form {
-        .comment-right {
-          .comment-header {
-            margin-top: 6px;
-            .nickname {
-              line-height: 24px;
-              font-size: 14px;
-              letter-spacing: -0.6px;
-              font-weight: 500;
-              .comment-agent {
-                display: inline;
-                vertical-align: middle;
-                line-height: 16px;
-                height: 17px;
-                margin-left: 8px;
-                font-weight: normal;
-                padding: 0 4px;
-                font-size: 11px;
-                letter-spacing: -0.4px;
-                color: white;
-                background-color: #1f88ff;
-              }
-            }
-            .sign-info {
-              font-size: 11px;
-              letter-spacing: -0.4px;
-              color: #2575ef;
-              .date {
-                display: inline;
-                margin-left: 4px;
-                color: #aaaaaa;
-                vertical-align: middle;
-              }
-            }
-          }
-          .comment-body {
-            font-size: 14px;
-            margin-top: 8px;
-            letter-spacing: -0.4px;
-            color: #303030;
-            p {
-              word-break: keep-all;
-            }
-          }
-          .comment-footer {
-            margin-top: 8px;
-            li {
-              width: 16px;
-              height: 16px;
-            }
-            .liked {
-              display: inline;
-              color: #2575ef;
-            }
-            .not-yet-liked {
-              display: inline;
-              color: #717171;
-            }
-          }
-        }
-      }
-    }
-    .commenter-image {
-      width: 32px;
-      height: 32px;
-      border-radius: 20px;
-      background-size: cover;
-      background-position: center;
     }
   }
 
   .section-signer {
-    .section-title {
-      font-size: 22px;
-      font-weight: 500;
-      letter-spacing: -1.6px;
-      color: #303030;
-      padding-bottom: 33px;
-      border-bottom: 1px dashed #dedede;
-    }
+    // .section-title {
+    //   font-size: 22px;
+    //   font-weight: 500;
+    //   letter-spacing: -1.6px;
+    //   color: $gray-title;
+    //   padding-bottom: 33px;
+    //   border-bottom: 1px dashed $gray-lighter;
+    // }
     .signers {
       .signer {
-        border-bottom: 1px dashed #dedede;
+        border-bottom: 1px dashed $gray-lighter;
         padding: 15px 0 16px;
         .signer-header {
           margin-top: 6px;
@@ -805,15 +619,13 @@
           .date {
             display: inline;
             margin-left: 4px;
-            font-size: 11px;
-            letter-spacing: -0.4px;
-            color: #aaaaaa;
+            @extend .typo-mini;
+            color: $gray-menu;
             vertical-align: middle;
           }
           .count {
             display: inline;
-            font-size: 11px;
-            letter-spacing: -0.4px;
+            @extend .typo-mini;
             color: blue;
             line-height: 32px;
           }
@@ -822,7 +634,7 @@
           font-size: 14px;
           margin: 8px 0 0 40px;
           letter-spacing: -0.4px;
-          color: #303030;
+          color: $gray-title;
           p {
             word-break: keep-all;
           }
@@ -836,7 +648,7 @@
       font-size: 22px;
       font-weight: 500;
       letter-spacing: -1.6px;
-      color: #303030;
+      color: $gray-title;
       margin: 0;
     }
     .title-wrap {
@@ -848,7 +660,7 @@
       font-size: 18px;
       font-weight: 500;
       letter-spacing: -1px;
-      color: #666666; // #303030; need a hex code
+      color: #666666; // $gray-title; need a hex code
       .title-left {}
       .title-right {
         font-weight: normal;
@@ -857,7 +669,7 @@
           display: inline-block;
           font-size: 14px;
           letter-spacing: -0.4px;
-          color: #717171;
+          color: $gray-caption;
           line-height: 27px;
         }
         .response-header-btn {
@@ -874,7 +686,7 @@
     }
     .orders-top3 {
       padding: 40px;
-      border: 1px solid #dedede;
+      border: 1px solid $gray-lighter;
       margin: 8px 0 0;
       display: flex;
       flex-direction: column;
@@ -895,12 +707,12 @@
           .order-bar-count {
             border-radius: 4px;
             width: 100%;
-            background-color: #dedede;
+            background-color: $gray-lighter;
             height: 8px;
             .order-count {
               border-radius: 4px;
               width: 40%;
-              background-color: #2575ef;
+              background-color: $color-brand-primary;
               height: 8px;
             }
           }
@@ -915,21 +727,19 @@
     .response-present {
       padding: 43px 0 40px;
       margin: 8px 0 0;
-      border: 1px solid #dedede;
+      border: 1px solid $gray-lighter;
       .response-counts {
         display: flex;
-        @media (max-width: $screen-sm) {
-          display: inline;
-        }
         justify-content: space-between;
         margin: 0 88px;
-        @media (min-width: $screen-sm) and (max-width: $screen-md-min) {
+        @media (max-width: $screen-md-max) {
+          display: inline;
           margin: 0 5%;
         }
         .response-count {
           display: flex;
           height: 34px;
-          @media (max-width: $screen-sm) {
+          @media (max-width: $screen-md-max) {
             position: relative;
             margin-left: 50%;
             left: -60px;
@@ -955,21 +765,21 @@
             font-size: 28px;
             font-weight: 500;
             letter-spacing: -1.8px;
-            color: #303030;
+            color: $gray-title;
           }
         }
       }
       .response-text {
         width: 221px;
         margin: 24px auto 0;
-        color: #717171;
+        color: $gray-caption;
         font-size: 14px;
       }
       .response-btn {
         margin: 12px auto 0;
-        border: 1px solid #2575ef;
+        border: 1px solid $color-brand-primary;
         font-size: 14px;
-        color: #2575ef;
+        color: $color-brand-primary;
         width: 167px;
         text-align: center;
         height: 32px;
@@ -991,42 +801,39 @@
           top: -4px;
           left: -4px;
           display: inline-block;
-          line-height: 17px;
           height: 17px;
           width: 38px;
           text-align: center;
-          font-size: 11px;
+          @extend .typo-mini;
+          line-height: 17px;
           background-color: #f7a329;
           color: white;
-          letter-spacing: -0.4px;
         }
         .agent-disagree {
           position: relative;
           top: -4px;
           left: -4px;
           display: inline-block;
-          line-height: 17px;
           height: 17px;
           width: 38px;
           text-align: center;
-          font-size: 11px;
+          @extend .typo-mini;
+          line-height: 17px;
           background-color: #e74c3c;
           color: white;
-          letter-spacing: -0.4px;
         }
         .agent-agree {
           position: relative;
           top: -4px;
           left: -4px;
           display: inline-block;
-          line-height: 17px;
           height: 17px;
           width: 38px;
           text-align: center;
-          font-size: 11px;
-          background-color: #2575ef;
+          @extend .typo-mini;
+          line-height: 17px;
+          background-color: $color-brand-primary;
           color: white;
-          letter-spacing: -0.4px;
         }
         .agent-image {
           width: 56px;
@@ -1043,26 +850,25 @@
             font-size: 16px;
             letter-spacing: 1px;
             font-weight: 500;
-            color: #303030;
+            color: $gray-title;
             display: inline;
           }
           .statement-btn {
             display: inline;
           }
           .agent-organization {
-            font-size: 11px;
-            letter-spacing: -0.4px;
-            color: #717171;
+            @extend .typo-mini;
+            color: $gray-caption;
           }
         }
 
         .agent-order-btn {
           flex: none;
-          border: 1px solid #2575ef;
+          border: 1px solid $color-brand-primary;
           font-size: 12px;
           font-weight: 500;
           letter-spacing: 0.2px;
-          color: #2575ef;
+          color: $color-brand-primary;
           text-align: center;
           margin: 12px 0;
           padding: 8px;
@@ -1077,21 +883,21 @@
       text-align: center;
       font-size: 14px;
       letter-spacing: -0.4px;
-      color: #717171;
+      color: $gray-caption;
     }
   }
   .section-story {
-    .section-title {
-      font-size: 14px;
-      letter-spacing: -0.6px;
-      font-weight: 500;
-      color: #303030;
-      line-height: 24px;
-    }
+    // .section-title {
+    //   font-size: 14px;
+    //   letter-spacing: -0.6px;
+    //   font-weight: 500;
+    //   color: $gray-title;
+    //   line-height: 24px;
+    // }
     .stories {
       .story {
         padding: 16px;
-        border: 1px solid #dedede;
+        border: 1px solid $gray-lighter;
         margin-top: 8px;
         .story-header {
           .user-image-sm {
@@ -1102,14 +908,13 @@
             display: inline;
             font-size: 14px;
             letter-spacing: -0.6px;
-            color: #303030;
+            color: $gray-title;
           }
           .date {
             display: inline;
-            font-size: 11px;
+            @extend .typo-mini;
             margin-left: 4px;
-            color: #dedede;
-            letter-spacing: -0.4px;
+            color: $gray-lighter;
           }
         }
         .story-title {
@@ -1117,10 +922,10 @@
           margin-top: 6px;
           font-size: 16px;
           letter-spacing: -1px;
-          color: #303030;
+          color: $gray-title;
         }
         .story-body {
-          color: #303030;
+          color: $gray-title;
           font-size: 14px;
           letter-spacing: -0.4px;
           margin-top: 8px;
@@ -1129,14 +934,22 @@
         .story-footer {
           .liked {
             display: inline;
-            color: #2575ef;
+            color: $color-brand-primary;
           }
           .not-yet-liked {
             display: inline;
-            color: #717171;
+            color: $gray-caption;
           }
         }
       }
+    }
+  }
+  section > .more {
+    text-align: center;
+    a {
+      font-size: 14px;
+      letter-spacing: -0.4px;
+      color: $gray-caption;
     }
   }
 }

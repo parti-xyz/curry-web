@@ -497,6 +497,11 @@ figure img {
   }
 }
 
+.typo-h3 {
+  font-size: $font-size-h3;
+  letter-spacing: $letter-spacing-h3;
+}
+
 .typo-h4 {
   font-size: $font-size-h4;
   letter-spacing: $letter-spacing-h4;
@@ -523,4 +528,15 @@ figure img {
   line-height: $line-height-body2;
 }
 
+.typo-body3 {
+  font-size: $font-size-body3;
+  letter-spacing: $letter-spacing-body3;
+  line-height: $line-height-body3;
+}
+
+.typo-mini {
+  font-size: $font-size-mini;
+  letter-spacing: $letter-spacing-mini;
+  line-height: $line-height-mini;
+}
 

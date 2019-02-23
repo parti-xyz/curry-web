@@ -5,52 +5,51 @@
 %section.section-panel
   = render 'campaigns/petition/section_right'
 
-  %section.section-left.tab-content
-    #story.tab-pane.fade
-      %section.section-story
-        .section-title 캠페인 소식을 만나 보세요!
-        .stories
-          - SignerEmail.where(campaign_id: @campaign).each do |email|
-            .story
-              .story-header
-                .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
-                .user-nickname= @campaign.user.nickname
-                .date= date_f email.updated_at
-              .story-title= email.title
-              .story-body
-                = raw email.body
-              .story-footer
-                = render 'likes/button', likable: email
+  %section.section-left
+    %section.section-story
+      .section-title 캠페인 소식을 만나 보세요!
+      .stories
+        - SignerEmail.where(campaign_id: @campaign).each do |email|
+          .story
+            .story-header
+              .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+              .user-nickname= @campaign.user.nickname
+              .date= date_f email.updated_at
+            .story-title= email.title
+            .story-body
+              = raw email.body
+            .story-footer
+              = render 'likes/button', likable: email
 
-          / .story
-          /   .story-header
-          /     .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
-          /     .user-nickname= @campaign.user.nickname
-          /     .date 3일전
-          /   .story-title 캠페인 서명자 5명을 모아주세요.
-          /   .story-body
-          /     이기적인 사회에 따뜻한 마중물이 된 마음을 가진 분 5분이 서명하도록 공유해주세요. 5분이 서명하면 1,000명 서명 모으기 목표가 달성되어 좀 더 나아갈 수 있습니다. 가크인의 적극적인 참여 부탁드려요.
-          /   .story-footer
-          /     = render 'likes/button', likable: @campaign.comments.first
-          / .story
-          /   .story-header
-          /     .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
-          /     .user-nickname 홍길동
-          /     .date 3일전
-          /   .story-title 캠페인 서명자 5명을 모아주세요.
-          /   .story-body
-          /     이기적인 사회에 따뜻한 마중물이 된 마음을 가진 분 5분이 서명하도록 공유해주세요. 5분이 서명하면 1,000명 서명 모으기 목표가 달성되어 좀 더 나아갈 수 있습니다. 가크인의 적극적인 참여 부탁드려요.
-          /   .story-footer
-          /     = render 'likes/button', likable: @campaign.comments.first
-          / .story
-          /   .story-header
-          /     .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
-          /     .user-nickname 홍길동
-          /     .date 3일전
-          /   .story-title 캠페인 서명자 5명을 모아주세요.
-          /   .story-body
-          /     이기적인 사회에 따뜻한 마중물이 된 마음을 가진 분 5분이 서명하도록 공유해주세요. 5분이 서명하면 1,000명 서명 모으기 목표가 달성되어 좀 더 나아갈 수 있습니다. 가크인의 적극적인 참여 부탁드려요.
-          /   .story-footer
-          /     = render 'likes/button', likable: @campaign.comments.last
+        / .story
+        /   .story-header
+        /     .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+        /     .user-nickname= @campaign.user.nickname
+        /     .date 3일전
+        /   .story-title 캠페인 서명자 5명을 모아주세요.
+        /   .story-body
+        /     이기적인 사회에 따뜻한 마중물이 된 마음을 가진 분 5분이 서명하도록 공유해주세요. 5분이 서명하면 1,000명 서명 모으기 목표가 달성되어 좀 더 나아갈 수 있습니다. 가크인의 적극적인 참여 부탁드려요.
+        /   .story-footer
+        /     = render 'likes/button', likable: @campaign.comments.first
+        / .story
+        /   .story-header
+        /     .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+        /     .user-nickname 홍길동
+        /     .date 3일전
+        /   .story-title 캠페인 서명자 5명을 모아주세요.
+        /   .story-body
+        /     이기적인 사회에 따뜻한 마중물이 된 마음을 가진 분 5분이 서명하도록 공유해주세요. 5분이 서명하면 1,000명 서명 모으기 목표가 달성되어 좀 더 나아갈 수 있습니다. 가크인의 적극적인 참여 부탁드려요.
+        /   .story-footer
+        /     = render 'likes/button', likable: @campaign.comments.first
+        / .story
+        /   .story-header
+        /     .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+        /     .user-nickname 홍길동
+        /     .date 3일전
+        /   .story-title 캠페인 서명자 5명을 모아주세요.
+        /   .story-body
+        /     이기적인 사회에 따뜻한 마중물이 된 마음을 가진 분 5분이 서명하도록 공유해주세요. 5분이 서명하면 1,000명 서명 모으기 목표가 달성되어 좀 더 나아갈 수 있습니다. 가크인의 적극적인 참여 부탁드려요.
+        /   .story-footer
+        /     = render 'likes/button', likable: @campaign.comments.last
 
 = render 'campaigns/petition/sign_button'

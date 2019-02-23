@@ -4,7 +4,7 @@
       :plain
         var campaign_due_date = new Date('#{@campaign.created_at}')
     .campaign-progress
-      .campaign-time-to-left.tablet-fold
+      .campaign-time-to-left.hidden-xs
         / 캠페인 목표 서명수처럼 서명 기한(날짜)가 필요함.
         남은 시간
         %br
@@ -43,7 +43,7 @@
             .signer-image{ style: "background-image:url(#{asset_url(sign.user_image_url)});" }
             .signed-message
               #{sign.user_name}님이 서명하셨습니다.
-      .campaign-sign-form.tablet-fold
+      .campaign-sign-form.hidden-xs
         .campaign-sign
           .signer-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
           .signer-nickname

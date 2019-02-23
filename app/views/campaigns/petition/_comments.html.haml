@@ -1,4 +1,4 @@
-.comments.infinite-container
+.comments{ class: ('infinite-container' unless local_assigns[:finite]) }
   - comments.each do |comment|
     .comment.infinite-item
       - if comment.target_agents.any?
@@ -12,7 +12,7 @@
           = render 'reports/button', reportable: comment
           / %a  # TODO: 박제 버튼 구현 방법 고민
           /   박제
-      .comment-form
+      .comment-line
         .commenter-image{ style: "background-image:url(#{asset_url(comment.user_image)});" }
         .comment-right
           .comment-header
@@ -43,5 +43,7 @@
             = raw comment.body
           .comment-footer
             = render 'likes/button', likable: comment
-- unless comments.last_page?
+  - if local_assigns[:finite]
+    .comment.comment-dummy
+- if !comments.last_page? and !local_assigns[:finite]
   = link_to '', comments_campaign_path(commentable_id: @campaign.id, commentable_type: 'Campaign', page: comments.next_page, test: 'signs'), class: "infinite-more-link"

@@ -1,10 +1,10 @@
 - if user_signed_in?
-  - report_label = capture do
-    신고
   - if reportable.reported_by(current_user)
-    = report_label
+    %span.reported<>
+      %span<> 신고되었음
+      %i.fa.fa-check
   - else
-    = link_to report_label, reports_path(reportable_id: reportable, reportable_type: reportable.class.name), method: :post, data: { confirm: '신고하시겠습니까?' }
+    = link_to '신고', reports_path(reportable_id: reportable, reportable_type: reportable.class.name), method: :post, data: { confirm: '신고하시겠습니까?' }
   - if current_user.is_admin?
     = link_to '긴급신고', reports_path(reportable_id: reportable, reportable_type: reportable.class.name, force: true), method: :post, data: { confirm: '신고하시겠습니까?' }
 
