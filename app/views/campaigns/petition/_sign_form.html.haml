@@ -1,9 +1,30 @@
 
 - if user_signed_in? and @campaign.signed?(current_user)
-  .sign-panel__form
-    .alert.alert-warning
-      .text-center
-        참여하였습니다
+  - sign_form_block = capture do
+    .sign-panel__form
+      .alert.alert-warning
+        .text-center
+          이미 참여하였습니다
+
+      %p.text-basic-wrap
+        이 캠페인을 친구들에게 알려 주세요
+        - share_image_url = @campaign.read_attribute(:cover_image).present? ? @campaign.cover_image_url(:lg) : asset_url("default-image.png")
+        .share-box{ 'data-share-image': share_image_url }
+      - if @campaign.agents.any?
+        %p.text-basic-wrap
+          관련된 인물에게 촉구해 주세요.
+          %div
+            = link_to order_campaign_path(@campaign), class: "js-close-modal btn btn-xs btn-primary" do
+              촉구하기
+              %i.fa.fa-arrow-right
+      - elsif @campaign.comment_enabled
+        %p.text-basic-wrap
+          의견을 남겨 보세요.
+          %div
+            = link_to comment_campaign_path(@campaign), class: "js-close-modal btn btn-xs btn-primary" do
+              의견 남기기
+              %i.fa.fa-arrow-right
+
 - else
   - if @campaign.opened?
     - sign_form_block = capture do
@@ -59,13 +80,19 @@
                       != @campaign.confirm_privacy
               .form-group
                 = f.submit "#{@campaign.signs_count+1}번째로 참여하기", class: 'btn btn-danger btn-lg btn-block', data: { disable_with: "진행 중..." }
+  - else
+    - sign_form_block = capture do
+      .sign-panel__form
+        .alert.alert-warning
+          .text-center
+            캠페인이 종료되었습니다.
 
-    .modal.fade{ id: modal_dom_id, :role => "dialog", :tabindex => "-1"}
-      .modal-dialog{:role => "document"}
-        .modal-content
-          .modal-header
-            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-              %span{"aria-hidden" => "true"} &#215;
-            %h4.modal-title 참여하기
-          .modal-body
-            = sign_form_block
+.modal.fade{ id: modal_dom_id, :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &#215;
+        %h4.modal-title 참여하기
+      .modal-body
+        = sign_form_block

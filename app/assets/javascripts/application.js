@@ -87,81 +87,6 @@ $(function(){
     }
   );
 
-  $('.share-box').each(function(i, elm) {
-    var $elm = $(elm);
-    $elm.jsSocials({
-      // 윈도우 resize 할때 다시 로딩을 방지합니다.
-      showLabel: false,
-      showCount: false,
-
-      shares: [{
-          renderer: function() {
-            var $result = $("<div>");
-
-            var script = document.createElement("script");
-            script.text = "(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = \"//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.3\"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));";
-            $result.append(script);
-
-            $("<div>").addClass("fb-share-button")
-                .attr("data-layout", "button_count")
-                .appendTo($result);
-
-            return $result;
-          }
-        }, {
-          renderer: function() {
-            var $result = $("<div>");
-
-            var script = document.createElement("script");
-            script.text = "window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src=\"https://platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,\"script\",\"twitter-wjs\"));";
-            $result.append(script);
-
-            $("<a>").addClass("twitter-share-button")
-                .text("Tweet")
-                .attr("href", "https://twitter.com/share")
-                .appendTo($result);
-
-            return $result;
-          }
-        }, {
-          image_url: $elm.data('shareImage'),
-          renderer: function(options) {
-            var md = new MobileDetect(window.navigator.userAgent);
-            if(!md.mobile()) {
-              return;
-            }
-            if(!this.image_url) {
-              return;
-            }
-            var $result = $("<div class='kakao-share-button'><span class='kakao-share-button--label'>카카오톡</span></div>");
-
-            var url = this.url;
-            var text = this.text;
-            var image_url = this.image_url;
-            var image_width = '300';
-            var image_height = '155';
-
-            Kakao.Link.createTalkLinkButton({
-              container: $result[0],
-              label: text,
-              image: {
-                src: image_url,
-                width: image_width,
-                height: image_height
-              },
-              webLink: {
-                text: '우주당에서 보기',
-                url: url
-              }
-            });
-
-            return $result;
-          }
-        }
-      ]
-    });
-  });
-
   $('.js-top-menu i').click(function(){
     $('#header-container').toggleClass('drop-main-menu');
   })
@@ -500,6 +425,81 @@ function parti_partial$($partial) {
     }
 
     $form.validate(options);
+  });
+
+  $.parti_apply($partial, '.share-box', function(elm) {
+    var $elm = $(elm);
+    $elm.jsSocials({
+      // 윈도우 resize 할때 다시 로딩을 방지합니다.
+      showLabel: false,
+      showCount: false,
+
+      shares: [{
+          renderer: function() {
+            var $result = $("<div>");
+
+            var script = document.createElement("script");
+            script.text = "(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = \"//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.3\"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));";
+            $result.append(script);
+
+            $("<div>").addClass("fb-share-button")
+                .attr("data-layout", "button_count")
+                .appendTo($result);
+
+            return $result;
+          }
+        }, {
+          renderer: function() {
+            var $result = $("<div>");
+
+            var script = document.createElement("script");
+            script.text = "window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src=\"https://platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,\"script\",\"twitter-wjs\"));";
+            $result.append(script);
+
+            $("<a>").addClass("twitter-share-button")
+                .text("Tweet")
+                .attr("href", "https://twitter.com/share")
+                .appendTo($result);
+
+            return $result;
+          }
+        }, {
+          image_url: $elm.data('shareImage'),
+          renderer: function(options) {
+            var md = new MobileDetect(window.navigator.userAgent);
+            if(!md.mobile()) {
+              return;
+            }
+            if(!this.image_url) {
+              return;
+            }
+            var $result = $("<div class='kakao-share-button'><span class='kakao-share-button--label'>카카오톡</span></div>");
+
+            var url = this.url;
+            var text = this.text;
+            var image_url = this.image_url;
+            var image_width = '300';
+            var image_height = '155';
+
+            Kakao.Link.createTalkLinkButton({
+              container: $result[0],
+              label: text,
+              image: {
+                src: image_url,
+                width: image_width,
+                height: image_height
+              },
+              webLink: {
+                text: '우주당에서 보기',
+                url: url
+              }
+            });
+
+            return $result;
+          }
+        }
+      ]
+    });
   });
 
   if(!$(document).is($partial)) {

@@ -41,9 +41,10 @@
               #{sign.user_name}님이 서명하셨습니다.
       .campaign-sign-form.hidden-xs
         .campaign-sign
-          .signer-image{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
-          .signer-nickname
-            = @campaign.user.nickname
+          - if user_signed_in?
+            .signer-image{ style: "background-image:url(#{asset_url(user_signed_in? ? current_user.image_url(:xs) : 'default-user.png')});" }
+            .signer-nickname
+              = current_user.nickname
         = link_to sign_form_campaign_path(@campaign), remote: true do
           .campaign-sign-input.nickname{ style: "display: none" }
             이름
@@ -69,3 +70,44 @@
           = hidden_field_tag "share-url", "#{campaign_url(@campaign)}"
           .js-clipboard.campaign-share-button{ 'data-clipboard-text': campaign_url(@campaign), 'data-toggle': 'tooltip', 'data-trigger': 'manual', 'data-title': '캠페인 공유 주소를 복사하였습니다.', style: "margin-left: 6px" }
             %i.fa.fa-clipboard
+
+
+
+- if flash[:sign_notice].present?
+  #sign-success-modal.modal.fade{:role => "dialog", :tabindex => "0"}
+    .modal-dialog{:role => "document"}
+      .modal-content
+        .modal-header
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} &#215;
+          %h4.modal-title
+            참여해주셔서 감사합니다.
+        .modal-body
+          %p
+            != flash[:sign_notice]
+
+          %p.text-basic-wrap
+            이 캠페인을 친구들에게 알려 주세요
+            - share_image_url = @campaign.read_attribute(:cover_image).present? ? @campaign.cover_image_url(:lg) : asset_url("default-image.png")
+            .share-box{ 'data-share-image': share_image_url }
+          - if @campaign.agents.any?
+            %p.text-basic-wrap
+              관련된 인물에게 촉구해 주세요.
+              %div
+                = link_to order_campaign_path(@campaign), class: "js-close-modal btn btn-xs btn-primary" do
+                  촉구하기
+                  %i.fa.fa-arrow-right
+          - elsif @campaign.comment_enabled
+            %p.text-basic-wrap
+              의견을 남겨 보세요.
+              %div
+                = link_to comment_campaign_path(@campaign), class: "js-close-modal btn btn-xs btn-primary" do
+                  의견 남기기
+                  %i.fa.fa-arrow-right
+
+  = content_for :script do
+    :javascript
+      $(function(){
+        $('#sign-success-modal').modal('show');
+      });
+  - flash.delete(:sign_notice)

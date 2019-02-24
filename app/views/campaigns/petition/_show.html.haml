@@ -89,4 +89,3 @@
       = render 'campaigns/petition/comments_page', commentable: @campaign, comments: @campaign.comments.recent.page(1), finite: true
       .more
         = link_to '더 보기', comment_campaign_path(@campaign)
-

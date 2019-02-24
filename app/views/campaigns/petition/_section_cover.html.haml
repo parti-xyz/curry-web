@@ -1,9 +1,4 @@
 %section.section-cover
-  / .cover-overlay
-  / - if @campaign.read_attribute(:cover_image).present?
-  /   .cover-image{ style: "background-image:url(#{asset_url(@campaign.cover_image_url(:lg))});" }
-  / - else
-  /   .cover-image{ style: "background-image:url(#{asset_url("default-image.png")});" }
   .info-container
     .meta
       - if @campaign.success?
