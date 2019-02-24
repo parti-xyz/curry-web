@@ -166,14 +166,14 @@
   }
   .comment {
     border-top: 1px dashed $gray-lighter;
+    &:last-child {
+      border-bottom: 1px dashed $gray-lighter;
+      margin-bottom: 8px;
+    }
     padding: 16px 0;
     position: relative;
     &.comment-form {
       border: none;
-    }
-    &.comment-dummy {
-      padding: 0;
-      margin-bottom: 8px;
     }
     .comment-controls {
       word-spacing: 16px;
@@ -221,6 +221,13 @@
               margin-left: 4px;
               color: $gray-menu;
               vertical-align: middle;
+            }
+          }
+          .comment-readers {
+            margin-left: 6px;
+            color: $gray-caption;
+            &.any_read {
+              color: $brand-primary;
             }
           }
         }
@@ -279,17 +286,26 @@
       line-height: $filter-height;
       .filters-right {
         display: flex;
+        a {
+          color: $gray-caption;
+        }
         .active {
           color:  $gray-title;
           font-weight: 500;
         }
         .filter {
-          margin-right: 16px;
+          margin-left: 16px;
           white-space: nowrap;
         }
       }
-      .my-comment {
+      a.my-comment,
+      a.all-comment {
+        color: $gray-caption;
+        @extend .typo-body3;
         text-decoration: underline;
+      }
+      a.all-comment {
+        margin-left: 16px;
       }
     }
   }

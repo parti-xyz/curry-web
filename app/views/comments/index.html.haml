@@ -1,14 +1,17 @@
-%section#commentable-block.page-block
-  .container
-    .panel.panel-default.panel-post
-      .panel-heading
-        %h2
-          = link_to @commentable do
-            %small.label.label-danger
-              = @commentable_model.model_name.human
-            = @commentable.try(:title)
+- if params[:partial] == 'campaigns-petition-comments_page'
+  = render 'campaigns/petition/comments_page', commentable: @commentable, comments: @comments, dom_id: params[:page_dom_id]
+- else
+  %section#commentable-block.page-block
+    .container
+      .panel.panel-default.panel-post
+        .panel-heading
+          %h2
+            = link_to @commentable do
+              %small.label.label-danger
+                = @commentable_model.model_name.human
+              = @commentable.try(:title)
 
-%section#comments-block.page-block.post-block
-  .container
-    .post-block__comments.post-block__comments__no-form
-      = render 'comments/list', commentable: @commentable, comments: @comments, show_form: params[:show_form]
+  %section#comments-block.page-block.post-block
+    .container
+      .post-block__comments.post-block__comments__no-form
+        = render 'comments/list', commentable: @commentable, comments: @comments, show_form: params[:show_form]

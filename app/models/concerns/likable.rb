@@ -6,6 +6,9 @@ module Likable
   end
 
   def merged_likes_count
+    if has_attribute?(:merged_likes_count)
+      return read_attribute(:merged_likes_count)
+    end
     anonymous_likes_count + likes_count
   end
 end

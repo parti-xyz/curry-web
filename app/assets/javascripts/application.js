@@ -28,6 +28,7 @@
 //= require bootstrap-datetimepicker
 //= require perfect-scrollbar
 //= require jquery.waypoints
+//= require waypoints.debug.js
 //= require sticky
 //= require infinite
 //= require clipboard
@@ -311,58 +312,9 @@ $(function(){
     fixedContentPos: false
   });
 
-  // 폼 검증
-  $('.gov-action-form-validation').each(function(i, elm) {
-    var $form = $(elm);
-
-    var options = {
-      ignore: ':hidden:not(.validate)',
-      errorPlacement: function(error, $element) {
-        error.insertAfter($element);
-        $('.masonry-container').masonry();
-      }
-    };
-    var $grecaptcha_control = $form.find('.gov-action-form-grecaptcha');
-    if($grecaptcha_control.length > 0) {
-      options['submitHandler'] = function (form) {
-        var str_widget_id = $grecaptcha_control.data('grecaptcha_widget_id');
-        console.log("========");
-        console.log(str_widget_id);
-        if(typeof str_widget_id != 'undefined') {
-          var widget_id = parseInt(str_widget_id, 10);
-          if (grecaptcha.getResponse(widget_id)) {
-            // 2) finally sending form data
-            form.submit();
-          }else{
-            // 1) Before sending we must validate captcha
-            grecaptcha.reset(widget_id);
-            grecaptcha.execute(widget_id);
-          }
-        } else {
-          form.submit();
-        }
-      }
-    }
-
-    $form.validate(options);
-  });
-
   $('.gov-action-sidbar').on('click', function(e) {
     $('#site-sidebar').sidebar('toggle');
   });
-
-  $('.js-popover').each(function(i, elm) {
-    var $elm = $(elm);
-
-    var options = {}
-    var style = $elm.data('style');
-    if(style) {
-      options['style'] = style;
-    }
-
-    $elm.webuiPopover(options);
-  });
-
 
   // agenda theme bootstrap tab & location hash
   $('a.js-agenda-theme-tab[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -384,7 +336,6 @@ $(function(){
       }
     });
   });
-
 
   (function() {
     $('.js-horizontal-scroll-container').each(function(i, elm) {
@@ -458,73 +409,6 @@ $(function(){
     })
   }
 
-  if ($('.js-infinite-container').length > 0) {
-    var infinite = new Waypoint.Infinite( { element: $('.js-infinite-container')[0] } );
-  }
-
-  if ($('#CommentTarget').length > 0) {
-    $('#CommentTarget').change(
-      function() {
-        var target = this.value
-        if (target == "") {
-          $('#comment .comment').filter(
-            function() {
-              $(this).toggle(true)
-            }
-          )
-        } else {
-          $('#comment .comment').filter(
-            function() {
-              if (this.children['filter-agents']) {
-                $(this).toggle(
-                  JSON.parse(
-                    this.children['filter-agents'].value
-                  ).indexOf(target) > -1
-                )
-              } else {
-                $(this).toggle(false)
-              }
-            }
-          )
-        }
-      }
-    )
-  }
-
-  $('.js-order-by-recent').click(function () {
-    comments = $('#comment .comments').children('.comment').get()
-    comments.sort(function(a, b) {
-      return b.children['sort-date'].value - a.children['sort-date'].value
-    })
-    $.each(comments, function(i,x) { $('#comment .comments').append(x) })
-    $('.js-order-by-recent').css('color', '#303030')
-    $('.js-order-by-recent').css('font-weight', '500')
-    $('.js-order-by-like-count').css('color', '#aaaaaa')
-    $('.js-order-by-like-count').css('font-weight', 'initial')
-  })
-
-  $('.js-order-by-like-count').click(function () {
-    comments = $('#comment .comments').children('.comment').get()
-    comments.sort(function(a, b) {
-      return b.children['sort-like'].value - a.children['sort-like'].value
-    })
-    $.each(comments, function(i,x) { $('#comment .comments').append(x) })
-    $('.js-order-by-like-count').css('color', '#303030')
-    $('.js-order-by-like-count').css('font-weight', '500')
-    $('.js-order-by-recent').css('color', '#aaaaaa')
-    $('.js-order-by-recent').css('font-weight', 'initial')
-  })
-
-  $('.js-my-comment').click(function() {
-    $.ajax({
-      url: 'http://govcraft.test/comments?commentable_id=79&commentable_type=Campaign&page=1&test=signs&comment_user_id=997'
-    }).done(function(data) {
-      comments = $('.infinite-item', data).get()
-      $.each($('#comment .comment').get(), function(i,x) { x.remove() })
-      $.each(comments, function(i,x) { $('#comment .comments').append(x) })
-    })
-  })
-
   if ($('.js-campaign-time-to-left').length > 0) {
     setInterval(function() {
       var format = function(n) { if (n < 10) {return "0" + n} else return "" + n }
@@ -549,8 +433,95 @@ $(function(){
   });
 });
 
-function no_op() {}
+// ajax partial 로딩 된 콘텐츠에도 작동해야하는 동작들
+$.parti_apply = function($base, query, callback) {
+  $.each($base.find(query).addBack(query), function(i, elm){
+    callback(elm);
+  });
+}
 
+function parti_partial$($partial) {
+  $partial.find('.js-infinite-container').each(function() {
+    new Waypoint.Infinite( {
+      element: this,
+      onAfterPageLoad: function($items) {
+        parti_partial$($items);
+      }
+    });
+  });
+
+  $.parti_apply($partial, '.js-popover', function(elm) {
+    var $elm = $(elm);
+
+    var options = {}
+    var style = $elm.data('style');
+    if(style) {
+      options['style'] = style;
+    }
+
+    $elm.webuiPopover(options);
+  });
+
+  // 폼 검증
+  $.parti_apply($partial, '.gov-action-form-validation', function(elm) {
+    var $form = $(elm);
+
+    var options = {
+      ignore: ':hidden:not(.validate)',
+      errorPlacement: function(error, $element) {
+        error.insertAfter($element);
+        $('.masonry-container').masonry();
+      }
+    };
+    var $grecaptcha_control = $form.find('.gov-action-form-grecaptcha');
+    if($grecaptcha_control.length > 0) {
+      options['submitHandler'] = function (form) {
+        var str_widget_id = $grecaptcha_control.data('grecaptcha_widget_id');
+        console.log("========");
+        console.log(str_widget_id);
+        if(typeof str_widget_id != 'undefined') {
+          var widget_id = parseInt(str_widget_id, 10);
+          if (grecaptcha.getResponse(widget_id)) {
+            // 2) finally sending form data
+            form.submit();
+          }else{
+            // 1) Before sending we must validate captcha
+            grecaptcha.reset(widget_id);
+            grecaptcha.execute(widget_id);
+          }
+        } else {
+          form.submit();
+        }
+      }
+    }
+
+    $form.validate(options);
+  });
+
+  if(!$(document).is($partial)) {
+    $(document).trigger('govcraft-grecaptcha-for-partial', $partial);
+  }
+}
+
+$(function(){
+  $(document).on('change', '.js-select-link', function(e) {
+    var $selected_option = $(e.currentTarget).find('option:selected');
+    var url = $selected_option.data('url');
+    if(url) {
+      var remote = $(e.currentTarget).data('select-link-remote');
+      if(remote) {
+        $.ajax({
+          url: url,
+          type: "get"
+        });
+      } else {
+        location.href = url;
+      }
+    }
+  });
+
+  parti_partial$($(document));
+});
 
 $(document).ajaxError(function (e, xhr, settings) {
   if(xhr.status == 500) {

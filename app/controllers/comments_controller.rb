@@ -9,12 +9,22 @@ class CommentsController < ApplicationController
       @commentable_model = params[:commentable_type].classify.safe_constantize
       render_404 and return if @commentable_model.blank?
       @commentable = @commentable_model.find(params[:commentable_id])
-      if params[:comment_user_id].present?
-        @comments = @commentable.comments.where(user: User.find(params[:comment_user_id])).recent.page(params[:page])
+      if params[:only_my_comments].present?
+        @comments = @commentable.comments.where(user: current_user&.id).recent.page(params[:page])
       else
-        @comments = @commentable.comments.recent.page(params[:page])
+        @comments = @commentable.comments.page(params[:page])
+
+        if params[:sort] == 'merged_likes_count'
+          @comments = @comments.order(merged_likes_count: :desc)
+        else
+          @comments = @comments.recent
+        end
       end
-      @comments = @comments.with_target_agent(Agent.find_by(id: params[:agent_id])) if params[:agent_id].present?
+      @comments = @comments.with_target_agent(Agent.find_by(id: params[:target_agent_id])) if params[:target_agent_id].present?
+    end
+
+    if params[:partial].present?
+      render layout: nil
     end
   end
 

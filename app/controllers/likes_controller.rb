@@ -20,6 +20,8 @@ class LikesController < ApplicationController
       end
       @likable.reload
     end
+
+    merge_likes_counts
   end
 
   def cancel
@@ -31,11 +33,19 @@ class LikesController < ApplicationController
     @like = Like.find_by!(likable: Like.new(like_params).likable, user: current_user)
     @likable = @like.likable
     @like.try(:destroy)
+
+    merge_likes_counts
   end
 
   private
 
   def like_params
     params.require(:like).permit(:likable_id, :likable_type)
+  end
+
+  def merge_likes_counts
+    if @likable.has_attribute?(:merged_likes_count)
+      @likable.update_attributes!(merged_likes_count: @likable.anonymous_likes_count + @likable.likes_count)
+    end
   end
 end

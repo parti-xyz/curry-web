@@ -86,7 +86,7 @@
       .section-title
         의견
       = render 'campaigns/petition/comment_form_line', campaign: @campaign
-      = render 'campaigns/petition/comments', comments: @campaign.comments.recent.page(1), finite: true
+      = render 'campaigns/petition/comments_page', commentable: @campaign, comments: @campaign.comments.recent.page(1), finite: true
       .more
         = link_to '더 보기', comment_campaign_path(@campaign)
 

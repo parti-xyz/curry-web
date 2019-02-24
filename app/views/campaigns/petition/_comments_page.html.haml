@@ -1,0 +1,87 @@
+-# params
+-#  only_my_comments
+-#  target_agent_id
+-#  sort
+
+%div{ id: local_assigns[:dom_id] }
+  - unless local_assigns[:finite]
+    .comment-filter
+      .filters
+        - filter_base_params = { commentable_id: commentable.id, commentable_type: 'Campaign', page_dom_id: local_assigns[:dom_id], partial: 'campaigns-petition-comments_page' }
+        .filters-left
+          - if user_signed_in?
+            - my_comments_count = commentable.comments.where(user: current_user).count
+            - if my_comments_count > 0
+              - if params[:only_my_comments] != 'true'
+                = link_to "내 글 보기(#{my_comments_count})", comments_path(filter_base_params.merge(only_my_comments: 'true')), remote: true, class: 'my-comment', 'data-disable-with': '로딩 중...'
+              - else
+                %span 내 글(#{my_comments_count})
+                = link_to '모든 글 보기', comments_path(filter_base_params), remote: true, class: 'all-comment', 'data-disable-with': '로딩 중...'
+        - if params[:only_my_comments].blank?
+          .filters-right
+            - filter_sort_params = filter_base_params.merge(target_agent_id: params[:target_agent_id])
+            = link_to '최신순', comments_path(filter_sort_params.merge(sort: :recent)), remote: true, class: "filter #{'active' if params[:sort] == 'recent' or params[:sort].blank?}", 'data-disable-with': '로딩 중...'
+            = link_to '공감순', comments_path(filter_sort_params.merge(sort: :merged_likes_count)), remote: true, class: "filter #{'active' if params[:sort] == 'merged_likes_count'}", 'data-disable-with': '로딩 중...'
+
+            - if commentable.respond_to? :agents
+              - filter_target_params = filter_base_params.merge(sort: params[:sort], format: :js)
+              = select_tag "target_agent_id", options_for_select([['촉구대상별 보기', '', { 'data-url':  comments_path(filter_target_params) } ]] + commentable.agents.map{ |agent| [ agent.name, agent.id, { 'data-url':  comments_path(filter_target_params.merge(target_agent_id: agent.id)), 'selected': (params[:target_agent_id] == agent.id.to_s) } ] }), class: 'filter filter-select-agent js-select-link', 'data-select-link-remote': 'true'
+  .comments{ class: ('js-infinite-container' unless local_assigns[:finite]) }
+    - comments.each do |comment|
+      .comment.infinite-item
+        .comment-controls
+          - if can? :destroy, comment
+            = link_to '삭제', comment, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
+          - if current_user != comment.user
+            = render 'reports/button', reportable: comment
+            / %a  # TODO: 박제 버튼 구현 방법 고민
+            /   박제
+        .comment-line
+          .commenter-image{ style: "background-image:url(#{asset_url(comment.user_image)});" }
+          .comment-right
+            .comment-header
+              .nickname
+                = comment.user_nickname
+                - if comment.target_agents.any?
+                  .comment-agent
+                    = comment.target_agents.shuffle.first.name
+                    - if comment.target_agents.count > 1
+                      외 #{comment.target_agents.count - 1}
+                    에 촉구
+
+                  - readers_dom_id = build_uid
+                  - any_read = false
+                  .hidden
+                    %ul.list-unstyled{ id: readers_dom_id, style: 'margin-bottom: 0' }
+                      - comment.orders.in_groups_of(2, false).each do |group_orders|
+                        .row
+                          - group_orders.each do |order|
+                            .col-sm-6.text-nowrap
+                              = image_tag order.agent.image.md.url, style: "width: 24px; margin-right: 5px;"
+                              %span= order.agent.name
+                              - if order.agent.category == '개인'
+                                %small.text-muted= order.agent.organization
+                              - if order.read?
+                                - any_read = true
+                                %span{ style: 'color: green;' }
+                                  %i.fa.fa-check
+                                  읽음
+                              - else
+                                %span 안읽음
+                  %span.comment-readers.js-popover.cursor-pointer{ "data-url": "##{readers_dom_id}", "data-placement": "bottom", "data-trigger": "click", class: ('any_read' if any_read) }
+                    - if comment.orders.all_read.count > 0
+                      %i.fa.fa-envelope-open-o
+                    - else
+                      %i.fa.fa-envelope-o
+              %span.sign-info
+                - if Order.where(comment: comment).present?
+                  #{Order.where(comment: commentable.comments).where("comment_id <= ?", comment.id).select(:comment_id).distinct.count}번째 서명자
+                .date= date_f comment.updated_at
+            .comment-body
+              = raw comment.body
+            .comment-footer
+              = render 'likes/button', likable: comment
+  - if !comments.last_page? and !local_assigns[:finite]
+    = link_to '', comments_path(commentable_id: commentable.id, commentable_type: 'Campaign', page: comments.next_page, comment_user_id: params[:comment_user_id], sort: params[:sort], page_dom_id: local_assigns[:dom_id], partial: 'campaigns-petition-comments_page'), class: "infinite-more-link"
+    .text-center
+      로딩 중...

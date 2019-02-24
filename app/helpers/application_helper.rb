@@ -109,7 +109,7 @@ module ApplicationHelper
     end
   end
 
-  def uid
+  def build_uid
     "uid-#{SecureRandom.uuid}"
   end
 end

@@ -1,0 +1,5 @@
+<% if params[:partial] == 'campaigns-petition-comments_page' %>
+  $('#<%= params[:page_dom_id] %>').replaceWith('<%= j(render 'campaigns/petition/comments_page', commentable: @commentable, comments: @comments, dom_id: params[:page_dom_id]) %>');
+
+  parti_partial$($('#<%= params[:page_dom_id] %>'));
+<% end %>

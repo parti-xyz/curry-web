@@ -132,10 +132,6 @@ class CampaignsController < ApplicationController
     render template: 'campaigns/petition/comment'
   end
 
-  def comments
-    render template: 'campaigns/petition/comments'
-  end
-
   def story
     render template: 'campaigns/petition/story'
   end

@@ -28,7 +28,13 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 
   /* Private */
   Infinite.prototype.setupHandler = function() {
-    this.options.handler = $.proxy(function() {
+    this.options.handler = $.proxy(function(direction) {
+      /** FATCH BY GOVCRAFT **/
+      //console.log('Direction: ' + direction);
+      //console.log('TriggerPoint: ' + this.waypoint.triggerPoint);
+      if(this.waypoint.triggerPoint < 0) {
+        return;
+      }
       this.options.onBeforePageLoad()
       this.destroy()
       this.$container.addClass(this.options.loadingClass)

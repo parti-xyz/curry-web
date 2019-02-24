@@ -41,9 +41,9 @@
         = @campaign.user.nickname
 
   .cover-image{ style: "background-color: #777;" }
-    - uid_header_bg = uid
-    - uid_alpha_linear = uid
-    - uid_mask = uid
+    - uid_header_bg = build_uid
+    - uid_alpha_linear = build_uid
+    - uid_mask = build_uid
     %svg{height: "100%", width: "100%", preserveAspectRatio: "xMidYMid slice", version: "1.1", xmlns: "http://www.w3.org/2000/svg"}
       %defs
         %lineargradient{ id: uid_alpha_linear, x0: "10%", x1: "90%", y1: "0%", y2: "100%" }
