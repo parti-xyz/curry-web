@@ -83,5 +83,3 @@
               = render 'likes/button', likable: comment
   - if !comments.last_page? and !local_assigns[:finite]
     = link_to '', comments_path(commentable_id: commentable.id, commentable_type: 'Campaign', page: comments.next_page, comment_user_id: params[:comment_user_id], sort: params[:sort], page_dom_id: local_assigns[:dom_id], partial: 'campaigns-petition-comments_page'), class: "infinite-more-link"
-    .text-center
-      로딩 중...

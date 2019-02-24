@@ -50,7 +50,7 @@ module Statementing
     @statementable = fetch_statementable
     @comment = Comment.new
     if @statementable.respond_to? :message_to_agent
-      @comment.body = @statementable.message_to_agent + "<p></p>"
+      @comment.body = (@statementable.message_to_agent || '') + "<p></p>"
     end
 
     if params[:agent_id].present?

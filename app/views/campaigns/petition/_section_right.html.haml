@@ -55,10 +55,22 @@
             %br
         / %button.btn.btn-danger.btn-lg.btn-block.campaign-sign-btn{"data-target" => "#sign-form-modal", "data-toggle" => "modal", :type => "button"}
         = link_to '서명하기', sign_form_campaign_path(@campaign), remote: true, class: "btn btn-danger btn-lg btn-block campaign-sign-btn"
-        .campaign-sign-privacy-policy
-          서명하기를 누르시면 본 서명의
-          %a 개인정보취급방침
-          에 동의하게 됩니다.
+        - if @campaign.confirm_privacy.present?
+          .campaign-sign-privacy-policy
+            서명하기를 누르시면 본 서명의
+            %a{ "data-target" => "#privacy-modal", "data-toggle" => "modal", :type => "button", style: 'cursor:pointer' }
+              개인정보취급방침
+            에 동의하게 됩니다.
+          #privacy-modal.modal.fade{:role => "dialog", :tabindex => "0"}
+            .modal-dialog{:role => "document"}
+              .modal-content
+                .modal-header
+                  %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                    %span{"aria-hidden" => "true"} &#215;
+                  %h4.modal-title 개인정보취급방침
+                .modal-body
+                  != @campaign.confirm_privacy
+
       .campaign-share.phone-fold
         .campaign-share-text
           많은 분들이 캠페인에 참여할 수 있도록 공유해주세요.

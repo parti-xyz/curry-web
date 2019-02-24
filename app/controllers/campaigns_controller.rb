@@ -124,6 +124,7 @@ class CampaignsController < ApplicationController
   end
 
   def agents
+    @agents = @campaign.agents.order(name: :asc).page(params[:page]).per(10)
     render template: 'campaigns/petition/agents'
   end
 

@@ -76,3 +76,8 @@ body {
   border-radius: 2px;
 }
 
+.js-infinite-container.infinite-loading:after {
+  content: '로딩 중...';
+  text-align: center;
+  display: block;
+}

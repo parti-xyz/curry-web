@@ -43,17 +43,24 @@
             .count= @campaign.statements.group(:stance).count['unsure'] || 0
         .response-text
           반대, 무응답자를 한번에 촉구해보세요.
-        .response-btn
+        = link_to [:new_comment_agent, @campaign], class: 'response-btn' do
           #{@campaign.agents.count}명
           모두에게 촉구하기
+
+      - @campaign.total_action_assignables.each do |action_assignable|
+        - if @campaign.responded_agents(action_assignable).any?
+          %div{ style: 'margin: 14px 0' }
+            - @campaign.responded_agents(action_assignable).each do |agent|
+              = render 'campaigns/agent', agent: agent, campaign: @campaign, template: 'line', agency: action_assignable
+
       .orders-tab-title-h5.title-wrap
-        .title-left 촉구하기-답변보기
+        .title-left 촉구하기
         .title-right
           .response-header-text
             촉구 대상 중 한 분인가요?
-          .response-header-btn
+          = link_to [:edit_statements, @campaign], class: 'response-header-btn' do
             답변하기
-      - agents = @campaign.agents.page(1).per(3)
+      - agents = @campaign.agents.order(name: :asc).page(1).per(10)
       - if agents.any?
         = render 'campaigns/petition/agents', agents: agents
 

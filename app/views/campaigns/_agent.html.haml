@@ -43,10 +43,10 @@
           %a.text-nowrap{"href": "#", "data-target" => "#agent-statement-modal-#{agent.id}", "data-toggle" => "modal", :type => "button" }
             %i.fa.fa-commenting-o
             답변보기
-        - unless statement.try(:stance).try(:agree?)
-          %a.text-nowrap{"href": "#", "data-target" => "#agent-request-modal-#{agent.id}", "data-toggle" => "modal", :type => "button" }
-            %i.fa.fa-send-o
-            촉구하기
+        / - unless statement.try(:stance).try(:agree?)
+        /   %a.text-nowrap{"href": "#", "data-target" => "#agent-request-modal-#{agent.id}", "data-toggle" => "modal", :type => "button" }
+        /     %i.fa.fa-send-o
+        /     촉구하기
 
 - else
   %button.btn.btn-agent.btn-inverted{ class: "btn-#{stance_class}", "data-target" => "#agent-request-modal-#{agent.id}", "data-toggle" => "modal", :type => "button" }
