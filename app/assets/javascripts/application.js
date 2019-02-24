@@ -409,16 +409,18 @@ $(function(){
     })
   }
 
-  if ($('.js-campaign-time-to-left').length > 0) {
+  $('.js-campaign-time-to-left').each(function() {
+    var $elm = $(this);
+    var due_date = new Date($elm.data('campaign-time-to-left-due-date'));
     setInterval(function() {
       var format = function(n) { if (n < 10) {return "0" + n} else return "" + n }
-      var diff = Math.floor(Math.abs(campaign_due_date - (new Date())) / 1000)
-      $('.js-campaign-time-to-left .days')[0].innerHTML = Math.floor(diff / (24 * 3600))
-      $('.js-campaign-time-to-left .hours')[0].innerHTML = format(Math.floor((diff % (24 * 3600)) / 3600))
-      $('.js-campaign-time-to-left .minutes')[0].innerHTML = format(Math.floor((diff % 3600) / 60))
-      $('.js-campaign-time-to-left .seconds')[0].innerHTML = format(Math.floor(diff % 60))
-    }, 1000)
-  }
+      var diff = Math.floor(Math.abs(due_date - (new Date())) / 1000)
+      $elm.find('.days')[0].innerHTML = Math.floor(diff / (24 * 3600))
+      $elm.find('.hours')[0].innerHTML = format(Math.floor((diff % (24 * 3600)) / 3600))
+      $elm.find('.minutes')[0].innerHTML = format(Math.floor((diff % 3600) / 60))
+      $elm.find('.seconds')[0].innerHTML = format(Math.floor(diff % 60))
+    }, 1000);
+  });
 
   //clipboard
   $('.js-clipboard').each(function() {
@@ -433,7 +435,9 @@ $(function(){
   });
 });
 
-// ajax partial 로딩 된 콘텐츠에도 작동해야하는 동작들
+//
+// AJAX partial 로딩 된 콘텐츠에도 작동해야하는 동작들
+//
 $.parti_apply = function($base, query, callback) {
   $.each($base.find(query).addBack(query), function(i, elm){
     callback(elm);

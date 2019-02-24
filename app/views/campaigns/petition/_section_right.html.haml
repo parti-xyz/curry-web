@@ -1,21 +1,17 @@
 %section.section-right
   %section.section-info
-    %script{ type: "text/javascript" }
-      :plain
-        var campaign_due_date = new Date('#{@campaign.created_at}')
     .campaign-progress
-      .campaign-time-to-left.js-campaign-time-to-left.hidden-xs
-        / 캠페인 목표 서명수처럼 서명 기한(날짜)가 필요함.
-        남은 시간
+      .campaign-time-to-left.js-campaign-time-to-left.hidden-xs{ 'data-campaign-time-to-left-due-date': bot_day_f(@campaign.created_at)}
+        진행 시간
         %br
         .digit-to-left.days
-          11
+          ___
         .div 일
-        .digit-to-left.hours 23
+        .digit-to-left.hours __
         .div :
-        .digit-to-left.minutes 00
+        .digit-to-left.minutes __
         .div :
-        .digit-to-left.seconds 00
+        .digit-to-left.seconds __
       .campaign-label
         .current-message
           현재 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}명이 서명하였습니다.
