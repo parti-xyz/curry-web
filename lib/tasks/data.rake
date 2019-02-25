@@ -110,6 +110,50 @@ namespace :data do
     end
   end
 
+  desc '국회의원의 정보를 변경합니다'
+  task 'update_assembly' => :environment do
+    ActiveRecord::Base.transaction do
+      position = Position.find_by(name: '20대_국회의원')
+
+      Agent.find_by(name: '권석창').appointments.where(position: position).destroy_all #이후삼
+      Agent.find_by(name: '김경수').appointments.where(position: position).destroy_all #김정호
+      Agent.find_by(name: '노회찬').appointments.where(position: position).destroy_all
+      Agent.find_by(name: '문미옥').appointments.where(position: position).destroy_all #이수혁
+      Agent.find_by(name: '박남춘').appointments.where(position: position).destroy_all #맹성규
+      Agent.find_by(name: '박준영').appointments.where(position: position).destroy_all #서삼석
+      Agent.find_by(name: '박찬우').appointments.where(position: position).destroy_all #이규희
+      Agent.find_by(name: '배덕광').appointments.where(position: position).destroy_all #윤준호
+      Agent.find_by(name: '송기석').appointments.where(position: position).destroy_all #송갑석
+      Agent.find_by(name: '안철수').appointments.where(position: position).destroy_all #김성환
+      Agent.find_by(name: '양승조').appointments.where(position: position).destroy_all #윤일규
+      Agent.find_by(name: '윤종오').appointments.where(position: position).destroy_all #이상헌
+      Agent.find_by(name: '최명길').appointments.where(position: position).destroy_all #최재성
+
+      Agent.find_by(id: 275, name: '최경환').update_attributes!(email: 'sayno20@hanmail.net')
+      Agent.of_position_names("20대_국회의원").each do |agent|
+        if %w(김성태 최경환).include? agent.name
+          member = AssemblyMember.find_by(empNm: agent.name, assemEmail: agent.email)
+        else
+          member = AssemblyMember.find_by(empNm: agent.name)
+        end
+
+        member.agent_id = agent.id
+        member.save!
+        agent.organization = member.polyNm
+        agent.email = member.assemEmail if member.assemEmail.present?
+        agent.save!
+      end
+
+      %w(이후삼 김정호 이수혁 맹성규 서삼석 이규희 윤준호 송갑석 김성환 윤일규 이상헌 최재성).each do |new_name|
+        member = AssemblyMember.find_by(empNm: new_name)
+        s = Agent.new(name: member.empNm, organization: member.polyNm,
+         email: member.assemEmail, remote_image_url: member.jpgLink, category: '개인')
+        s.appointments(position: position)
+        s.save!
+      end
+    end
+  end
+
   desc '이벤트 이미지 데이터를 받습니다'
   task 'download_event', [:id] => :environment do |task, args|
     event = Event.find args[:id]
