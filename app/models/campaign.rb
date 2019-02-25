@@ -3,7 +3,7 @@ class Campaign < ApplicationRecord
   include Likable
 
   TEMPLATES = %w( basic petition photo order map )
-  TEMPLATES_SPECIAL = %w( special_map_with_assembly special_any_speech special_speech )
+  TEMPLATES_SPECIAL = %w( special_map_with_assembly special_any_speech special_speech special_agenda )
 
   LARGE_AREA = %w(서울특별시 부산광역시 대구광역시 인천광역시 광주광역시 대전광역시 울산광역시 세종특별자치시 경기도 경기남부 경기북부 강원도 충청북도 충청남도 전라북도 전라남도 경상북도 경상남도 제주특별자치도)
   CONGRESSMEN = [
@@ -177,6 +177,15 @@ class Campaign < ApplicationRecord
     has_goal? ? ( signs_count.to_f / signs_goal_count * 100 ).to_i : 100
   end
 
+  def success_order?
+    return false unless has_goal?
+    percentage_order >= 100
+  end
+
+  def percentage_order
+    has_goal? ? ( order_users_count.to_f / signs_goal_count * 100 ).to_i : 100
+  end
+
   def has_cover_image?
     cover_image.file.present?
   end
@@ -224,5 +233,11 @@ class Campaign < ApplicationRecord
   def mailing_issue
     self.issue_mailings.where(action: 'add').where(deleted_at: nil).update_all(deleted_at: DateTime.now)
     self.issue_mailings.find_or_create_by(issue: self.issue, action: 'add')
+  end
+
+  def order_users_count
+    return @__order_users_count if @__order_users_count.present?
+    @__order_users_count = self.comments.joins(:orders).select(:commenter_name, :commenter_email).distinct.count
+    @__order_users_count
   end
 end

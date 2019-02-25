@@ -92,11 +92,10 @@ Rails.application.routes.draw do
       get 'sign_form'
       get 'order_form'
       get 'comment_form'
-      get 'order'
+      get 'orders'
       get 'agents'
-      get 'comment'
-      get 'story'
-      get 'signer'
+      get 'comments'
+      get 'stories'
       get 'signers'
     end
   end

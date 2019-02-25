@@ -31,16 +31,4 @@
           소식
         - else
           = link_to '소식', stories_campaign_path
-    %li{ class: [menu == 'signer' && "active"]  }
-      .menu-item
-        - if menu == 'singer'
-          서명
-          - if @campaign.signs.any?
-            %span.count
-              = number_with_limit(@campaign.signs.size, 1000)
-        - else
-          = link_to signers_campaign_path do
-            서명
-            - if @campaign.signs.any?
-              %span.count
-                = number_with_limit(@campaign.signs.size, 1000)
+

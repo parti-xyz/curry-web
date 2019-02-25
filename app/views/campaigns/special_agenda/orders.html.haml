@@ -1,0 +1,66 @@
+= render 'campaigns/special_agenda/section_cover'
+
+= render 'campaigns/special_agenda/section_tab', menu: 'order'
+
+%section.section-panel
+  = render 'campaigns/special_agenda/section_right'
+
+  %section.section-left
+    %section.section-orders-tab
+      .orders-tab-title
+        - if @campaign.agents.any?
+          지금 #{@campaign.agents.first.name}
+          - if @campaign.agents.count > 1
+            외 #{@campaign.agents.count - 1}
+          대상에게 촉구해 주세요
+        - else
+          촉구 대상자를 알려주세요.
+      / .orders-tab-title-h5 촉구 많이한 회원 TOP3
+      / - if @campaign.agents.any?
+      /   .orders-top3
+      /     - order_count_max = Order.where(comment: @campaign.comments).group(:comment_id).order('count_all desc').limit(1).count.first[1]
+      /     - Order.where(comment: @campaign.comments).group(:comment_id).order('count_all desc').order('comment_id desc').limit(3).count.each do |comment_id, comment_count|
+      /       .order-info
+      /         .order-image{ style: "background-image:url(#{asset_url(Comment.find(comment_id).user_image)});" }
+      /         .order-bar
+      /           .order-bar-count
+      /             .order-count{ style: "width: #{comment_count / order_count_max * 100}%"}
+      /         .order-count-label
+      /           = Comment.find(comment_id).user_nickname
+      /           %br
+      /           #{comment_count}회 촉구
+      .orders-tab-title-h5 촉구 응답 현황
+      .response-present
+        .response-counts
+          .response-count
+            .response-tag.agree 찬성
+            .count= @campaign.statements.group(:stance).count['agree'] || 0
+          .response-count
+            .response-tag.disagree 반대
+            .count= @campaign.statements.group(:stance).count['disagree'] || 0
+          .response-count
+            .response-tag.noresponse 무응답
+            .count= @campaign.statements.group(:stance).count['unsure'] || 0
+        .response-text
+          반대, 무응답자를 한번에 촉구해보세요.
+        = link_to [:new_comment_agent, @campaign], class: 'response-btn' do
+          #{@campaign.agents.count}명
+          모두에게 촉구하기
+
+      - @campaign.total_action_assignables.each do |action_assignable|
+        - if @campaign.responded_agents(action_assignable).any?
+          %div{ style: 'margin: 14px 0' }
+            - @campaign.responded_agents(action_assignable).each do |agent|
+              = render 'campaigns/agent', agent: agent, campaign: @campaign, template: 'line', agency: action_assignable
+
+      .orders-tab-title-h5.title-wrap
+        .title-left 촉구하기
+        .title-right
+          .response-header-text
+            촉구 대상 중 한 분인가요?
+          = link_to [:edit_statements, @campaign], class: 'response-header-btn' do
+            답변하기
+      - agents = @campaign.agents.order(name: :asc).page(1).per(10)
+      - if agents.any?
+        = render 'campaigns/special_agenda/agents', agents: agents
+

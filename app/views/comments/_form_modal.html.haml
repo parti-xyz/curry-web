@@ -9,8 +9,8 @@
       .modal-body
         .comments-form
           = form_for Comment.new, html: { class: 'gov-action-form-validation' } do |f|
-            = f.hidden_field :commentable_type, value: 'Campaign'
-            = f.hidden_field :commentable_id, value: @campaign.id
+            = f.hidden_field :commentable_type, value: commentable.class.to_s
+            = f.hidden_field :commentable_id, value: commentable.id
             .gov-action-form-grecaptcha
             - unless user_signed_in?
               .form-group

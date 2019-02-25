@@ -4,24 +4,24 @@ class CommentsController < ApplicationController
 
   def index
     if params[:commentable_type].nil?
-      redirect_to root_url
-    else
-      @commentable_model = params[:commentable_type].classify.safe_constantize
-      render_404 and return if @commentable_model.blank?
-      @commentable = @commentable_model.find(params[:commentable_id])
-      if params[:only_my_comments].present?
-        @comments = @commentable.comments.where(user: current_user&.id).recent.page(params[:page])
-      else
-        @comments = @commentable.comments.page(params[:page])
-
-        if params[:sort] == 'merged_likes_count'
-          @comments = @comments.order(merged_likes_count: :desc)
-        else
-          @comments = @comments.recent
-        end
-      end
-      @comments = @comments.with_target_agent(Agent.find_by(id: params[:target_agent_id])) if params[:target_agent_id].present?
+      redirect_to root_url and return
     end
+
+    @commentable_model = params[:commentable_type].classify.safe_constantize
+    render_404 and return if @commentable_model.blank?
+    @commentable = @commentable_model.find(params[:commentable_id])
+    if params[:only_my_comments].present?
+      @comments = @commentable.comments.where(user: current_user&.id).recent.page(params[:page])
+    else
+      @comments = @commentable.comments.page(params[:page])
+
+      if params[:sort] == 'merged_likes_count'
+        @comments = @comments.order(merged_likes_count: :desc)
+      else
+        @comments = @comments.recent
+      end
+    end
+    @comments = @comments.with_target_agent(Agent.find_by(id: params[:target_agent_id])) if params[:target_agent_id].present?
 
     if params[:partial].present?
       render layout: nil
@@ -108,6 +108,16 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     redirect_to :back
+  end
+
+  def new
+    if params[:commentable_type].nil?
+      render_404 and return
+    end
+
+    @commentable_model = params[:commentable_type].classify.safe_constantize
+    render_404 and return if @commentable_model.blank?
+    @commentable = @commentable_model.find(params[:commentable_id])
   end
 
   private

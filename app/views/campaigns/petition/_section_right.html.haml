@@ -106,14 +106,14 @@
             %p.text-basic-wrap
               관련된 인물에게 촉구해 주세요.
               %div
-                = link_to order_campaign_path(@campaign), class: "js-close-modal btn btn-xs btn-primary" do
+                = link_to orders_campaign_path(@campaign), class: "js-close-modal btn btn-xs btn-primary" do
                   촉구하기
                   %i.fa.fa-arrow-right
           - elsif @campaign.comment_enabled
             %p.text-basic-wrap
               의견을 남겨 보세요.
               %div
-                = link_to comment_campaign_path(@campaign), class: "js-close-modal btn btn-xs btn-primary" do
+                = link_to comments_campaign_path(@campaign), class: "js-close-modal btn btn-xs btn-primary" do
                   의견 남기기
                   %i.fa.fa-arrow-right
 

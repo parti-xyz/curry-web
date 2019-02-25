@@ -1,5 +1,5 @@
 - if params[:partial] == 'campaigns-petition-comments_page'
-  = render 'campaigns/petition/comments_page', commentable: @commentable, comments: @comments, dom_id: params[:page_dom_id]
+  = render 'comments/page', commentable: @commentable, comments: @comments, dom_id: params[:page_dom_id]
 - else
   %section#commentable-block.page-block
     .container

@@ -110,40 +110,31 @@ class CampaignsController < ApplicationController
     render 'campaigns/petition/order_form'
   end
 
-  def comment_form
-    render 'campaigns/petition/comment_form'
-  end
-
-  def order
-    @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
-    if @campaign.template == 'petition'
-      render template: 'campaigns/petition/order'
-    else
-      render_404
-    end
+  def orders
+    render_404 and return unless %(petition special_agenda).include?(@campaign.template)
+    render template: "campaigns/#{@campaign.template}/orders"
   end
 
   def agents
+    render_404 and return unless %(petition special_agenda).include?(@campaign.template)
+
     @agents = @campaign.agents.order(name: :asc).page(params[:page]).per(10)
-    render template: 'campaigns/petition/agents'
+    render template: "campaigns/#{@campaign.template}/agents"
   end
 
-  def comment
-    @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
-    render template: 'campaigns/petition/comment'
+  def comments
+    render_404 and return unless %(petition special_agenda).include?(@campaign.template)
+    render template: "campaigns/#{@campaign.template}/comments"
   end
 
-  def story
-    render template: 'campaigns/petition/story'
-  end
-
-  def signer
-    @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
-    render template: 'campaigns/petition/signer'
+  def stories
+    render_404 and return unless %(petition special_agenda).include?(@campaign.template)
+    render template: "campaigns/#{@campaign.template}/stories"
   end
 
   def signers
-    render template: 'campaigns/petition/signers'
+    @signs = @campaign.signs.order('id desc').page(params[:page])
+    render template: "campaigns/#{@campaign.template}/signers"
   end
 
   private

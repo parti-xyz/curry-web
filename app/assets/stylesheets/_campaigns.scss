@@ -166,6 +166,9 @@
       background-color: $gray-light;
       position: relative;
       margin-top: 24px;
+      &.running {
+        overflow: hidden;
+      }
       .current-percent {
         @extend .typo-body2;
         margin-top: 3px;
