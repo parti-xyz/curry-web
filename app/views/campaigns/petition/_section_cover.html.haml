@@ -1,16 +1,6 @@
 %section.section-cover
   .info-container
     .meta
-      - if @campaign.success?
-        .label
-          성공
-      .label
-        서명
-      - if @campaign.agents.any?
-        .agent-info
-          대상: #{@campaign.agents.first.name}
-          - if @campaign.agents.count > 1
-            외 #{@campaign.agents.count - 1}
       - buttons = capture do
         - if can? :edit, @campaign
           = link_to edit_campaign_path(@campaign) do
@@ -37,8 +27,20 @@
               삭제
           &nbsp;
       - if buttons.present?
-        %span.control-buttons{ style: 'background-color: rgba(0,0,0,0.5); padding: 5px 10px 2px;' }
-          = buttons
+        %p
+          %span.control-buttons{ style: 'background-color: rgba(0,0,0,0.5); padding: 5px 10px 2px;' }
+            = buttons
+
+      - if @campaign.success?
+        .label
+          성공
+      .label
+        서명
+      - if @campaign.agents.any?
+        .agent-info
+          대상: #{@campaign.agents.first.name}
+          - if @campaign.agents.count > 1
+            외 #{@campaign.agents.count - 1}
 
     .campaign-title
       = @campaign.title

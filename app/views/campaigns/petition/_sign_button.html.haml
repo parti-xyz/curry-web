@@ -1,4 +1,4 @@
-/ %section.section-sign-btn.js-sticky-sign-button.hidden-xs
-/   = link_to sign_form_campaign_path(@campaign), remote: true, class: "btn btn-danger btn-lg btn-block stuck sign-btn" do
-/     .sign-btn-text
-/       서명하기
+%section.section-sign-btn.js-sticky-sign-button.stuck.hidden-sm.visible-xs-block
+  = link_to sign_form_campaign_path(@campaign), remote: true, class: "btn btn-danger btn-lg btn-block stuck sign-btn" do
+    .sign-btn-text
+      서명하기

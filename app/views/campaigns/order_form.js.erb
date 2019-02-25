@@ -1,5 +1,5 @@
 <% modal_dom_id = "agent-request-modal-#{SecureRandom.uuid}" %>
-var partial_order_form = "<%= j(render 'campaigns/petition/order_form', modal_dom_id: modal_dom_id, agent: Agent.find(params[:agent_id])) %>"
+var partial_order_form = "<%= j(render 'campaigns/order_form', modal_dom_id: modal_dom_id, agent: Agent.find(params[:agent_id])) %>"
 $('body').append(partial_order_form)
 $('#<%= modal_dom_id %>').on('hide.bs.modal', function(e) { $(this).remove() })
 $('#<%= modal_dom_id %>').modal()

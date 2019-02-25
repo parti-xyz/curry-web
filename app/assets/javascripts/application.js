@@ -326,13 +326,13 @@ $(function(){
   });
 
   // 내 홈 탭
-  if($('.js-sticky-sign-button').length > 0){
+  $('.js-sticky-sign-button').each(function() {
     var sticky = new Waypoint.Sticky({
       element: $('.js-sticky-sign-button')[0],
       direction: 'up',
       offset: 'bottom-in-view'
     })
-  }
+  });
 
   $('.js-campaign-time-to-left').each(function() {
     var $elm = $(this);

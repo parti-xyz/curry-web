@@ -14,8 +14,17 @@ class CommentMailer < ApplicationMailer
       return
     end
     @comment.update_attributes(mailing: :sent)
+
+    template_name = "target_agent_#{@comment.commentable.class.name.underscore}"
+    if @comment.commentable.respond_to? :template
+      special_template_name = "target_agent_#{@comment.commentable.class.name.underscore}_#{@comment.commentable.template}"
+      if lookup_context.exists?("comment_mailer/#{special_template_name}")
+        template_name = special_template_name
+      end
+    end
+
     mail(to: @agent.email,
-      template_name: "target_agent_#{@comment.commentable.class.name.underscore}",
+      template_name: template_name,
       tag: "order")
   end
 end

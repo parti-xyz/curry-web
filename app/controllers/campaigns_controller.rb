@@ -107,7 +107,6 @@ class CampaignsController < ApplicationController
   end
 
   def order_form
-    render 'campaigns/petition/order_form'
   end
 
   def orders
