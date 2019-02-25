@@ -128,6 +128,9 @@ namespace :data do
       Agent.find_by(name: '양승조').appointments.where(position: position).destroy_all #윤일규
       Agent.find_by(name: '윤종오').appointments.where(position: position).destroy_all #이상헌
       Agent.find_by(name: '최명길').appointments.where(position: position).destroy_all #최재성
+      Agent.find_by(name: '오세정').appointments.where(position: position).destroy_all #임재훈
+      Agent.find_by(name: '이군현').appointments.where(position: position).destroy_all #?
+      Agent.find_by(name: '이철우').appointments.where(position: position).destroy_all #송언석
 
       Agent.find_by(id: 275, name: '최경환').update_attributes!(email: 'sayno20@hanmail.net')
       Agent.of_position_names("20대_국회의원").each do |agent|
@@ -144,7 +147,7 @@ namespace :data do
         agent.save!
       end
 
-      %w(이후삼 김정호 이수혁 맹성규 서삼석 이규희 윤준호 송갑석 김성환 윤일규 이상헌 최재성).each do |new_name|
+      %w(이후삼 김정호 이수혁 맹성규 서삼석 이규희 윤준호 송갑석 김성환 윤일규 이상헌 최재성 임재훈 송언석).each do |new_name|
         member = AssemblyMember.find_by(empNm: new_name)
         s = Agent.new(name: member.empNm, organization: member.polyNm,
          email: member.assemEmail, remote_image_url: member.jpgLink, category: '개인')
