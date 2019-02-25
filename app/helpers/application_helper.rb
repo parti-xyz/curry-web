@@ -12,7 +12,7 @@ module ApplicationHelper
   end
 
   def bot_day_f(date)
-    date.strftime("%Y-%m-%d")
+    date.strftime("%Y-%m-%d %H:%M:%S")
   end
 
   def date_f(date)
