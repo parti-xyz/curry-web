@@ -8,7 +8,7 @@ class StatementsController < ApplicationController
       errors_to_flash(@statement)
     end
 
-    redirect_to polymorphic_path([:edit_statements, @statementable], agent_id: @statement.agent.id)
+    redirect_to params[:after_save_url] || @statement.statementable
   end
 
   def update
@@ -26,7 +26,7 @@ class StatementsController < ApplicationController
       end
     end
 
-    @statement.assign_attributes(statement_params)
+    @statement.assign_attributes(update_params)
     @statement.last_updated_user = current_user
     if @statement.save
       flash[:notice] = I18n.t('messages.saved')
@@ -38,7 +38,11 @@ class StatementsController < ApplicationController
 
   private
 
-  def statement_params
-    params.require(:statement).permit(:body, :stance)
+  def create_params
+    params.require(:statement).permit(:body, :stance, :agent_id, :statementable_type, :statementable_id)
+  end
+
+  def update_params
+    params.require(:statement).permit(:body, :stance, :agent_id, :statementable_type, :statementable_id)
   end
 end

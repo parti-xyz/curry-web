@@ -63,6 +63,10 @@
             - statement = @statementable.statements.build(agent: @target_agent) if statement.blank?
             - statement.stance = params[:stance] if params[:stance].present?
             = form_for statement, html: { class: 'gov-action-form-validation' } do |f|
+              - if statement.new_record?
+                = f.hidden_field :agent_id, value: @target_agent.id
+                = f.hidden_field :statementable_id, value: @statementable.id
+                = f.hidden_field :statementable_type, value: @statementable.class.to_s
               .form-group
                 = f.label :stance, '찬반여부'
                 = f.select :stance, Statement.stance.options, { }, class: 'form-control'
