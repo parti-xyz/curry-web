@@ -733,7 +733,7 @@
       border: 1px solid $gray-lighter;
       .response-counts {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-evenly;
         margin: 0 88px;
         @media (max-width: $screen-md-max) {
           display: inline;

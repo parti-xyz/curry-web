@@ -40,21 +40,42 @@
 
 
       .orders-tab-title-h5 정당별 촉구 응답 현황
-      .orders-top3{ style: 'height: auto' }
-        - agency = Agency.find_by(title: '20대국회')
-        - total_count = @campaign.responded_agents(agency).count
-        - slug_map = { '자유한국당': 'jayu', '더불어민주당': 'minju', '무소속': 'mu', '바른미래당': 'bareun', '민주평화당': 'minjupeace', '정의당': 'jeongeu', '민중당': 'minjung', '대한애국당': 'deahan' }
-        - %w(자유한국당 더불어민주당 국민의당 민주평화당 정의당 민중당 무소속 바른정당 대한애국당).shuffle.each do |party_name|
-          - party_count = @campaign.responded_agents.where(organization: party_name).count
-          .order-info
-            .order-image{ style: "background-image:url(#{asset_url("icon-candle.png")});" }
-            .order-bar
-              .order-bar-count
-                .order-count{ style: "width: #{party_count.to_f / total_count.to_f * 100}%"}
-            .order-count-label{ style: 'width: 100px' }
-              = party_name
-              %br
-              #{agency.agents.where(organization: party_name).count}명 중 #{party_count}명 응답
+      - agency = Agency.find_by(title: '20대국회')
+      - party_slug_map = { '자유한국당': 'jayu', '더불어민주당': 'minju', '무소속': 'mu', '바른미래당': 'bareun', '민주평화당': 'minjupeace', '정의당': 'jeongeu', '민중당': 'minjung', '대한애국당': 'deahan' }
+      - party_slug_map.keys.shuffle.each do |party_name|
+        - party_all_agent_count = agency.agents.where(organization: party_name).count
+        - party_responded_agent_count = @campaign.responded_agents.where(organization: party_name).count
+        - party_no_respond_agent_count = party_all_agent_count - party_responded_agent_count
+        .orders-top3{ style: 'height: auto; margin-top: 0' }
+          .order-parti-header{ style: 'margin-bottom: 8px; position: relative;' }
+            = image_tag "assembly/#{party_slug_map[party_name]}.png", class: 'order-party', style: 'width: 120px; height: 50px; vertical-align: bottom;'
+            %span.order-party-all-agent-count{ style: 'border-radius: 15.5px; border: solid 1px #979797; padding: 5px 12px; position: absolute; bottom: 0; right: 0;' }
+              %small 의석수
+              %span{ style: 'font-weight: bold;' }= party_all_agent_count
+          .order-party-vs{ style: 'display: flex;' }
+            .order-party-cell.responded{ style: 'width: 50%; padding-right: 5px;' }
+              .cell-header{ style: 'background-color: #2575ef; color: white; vertical-align: c; height: 90px; display: flex; flex-flow: column; align-items: center; justify-content: center;' }
+                .title 응답
+                .count= party_responded_agent_count
+              .cell-body{ style: 'display: flex; flex-wrap: wrap;' }
+                - @campaign.responded_agents.where(organization: party_name).each do |agent|
+                  .cell-item{ style: "width: #{100/6.0}%; height: 40px; background-image: url(#{agent.image.md.url}); background-size:cover; background-position: center;" }
+                    .overlay{ style: "width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.#{rand(1..3)});" }
+            .order-party-cell.no_respond{ style: 'width: 50%; padding-left: 5px;' }
+              .cell-header{ style: 'background-color: #8b8b8b; color: white; vertical-align: c; height: 90px; display: flex; flex-flow: column; align-items: center; justify-content: center;' }
+                .title 무응답
+                .count= party_no_respond_agent_count
+              .cell-body{ style: 'display: flex; flex-wrap: wrap;' }
+                - agency.agents.where(organization: party_name).where.not(id: @campaign.responded_agents).each do |agent|
+                  - uid_dom_id = "uid-#{SecureRandom.uuid}"
+                  .cell-item.cursor-pointer.js-popover{ style: "width: #{100/6.0}%; height: 40px; background-image: url(#{agent.image.md.url}); background-size:cover; background-position: center;", "data-url": "##{uid_dom_id}", "data-placement": "bottom", "data-trigger": "click" }
+                    .overlay{ style: "width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.#{rand(3..6)});" }
+                    .hidden
+                      %div{ id: uid_dom_id }
+                        %strong= agent.name
+                        - if agent.category == '개인'
+                          %small.text-muted.text-nowrap= agent.organization
+
 
       .orders-tab-title-h5.title-wrap
         .title-left 촉구하기

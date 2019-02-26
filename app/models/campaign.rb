@@ -241,6 +241,18 @@ class Campaign < ApplicationRecord
     @__order_users_count
   end
 
+  def highlight_ordered_comments(limit)
+    result = []
+    self.comments.joins(:orders).recent.find_each(batch_size: 10).each do |comment|
+      next if result.any?{ |item|
+        item.user_nickname == comment.user_nickname
+      }
+      result << comment
+      return result if result.length > limit
+    end
+    result
+  end
+
   def no_stancable?
     self.template == 'special_agenda'
   end
