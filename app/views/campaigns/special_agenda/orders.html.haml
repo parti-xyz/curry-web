@@ -29,7 +29,7 @@
         .response-text
           무응답자를 한번에 촉구해보세요.
         = link_to [:new_comment_agent, @campaign], class: 'response-btn' do
-          #{@campaign.agents.count}명
+          #{@campaign.agents.count - agree_count}명
           모두에게 촉구하기
 
       - @campaign.total_action_assignables.each do |action_assignable|

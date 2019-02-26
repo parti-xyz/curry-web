@@ -151,7 +151,7 @@ namespace :data do
         member = AssemblyMember.find_by(empNm: new_name)
         s = Agent.new(name: member.empNm, organization: member.polyNm,
          email: member.assemEmail, remote_image_url: member.jpgLink, category: '개인')
-        s.appointments(position: position)
+        s.appointments.build(position: position)
         s.save!
       end
     end
