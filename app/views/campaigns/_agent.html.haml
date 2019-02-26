@@ -29,12 +29,12 @@
       - if agent.category == '개인'
         %small.text-muted= agent.organization
 
-      - if statement.try(:sure?)
+      - if statement.try(:sure?) and !statement.no_stancable?
         %strong= Catan::SmartPostposition.new(agent.name).with!('는')
         %strong= statement.try(:stance).try(:text)
         %span.text-muted 입장을 밝혔습니다.
       - else
-        %strong= Catan::SmartPostposition.new(agent.name).with!('가')
+        %strong= Catan::SmartPostposition.new(agent.name).with!('는')
         %span.text-muted 답변했습니다.
 
       %br.visible-xs-block

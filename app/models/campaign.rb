@@ -240,4 +240,8 @@ class Campaign < ApplicationRecord
     @__order_users_count = self.comments.joins(:orders).select(:commenter_name, :commenter_email).distinct.count
     @__order_users_count
   end
+
+  def no_stancable?
+    self.template == 'special_agenda'
+  end
 end

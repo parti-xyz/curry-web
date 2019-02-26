@@ -32,4 +32,9 @@ class Statement < ApplicationRecord
   def valid_key? key
     statement_keys.exists?(key: key) and !statement_keys.find_by(key: key).expired?
   end
+
+  def no_stancable?
+    return false if !statementable.respond_to?(:no_stancable?)
+    statementable.no_stancable?
+  end
 end

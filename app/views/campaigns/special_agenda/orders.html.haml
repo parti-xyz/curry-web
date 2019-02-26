@@ -16,20 +16,18 @@
         - else
           촉구 대상자를 알려주세요.
 
+      - agree_count = @campaign.statements.group(:stance).count['agree'] || 0
       .orders-tab-title-h5 촉구 응답 현황
       .response-present
         .response-counts
           .response-count
             .response-tag.agree 응답완료
-            .count= @campaign.statements.group(:stance).count['agree'] || 0
-          .response-count
-            .response-tag.disagree 답변거부
-            .count= @campaign.statements.group(:stance).count['disagree'] || 0
+            .count= agree_count
           .response-count
             .response-tag.noresponse 무응답
-            .count= @campaign.statements.group(:stance).count['unsure'] || 0
+            .count= @campaign.agents.count - agree_count
         .response-text
-          반대, 무응답자를 한번에 촉구해보세요.
+          무응답자를 한번에 촉구해보세요.
         = link_to [:new_comment_agent, @campaign], class: 'response-btn' do
           #{@campaign.agents.count}명
           모두에게 촉구하기
@@ -45,6 +43,7 @@
       .orders-top3{ style: 'height: auto' }
         - agency = Agency.find_by(title: '20대국회')
         - total_count = @campaign.responded_agents(agency).count
+        - slug_map = { '자유한국당': 'jayu', '더불어민주당': 'minju', '무소속': 'mu', '바른미래당': 'bareun', '민주평화당': 'minjupeace', '정의당': 'jeongeu', '민중당': 'minjung', '대한애국당': 'deahan' }
         - %w(자유한국당 더불어민주당 국민의당 민주평화당 정의당 민중당 무소속 바른정당 대한애국당).shuffle.each do |party_name|
           - party_count = @campaign.responded_agents.where(organization: party_name).count
           .order-info
