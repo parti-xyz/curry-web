@@ -54,7 +54,7 @@
               .cell-header{ style: 'background-color: #2575ef; color: white; vertical-align: c; height: 90px; display: flex; flex-flow: column; align-items: center; justify-content: center;' }
                 .title 응답
                 .count= party_responded_agent_count
-              .cell-body{ style: 'display: flex; flex-wrap: wrap;' }
+              .cell-body
                 - @campaign.responded_agents.where(organization: party_name).each do |agent|
                   = render 'campaigns/special_agenda/agent_order', agent: agent, campaign: @campaign
                   / - uid_dom_id = "uid-#{SecureRandom.uuid}"
@@ -69,7 +69,7 @@
               .cell-header{ style: 'background-color: #8b8b8b; color: white; vertical-align: c; height: 90px; display: flex; flex-flow: column; align-items: center; justify-content: center;' }
                 .title 무응답
                 .count= party_no_respond_agent_count
-              .cell-body{ style: 'display: flex; flex-wrap: wrap;' }
+              .cell-body
                 - agency.agents.where(organization: party_name).where.not(id: @campaign.responded_agents).each do |agent|
                   = render 'campaigns/special_agenda/agent_order', agent: agent, campaign: @campaign
                   / - uid_dom_id = "uid-#{SecureRandom.uuid}"

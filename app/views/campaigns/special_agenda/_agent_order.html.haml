@@ -1,30 +1,31 @@
-.media.text-basic-wrap{ style: 'margin: 3px 0; padding-left: 0; list-style-type: none;' }
-  .media-body
+.agent-order
+  .agent-order-left
+    = image_tag agent.image.md.url
+  .agent-order-body
     - statement = campaign.statement_of(agent)
     - line_body = capture do
-      = image_tag agent.image.md.url, style: "height: 24px;"
-
       %strong= agent.name
       - if agent.election_region.present?
-        %small.text-muted= agent.election_region
-
-      - if statement.try(:body).present?
-        %small
-          %span.text-nowrap
-            %i.fa.fa-commenting-o
-            답변보기
-      - else
-        %small
-          %span.text-nowrap
-            %i.fa.fa-paper-plane-o
-            촉구하기
-
+        .text-muted{ style: 'font-size: 12px;' }= agent.election_region
     - if statement.try(:body).present?
       %a.text-nowrap{"href": "#", "data-target" => "#agent-order-statement-modal-#{agent.id}", "data-toggle" => "modal", :type => "button" }
         = line_body
     - else
       = link_to order_form_campaign_path(campaign_id: @campaign.id, agent_id: agent.id), remote: true, class: 'agent-order-btn' do
         = line_body
+  .agent-order-right.hidden-xs
+    - if statement.try(:body).present?
+      %a.text-nowrap{"href": "#", "data-target" => "#agent-order-statement-modal-#{agent.id}", "data-toggle" => "modal", :type => "button" }
+        %small
+          %span.text-nowrap
+            %i.fa.fa-commenting-o
+            답변보기
+    - else
+      = link_to order_form_campaign_path(campaign_id: @campaign.id, agent_id: agent.id), remote: true, class: 'agent-order-btn' do
+        %small
+          %span.text-nowrap
+            %i.fa.fa-paper-plane-o
+            촉구하기
 
 - if statement.try(:body).present?
   %div.modal.fade{id: "agent-order-statement-modal-#{agent.id}", :role => "dialog", :tabindex => "-1"}

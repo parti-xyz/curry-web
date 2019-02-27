@@ -957,4 +957,23 @@
       color: $gray-caption;
     }
   }
+  .agent-order {
+    display: flex;
+    margin: 10px 0;
+    padding-left: 0;
+    .agent-order-left {
+      min-width: 26px;
+      width: 26px;
+      margin-right: 10px;
+      img {
+        width: 100%;
+      }
+    }
+    .agent-order-body {
+      flex: 1;
+    }
+    .agent-order-right {
+      width: 60px;
+    }
+  }
 }
