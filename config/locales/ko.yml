@@ -151,6 +151,7 @@ ko:
         sign_form_intro: 서명폼 상단 안내문구
         slug: 웹주소에 쓰일 영문명
         css: CSS 스타일
+        message_to_agent: 촉구하기 내용 본보기
       sign:
         signer_name: 이름
         signer_email: 이메일
