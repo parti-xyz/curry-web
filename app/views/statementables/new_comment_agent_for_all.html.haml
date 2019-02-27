@@ -10,7 +10,7 @@
   .container
     .page-header.page-header-narrow
       %h3.sub-title
-        모든 인물 #{@statementable.agents.count}명에게 행동을 촉구합니다.
+        모든 인물 #{@statementable.need_to_order_all_agents.count}명에게 행동을 촉구합니다.
     .panel-body.component-box
       .comments-form
         = form_for @comment, html: { class: 'gov-action-form-validation' } do |f|

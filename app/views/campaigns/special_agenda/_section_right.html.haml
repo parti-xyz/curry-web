@@ -68,7 +68,12 @@
       /     = link_to '더 보기', orders_campaign_path(@campaign)
 
       .campaign-sign-form
-        = link_to '촉구하기', orders_campaign_path(@campaign), class: "btn btn-danger btn-lg btn-block campaign-sign-btn"
+        = link_to [:new_comment_agent, @campaign], class: "btn btn-danger btn-lg btn-block campaign-sign-btn" do
+          무응답자 #{@campaign.no_reaction_agents_count}명
+          모두에게 촉구하기
+
+        .more{ style: 'text-align: center; margin: 1em 0 0;' }
+          = link_to '더 자세히 보기', orders_campaign_path(@campaign), style: 'color: gray'
 
       .campaign-share.phone-fold
         .campaign-share-text

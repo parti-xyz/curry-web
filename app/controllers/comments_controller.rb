@@ -54,12 +54,12 @@ class CommentsController < ApplicationController
 
     if @comment.mailing.ready? and @comment.commentable.respond_to?(:agents)
       if @comment.target_agent_id.blank?
-        target_agents = @comment.commentable.not_agree_agents
+        target_agents = @comment.commentable.need_to_order_all_agents
         if params[:action_assignable_type].present? and params[:action_assignable_id].present?
           action_assignable_model = params[:action_assignable_type].classify.safe_constantize
           if action_assignable_model.present?
             action_assignable = action_assignable_model.find_by_id(params[:action_assignable_id])
-            target_agents = @comment.commentable.not_agree_agents(action_assignable)
+            target_agents = @comment.commentable.need_to_order_all_agents(action_assignable)
           end
         end
 

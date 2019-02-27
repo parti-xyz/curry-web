@@ -351,6 +351,7 @@
             color: $color-brand-primary;
             font-size: $font-size-small;
             line-height: 1.7em;
+            margin-left: 0.3em;
           }
         }
       }
@@ -776,6 +777,7 @@
         margin: 24px auto 0;
         color: $gray-caption;
         font-size: 14px;
+        text-align: center;
       }
       .response-btn {
         display: block;

@@ -74,8 +74,9 @@
                     - else
                       %i.fa.fa-envelope-o
               %span.sign-info
-                - if Order.where(comment: comment).present?
-                  #{Order.where(comment: commentable.comments).where("comment_id <= ?", comment.id).select(:comment_id).distinct.count}번째 서명자
+                - if comment.orders_count > 0
+                  #{comment.user_order_seq}번째 촉구자
+
                 .date= date_f comment.updated_at
             .comment-body
               = raw comment.body

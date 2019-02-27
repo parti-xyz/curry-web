@@ -27,6 +27,10 @@ module Statementable
     end
   end
 
+  def need_to_order_all_agents(action_assignable = nil)
+    not_agree_agents(action_assignable)
+  end
+
   def not_agree_agents(action_assignable = nil)
     result = agents.where.not(id: statements.agreed.select(:agent_id))
     result = result.where(id: action_assignable.statementable_agents) if action_assignable.present?
@@ -48,6 +52,18 @@ module Statementable
   def responded_agents(action_assignable = nil)
     result = agents.where(id: statements.responded_only.select(:agent_id))
     result = result.where(id: action_assignable.statementable_agents) if action_assignable.present?
+    result
+  end
+
+  def reacted_agents_count
+    self.statements.group(:stance).count['agree'] || 0
+  end
+
+  def no_reaction_agents_count
+    agree_count = self.reacted_agents_count
+    result = agents.count - agree_count
+    result = 0 if result <= 0
+
     result
   end
 
