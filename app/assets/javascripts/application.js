@@ -52,18 +52,6 @@ $.is_present = function(obj) {
 
 $(document).imagesLoaded( { }, function() {
   $('.masonry-container').masonry();
-  // Initialize Redactor
-  $('.redactor').redactor({
-    buttons: ['format', 'bold', 'italic', 'deleted', 'lists', 'image', 'file', 'link', 'horizontalrule'],
-    callbacks: {
-      imageUploadError: function(json, xhr) {
-        UnobtrusiveFlash.showFlashMessage(json.error.data[0], {type: 'notice'})
-      }
-    },
-    toolbarFixed: true,
-    plugins: ['fontcolor', 'alignment']
-  });
-  $('.redactor .redactor-editor').prop('contenteditable', true);
   $('select.dropdown').dropdown();
 });
 
@@ -389,6 +377,21 @@ function parti_partial$($partial) {
     }
 
     $elm.webuiPopover(options);
+  });
+
+  $.parti_apply($partial, '.redactor', function(elm) {
+    // Initialize Redactor
+    $(elm).redactor({
+      buttons: ['format', 'bold', 'italic', 'deleted', 'lists', 'image', 'file', 'link', 'horizontalrule'],
+      callbacks: {
+        imageUploadError: function(json, xhr) {
+          UnobtrusiveFlash.showFlashMessage(json.error.data[0], {type: 'notice'})
+        }
+      },
+      toolbarFixed: true,
+      plugins: ['fontcolor', 'alignment']
+    });
+    $(elm).find('.redactor-editor').prop('contenteditable', true);
   });
 
   // 폼 검증

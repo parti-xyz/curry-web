@@ -12,7 +12,7 @@
 
       .modal-body
         .comments-form
-          = form_for Comment.new, html: { class: 'gov-action-form-validation' } do |f|
+          = form_for @comment, html: { class: 'gov-action-form-validation' } do |f|
             = f.hidden_field :commentable_type, value: 'Campaign'
             = f.hidden_field :commentable_id, value: @campaign.id
             = f.hidden_field :target_agent_id, value: agent.id
@@ -25,6 +25,8 @@
                 = f.label :commenter_email, agent.email.present? ? "이메일(#{agent.name}님에게 메일을 발송하려면 반드시 넣어주세요)" : nil
                 = f.text_field :commenter_email, class: 'form-control'
             .form-group
+              - unless is_redactorable?
+                - f.object.body = strip_tags(f.object.body)
               ~ f.text_area :body, placeholder: '촉구합니다...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), style: 'height: 150px', data: { 'rule-required': true }
             - if agent.email.present?
               .form-group
