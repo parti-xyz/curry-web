@@ -1,0 +1,57 @@
+.media.text-basic-wrap{ style: 'margin: 3px 0; padding-left: 0; list-style-type: none;' }
+  .media-body
+    - statement = campaign.statement_of(agent)
+    - line_body = capture do
+      = image_tag agent.image.md.url, style: "height: 24px;"
+
+      %strong= agent.name
+      - if agent.election_region.present?
+        %small.text-muted= agent.election_region
+
+      - if statement.try(:body).present?
+        %small
+          %span.text-nowrap
+            %i.fa.fa-commenting-o
+            답변보기
+      - else
+        %small
+          %span.text-nowrap
+            %i.fa.fa-paper-plane-o
+            촉구하기
+
+    - if statement.try(:body).present?
+      %a.text-nowrap{"href": "#", "data-target" => "#agent-order-statement-modal-#{agent.id}", "data-toggle" => "modal", :type => "button" }
+        = line_body
+    - else
+      = link_to order_form_campaign_path(campaign_id: @campaign.id, agent_id: agent.id), remote: true, class: 'agent-order-btn' do
+        = line_body
+
+- if statement.try(:body).present?
+  %div.modal.fade{id: "agent-order-statement-modal-#{agent.id}", :role => "dialog", :tabindex => "-1"}
+    .modal-dialog{:role => "document"}
+      .modal-content
+        .modal-header
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} &#215;
+          %h4.modal-title
+            = image_tag agent.image.md.url, style: "height: 36px;"
+            %strong= agent.name
+            %span.text-muted= agent.organization
+            님의 답변
+
+        .modal-body
+          %div[statement]
+            %div
+              - if statement.stance.present? and !statement.no_stancable?
+                %h4{ style: 'line-height: 24px;' }
+                  %span.text-success= statement.stance.text
+
+              - if statement.body.present?
+                .opinion__body.text-basic-wrap{ style: 'font-weight: normal;' }
+                  != statement.body
+
+              %div
+                = link_to agent, class: 'btn btn-success btn-block' do
+                  %strong= agent.name
+                  = agent.organization
+                  님의 다른 답변 보기

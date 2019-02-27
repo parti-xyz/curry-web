@@ -12,13 +12,13 @@
           지금 #{@campaign.agents.first.name}
           - if @campaign.no_reaction_agents_count > 1
             외 #{@campaign.no_reaction_agents_count - 1}
-          대상에게 촉구해 주세요
+          국회의원에게 선거제도 개혁을 촉구해주세요.
 
-      .orders-tab-title-h5 촉구 응답 현황
+      .orders-tab-title-h5 선거제 개편 및 국회 특권 폐지 설문 응답 현황
       .response-present
         .response-counts
           .response-count
-            .response-tag.agree 응답완료
+            .response-tag.agree 응답
             .count= @campaign.reacted_agents_count
           .response-count
             .response-tag.noresponse 무응답
@@ -29,11 +29,11 @@
           #{@campaign.no_reaction_agents_count}명
           모두에게 촉구하기
 
-      - @campaign.total_action_assignables.each do |action_assignable|
-        - if @campaign.responded_agents(action_assignable).any?
-          %div{ style: 'margin: 14px 0' }
-            - @campaign.responded_agents(action_assignable).each do |agent|
-              = render 'campaigns/agent', agent: agent, campaign: @campaign, template: 'line', agency: action_assignable
+      / - @campaign.total_action_assignables.each do |action_assignable|
+      /   - if @campaign.responded_agents(action_assignable).any?
+      /     %div{ style: 'margin: 14px 0' }
+      /       - @campaign.responded_agents(action_assignable).each do |agent|
+      /         = render 'campaigns/agent', agent: agent, campaign: @campaign, template: 'line', agency: action_assignable
 
 
       .orders-tab-title-h5 정당별 촉구 응답 현황
@@ -56,34 +56,36 @@
                 .count= party_responded_agent_count
               .cell-body{ style: 'display: flex; flex-wrap: wrap;' }
                 - @campaign.responded_agents.where(organization: party_name).each do |agent|
-                  - uid_dom_id = "uid-#{SecureRandom.uuid}"
-                  .cell-item.cursor-pointer.js-popover{ style: "width: #{100/6.0}%; height: 40px; background-image: url(#{agent.image.md.url}); background-size:cover; background-position: center;", "data-url": "##{uid_dom_id}", "data-placement": "bottom", "data-trigger": "click" }
-                    .overlay{ style: "width: 100%; height: 100%; background-color: rgba(75, 75, 75, 0.#{rand(1..2)});" }
-                    .hidden
-                      %div{ id: uid_dom_id }
-                        %strong= agent.name
-                        - if agent.category == '개인'
-                          %small.text-muted.text-nowrap= agent.organization
+                  = render 'campaigns/special_agenda/agent_order', agent: agent, campaign: @campaign
+                  / - uid_dom_id = "uid-#{SecureRandom.uuid}"
+                  / .cell-item.cursor-pointer.js-popover{ style: "width: #{100/6.0}%; height: 40px; background-image: url(#{agent.image.md.url}); background-size:cover; background-position: center;", "data-url": "##{uid_dom_id}", "data-placement": "bottom", "data-trigger": "click" }
+                  /   .overlay{ style: "width: 100%; height: 100%; background-color: rgba(75, 75, 75, 0.#{rand(1..2)});" }
+                  /   .hidden
+                  /     %div{ id: uid_dom_id }
+                  /       %strong= agent.name
+                  /       - if agent.category == '개인'
+                  /         %small.text-muted.text-nowrap= agent.organization
             .order-party-cell.no_respond{ style: 'width: 50%; padding-left: 5px;' }
               .cell-header{ style: 'background-color: #8b8b8b; color: white; vertical-align: c; height: 90px; display: flex; flex-flow: column; align-items: center; justify-content: center;' }
                 .title 무응답
                 .count= party_no_respond_agent_count
               .cell-body{ style: 'display: flex; flex-wrap: wrap;' }
                 - agency.agents.where(organization: party_name).where.not(id: @campaign.responded_agents).each do |agent|
-                  - uid_dom_id = "uid-#{SecureRandom.uuid}"
-                  .cell-item.cursor-pointer.js-popover{ style: "width: #{100/6.0}%; height: 40px; background-image: url(#{agent.image.md.url}); background-size:cover; background-position: center;", "data-url": "##{uid_dom_id}", "data-placement": "bottom", "data-trigger": "click" }
-                    .overlay{ style: "width: 100%; height: 100%; background-color: rgba(75, 75, 75, 0.#{rand(1..2)});" }
-                    .hidden
-                      %div{ id: uid_dom_id }
-                        %strong= agent.name
-                        - if agent.category == '개인'
-                          %small.text-muted.text-nowrap= agent.organization
+                  = render 'campaigns/special_agenda/agent_order', agent: agent, campaign: @campaign
+                  / - uid_dom_id = "uid-#{SecureRandom.uuid}"
+                  / .cell-item.cursor-pointer.js-popover{ style: "width: #{100/6.0}%; height: 40px; background-image: url(#{agent.image.md.url}); background-size:cover; background-position: center;", "data-url": "##{uid_dom_id}", "data-placement": "bottom", "data-trigger": "click" }
+                  /   .overlay{ style: "width: 100%; height: 100%; background-color: rgba(75, 75, 75, 0.#{rand(1..2)});" }
+                  /   .hidden
+                  /     %div{ id: uid_dom_id }
+                  /       %strong= agent.name
+                  /       - if agent.category == '개인'
+                  /         %small.text-muted.text-nowrap= agent.organization
 
 
-      .orders-tab-title-h5.title-wrap
-        .title-left 촉구하기
-      - agents = @campaign.agents.order(name: :asc).page(1).per(10)
-      - if agents.any?
-        = render 'campaigns/special_agenda/agents', agents: agents
+      / .orders-tab-title-h5.title-wrap
+      /   .title-left 촉구하기
+      / - agents = @campaign.agents.order(name: :asc).page(1).per(10)
+      / - if agents.any?
+      /   = render 'campaigns/special_agenda/agents', agents: agents
 
 = render 'campaigns/special_agenda/order_button'

@@ -157,6 +157,25 @@ namespace :data do
     end
   end
 
+  desc '국회의원의 선거구 정보를 업데이트합니다'
+  task 'update_assembly2' => :environment do
+    ActiveRecord::Base.transaction do
+      Agent.of_position_names("20대_국회의원").each do |agent|
+        if %w(김성태 최경환).include? agent.name
+          member = AssemblyMember.find_by(empNm: agent.name, assemEmail: agent.email)
+        else
+          member = AssemblyMember.find_by(empNm: agent.name)
+        end
+
+        puts agent.name
+        next if member.blank?
+
+        agent.election_region = member.origNm
+        agent.save!
+      end
+    end
+  end
+
   desc '이벤트 이미지 데이터를 받습니다'
   task 'download_event', [:id] => :environment do |task, args|
     event = Event.find args[:id]
