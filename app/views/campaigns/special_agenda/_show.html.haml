@@ -41,6 +41,7 @@
             이름을 알리지 않은 #{@campaign.order_users_count}분이 참여하고 있습니다.
           - else
             지금 바로 촉구하여 참여해보세요.
+
         .order-users
           - order_users_with_image = User.where(id: @campaign.comments.where.not(user_id: nil).uniq.pluck(:user_id)).limit(3)
           - if order_users_with_image.any?
@@ -51,37 +52,56 @@
             .more +
             .count= @campaign.order_users_count - 3
 
-        - @campaign.total_action_assignables.each do |action_assignable|
-          - if @campaign.responded_agents(action_assignable).any?
-            %div{ style: 'margin: 14px 0' }
-              - @campaign.responded_agents(action_assignable).each do |agent|
-                = render 'campaigns/agent', agent: agent, campaign: @campaign, template: 'line', agency: action_assignable
+        .section-orders-tab
+          - agree_count = @campaign.statements.group(:stance).count['agree'] || 0
+          .orders-tab-title-h5 촉구 응답 현황
+          .response-present
+            .response-counts
+              .response-count
+                .response-tag.agree 응답완료
+                .count= agree_count
+              .response-count
+                .response-tag.noresponse 무응답
+                .count= @campaign.agents.count - agree_count
+            .response-text
+              무응답자를 한번에 촉구해보세요.
+            = link_to [:new_comment_agent, @campaign], class: 'response-btn' do
+              #{@campaign.agents.count - agree_count}명
+              모두에게 촉구하기
 
-        - agents = @campaign.agents
-        - if agents.any?
-          / 에어전트를 보여주는 순서는 무작위?
-          .agents
-            - agents.shuffle.take(3).each do |agent|
-              .agent
-                .agent-image.agent-image-top{ style: "background-image:url(#{asset_url(agent.image_url(:md))});" }
-                  - unless @campaign.statement_of(agent).present?
-                    .agent-unsure 없음
-                  - else
-                    - case @campaign.statement_of(agent).stance
-                    - when "unsure"
-                      .agent-unsure 무응답
-                    - when "disagree"
-                      .agent-disagree 무응답
-                    - when "agree"
-                      .agent-agree 응답
-                .agent-info
-                  .agent-name= agent.name
-                  / 소속 이름이 비어있는 경우는?
-                  / '환경부장관'을 '횐경부, 환경부장관'으로 원래 데이터를 바꿔야 할지
-                  .agent-organization= agent.organization
-                = link_to order_form_campaign_path(campaign_id: @campaign.id, agent_id: agent.id), remote: true, class: 'agent-order-btn' do
-                  #{Order.where(agent_id: agent).where(comment_id: @campaign.comments).count + 1}번째로
-                  촉구하기
+          - @campaign.total_action_assignables.each do |action_assignable|
+            - if @campaign.responded_agents(action_assignable).any?
+              %div{ style: 'margin: 14px 0' }
+                - @campaign.responded_agents(action_assignable).each do |agent|
+                  = render 'campaigns/agent', agent: agent, campaign: @campaign, template: 'line', agency: action_assignable
+
+          .orders-tab-title-h5.title-wrap
+            .title-left 촉구하기
+          - agents = @campaign.agents
+          - if agents.any?
+            / 에어전트를 보여주는 순서는 무작위?
+            .agents
+              - agents.shuffle.take(3).each do |agent|
+                .agent
+                  .agent-image.agent-image-top{ style: "background-image:url(#{asset_url(agent.image_url(:md))});" }
+                    - unless @campaign.statement_of(agent).present?
+                      .agent-unsure 없음
+                    - else
+                      - case @campaign.statement_of(agent).stance
+                      - when "unsure"
+                        .agent-unsure 무응답
+                      - when "disagree"
+                        .agent-disagree 무응답
+                      - when "agree"
+                        .agent-agree 응답
+                  .agent-info
+                    .agent-name= agent.name
+                    / 소속 이름이 비어있는 경우는?
+                    / '환경부장관'을 '횐경부, 환경부장관'으로 원래 데이터를 바꿔야 할지
+                    .agent-organization= agent.organization
+                  = link_to order_form_campaign_path(campaign_id: @campaign.id, agent_id: agent.id), remote: true, class: 'agent-order-btn' do
+                    #{Order.where(agent_id: agent).where(comment_id: @campaign.comments).count + 1}번째로
+                    촉구하기
         .more
           = link_to '더 보기', orders_campaign_path(@campaign)
     %hr
