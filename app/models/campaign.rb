@@ -237,7 +237,7 @@ class Campaign < ApplicationRecord
 
   def order_users_count
     return @__order_users_count if @__order_users_count.present?
-    @__order_users_count = self.comments.joins(:orders).select(:commenter_name, :commenter_email).distinct.count
+    @__order_users_count = self.comments.joins(:orders).select(:commenter_name, :commenter_email).distinct.size
     @__order_users_count
   end
 

@@ -112,3 +112,5 @@
       = render 'comments/page_formal', commentable: @campaign, comments: @campaign.comments.recent.page(1), finite: true
       .more
         = link_to '더 보기', comments_campaign_path(@campaign)
+
+= render 'campaigns/special_agenda/order_button'

@@ -30,7 +30,8 @@
                   = f.label :commenter_email, "이메일(반드시 넣어주세요)"
                   = f.text_field :commenter_email, class: 'form-control'
           .form-group
-            ~ f.text_area :body, placeholder: '촉구합니다...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), data: { 'rule-required': true }
+            - f.object.body = '' unless is_redactorable?
+            ~ f.text_area :body, placeholder: '촉구합니다...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), style: 'height: 150px', data: { 'rule-required': true }
           = f.submit '작성', class: 'btn btn-default btn-sm btn-inverted'
 
       - if !@statementable.respond_to?(:comment_enabled, true) or @statementable.comment_enabled
