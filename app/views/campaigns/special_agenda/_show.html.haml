@@ -35,7 +35,7 @@
           - if order_users_with_name.any?
             #{order_users_with_name.first.commenter_name}님
             - if @campaign.order_users_count >=1
-              외 #{@campaign.comments.joins(:orders).select(:commenter_name, :commenter_email).distinct.count - 1}분이
+              외 #{@campaign.order_users_count - 1}분이
             촉구에 참여중입니다.
           - elsif @campaign.order_users_count >= 1
             이름을 알리지 않은 #{@campaign.order_users_count}분이 참여하고 있습니다.
