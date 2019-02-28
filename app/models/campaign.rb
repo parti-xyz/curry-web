@@ -243,7 +243,7 @@ class Campaign < ApplicationRecord
 
   def highlight_ordered_comments(limit)
     result = []
-    self.comments.joins(:orders).recent.find_each(batch_size: 10).each do |comment|
+    self.comments.joins(:orders).recent.each do |comment|
       next if result.any?{ |item|
         item.user_nickname == comment.user_nickname
       }
