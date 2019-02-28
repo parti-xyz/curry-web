@@ -43,9 +43,11 @@
                   #{@agent.name}님에게 메일로도 발송합니다.
           = f.submit '작성', class: 'btn btn-default btn-sm btn-inverted'
 
-      - if !@statementable.respond_to?(:comment_enabled, true) or @statementable.comment_enabled
-        .panel-post__comments.post-block
-          = render 'comments/page', commentable: @statementable, comments: @statementable.comments.with_target_agent(@agent).page(1), show_form: false
+      / - if !@statementable.respond_to?(:comment_enabled, true) or @statementable.comment_enabled
+      /  .panel-post__comments.post-block
+      /    = render 'comments/page', commentable: @statementable, comments: @statementable.comments.with_target_agent(@agent).page(1), show_form: false
+
+%hr
 
 - if @statementable.project
   %section.page-block
