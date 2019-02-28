@@ -39,7 +39,7 @@
       - agency = Agency.find_by(title: '20대국회')
       - party_slug_map = { '자유한국당': 'jayu', '더불어민주당': 'minju', '무소속': 'mu', '바른미래당': 'bareun', '민주평화당': 'minjupeace', '정의당': 'jeongeu', '민중당': 'minjung', '대한애국당': 'deahan' }
       - party_slug_map.keys.shuffle.each do |party_name|
-        - cache "campaign-special-agenda-orders-#{party_slug_map[party_name]}-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 1.hours do
+        - cache "campaign-orders-special-agenda-#{party_slug_map[party_name]}-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 1.hours do
           - party_all_agent_count = agency.agents.where(organization: party_name).count
           - party_responded_agent_count = @campaign.responded_agents.where(organization: party_name).count
           - party_no_respond_agent_count = party_all_agent_count - party_responded_agent_count
@@ -55,7 +55,7 @@
                   .title 응답
                   .count= party_responded_agent_count
                 .cell-body
-                  - @campaign.responded_agents.where(organization: party_name).each do |agent|
+                  - @campaign.responded_agents.where(organization: party_name).order(name: :asc).each do |agent|
                     = render 'campaigns/special_agenda/agent_order', agent: agent, campaign: @campaign
                     / - uid_dom_id = "uid-#{SecureRandom.uuid}"
                     / .cell-item.cursor-pointer.js-popover{ style: "width: #{100/6.0}%; height: 40px; background-image: url(#{agent.image.md.url}); background-size:cover; background-position: center;", "data-url": "##{uid_dom_id}", "data-placement": "bottom", "data-trigger": "click" }
@@ -70,7 +70,7 @@
                   .title 무응답
                   .count= party_no_respond_agent_count
                 .cell-body
-                  - agency.agents.where(organization: party_name).where.not(id: @campaign.responded_agents).each do |agent|
+                  - agency.agents.where(organization: party_name).where.not(id: @campaign.responded_agents).order(name: :asc).each do |agent|
                     = render 'campaigns/special_agenda/agent_order', agent: agent, campaign: @campaign
                     / - uid_dom_id = "uid-#{SecureRandom.uuid}"
                     / .cell-item.cursor-pointer.js-popover{ style: "width: #{100/6.0}%; height: 40px; background-image: url(#{agent.image.md.url}); background-size:cover; background-position: center;", "data-url": "##{uid_dom_id}", "data-placement": "bottom", "data-trigger": "click" }

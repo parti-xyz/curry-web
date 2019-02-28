@@ -104,8 +104,7 @@ module Statementable
     if @__cached_statements.blank?
       @__cached_statements = statements.to_a
     end
-    @__cached_statements.select { |statement| statement.agent_id = agent.id }
-    # statements.find_by(agent: agent)
+    @__cached_statements.select { |statement| statement.agent_id == agent.id }.try(:first)
   end
 
   def total_action_assignables

@@ -1,6 +1,12 @@
 class StatementsController < ApplicationController
   load_and_authorize_resource only: :create
   def create
+    @previous_statement = @statement.statementable.find_by(agent_id: @statement.agent_id)
+    if @previous_statement.present?
+      @previous_statement.assign_attributes(update_params)
+      @statement = @previous_statement
+    end
+
     @statement.last_updated_user = current_user
     if @statement.save
       flash[:notice] = I18n.t('messages.saved')
@@ -43,6 +49,6 @@ class StatementsController < ApplicationController
   end
 
   def update_params
-    params.require(:statement).permit(:body, :stance, :agent_id, :statementable_type, :statementable_id)
+    params.require(:statement).permit(:body, :stance, :statementable_type, :statementable_id)
   end
 end
