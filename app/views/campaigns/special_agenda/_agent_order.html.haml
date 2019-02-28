@@ -2,7 +2,7 @@
   .agent-order-left
     = image_tag agent.image.md.url
   .agent-order-body
-    - statement = campaign.statement_of(agent)
+    - statement = campaign.cached_statement_of(agent)
     - line_body = capture do
       %strong= agent.name
       - if agent.election_region.present?

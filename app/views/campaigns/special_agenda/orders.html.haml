@@ -35,7 +35,6 @@
       /       - @campaign.responded_agents(action_assignable).each do |agent|
       /         = render 'campaigns/agent', agent: agent, campaign: @campaign, template: 'line', agency: action_assignable
 
-
       .orders-tab-title-h5 정당별 촉구 응답 현황
       - agency = Agency.find_by(title: '20대국회')
       - party_slug_map = { '자유한국당': 'jayu', '더불어민주당': 'minju', '무소속': 'mu', '바른미래당': 'bareun', '민주평화당': 'minjupeace', '정의당': 'jeongeu', '민중당': 'minjung', '대한애국당': 'deahan' }

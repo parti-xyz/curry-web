@@ -51,24 +51,7 @@
 
                   - readers_dom_id = build_uid
                   - any_read = false
-                  .hidden
-                    %ul.list-unstyled{ id: readers_dom_id, style: 'margin-bottom: 0' }
-                      - comment.orders.in_groups_of(2, false).each do |group_orders|
-                        .row
-                          - group_orders.each do |order|
-                            .col-sm-6.text-nowrap
-                              = image_tag order.agent.image.md.url, style: "width: 24px; margin-right: 5px;"
-                              %span= order.agent.name
-                              - if order.agent.category == '개인'
-                                %small.text-muted= order.agent.organization
-                              - if order.read?
-                                - any_read = true
-                                %span{ style: 'color: green;' }
-                                  %i.fa.fa-check
-                                  읽음
-                              - else
-                                %span 안읽음
-                  %span.comment-readers.js-popover.cursor-pointer{ "data-url": "##{readers_dom_id}", "data-placement": "bottom", "data-trigger": "click", class: ('any_read' if any_read) }
+                  %span.comment-readers.js-popover.cursor-pointer{ "data-url": readers_comment_url(comment), "data-placement": "bottom", "data-trigger": "click", "data-type": "async", class: ('any_read' if any_read) }
                     - if comment.orders.all_read.count > 0
                       %i.fa.fa-envelope-open-o
                     - else

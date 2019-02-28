@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   get 'terms', to: "pages#terms", as: 'terms'
 
   resources :users
-  resources :comments
+  resources :comments do
+    get '/readers', on: :member, to: 'comments#readers'
+  end
   resources :notes
   resources :likes do
     delete '/', on: :collection, to: 'likes#cancel'

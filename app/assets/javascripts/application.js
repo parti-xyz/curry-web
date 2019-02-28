@@ -376,6 +376,10 @@ function parti_partial$($partial) {
       options['style'] = style;
     }
 
+    if($(elm).data('type') == 'async') {
+      options['type'] = 'async';
+    }
+
     $elm.webuiPopover(options);
   });
 

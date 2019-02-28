@@ -12,7 +12,7 @@ class Ability
     can [:agenda, :new_access_token, :create_access_token, :search], Agent
     can [:new_comment_agent], :all
     can [:download], ArchiveDocument
-    can [:update_statement_agent], :all
+    can [:update_statement_agent, :readers], :all
     can [:edit_statements], [Campaign]
     can [:sign_form, :order_form, :orders, :agents, :comments, :stories, :signers], Campaign
 

@@ -100,6 +100,14 @@ module Statementable
     statements.find_by(agent: agent)
   end
 
+  def cached_statement_of agent
+    if @__cached_statements.blank?
+      @__cached_statements = statements.to_a
+    end
+    @__cached_statements.select { |statement| statement.agent_id = agent.id }
+    # statements.find_by(agent: agent)
+  end
+
   def total_action_assignables
     action_targets.map(&:action_assignable) + [DedicatedActionAssignee.new(self)]
   end

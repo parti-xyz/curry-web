@@ -118,6 +118,8 @@ gem 'fastimage', '~> 1.9'
 gem 'newrelic_rpm'
 gem 'ey_config'
 
+gem 'rack-mini-profiler', require: false
+
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'puma'
@@ -137,6 +139,8 @@ group :development, :test do
   gem 'mocha', '~> 1.1'
   gem 'rails-controller-testing'
   gem 'minitest', '5.10.1'
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 group :test do

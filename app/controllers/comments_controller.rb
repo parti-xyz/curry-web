@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, except: [:create, :index, :show]
+  before_action :authenticate_user!, except: [:create, :index, :show, :readers]
   load_and_authorize_resource
 
   def index
@@ -118,6 +118,11 @@ class CommentsController < ApplicationController
     @commentable_model = params[:commentable_type].classify.safe_constantize
     render_404 and return if @commentable_model.blank?
     @commentable = @commentable_model.find(params[:commentable_id])
+  end
+
+  def readers
+    @comment = Comment.find_by(id: params[:id])
+    render layout: nil
   end
 
   private
