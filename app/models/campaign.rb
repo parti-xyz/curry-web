@@ -243,11 +243,11 @@ class Campaign < ApplicationRecord
 
   def highlight_ordered_comments(limit)
     result = []
-    Order.where(comment: self.comments).includes(:comment).recent.limit(100).each do |order|
+    Comment.where(id: Order.where(comment: self.comments).select(:comment_id)).recent.limit(100).each do |comment|
       next if result.any?{ |item|
-        item.user_nickname == order.comment.user_nickname
+        item.user_nickname == comment.user_nickname
       }
-      result << order.comment
+      result << comment
       return result if result.length > limit
     end
     result
