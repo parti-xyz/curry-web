@@ -51,7 +51,7 @@
 
                   - readers_dom_id = build_uid
                   - any_read = false
-                  %span.comment-readers.js-popover.cursor-pointer{ "data-url": readers_comment_url(comment), "data-placement": "bottom", "data-trigger": "click", "data-type": "async", class: ('any_read' if any_read) }
+                  %span.comment-readers.js-popover.cursor-pointer{ "data-url": readers_comment_url(comment, ), "data-placement": "bottom", "data-trigger": "click", "data-type": "async", class: ('any_read' if any_read) }
                     - if comment.orders.all_read.count > 0
                       %i.fa.fa-envelope-open-o
                     - else

@@ -13,7 +13,7 @@
     - else
       = link_to order_form_campaign_path(campaign_id: @campaign.id, agent_id: agent.id), remote: true, class: 'agent-order-btn' do
         = line_body
-  .agent-order-right.hidden-xs
+  .agent-order-right
     - if statement.try(:body).present?
       %a.text-nowrap{"href": "#", "data-target" => "#agent-order-statement-modal-#{agent.id}", "data-toggle" => "modal", :type => "button" }
         %small

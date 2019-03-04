@@ -891,6 +891,73 @@
       color: $gray-caption;
     }
   }
+  .section-orders-tab.section-orders-tab-special-agenda {
+    .orders-party {
+      padding: 40px;
+      border: 1px solid $gray-lighter;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .order-parti-header {
+        margin-bottom: 8px;
+        position: relative;
+        img.order-party-logo {
+          width: 120px;
+          height: 50px;
+          vertical-align: bottom;
+        }
+        .order-party-all-agent-count {
+          border-radius: 15.5px;
+          border: solid 1px $gray-lighter;
+          padding: 5px 12px;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          .number {
+            font-weight: bold;
+          }
+        }
+      }
+      .order-party-vs {
+        display: flex;
+        .order-party-cell {
+          flex: 1;
+          &.responded {
+            padding-right: 5px;
+          }
+          &.no_respond{
+            padding-left: 5px;
+          }
+          .cell-header {
+            color: white;
+            height: 90px;
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            justify-content: center;
+          }
+          &.responded .cell-header {
+            background-color: $color-brand-primary;
+          }
+          &.no_respond .cell-header {
+            background-color: #8b8b8b;
+          }
+        }
+        @media (max-width: $screen-xs-max) {
+          flex-flow: column;
+          .order-party-cell.responded,
+          .order-party-cell.no_respond {
+            width: 100%;
+            padding: 0;
+          }
+          .order-party-cell.order-party-cell-zero {
+            display: none;
+          }
+        }
+      }
+    }
+  }
   .section-story {
     // .section-title {
     //   font-size: 14px;

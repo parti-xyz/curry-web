@@ -215,7 +215,7 @@
           }
           .sign-info {
             @extend .typo-mini;
-            color: #2575ef;
+            color: $color-brand-primary;
             .date {
               display: inline;
               margin-left: 4px;
@@ -248,7 +248,7 @@
           }
           .liked {
             display: inline;
-            color: #2575ef;
+            color: $color-brand-primary;
           }
           .not-yet-liked {
             display: inline;

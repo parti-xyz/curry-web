@@ -29,7 +29,7 @@
               = f.label :commenter_name
               = f.text_field :commenter_name, class: 'form-control', data: { 'rule-required': true }
             .form-group
-              = f.label :commenter_email, @agent.email.present? ? "이메일(#{@agent.name}님에게 메일을 발송하려면 반드시 넣어주세요)" : nil
+              = f.label :commenter_email, @agent.email.present? ? "보내는 사람 이메일(#{@agent.name}님에게 메일을 발송하려면 반드시 넣어주세요)" : nil
               = f.text_field :commenter_email, class: 'form-control'
           .form-group
             - unless is_redactorable?
