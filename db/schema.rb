@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190227053010) do
+ActiveRecord::Schema.define(version: 20190305073849) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -93,9 +93,9 @@ ActiveRecord::Schema.define(version: 20190227053010) do
   end
 
   create_table "agents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
-    t.string   "name",                                null: false
+    t.string   "name",                                    null: false
     t.string   "organization"
-    t.string   "category",                            null: false
+    t.string   "category",                                null: false
     t.string   "image"
     t.string   "email"
     t.integer  "sent_requests_count",     default: 0
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 20190227053010) do
     t.integer  "access_fail_count",       default: 0
     t.string   "refresh_access_token"
     t.datetime "refresh_access_token_at"
+    t.boolean  "bounced_email",           default: false
   end
 
   create_table "agents_campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|

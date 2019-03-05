@@ -79,7 +79,7 @@ class CommentsController < ApplicationController
           agent_ids = []
           @comment.target_agents.each do |agent|
             statement = @comment.commentable.statements.find_or_create_by(agent: agent)
-            agent_ids << agent.id if @comment.mailing.ready? and agent.email.present?
+            agent_ids << agent.id if @comment.mailing.ready? and agent.email.present? and !agent.bounced_email?
           end
           agent_ids.in_groups_of(40).each do |chunk|
             CommentMailer.target_agents(@comment.id, chunk).deliver_later
@@ -89,7 +89,7 @@ class CommentsController < ApplicationController
             statement = @comment.commentable.statements.find_or_create_by(agent: agent)
             statement_key = statement.statement_keys.build(key: SecureRandom.hex(50))
             statement_key.save!
-            if @comment.mailing.ready? and agent.email.present?
+            if @comment.mailing.ready? and agent.email.present? and !agent.bounced_email?
               CommentMailer.target_agent(@comment.id, agent.id, statement_key.id).deliver_later
             end
           end
