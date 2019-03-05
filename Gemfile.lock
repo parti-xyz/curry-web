@@ -525,12 +525,11 @@ GEM
       rack
     orm_adapter (0.5.0)
     os (0.9.6)
-    postmark (1.13.0)
+    postmark (1.15.0)
       json
-      rake
-    postmark-rails (0.17.0)
+    postmark-rails (0.19.0)
       actionmailer (>= 3.0.0)
-      postmark (~> 1.13.0)
+      postmark (~> 1.15.0)
     premailer (1.10.0)
       css_parser (>= 1.4.9)
       htmlentities (>= 4.0.0)
@@ -801,7 +800,7 @@ DEPENDENCIES
   omniauth-google-oauth2 (~> 0.3.1)
   omniauth-naver (~> 0.1.0)
   omniauth-twitter (~> 1.2, >= 1.2.1)
-  postmark-rails (~> 0.17.0)
+  postmark-rails (~> 0.19.0)
   premailer-rails (~> 1.9, >= 1.9.2)
   puma
   rack-cors

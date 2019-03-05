@@ -96,7 +96,7 @@ end
 gem 'aws-sdk-s3'
 
 # notification
-gem 'postmark-rails', '~> 0.17.0'
+gem 'postmark-rails', '~> 0.19.0'
 gem 'slack-notifier', '~> 1.4'
 gem 'exception_notification', '~> 4.1', '>= 4.1.4'
 gem 'premailer-rails', '~> 1.9', '>= 1.9.2'

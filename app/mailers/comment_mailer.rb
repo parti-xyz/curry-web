@@ -27,4 +27,24 @@ class CommentMailer < ApplicationMailer
       template_name: template_name,
       tag: "order")
   end
+
+  def target_agents(comment_id, agent_ids)
+    metadata['comment_id'] = comment_id
+    @comment = Comment.find_by(id: comment_id)
+    return if @comment.blank?
+    @agents = Agent.where(id: agent_ids).where.not(email: nil)
+    return if @agents.blank?
+
+    @comment.update_attributes(mailing: :sent)
+    template_name = "target_agents_#{@comment.commentable.class.name.underscore}"
+    if @comment.commentable.respond_to? :template
+      special_template_name = "target_agents_#{@comment.commentable.class.name.underscore}_#{@comment.commentable.template}"
+      if lookup_context.exists?("comment_mailer/#{special_template_name}")
+        template_name = special_template_name
+      end
+    end
+    mail(to: @agents.map(&:email),
+      template_name: template_name,
+      tag: "order")
+  end
 end
