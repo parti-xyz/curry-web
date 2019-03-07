@@ -32,7 +32,7 @@ class CommentMailer < ApplicationMailer
     metadata['comment_id'] = comment_id
     @comment = Comment.find_by(id: comment_id)
     return if @comment.blank?
-    @agents = Agent.where(id: agent_ids).where.not(email: nil)
+    @agents = Agent.where(id: agent_ids).where.not(email: nil).where(bounced_email: false)
     return if @agents.blank?
 
     @comment.update_attributes(mailing: :sent)
