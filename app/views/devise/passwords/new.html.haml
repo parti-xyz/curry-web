@@ -1,6 +1,7 @@
 %section#page-devise-password
   .container
     %h4 비밀번호를 잊었거나 새로 바꾸실 건가요?
+    = render 'devise/shared/error_messages', resource: resource
     .password-form
       = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
         .form-group
