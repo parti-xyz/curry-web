@@ -104,9 +104,9 @@ gem 'mjml-rails'
 gem 'aws-sdk-rails', '~> 2.1'
 
 # scheduler
-gem 'sidekiq', '~> 4.1'
-gem 'sidekiq-cron', '~> 0.4.5'
-gem 'sidekiq-unique-jobs', '~> 4.0', '>= 4.0.16'
+gem 'sidekiq', '~> 4.2', '>= 4.2.10'
+gem 'sidekiq-cron', '~> 1.1'
+gem 'sidekiq-unique-jobs', '~> 6.0', '>= 6.0.12'
 gem 'redis', '~> 3.2', '>= 3.2.2'
 gem 'redis-namespace', '~> 1.5', '>= 1.5.2'
 
