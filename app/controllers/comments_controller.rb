@@ -75,23 +75,13 @@ class CommentsController < ApplicationController
       flash[:notice] = I18n.t('messages.commented')
 
       if @comment.commentable.try(:statementable?)
-        if @comment.target_agents.count > 50
-          agent_ids = []
-          @comment.target_agents.each do |agent|
-            statement = @comment.commentable.statements.find_or_create_by(agent: agent)
-            agent_ids << agent.id if @comment.mailing.ready? and agent.email.present? and !agent.bounced_email?
-          end
-          agent_ids.in_groups_of(40).each do |chunk|
-            CommentMailer.target_agents(@comment.id, chunk).deliver_later
-          end
-        else
-          @comment.target_agents.each do |agent|
-            statement = @comment.commentable.statements.find_or_create_by(agent: agent)
-            statement_key = statement.statement_keys.build(key: SecureRandom.hex(50))
-            statement_key.save!
-            if @comment.mailing.ready? and agent.email.present? and !agent.bounced_email?
-              CommentMailer.target_agent(@comment.id, agent.id, statement_key.id).deliver_later
-            end
+        @comment.orders.each do |order|
+          agent = order.agent
+          statement = @comment.commentable.statements.find_or_create_by(agent: agent)
+          statement_key = statement.statement_keys.build(key: SecureRandom.hex(50))
+          statement_key.save!
+          if @comment.mailing.ready? and agent.email.present?
+            CommentMailer.target_agent(@comment.id, order.id, statement_key.id).deliver_later
           end
         end
       end

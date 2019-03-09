@@ -12,4 +12,11 @@ class OrdersController < ApplicationController
     order.touch :read_at
     return if order.blank?
   end
+
+  def beacon
+    order = Order.find_by(id: params[:id], read_at: nil)
+    order.touch(:read_at) if order.present?
+
+    send_file 'public/beacon.png', type: 'image/png'
+  end
 end

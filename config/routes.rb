@@ -196,9 +196,8 @@ Rails.application.routes.draw do
     end
   end
   resources :orders do
-    collection do
-      post :read
-    end
+    post :read, on: :collection
+    get :beacon, on: :member
   end
 
   namespace :admin do
