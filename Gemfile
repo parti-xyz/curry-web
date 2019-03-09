@@ -77,7 +77,7 @@ gem 'rolify'
 gem 'rack-cors'
 gem 'rails-i18n'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'dotenv'
+gem 'dotenv-rails'
 gem 'seed-fu', '~> 2.3', '>= 2.3.5'
 gem 'bcrypt', '~> 3.1', '>= 3.1.11'
 gem 'browser', '~> 2.0', '>= 2.0.2'
@@ -101,6 +101,7 @@ gem 'slack-notifier', '~> 1.4'
 gem 'exception_notification', '~> 4.1', '>= 4.1.4'
 gem 'premailer-rails', '~> 1.9', '>= 1.9.2'
 gem 'mjml-rails'
+gem 'aws-sdk-rails', '~> 2.1'
 
 # scheduler
 gem 'sidekiq', '~> 4.1'

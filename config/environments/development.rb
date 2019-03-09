@@ -31,6 +31,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.default_url_options = { :host => 'govcraft.test' }
   config.action_mailer.asset_host =  'http://govcraft.test'
+  # config.action_mailer.delivery_method = :aws_sdk
 
   config.action_mailer.perform_caching = false
 
