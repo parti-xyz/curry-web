@@ -578,7 +578,7 @@
           text-align: center;
           margin: 12px 0;
           padding: 8px;
-          width: 112px;
+          width: 140px;
           height: 32px;
         }
       }
@@ -865,20 +865,6 @@
             @extend .typo-mini;
             color: $gray-caption;
           }
-        }
-
-        .agent-order-btn {
-          flex: none;
-          border: 1px solid $color-brand-primary;
-          font-size: 12px;
-          font-weight: 500;
-          letter-spacing: 0.2px;
-          color: $color-brand-primary;
-          text-align: center;
-          margin: 12px 0;
-          padding: 8px;
-          width: 112px;
-          height: 32px;
         }
       }
     }
