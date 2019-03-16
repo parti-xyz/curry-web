@@ -95,7 +95,7 @@ Rails.application.routes.draw do
       get 'order_form'
       get 'comment_form'
       get 'orders'
-      get 'agents'
+      get 'need_to_order_agents'
       get 'comments'
       get 'stories'
       get 'signers'

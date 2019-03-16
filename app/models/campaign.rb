@@ -213,9 +213,11 @@ class Campaign < ApplicationRecord
   end
 
   def comment_closed?
-    return false if self.template == 'petition'
-
-    closed?
+    if %w(petition special_agenda).include?(self.template)
+      !self.comment_enabled
+    else
+      closed?
+    end
   end
 
   def comment_opened?

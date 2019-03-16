@@ -10,9 +10,11 @@
     - if statement.try(:body).present?
       %a.text-nowrap{"href": "#", "data-target" => "#agent-order-statement-modal-#{agent.id}", "data-toggle" => "modal", :type => "button" }
         = line_body
-    - else
-      = link_to order_form_campaign_path(campaign_id: @campaign.id, agent_id: agent.id), remote: true, class: 'agent-order-btn' do
+    - elsif campaign.opened?
+      = link_to order_form_campaign_path(campaign_id: campaign.id, agent_id: agent.id), remote: true, class: 'agent-order-btn' do
         = line_body
+    - else
+      = line_body
   .agent-order-right
     - if statement.try(:body).present?
       %a.text-nowrap{"href": "#", "data-target" => "#agent-order-statement-modal-#{agent.id}", "data-toggle" => "modal", :type => "button" }
@@ -20,8 +22,8 @@
           %span.text-nowrap
             %i.fa.fa-commenting-o
             답변보기
-    - else
-      = link_to order_form_campaign_path(campaign_id: @campaign.id, agent_id: agent.id), remote: true, class: 'agent-order-btn' do
+    - elsif campaign.opened?
+      = link_to order_form_campaign_path(campaign_id: campaign.id, agent_id: agent.id), remote: true, class: 'agent-order-btn' do
         %small
           %span.text-nowrap
             %i.fa.fa-paper-plane-o

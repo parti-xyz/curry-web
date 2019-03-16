@@ -2,12 +2,6 @@
 
 = render 'campaigns/header', campaign: @campaign
 
-- if @campaign.agents.any?
-  %section.page-block
-    .container-fluid
-      .petition-agents
-        = render 'campaigns/agents', campaign: @campaign
-
 %section#petition-block.page-block.page-block-white
   .container-fluid
     .petition-body
@@ -48,13 +42,6 @@
           %p.text-basic-wrap
             이 캠페인을 친구들에게 알려 주세요
             .share-box{ 'data-share-image': image_url(cover_image) }
-          - if @campaign.comment_enabled
-            %p.text-basic-wrap
-              관련된 인물에게 촉구해 주세요.
-              %div
-                = link_to campaign_path(@campaign, anchor: "anchor-agents"), class: " js-close-modal btn btn-xs btn-primary" do
-                  의견 남기기
-                  %i.fa.fa-arrow-right
 
   = content_for :script do
     :javascript

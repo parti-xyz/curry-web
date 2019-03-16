@@ -6,12 +6,13 @@
           내용
         - else
           = link_to '내용', campaign_path
-    %li{ class: [menu == 'order' && "active"]  }
-      .menu-item
-        - if menu == 'order'
-          촉구
-        - else
-          = link_to '촉구', orders_campaign_path
+    - if @campaign.agents.any?
+      %li{ class: [menu == 'order' && "active"]  }
+        .menu-item
+          - if menu == 'order'
+            촉구
+          - else
+            = link_to '촉구', orders_campaign_path
     %li{ class: [menu == 'comment' && "active"]  }
       .menu-item
         - if menu == 'comment'

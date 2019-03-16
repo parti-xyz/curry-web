@@ -1,23 +1,32 @@
 %section.section-right
   %section.section-info
     .campaign-progress
-      .campaign-time-to-left.js-campaign-time-to-left.hidden-xs{ 'data-campaign-time-to-left-due-date': bot_day_f(@campaign.created_at)}
-        진행 시간
-        %br
-        .digit-to-left.days
-          ___
-        .div 일
-        .digit-to-left.hours __
-        .div :
-        .digit-to-left.minutes __
-        .div :
-        .digit-to-left.seconds __
+      - if @campaign.opened?
+        .campaign-time-to-left.js-campaign-time-to-left.hidden-xs{ 'data-campaign-time-to-left-due-date': bot_day_f(@campaign.created_at)}
+          진행 시간
+          %br
+          .digit-to-left.days
+            ___
+          .div 일
+          .digit-to-left.hours __
+          .div :
+          .digit-to-left.minutes __
+          .div :
+          .digit-to-left.seconds __
+      - else
+        .campaign-time-to-left.hidden-xs
+          종료일
+          %br
+          .digit-to-left.days= static_day_f(@campaign.created_at)
       .campaign-label
         .current-message
-          현재 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}명이 서명하였습니다.
-        - if @campaign.has_goal?
-          #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}명
-        서명에 동참해주세요.
+          - if @campaign.opened?
+            현재 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}명이 서명하였습니다.
+            - if @campaign.has_goal?
+              #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}명
+            서명에 동참해주세요.
+          - else
+            총 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}명이 서명하였습니다.
       - if @campaign.has_goal?
         .campaign-progress-bar
           .current-percent
@@ -39,41 +48,50 @@
             .signer-image{ style: "background-image:url(#{asset_url(sign.user_image_url)});" }
             .signed-message
               #{sign.user_name}님이 서명하셨습니다.
-      .campaign-sign-form.hidden-xs
-        .campaign-sign
-          - if user_signed_in?
-            .signer-image{ style: "background-image:url(#{asset_url(user_signed_in? ? current_user.image_url(:xs) : 'default-user.png')});" }
-            .signer-nickname
-              = current_user.nickname
-        = link_to sign_form_campaign_path(@campaign), remote: true do
-          .campaign-sign-input.nickname{ style: "display: none" }
-            이름
-          .campaign-sign-input.email
-            이메일
-          .campaign-sign-input.word
-            %p 나도 한마디
-            %br
-        / %button.btn.btn-danger.btn-lg.btn-block.campaign-sign-btn{"data-target" => "#sign-form-modal", "data-toggle" => "modal", :type => "button"}
-        = link_to '서명하기', sign_form_campaign_path(@campaign), remote: true, class: "btn btn-danger btn-lg btn-block campaign-sign-btn"
-        - if @campaign.confirm_privacy.present?
-          .campaign-sign-privacy-policy
-            서명하기를 누르시면 본 서명의
-            %a{ "data-target" => "#privacy-modal", "data-toggle" => "modal", :type => "button", style: 'cursor:pointer' }
-              개인정보취급방침
-            에 동의하게 됩니다.
-          #privacy-modal.modal.fade{:role => "dialog", :tabindex => "0"}
-            .modal-dialog{:role => "document"}
-              .modal-content
-                .modal-header
-                  %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-                    %span{"aria-hidden" => "true"} &#215;
-                  %h4.modal-title 개인정보취급방침
-                .modal-body
-                  != @campaign.confirm_privacy
+        .more{ style: 'margin: 1em 0 0; font-size: 12px;' }
+          = link_to '더 보기...', signers_campaign_path(@campaign), style: 'color: gray'
+
+
+      - if @campaign.opened?
+        .campaign-sign-form.hidden-xs
+          .campaign-sign
+            - if user_signed_in?
+              .signer-image{ style: "background-image:url(#{asset_url(user_signed_in? ? current_user.image_url(:xs) : 'default-user.png')});" }
+              .signer-nickname
+                = current_user.nickname
+          = link_to sign_form_campaign_path(@campaign), remote: true do
+            .campaign-sign-input.nickname{ style: "display: none" }
+              이름
+            .campaign-sign-input.email
+              이메일
+            .campaign-sign-input.word
+              %p 나도 한마디
+              %br
+          / %button.btn.btn-danger.btn-lg.btn-block.campaign-sign-btn{"data-target" => "#sign-form-modal", "data-toggle" => "modal", :type => "button"}
+          = link_to '서명하기', sign_form_campaign_path(@campaign), remote: true, class: "btn btn-danger btn-lg btn-block campaign-sign-btn"
+          - if @campaign.confirm_privacy.present?
+            .campaign-sign-privacy-policy
+              서명하기를 누르시면 본 서명의
+              %a{ "data-target" => "#privacy-modal", "data-toggle" => "modal", :type => "button", style: 'cursor:pointer' }
+                개인정보취급방침
+              에 동의하게 됩니다.
+            #privacy-modal.modal.fade{:role => "dialog", :tabindex => "0"}
+              .modal-dialog{:role => "document"}
+                .modal-content
+                  .modal-header
+                    %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                      %span{"aria-hidden" => "true"} &#215;
+                    %h4.modal-title 개인정보취급방침
+                  .modal-body
+                    != @campaign.confirm_privacy
+
 
       .campaign-share.phone-fold
         .campaign-share-text
-          많은 분들이 캠페인에 참여할 수 있도록 공유해주세요.
+          - if @campaign.opened?
+            많은 분들이 캠페인에 참여할 수 있도록 공유해주세요.
+          - else
+            많은 분들에게 이 캠페인을 공유해주세요.
         .campaign-share-buttons
           = link_to "https://www.facebook.com/sharer/sharer.php?u=#{campaign_url(@campaign)}", class: 'campaign-share-button', target: '_blank' do
             %i.fa.fa-facebook-f
@@ -82,7 +100,6 @@
           = hidden_field_tag "share-url", "#{campaign_url(@campaign)}"
           .js-clipboard.campaign-share-button{ 'data-clipboard-text': campaign_url(@campaign), 'data-toggle': 'tooltip', 'data-trigger': 'manual', 'data-title': '캠페인 공유 주소를 복사하였습니다.', style: "margin-left: 6px" }
             %i.fa.fa-clipboard
-
 
 
 - if flash[:sign_notice].present?

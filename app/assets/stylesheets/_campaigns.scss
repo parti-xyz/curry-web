@@ -82,7 +82,7 @@
       width: 227px;
       background-color: white;
       @media (max-width: $screen-xs-max) {
-        padding: 24px 16px 40px;
+        padding: 24px 16px;
         margin-left: 0;
         border-bottom: 8px solid $gray-lightest;
         width: 100%;
@@ -230,7 +230,7 @@
     }
     .campaign-sign-form {
       margin-top: 25px;
-      padding: 24px 0 25px;
+      padding: 24px 0 0;
       border-top: 1px solid $gray-lighter;
       .campaign-sign {
         .signer-image {
@@ -274,6 +274,7 @@
     }
     .campaign-share {
       padding-top: 24px;
+      margin-top: 24px;
       border-top: 1px solid $gray-lighter;
       .campaign-share-text {
         margin-bottom: 8px;
@@ -664,7 +665,6 @@
       font-weight: 500;
       letter-spacing: -1px;
       color: #666666; // $gray-title; need a hex code
-      .title-left {}
       .title-right {
         font-weight: normal;
         .response-header-text {
@@ -875,6 +875,9 @@
       font-size: 14px;
       letter-spacing: -0.4px;
       color: $gray-caption;
+      &.more-left {
+        text-align: left;
+      }
     }
   }
   .section-orders-tab.section-orders-tab-special-agenda {

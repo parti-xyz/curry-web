@@ -21,6 +21,7 @@ ko:
     already_signed: '이미 서명하셨습니다.'
     commented: '댓글을 게시했습니다!'
     need_to_email: '보내시는 분의 메일을 입력해주세요'
+    closed_commentable: '종료되어 촉구할 수 없습니다'
     reported: '신고되었습니다!'
     reverted: '복원되었습니다!'
     campaigns:

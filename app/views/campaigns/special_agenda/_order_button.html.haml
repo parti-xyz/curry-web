@@ -1,9 +1,9 @@
-- if @campaign.present?
+- if campaign.present? and !campaign.closed?
   %section.section-sign-btn.js-sticky-sign-button.stuck.hidden-sm.visible-xs-block
-    = link_to [:new_comment_agent, @campaign], class: "btn btn-danger btn-lg btn-block stuck sign-btn" do
+    = link_to [:new_comment_agent, campaign], class: "btn btn-danger btn-lg btn-block stuck sign-btn" do
       .sign-btn-text
-        - agree_count = @campaign.statements.group(:stance).count['agree']
-        무응답자 #{@campaign.agents.count - agree_count}명 모두에게
+        - agree_count = campaign.statements.group(:stance).count['agree']
+        무응답자 #{campaign.agents.count - agree_count}명 모두에게
         %br
         %strong 지금 촉구하기
         %i.fa.fa-arrow-right

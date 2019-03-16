@@ -10,7 +10,7 @@
   .container
     .page-header.page-header-narrow
       %h3.sub-title
-        모든 인물 #{@statementable.need_to_order_all_agents.count}명에게 행동을 촉구합니다.
+        모든 인물 #{@statementable.need_to_order_agents.count}명에게 행동을 촉구합니다.
     .panel-body.component-box
       .comments-form
         = form_for @comment, html: { class: 'gov-action-form-validation' } do |f|
@@ -34,10 +34,6 @@
               - f.object.body = strip_tags(f.object.body)
             ~ f.text_area :body, placeholder: '촉구합니다...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), style: 'height: 150px', data: { 'rule-required': true }
           = f.submit '작성', class: 'btn btn-default btn-sm btn-inverted'
-
-      / - if !@statementable.respond_to?(:comment_enabled, true) or @statementable.comment_enabled
-      /   .panel-post__comments.post-block
-      /     = render 'comments/page', commentable: @statementable, comments: @statementable.comments.page(1), show_form: false
 
 %hr
 

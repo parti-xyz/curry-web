@@ -52,14 +52,19 @@ class CommentsController < ApplicationController
       return
     end
 
+    if @comment.mailing.ready? and @comment.commentable.try(:closed?)
+      flash[:error] = I18n.t('messages.closed_commentable')
+      redirect_back(fallback_location: root_path, i_am: params[:i_am])
+    end
+
     if @comment.mailing.ready? and @comment.commentable.respond_to?(:agents)
       if @comment.target_agent_id.blank?
-        target_agents = @comment.commentable.need_to_order_all_agents
+        target_agents = @comment.commentable.need_to_order_agents
         if params[:action_assignable_type].present? and params[:action_assignable_id].present?
           action_assignable_model = params[:action_assignable_type].classify.safe_constantize
           if action_assignable_model.present?
             action_assignable = action_assignable_model.find_by_id(params[:action_assignable_id])
-            target_agents = @comment.commentable.need_to_order_all_agents(action_assignable)
+            target_agents = @comment.commentable.need_to_order_agents(action_assignable)
           end
         end
 

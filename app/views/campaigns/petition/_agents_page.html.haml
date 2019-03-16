@@ -1,0 +1,7 @@
+.agents.js-infinite-container
+  - agents.each do |agent|
+    = render 'campaigns/petition/agent_need_to_order', campaign: @campaign, agent: agent, statement: @campaign.statement_of(agent), dom_class: 'infinite-item'
+- unless agents.last_page?
+  = link_to '', next_path, class: 'infinite-more-link'
+
+

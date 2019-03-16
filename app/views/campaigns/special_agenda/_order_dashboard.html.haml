@@ -1,0 +1,14 @@
+.response-present
+  .response-counts
+    .response-count
+      .response-tag.agree 응답
+      .count= @campaign.reacted_agents_count || 0
+    .response-count
+      .response-tag.noresponse 무응답
+      .count= @campaign.no_reaction_agents_count || 0
+  - if campaign.opened?
+    .response-text
+      반대, 무응답자를 한번에 촉구해보세요.
+    = link_to [:new_comment_agent, campaign], class: 'response-btn' do
+      #{campaign.agents.count}명
+      모두에게 촉구하기

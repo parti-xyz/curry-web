@@ -16,18 +16,30 @@ module Statementable
     }
   end
 
-  def agents
-    if action_targets.blank?
-      dedicated_agents
+  def agents_shuffled
+    agents.order("RAND()")
+  end
+
+  def agents(action_assignable = nil)
+    if action_assignable == nil
+      if action_targets.blank?
+        dedicated_agents
+      else
+        conditions = action_targets.map { |action_target|
+          Agent.where(id: action_target.action_assignable.statementable_agents) }
+        conditions << Agent.where(id: dedicated_agents)
+        Agent.where.any_of(*conditions)
+      end
     else
-      conditions = action_targets.map { |action_target|
-        Agent.where(id: action_target.action_assignable.statementable_agents) }
-      conditions << Agent.where(id: dedicated_agents)
-      Agent.where.any_of(*conditions)
+      action_assignable.statementable_agents
     end
   end
 
-  def need_to_order_all_agents(action_assignable = nil)
+  def need_to_order_agents_shuffled
+    need_to_order_agents.order("RAND()")
+  end
+
+  def need_to_order_agents(action_assignable = nil)
     not_agree_agents(action_assignable)
   end
 

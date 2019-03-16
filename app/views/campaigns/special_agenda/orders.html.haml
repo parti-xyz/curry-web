@@ -8,23 +8,13 @@
   %section.section-left
     %section.section-orders-tab.section-orders-tab-special-agenda
       .orders-tab-title
-        - if @campaign.agents.any?
+        - if @campaign.closed?
+          국회의원에게 보낸 선거제 개편 및 국회 특권 폐지 설문의 응답 현황입니다.
+        - else
           국회의원에게 선거제도 개혁을 촉구해주세요.
 
       .orders-tab-title-h5 선거제 개편 및 국회 특권 폐지 설문 응답 현황
-      .response-present
-        .response-counts
-          .response-count
-            .response-tag.agree 응답
-            .count= @campaign.reacted_agents_count
-          .response-count
-            .response-tag.noresponse 무응답
-            .count= @campaign.no_reaction_agents_count
-        .response-text
-          무응답자를 한번에 촉구해보세요.
-        = link_to [:new_comment_agent, @campaign], class: 'response-btn' do
-          #{@campaign.no_reaction_agents_count}명
-          모두에게 촉구하기
+      = render 'campaigns/special_agenda/order_dashboard', campaign: @campaign
 
       .orders-tab-title-h5 정당별 촉구 응답 현황
       - agency = Agency.find_by(title: '20대국회')
@@ -56,4 +46,4 @@
                   - agency.agents.where(organization: party_name).where.not(id: @campaign.responded_agents).order(name: :asc).each do |agent|
                     = render 'campaigns/special_agenda/agent_order', agent: agent, campaign: @campaign
 
-= render 'campaigns/special_agenda/order_button'
+= render 'campaigns/special_agenda/order_button', campaign: @campaign

@@ -8,7 +8,10 @@
     %section.section-left
       %section.section-signer
         .section-title
-          현재 #{@campaign.signs.size}명이 참여하고 있습니다.
+          - if @campaign.opened?
+            현재 #{@campaign.signs.size}명이 참여하고 있습니다.
+          - else
+            총 #{@campaign.signs.size}명이 참여했습니다.
         = render 'campaigns/petition/signers', signs: @signs
   = render 'campaigns/petition/sign_button'
 
