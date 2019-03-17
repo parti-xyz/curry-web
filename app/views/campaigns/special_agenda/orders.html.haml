@@ -37,13 +37,13 @@
                   .count= party_responded_agent_count
                 .cell-body
                   - @campaign.responded_agents.where(organization: party_name).order(name: :asc).each do |agent|
-                    = render 'campaigns/special_agenda/agent_order', agent: agent, campaign: @campaign
+                    = render 'campaigns/special_agenda/agent_with_statement', agent: agent, campaign: @campaign
               .order-party-cell.no_respond{ class: ('order-party-cell-zero' if party_no_respond_agent_count <= 0)}
                 .cell-header
                   .title 무응답
                   .count= party_no_respond_agent_count
                 .cell-body
                   - agency.agents.where(organization: party_name).where.not(id: @campaign.responded_agents).order(name: :asc).each do |agent|
-                    = render 'campaigns/special_agenda/agent_order', agent: agent, campaign: @campaign
+                    = render 'campaigns/special_agenda/agent_with_statement', agent: agent, campaign: @campaign
 
 = render 'campaigns/special_agenda/order_button', campaign: @campaign

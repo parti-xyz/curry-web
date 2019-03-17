@@ -17,7 +17,7 @@
         .campaign-time-to-left.hidden-xs
           종료일
           %br
-          .digit-to-left.days= static_day_f(@campaign.created_at)
+          .digit-to-left.days= static_day_f(@campaign.closed_at)
       .campaign-label
         .current-message
           - if @campaign.opened?
