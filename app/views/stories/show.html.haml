@@ -33,9 +33,10 @@
         .panel-post__like.text-center
           = render 'likes/button', likable: @story
 
-      .panel-body
-        .panel-post__comments
-          = render 'comments/list', commentable: @story
+      - if @story.comment_enabled?
+        .panel-body
+          .panel-post__comments
+            = render 'comments/list', commentable: @story
 
 - if @project
   = render 'projects/post_footer', project: @project

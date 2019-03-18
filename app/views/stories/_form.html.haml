@@ -5,9 +5,10 @@
         = f.hidden_field :storiable_id, value: @storiable.id
         = f.hidden_field :storiable_type, value: @storiable.class.to_s
 
-      .form-group
-        = f.label :cover
-        = f.file_field :cover, class: 'form-control'
+      - if @storiable.blank? or !@storiable.is_a?(Campaign)
+        .form-group
+          = f.label :cover
+          = f.file_field :cover, class: 'form-control'
 
       .form-group
         = f.label :title

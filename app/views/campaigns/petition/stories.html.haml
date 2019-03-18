@@ -23,11 +23,12 @@
                 = excerpt(story.body, length: 200)
             .story-footer
               = render 'likes/button', likable: story
-              &nbsp;
-              = link_to story, class: 'comments-count' do
-                %i.fa.fa-comment-o
-                댓글
-                = story.comments_count
+              - if story.comment_enabled
+                &nbsp;
+                = link_to story, class: 'comments-count' do
+                  %i.fa.fa-comment-o
+                  댓글
+                  = story.comments_count
 
         / .story
         /   .story-header
