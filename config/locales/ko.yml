@@ -35,10 +35,10 @@ ko:
     signs:
       mail:
         empty_signer: '참여자가 아무도 없습니다.'
-        completed: '모든 참여자에게 발행했습니다.'
+        completed: '모든 참여자에게 메일을 보냈습니다.'
         blank_preview_email: '내 메일을 입력해 주세요.'
         preview_completed: '내 메일로 미리보기 메일을 보냈습니다.'
-        blank_title: '제목을 입력해 주세요.'
+        blank_title: '메일의 제목을 입력해 주세요.'
         save_draft: '임시 저장하였습니다.'
     xlsx_help:
       archive_document:
