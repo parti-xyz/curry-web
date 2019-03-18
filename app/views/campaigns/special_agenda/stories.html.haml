@@ -8,7 +8,7 @@
     %section.section-story
       .section-title 캠페인 소식을 만나 보세요!
       .stories
-        - SignerEmail.where(campaign_id: @campaign).each do |email|
+        - SignerEmail.where(campaign_id: @campaign).recent.each do |email|
           .story
             .story-header
               .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }

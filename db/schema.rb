@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190305073849) do
+ActiveRecord::Schema.define(version: 20190318042906) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -475,6 +475,7 @@ ActiveRecord::Schema.define(version: 20190305073849) do
     t.integer  "anonymous_likes_count",                default: 0
     t.integer  "discussion_category_id"
     t.datetime "pinned_at"
+    t.integer  "comments_count",                       default: 0
     t.index ["discussion_category_id"], name: "index_discussions_on_discussion_category_id", using: :btree
     t.index ["project_id"], name: "index_discussions_on_project_id", using: :btree
     t.index ["user_id"], name: "index_discussions_on_user_id", using: :btree
@@ -570,6 +571,7 @@ ActiveRecord::Schema.define(version: 20190305073849) do
     t.boolean  "has_stance",                           default: false
     t.integer  "agenda_theme_id"
     t.string   "image"
+    t.integer  "comments_count",                       default: 0
     t.index ["agenda_theme_id"], name: "index_issues_on_agenda_theme_id", using: :btree
     t.index ["deprecated_agenda_id"], name: "index_issues_on_deprecated_agenda_id", using: :btree
     t.index ["title"], name: "index_issues_on_title", unique: true, using: :btree
@@ -752,6 +754,7 @@ ActiveRecord::Schema.define(version: 20190305073849) do
     t.string   "cover_image"
     t.integer  "anonymous_likes_count",               default: 0
     t.integer  "neutrals_count",                      default: 0, null: false
+    t.integer  "comments_count",                      default: 0
     t.index ["project_id"], name: "index_polls_on_project_id", using: :btree
     t.index ["user_id"], name: "index_polls_on_user_id", using: :btree
   end
@@ -950,7 +953,7 @@ ActiveRecord::Schema.define(version: 20190305073849) do
     t.string   "title",                                              null: false
     t.text     "body",                  limit: 65535
     t.integer  "user_id"
-    t.integer  "project_id"
+    t.integer  "storiable_id"
     t.string   "cover"
     t.integer  "reports_count",                       default: 0
     t.integer  "likes_count",                         default: 0
@@ -960,7 +963,10 @@ ActiveRecord::Schema.define(version: 20190305073849) do
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
     t.datetime "published_at",                                       null: false
-    t.index ["project_id"], name: "index_stories_on_project_id", using: :btree
+    t.string   "storiable_type",                                     null: false
+    t.integer  "comments_count",                      default: 0
+    t.index ["storiable_id", "storiable_type"], name: "index_stories_on_storiable_id_and_storiable_type", using: :btree
+    t.index ["storiable_id"], name: "index_stories_on_storiable_id", using: :btree
     t.index ["user_id"], name: "index_stories_on_user_id", using: :btree
   end
 
@@ -980,6 +986,7 @@ ActiveRecord::Schema.define(version: 20190305073849) do
     t.datetime "updated_at",                                           null: false
     t.boolean  "multi_selectable",                     default: false, null: false
     t.boolean  "anonymous_feedbackable",               default: false
+    t.integer  "comments_count",                       default: 0
     t.index ["project_id"], name: "index_surveys_on_project_id", using: :btree
     t.index ["user_id"], name: "index_surveys_on_user_id", using: :btree
   end

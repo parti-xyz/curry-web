@@ -1,6 +1,6 @@
 
 .container{style:"margin-bottom: 30px;"}
-  %h3 참여자에게 메일 보내기
+  %h3 소식 추가
   - if @draft.persisted?
     %div
       = @draft.updated_at
@@ -8,18 +8,19 @@
 
   = form_tag mail_campaign_signs_path(@campaign) do
     .form-group
-      = label_tag :title, "메일 제목"
+      = label_tag :title, "제목"
       = text_field_tag :title, @draft.title, class: "form-control"
     .form-group
-      = label_tag :body, "메일 내용"
+      = label_tag :body, "내용"
       ~ text_area_tag :body, @draft.body, class: "redactor"
 
-    = submit_tag "보내기", data: {confirm: "정말 보내시겠습니까?" }, class: 'btn btn-primary'
+    = submit_tag "발행", data: {confirm: "정말 발행하시겠습니까?" }, class: 'btn btn-primary'
     = submit_tag "임시 저장", class: 'btn'
 
-    %hr
+    - if @campaign.template == 'petition'
+      %hr
 
-    .form-group
-      = label_tag :preview_email, '미리 받아볼 내 메일 주소'
-      = text_field_tag :preview_email, current_user.email, class: 'form-control'
-    %button.btn.btn-default{ name: 'preview', value: 'true' } 내 메일로 받아보기
+      .form-group
+        = label_tag :preview_email, '미리 받아볼 내 메일 주소'
+        = text_field_tag :preview_email, current_user.email, class: 'form-control'
+      %button.btn.btn-default{ name: 'preview', value: 'true' } 내 메일로 받아보기

@@ -1,6 +1,12 @@
 - if @project
   = render 'projects/header', project: @project
-
+- elsif @story.storiable.present?
+  %section
+    .container{ style: 'margin-top: 20px' }
+      = link_to [:stories, @story.storiable], style: 'color: #717171' do
+        %i.fa.fa-arrow-left
+        = @story.storiable.title
+        = @story.storiable.class.model_name.human
 %section#story-block.page-block
   .container
     .panel.panel-default.panel-post

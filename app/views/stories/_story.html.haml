@@ -12,8 +12,8 @@
 
       .media-meta
         %span
-          - if story.project.present?
-            = link_to story.project.title, story.project
+          - if story.storiable.present?
+            = link_to story.storiable.title, story.storiable
         %span
           = render 'users/line', user: story.user
 

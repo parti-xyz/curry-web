@@ -1,8 +1,9 @@
 .panel.panel-default
   .panel-body
     = form_for @story do |f|
-      - if @project.present?
-        = f.hidden_field :project_id, value: @project.id
+      - if @storiable.present?
+        = f.hidden_field :storiable_id, value: @storiable.id
+        = f.hidden_field :storiable_type, value: @storiable.class.to_s
 
       .form-group
         = f.label :cover

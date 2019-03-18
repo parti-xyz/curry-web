@@ -6,7 +6,7 @@
   - if can? :destroy, project
     = link_to '삭제', project, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'btn btn-link'
   - if can? :edit, project
-    = link_to '최신소식추가', new_story_path('story[project_id]': project.id), class: 'btn btn-link'
+    = link_to '최신소식추가', new_story_path('story[storiable_id]': project.id, 'story[storiable_type]': 'Project'), class: 'btn btn-link'
   - if can? :create_campaign, project
     = link_to '캠페인 추가', new_campaign_path(project_id: project.id), class: 'btn btn-link'
   - if can? :update_organizers, project

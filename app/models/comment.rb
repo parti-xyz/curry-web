@@ -15,7 +15,6 @@ class Comment < ApplicationRecord
   belongs_to :target_agent, optional: true, class_name: Agent
   has_many :target_agents, through: :orders, source: :agent
   has_many :orders, dependent: :destroy
-  has_many :comments, class_name: Comment, as: :commentable, dependent: :destroy
 
   mount_uploader :image, ImageUploader
 

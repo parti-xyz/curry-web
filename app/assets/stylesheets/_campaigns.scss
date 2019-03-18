@@ -993,12 +993,17 @@
           line-height: 20px;
         }
         .story-footer {
+          font-size: 12px;
+          margin-top: 1em;
           .liked {
             display: inline;
             color: $color-brand-primary;
           }
           .not-yet-liked {
             display: inline;
+            color: $gray-caption;
+          }
+          .comments-count {
             color: $gray-caption;
           }
         }

@@ -19,7 +19,7 @@ class Ability
     if user
       can [:new_email, :send_email], Agenda
       can :create, [
-          Project, Story, Discussion, DiscussionCategory, Poll, Feedback, Survey, Wiki, Sympathy,
+          Project, Discussion, DiscussionCategory, Poll, Feedback, Survey, Wiki, Sympathy,
           Memorial, Timeline, TimelineDocument,
           Article, Person, Race, Player,
           Thumb
@@ -38,7 +38,7 @@ class Ability
       end
 
       can [:update, :destroy], [
-          Project, Story, Discussion, DiscussionCategory, Campaign, Poll, Survey, Wiki, Sympathy,
+          Project, Discussion, DiscussionCategory, Campaign, Poll, Survey, Wiki, Sympathy,
           Memorial, Timeline, TimelineDocument,
           Sign, Article, Person,
           Race, Player
@@ -64,8 +64,15 @@ class Ability
       end
 
       can :destroy, Comment do |comment|
-        comment.toxic == false && user == comment.user
+        return true if comment.toxic == false and user == comment.user
+        return true if comment.commentable.is_a?(Campaign) and comment.commentable.user == user
+        if comment.commentable.try(:project)
+          return ( user == comment.commentable.project.user or comment.commentable.project.organizer?(user) )
+        end
+
+        false
       end
+
 
       can :data, [Campaign], user_id: user.id
 
@@ -79,13 +86,11 @@ class Ability
       can [:update], Wiki
       can [:revert], WikiRevision
 
-      # 프로젝트 개설자 및 운영자는 프로젝트에 속한 글과 댓글을 삭제할 수 있다
-      can [:destroy, :update], [Story, Discussion, DiscussionCategory, Campaign, Poll, Survey, Wiki] do |model|
+      # 프로젝트 개설자 및 운영자는 프로젝트에 속한 글을 삭제할 수 있다
+      can [:destroy, :update], [Discussion, DiscussionCategory, Campaign, Poll, Survey, Wiki] do |model|
         model.project && ( user == model.project.user or model.project.organizer?(user) )
       end
-      can :destroy, Comment do |comment|
-        comment.commentable.try(:project) && ( user == comment.commentable.project.user or comment.commentable.project.organizer?(user) )
-      end
+
 
       # 프로젝트 개설자 및 운영자는 프로젝트 운영자를 관리할 수 있다
       can :manage, Organizer do |organizer|
@@ -93,7 +98,7 @@ class Ability
           organizer.organizable && organizer.organizable.organizer?(user)
         elsif params[:organizer][:organizable_type].present?
           model = params[:organizer][:organizable_type].safe_constantize
-          return false if model.blank?
+          next false if model.blank?
 
           organizable = model.find_by id: params[:organizer][:organizable_id]
           organizable.organizer?(user)
@@ -101,6 +106,32 @@ class Ability
       end
       can :update_organizers, [Project, Organization] do |organizable|
         organizable.organizer?(user)
+      end
+
+      # 소식
+      can [:update, :destroy], Story, :user_id => user.id
+      # 해당 개설자 및 운영자는 소식을 삭제할 수 있다
+      can [:destroy, :update], Story do |story|
+        if story.storiable.respond_to?(:user)
+          next true if user == story.storiable.user
+        end
+
+        if story.storiable.respond_to?(:organizer?)
+          next true if story.storiable.organizer?(user)
+        end
+
+        if story.storiable.respond_to?(:project) and story.storiable.project.present?
+          next true if story.storiable.project.organizer?(user)
+        end
+
+        false
+      end
+      can [:create], Story
+      can [:create_story], Project do |project|
+        project.organizer?(user)
+      end
+      can [:create_story], Campaign do |campaign|
+        campaign.user == user
       end
 
       begin

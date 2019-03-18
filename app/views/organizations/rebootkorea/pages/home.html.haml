@@ -33,7 +33,7 @@
         = link_to stories_path, class: 'sub-title' do
           = Story.model_name.human
         .pull-right
-          %small= link_to '소식 올리기', new_story_path(story: { project_id: 38 }), class: 'text-muted'
+          %small= link_to '소식 올리기', new_story_path(story: { storiable_id: 38, storiable_type: 'Project' }), class: 'text-muted'
       .row.masonry-container
         = render stories
 

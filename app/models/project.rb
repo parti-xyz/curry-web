@@ -5,7 +5,7 @@ class Project < ApplicationRecord
   belongs_to :user
   belongs_to :organization, optional: true
   belongs_to :project_category, optional: true
-  has_many :stories, dependent: :destroy
+  has_many :stories, dependent: :destroy, as: :storiable
   has_many :discussions, dependent: :destroy
   has_many :campaigns, dependent: :destroy
   has_many :polls, dependent: :destroy
