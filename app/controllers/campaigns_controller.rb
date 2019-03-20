@@ -112,24 +112,24 @@ class CampaignsController < ApplicationController
   end
 
   def orders
-    render_404 and return unless %(petition special_agenda).include?(@campaign.template)
+    render_404 and return unless %(petition order special_agenda).include?(@campaign.template)
     render template: "campaigns/#{@campaign.template}/orders"
   end
 
   def need_to_order_agents
-    render_404 and return unless %(petition special_agenda).include?(@campaign.template)
+    render_404 and return unless %(petition order special_agenda).include?(@campaign.template)
 
     @agents = @campaign.need_to_order_agents.order(name: :asc).page(params[:page]).per(10)
     render template: "campaigns/#{@campaign.template}/need_to_order_agents"
   end
 
   def comments
-    render_404 and return unless %(petition special_agenda).include?(@campaign.template)
+    render_404 and return unless %(petition order special_agenda).include?(@campaign.template)
     render template: "campaigns/#{@campaign.template}/comments"
   end
 
   def stories
-    render_404 and return unless %(petition special_agenda).include?(@campaign.template)
+    render_404 and return unless %(petition order special_agenda).include?(@campaign.template)
     render template: "campaigns/#{@campaign.template}/stories"
   end
 

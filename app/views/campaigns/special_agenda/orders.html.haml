@@ -46,4 +46,4 @@
                   - agency.agents.where(organization: party_name).where.not(id: @campaign.responded_agents).order(name: :asc).each do |agent|
                     = render 'campaigns/special_agenda/agent_with_statement', agent: agent, campaign: @campaign
 
-= render 'campaigns/special_agenda/order_button', campaign: @campaign
+= render 'campaigns/order_button_sticky', campaign: @campaign

@@ -1,12 +1,12 @@
-= render 'campaigns/petition/section_cover'
+= render 'campaigns/order/section_cover'
 
-= render 'campaigns/petition/section_tab', menu: 'order'
+= render 'campaigns/order/section_tab', menu: 'order'
 
 %section.section-panel
-  = render 'campaigns/petition/section_right'
+  = render 'campaigns/order/section_right'
 
   %section.section-left
-    %section.section-orders.section-orders-tab
+    %section.section-orders-tab.section-orders-tab-special-agenda
       .orders-tab-title
         - if @campaign.opened?
           지금 #{@campaign.agents_shuffled.first.name}
@@ -18,7 +18,6 @@
           캠페인 촉구
 
       .orders-tab-title-h5 촉구 응답 현황
-
       = render 'campaigns/order_dashboard', campaign: @campaign
       = render 'campaigns/agents_with_statement', campaign: @campaign
 
@@ -33,6 +32,12 @@
 
         - agents = @campaign.need_to_order_agents.order(name: :asc).page(1).per(10)
         - if agents.any?
+          .agents
+            - agents.first(3).each do |agent|
+              = render 'campaigns/agent', campaign: @campaign, agent: agent, statement: @campaign.statement_of(agent)
+
+        - agents = @campaign.need_to_order_agents.order(name: :asc).page(1).per(10)
+        - if agents.any?
           = render 'campaigns/agents_page', campaign: @campaign, agents: agents, next_path: need_to_order_agents_campaign_path(@campaign, page: agents.next_page)
 
-= render 'campaigns/petition/sign_button'
+= render 'campaigns/order_button_sticky', campaign: @campaign

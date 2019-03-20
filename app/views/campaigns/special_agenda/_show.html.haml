@@ -70,7 +70,7 @@
           - if agents_shuffled.any?
             .agents
               - agents_shuffled.first(3).each do |agent|
-                = render 'campaigns/special_agenda/agent_need_to_order', campaign: @campaign, agent: agent, statement: @campaign.statement_of(agent)
+                = render 'campaigns/special_agenda/agent', campaign: @campaign, agent: agent, statement: @campaign.statement_of(agent)
           .more
             = link_to '더 보기', orders_campaign_path(@campaign)
     %hr
@@ -82,4 +82,4 @@
       .more
         = link_to '더 보기', comments_campaign_path(@campaign)
 
-= render 'campaigns/special_agenda/order_button', campaign: @campaign
+= render 'campaigns/order_button_sticky', campaign: @campaign

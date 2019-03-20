@@ -1,72 +1,85 @@
-- cover_image = @campaign.cover_image_url(:lg)
-%section.cover-section{ style: "background-image: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(#{cover_image})" }
-  .container.container-fluid
-    - if @project
-      .cover-section__project
-        = link_to @project.title, @project
+= render 'campaigns/order/section_cover'
+= render 'campaigns/order/section_tab', menu: 'content'
 
-    %h2.cover-section__title
-      = @campaign.title
+%section.section-panel
+  = render 'campaigns/order/section_right'
 
-    - if can?(:edit, @campaign) || can?(:destroy, @campaign)
-      .cover-section__buttons
-        - if can? :edit, @campaign
-          = link_to '수정', edit_campaign_path(@campaign)
-        - if can? :edit, @campaign
-          &middot;
-          = link_to '촉구메시지관리', edit_message_to_agent_campaign_path(@campaign)
-        - if can? :edit, @campaign
-          &middot;
-          = link_to '촉구대상관리', edit_agents_campaign_path(@campaign)
-        - if can? :destroy, @campaign
-          &middot;
-          = link_to '삭제', @campaign, method: :delete, data: { confirm: '삭제하시겠습니까?' }
+  %section.section-left
+    %section.section-body
+      .section-title
+        캠페인 소개
+      .campaign-body
+        = raw @campaign.body
 
-    .cover-section__body= raw @campaign.body
+      .campaign-body-info
+        이 캠페인은 #{static_day_f(@campaign.created_at)}에 시작되었습니다.
+        - if @campaign.issue.present?
+          %br
+          이슈
+          %span.issue= @campaign.issue.title
+    - if @campaign.agents.any?
+      %hr
+      %section.section-orders.section-orders-tab
+        .section-title
+          캠페인 촉구
 
-    %h4.cover-section__users-count
-      %span
-        %i.fa.fa-comment-o
-        = @campaign.comments.count
+        - if @campaign.opened?
+          .order-title
+            지금
+            = link_to [:new_comment_agent, @campaign], class: 'underline' do
+              #{@campaign.agents.first.name}
+              - if @campaign.no_reaction_agents_count > 1
+                외 #{@campaign.no_reaction_agents_count - 1}
+            에 촉구해 주세요
 
-    .share-box{ 'data-share-image': image_url('seo.png') }
+          .order-info
+            - order_users_with_name = @campaign.comments.joins(:orders).where.not(commenter_name: nil).order("comment_id desc").limit(3)
+            - if order_users_with_name.any?
+              #{order_users_with_name.first.commenter_name}님
+              - if @campaign.order_users_count >=1
+                외 #{@campaign.order_users_count - 1}분이
+              촉구에 참여중입니다.
+            - elsif @campaign.order_users_count >= 1
+              이름을 알리지 않은 #{@campaign.order_users_count}분이 참여하고 있습니다.
+            - else
+              지금 바로 촉구하여 참여해보세요.
+
+          .order-users
+            - order_users_with_image = User.where(id: @campaign.comments.where.not(user_id: nil).uniq.pluck(:user_id)).limit(3)
+            - if order_users_with_image.any?
+              .user-images
+                - order_users_with_image.reverse.each do |user|
+                  .user-image-sm.overlapped{ style: "background-image:url(#{asset_url(user.image_url(:md))});" }
+            -if @campaign.order_users_count > 3
+              .more +
+              .count= @campaign.order_users_count - 3
 
 
-%section
-  .container-fluid
-    = render 'campaigns/order/agents', campaign: @campaign
+        .orders-tab-title-h5 촉구 응답 현황
+        = render 'campaigns/order_dashboard', campaign: @campaign
 
-%section
-  .container-fluid
-    %a{id: "anchor-agents"}
-    %h3.sub-title 촉구메시지 #{@comments.total_count}개
-    .row.masonry-container
-      - @comments.recent.each do |comment|
-        .col-sm-6.col-md-4.col-lg-3
-          .panel.panel-default.panel-floating[comment]{ class: (comment.toxic? ? 'comment-toxic': '') }
-            .panel-body
-              - if comment.target_agents.any?
-                - target_agent = comment.target_agents.first
-                .comment__to-agent_any{ style: 'font-weight: bold'}<>
-                  %span<>
-                    #{target_agent.organization} #{target_agent.name}
-                  님#{(" 이외 #{comment.target_agents.count - 1}분" if comment.target_agents.count > 1)}에게
-              .comment__body
-                %h4{ style: 'font-size: 16px; letter-spacing: -0.02em; line-height: 1.4;'}
-                  != comment.body
-              .comment__tags
-                - comment.tag_list.each do |tag|
-                  = link_to "##{tag}", campaign_path(@campaign, {tag: tag})
-              .comment__meta{ style: 'color: #5f5f5f;font-size: 12px' }
-                = comment.user_nickname
-                = date_f comment.created_at
-                - if can? :destroy, comment
-                  = link_to '삭제', comment, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
-                - if current_user != comment.user
-                  = render 'reports/button', reportable: comment
+        = render 'campaigns/agents_with_statement', campaign: @campaign, responded_agents_only: true
+        - if @campaign.closed?
+          .more.more-left
+            = link_to '자세히 보기...', orders_campaign_path(@campaign)
 
-              .comment__like{ style: 'margin-top: 14px;' }
-                = render 'likes/button', likable: comment
-    .text-center
-      = paginate @comments, theme: 'twitter-bootstrap-3'
+        - if @campaign.opened?
+          .orders-tab-title-h5.title-wrap
+            .title-left 촉구하기
+          - agents_shuffled = @campaign.need_to_order_agents_shuffled
+          - if agents_shuffled.any?
+            .agents
+              - agents_shuffled.first(3).each do |agent|
+                = render 'campaigns/agent', campaign: @campaign, agent: agent, statement: @campaign.statement_of(agent)
+          .more
+            = link_to '더 보기', orders_campaign_path(@campaign)
+    %hr
+    %section.section-comments
+      .section-title
+        의견
+      = render 'comments/form_line', commentable: @campaign
+      = render 'comments/page_formal', commentable: @campaign, comments: @campaign.comments.recent.page(1), finite: true
+      .more
+        = link_to '더 보기', comments_campaign_path(@campaign)
 
+= render 'campaigns/order_button_sticky', campaign: @campaign

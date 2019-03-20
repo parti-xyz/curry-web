@@ -52,7 +52,7 @@
               .more +
               .count= @campaign.order_users_count - 3
         - else
-          = render 'campaigns/petition/order_dashboard', campaign: @campaign
+          = render 'campaigns/order_dashboard', campaign: @campaign
 
         - if @campaign.responded_agents.any? or @campaign.closed?
           .orders-tab-title-h5.title-wrap
@@ -67,7 +67,7 @@
           - if agents_shuffled.any?
             .agents
               - agents_shuffled.first(3).each do |agent|
-                = render 'campaigns/petition/agent_need_to_order', campaign: @campaign, agent: agent, statement: @campaign.statement_of(agent)
+                = render 'campaigns/agent', campaign: @campaign, agent: agent, statement: @campaign.statement_of(agent)
           .more
             = link_to '더 보기', orders_campaign_path(@campaign)
     %hr

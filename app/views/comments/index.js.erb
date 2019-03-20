@@ -1,0 +1,3 @@
+var dom = $('<%= j(render 'comments/page_formal', commentable: @commentable, comments: @comments, dom_id: params[:page_dom_id]) %>');
+$('#<%= params[:page_dom_id] %>').replaceWith(dom);
+parti_partial$($('#<%= params[:page_dom_id] %>'));
