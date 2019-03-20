@@ -153,7 +153,7 @@ class CampaignsController < ApplicationController
   def reset_meta_tags_for_show
     prepare_meta_tags({
       site_name: ("#{@campaign.project.title} - #{@campaign.project.user.nickname}" if @campaign.project.present?),
-      title: "[서명] " + @campaign.title,
+      title: "[캠페인] " + @campaign.title,
       description: @campaign.body.html_safe,
       image: (view_context.image_url(@campaign.fallback_social_image_url) if @campaign.fallback_social_image_url),
       url: request.original_url}
