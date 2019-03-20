@@ -63,6 +63,10 @@
   &.agent-image-top {
     background-position: top;
   }
+  &.agent-image-corporation {
+    background-position: center;
+    background-size: contain;
+  }
   background-repeat: no-repeat;
   vertical-align: text-top;
   &--mini {

@@ -69,7 +69,7 @@
           - agents_shuffled = @campaign.need_to_order_agents_shuffled
           - if agents_shuffled.any?
             .agents
-              - agents_shuffled.first(3).each do |agent|
+              - agents_shuffled.first(5).each do |agent|
                 = render 'campaigns/agent', campaign: @campaign, agent: agent, statement: @campaign.statement_of(agent)
           .more
             = link_to '더 보기', orders_campaign_path(@campaign)
