@@ -64,10 +64,10 @@ class Ability
       end
 
       can :destroy, Comment do |comment|
-        return true if comment.toxic == false and user == comment.user
-        return true if comment.commentable.is_a?(Campaign) and comment.commentable.user == user
+        next true if comment.toxic == false and user == comment.user
+        next true if comment.commentable.is_a?(Campaign) and comment.commentable.user == user
         if comment.commentable.try(:project)
-          return ( user == comment.commentable.project.user or comment.commentable.project.organizer?(user) )
+          next ( user == comment.commentable.project.user or comment.commentable.project.organizer?(user) )
         end
 
         false
