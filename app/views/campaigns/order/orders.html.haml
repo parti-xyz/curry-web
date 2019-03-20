@@ -33,7 +33,7 @@
         - agents = @campaign.need_to_order_agents.order(name: :asc).page(1).per(10)
         - if agents.any?
           .agents
-            - agents.first(3).each do |agent|
+            - agents.each do |agent|
               = render 'campaigns/agent', campaign: @campaign, agent: agent, statement: @campaign.statement_of(agent)
 
 = render 'campaigns/order_button_sticky', campaign: @campaign
