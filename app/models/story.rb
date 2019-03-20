@@ -8,7 +8,7 @@ class Story < ApplicationRecord
   mount_uploader :cover, ImageUploader
 
   scope :recent, -> { order('published_at DESC').order('id DESC') }
-  scope :by_organization, ->(organization) { where(project: organization.projects) }
+  scope :by_organization, ->(organization) { where(storiable: organization.projects) }
 
   validates :title, presence: true
   VALID_PUBLISHED_AT_REGEX = /\A\d{4}-\d{2}-\d{2}/
