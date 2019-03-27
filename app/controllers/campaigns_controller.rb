@@ -99,7 +99,7 @@ class CampaignsController < ApplicationController
   end
 
   def sign_form
-    if @campaign.template == 'petition'
+    if @campaign.template == 'petition' and request.format.js?
       render 'campaigns/petition/sign_form'
     else
       render_404
@@ -112,7 +112,7 @@ class CampaignsController < ApplicationController
   end
 
   def orders
-    render_404 and return unless %(petition order special_agenda).include?(@campaign.template)
+    render_404 and return if !%(petition order special_agenda).include?(@campaign.template) or @campaign.agents.blank?
     render template: "campaigns/#{@campaign.template}/orders"
   end
 
