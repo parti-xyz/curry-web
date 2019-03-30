@@ -51,7 +51,9 @@ $.is_present = function(obj) {
 }
 
 $(document).imagesLoaded( { }, function() {
-  $('.masonry-container').masonry();
+  $('.masonry-container').masonry({
+    itemSelector: '.masonry-item'
+  });
   $('select.dropdown').dropdown();
 });
 
@@ -364,12 +366,30 @@ $.parti_apply = function($base, query, callback) {
 
 function parti_partial$($partial) {
   $partial.find('.js-infinite-container').each(function() {
-    new Waypoint.Infinite( {
-      element: this,
-      onAfterPageLoad: function($items) {
-        parti_partial$($items);
-      }
-    });
+    if ($(this).hasClass('masonry-container')) {
+      var container = $('.masonry-container');
+      console.log('container');
+      console.log(container);
+      new Waypoint.Infinite( {
+        element: this,
+        items: '.masonry-item',
+        loadingClass: 'infinite-loading',
+        onAfterPageLoad: function($items) {
+          // parti_partial$($items);
+          console.log('reload');
+          console.log(container);
+          container.masonry('reloadItems');
+          container.masonry('layout');
+        }
+      });
+    } else {
+      new Waypoint.Infinite( {
+        element: this,
+        onAfterPageLoad: function($items) {
+          parti_partial$($items);
+        }
+      });
+    }
   });
 
   $.parti_apply($partial, '.js-popover', function(elm) {

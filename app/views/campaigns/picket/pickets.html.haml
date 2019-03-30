@@ -1,0 +1,26 @@
+- if params[:page].present? and params[:page].to_i > 1
+  = render 'campaigns/picket/pickets', pickets: @pickets
+- else
+  = render 'campaigns/picket/section_cover'
+
+  = render 'campaigns/picket/section_tab', menu: 'picket'
+
+  %section.section-picket-tags.medium-fold
+    .picket-tags
+      - @campaign.comments.tag_counts_on(:tags).order("taggings_count desc, name").take(5).each do |tag|
+        .picket-tag
+          = tag.name
+          .picket-tag-count
+            = tag.taggings_count
+      - tag_more = @campaign.comments.tag_counts_on(:tags).count - 5
+      - if tag_more > 0
+        .picket-tag
+          + #{tag_more}
+
+  %section.section-pickets
+    .container-picket
+      .campaign-pickets-info
+        .packet-count-all
+          전체 팻말(#{@campaign.comments.count})
+        .packet-count-user 내 팻말(3)
+      = render 'campaigns/picket/pickets', pickets: @pickets

@@ -1,0 +1,35 @@
+%section.section-tab
+  %ul.menu
+    %li{ class: [menu == 'content' && "active"] }
+      .menu-item
+        - if menu == 'content'
+          내용
+        - else
+          = link_to '내용', campaign_path
+    %li{ class: [menu == 'picket' && "active"] }
+      .menu-item
+        - if menu == 'picket'
+          팻말
+          - if @campaign.comments.any?
+            %span.count
+              = number_with_limit(@campaign.comments.size, 1000)
+        - else
+          = link_to pickets_campaign_path do
+            팻말
+            - if @campaign.comments.any?
+              %span.count
+                = number_with_limit(@campaign.comments.size, 1000)
+    - if @campaign.agents.any?
+      %li{ class: [menu == 'order' && "active"]  }
+        .menu-item
+          - if menu == 'order'
+            촉구
+          - else
+            = link_to '촉구', orders_campaign_path
+    %li{ class: [menu == 'story' && "active"] }
+      .menu-item
+        - if menu == 'story'
+          소식
+        - else
+          = link_to '소식', '#'
+    .picket-btn.medium-fold 팻말들기

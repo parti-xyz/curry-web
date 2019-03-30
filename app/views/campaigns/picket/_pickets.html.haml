@@ -1,0 +1,20 @@
+.campaign-pickets
+  .masonry-container.js-infinite-container
+    - pickets.each do |picket|
+      .campaign-picket.masonry-item.infinite-item
+        .control-btn 신고
+        .user
+          .user-image-sm{ style: "background-image:url(#{asset_url(picket.user_image)});" }
+          .user-name
+            = picket.user_nickname
+          .picket-date
+            = date_f picket.created_at
+        .picket-message
+          = smart_format picket.body
+        .more 더보기
+        .picket-footer
+          = render 'likes/button', likable: picket
+          %li.fa.fa-comment
+          .comment-counts 502
+- unless pickets.per(9).last_page?
+  = link_to '', pickets_campaign_path(@campaign, page: pickets.next_page), class: 'infinite-more-link'

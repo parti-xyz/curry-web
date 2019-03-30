@@ -65,6 +65,44 @@
         color: white;
       }
     }
+    .picket-info {
+      padding: 14px 16px 12px;
+      background-color: #fafafa;
+      border-radius: 4px;
+      margin: 20px auto 0;
+      @media (min-width: 540px) {
+        width: 500px;
+      }
+      .picket-progress-bar {
+        width: 100%;
+        height: 12px;
+        background-color: #dedede;
+        border-radius: 12px;
+        .current-percent {
+          background-image: linear-gradient(to right, #37a6ff, #2575ef 66%, #2575ef);
+          height: 12px;
+          border-radius: 12px;
+        }
+      }
+      .picket-summary {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 4px;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.2px;
+        .picket-summary-left {
+          display: inline-block;
+          .picket-counts {
+            display: inline;
+            color: #2575ef;
+          }
+        }
+        .picket-day-to-left {
+          display: inline-block;
+        }
+      }
+    }
   }
   .section-panel {
     background-color: white;
@@ -122,6 +160,27 @@
     display: block;
     @media (max-width: $screen-xs-max) {
       display: none;
+    }
+  }
+
+  .medium-fold {
+    display: block;
+    @media (max-width: $screen-sm-max) {
+      display: none;
+    }
+  }
+
+  .container-picket {
+    margin: 0 auto;
+    width: 100%;
+    @media (min-width: $screen-xs-min) {
+      width: 332px
+    }
+    @media (min-width: $screen-sm-min) {
+      width: 664px
+    }
+    @media (min-width: $screen-md-min) {
+      width: 996px
     }
   }
 
@@ -362,6 +421,20 @@
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
+    }
+    .picket-btn {
+      // position: absolute;
+      // right: 0;
+      margin-top: 8px;
+      // margin-right: 140px;
+      width: 93px;
+      height: 32px;
+      background-color: #2575ef;
+      color: #ffffff;
+      text-align: center;
+      line-height: 32px;
+      font-size: 15px;
+      letter-spacing: -0.3px;
     }
   }
   .section-sign-btn {
@@ -1052,6 +1125,113 @@
     }
     .agent-order-right {
       width: 60px;
+    }
+  }
+  .section-pickets {
+    background: #f0f0f0;
+    padding-bottom: 20px;
+    .campaign-pickets-info {
+      padding: 15px 8px 0 0;
+      width: 100%;
+      text-align: right;
+      justify-content: flex-end;
+      display: none;
+      @media (min-width: $screen-md-min) {
+        display: flex;
+      }
+      font-size: 12px;
+      letter-spacing: 0.2px;
+      .packet-count-all {
+        font-weight: 500;
+      }
+      .packet-count-user {
+        margin-left: 18px;
+      }
+    }
+    .campaign-pickets {
+      .campaign-picket {
+        width: 316px;
+        margin: 16px 8px 0;
+        padding: 16px 16px 18px;
+        background: #ffffff;
+        .control-btn {
+          position: relative;
+          top: 12px;
+          right: 12px;
+          text-align: right;
+          width: 100%;
+          font-size: 11px;
+          letter-spacing: -0.4px;
+        }
+        .user {
+          align-items: center;
+          display: flex;
+          .user-image-sm {}
+          .user-name {
+            letter-spacing: -0.6px;
+            font-weight: 500;
+            font-size: 14px;
+            margin-left: 8px;
+            color: #303030;
+          }
+          .picket-date {
+            font-size: 11px;
+            margin-left: 4px;
+            letter-spacing: -0.4px;
+            color: #aaaaaa;
+          }
+        }
+        .picket-message {
+          line-height: 1.43;
+          font-size: 14px;
+          margin-top: 12px;
+          letter-spacing: -0.4px;
+          color: #303030;
+          word-break: keep-all;
+        }
+        .more {
+          font-size: 12px;
+          letter-spacing: 0.2px;
+          color: #717171;
+          text-decoration: underline;
+        }
+        .picket-footer {
+          margin-top: 16px;
+          display: flex;
+          color: #717171;
+          font-size: 11px;
+          letter-spacing: -0.4px;
+          a {
+            display: flex;
+            li { margin-right: 4px; }
+          }
+          .fa-comment {
+            margin: 0 4px 0 10px;
+          }
+        }
+      }
+    }
+  }
+  .section-picket-tags {
+    color: #2575ef;
+    background-color: #f0f0f0;
+    padding-top: 42px;
+    .picket-tags {
+      justify-content: center;
+      display: flex;
+      .picket-tag {
+        display: flex;
+        border-radius: 14px;
+        background-color: #ffffff;
+        border: solid 1px #2575ef;
+        padding: 6px 12px;
+        line-height: 1.14;
+        margin-left: 4px;
+        .picket-tag-count {
+          line-height: 1.5;
+          font-size: 11px;
+        }
+      }
     }
   }
 }

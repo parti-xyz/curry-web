@@ -144,6 +144,16 @@ class CampaignsController < ApplicationController
     render 'campaigns/story'
   end
 
+  def pickets
+    render_404 and return unless %(basic photo map).include?(@campaign.template)
+    if params[:tag].present?
+      @pickets = @campaign.comments.tagged_with(params[:tag]).recent.page(params[:page]).per(9)
+    else
+      @pickets = @campaign.comments.recent.page(params[:page]).per(9)
+    end
+    render template: "campaigns/picket/pickets"
+  end
+
   private
 
   def campaign_params
