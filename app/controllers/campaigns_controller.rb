@@ -111,6 +111,15 @@ class CampaignsController < ApplicationController
     @comment.body = (@campaign.message_to_agent || '') + "<p></p>"
   end
 
+  def picket_form
+    render 'campaigns/picket/picket_form'
+    # if %(basic photo map).include?(@campaign.template) and request.format.js?
+    #   render 'campaigns/picket/picket_form'
+    # else
+    #   render_404
+    # end
+  end
+
   def orders
     render_404 and return if !%(petition order special_agenda).include?(@campaign.template) or @campaign.agents.blank?
     render template: "campaigns/#{@campaign.template}/orders"

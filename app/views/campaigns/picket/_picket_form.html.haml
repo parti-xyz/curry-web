@@ -1,0 +1,34 @@
+- picket_form_block = capture do
+  .picket-form.panel-body
+    = form_for Comment.new, html: { class: 'gov-action-form-validation' } do |f|
+      = f.hidden_field :commentable_type, value: 'Campaign'
+      = f.hidden_field :commentable_id, value: @campaign.id
+      .gov-action-form-grecaptcha
+      - unless user_signed_in?
+        .form-group
+          = f.label :commenter_name, '이름'
+          = f.text_field :commenter_name, class: 'form-control', data: { 'rule-required': true }
+        .form-group
+          = f.label :commenter_email
+          = f.text_field :commenter_email, class: 'form-control'
+      - if @campaign.template == 'photo'
+        .form-group
+          = f.label :image, '사진'
+          = f.file_field :image, class: 'form-control'
+      .form-group
+        = f.label :body, '나도 한마디'
+        ~ f.text_area :body, placeholder: '여러분의 목소리를 들려주세요', class: 'form-control input-lg', data: { 'rule-required': true }
+      .form-group
+        = f.text_field :tag_list, placeholder: @campaign.title.split(' ').shuffle.take(2).join(', '), class: 'form-control'
+      .form-group
+        = f.submit '등록', class: 'btn btn-primary btn-lg btn-block'
+
+.modal.fade{ id: modal_dom_id, role: 'dialog', tabindex: '-1' }
+  .modal-dialog{ role: 'document' }
+    .modal-content
+      .modal-header
+        %button.close{ 'aria-label' => 'Close', 'data-dismiss' => 'modal', type: 'button' }
+          %span{ 'aria-hidden' => 'true'} &#215;
+        %h4.modal-title 팻말 등록하기
+      .modal-body
+        = picket_form_block

@@ -33,4 +33,4 @@
         - else
           = link_to '소식', '#'
   .container-picket
-    .picket-btn.medium-fold 팻말들기
+    = link_to '팻말들기', picket_form_campaign_path(@campaign), class: 'picket-btn medium-fold', remote: true

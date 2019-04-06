@@ -93,6 +93,7 @@ Rails.application.routes.draw do
       put 'open'
       get 'sign_form'
       get 'order_form'
+      get 'picket_form'
       get 'comment_form'
       get 'orders'
       get 'need_to_order_agents'
