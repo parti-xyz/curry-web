@@ -31,10 +31,11 @@
           %span.control-buttons{ style: 'background-color: rgba(0,0,0,0.5); padding: 5px 10px 2px;' }
             = buttons
 
-      - if @campaign.success?
-        .label
+      / - if @campaign.success?
+      - if @campaign.comments.count.fdiv(@campaign.signs_goal_count) * 100 >= 100
+        .label.label-success
           성공
-      .label
+      .label.label-picket
         팻말들기
       - if @campaign.agents.any?
         .agent-info
@@ -52,7 +53,7 @@
 
     .picket-info
       .picket-progress-bar
-        - current_percent = @campaign.comments.count.fdiv(@campaign.signs_goal_count) * 100
+        - current_percent = [100, @campaign.comments.count.fdiv(@campaign.signs_goal_count) * 100].min
         .current-percent{ style: "width: #{current_percent}%" }
       .picket-summary
         .picket-summary-left

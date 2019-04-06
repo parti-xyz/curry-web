@@ -52,7 +52,7 @@ $.is_present = function(obj) {
 
 $(document).imagesLoaded( { }, function() {
   $('.masonry-container').masonry({
-    itemSelector: '.masonry-item'
+    // itemSelector: '.masonry-item'
   });
   $('select.dropdown').dropdown();
 });
