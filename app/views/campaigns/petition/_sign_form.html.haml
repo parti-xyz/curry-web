@@ -65,7 +65,6 @@
                 = f.hidden_field :extra_29_confirm_join, value: 1
 
               .form-group
-                = f.label :body, "보내는 내용"
                 = f.label :body, @campaign.sign_title || Sign.human_attribute_name(:body)
                 = f.text_field :body, placeholder: '나는...', class: 'form-control'
 

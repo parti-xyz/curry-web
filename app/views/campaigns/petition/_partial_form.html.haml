@@ -1,0 +1,33 @@
+%legend.m-t 서명 상세 설정
+
+.form-group
+  .checkbox
+    %label
+      = f.check_box :use_signer_real_name
+      = Campaign.human_attribute_name("use_signer_real_name")
+  %p.help-block
+    체크해 두면 실명을 받습니다.
+
+.form-group
+  .checkbox
+    %label
+      = f.check_box :use_signer_email
+      = Campaign.human_attribute_name("use_signer_email")
+  %p.help-block
+    체크해 두면 이메일 주소를 받습니다.
+
+.form-group
+  .checkbox
+    %label
+      = f.check_box :use_signer_address
+      = Campaign.human_attribute_name("use_signer_address")
+  %p.help-block
+    체크해 두면 자택주소를 받습니다.
+
+.form-group
+  .checkbox
+    %label
+      = f.check_box :use_signer_phone
+      = Campaign.human_attribute_name("use_signer_phone")
+  %p.help-block
+    체크해 두면 전화번호를 받습니다.

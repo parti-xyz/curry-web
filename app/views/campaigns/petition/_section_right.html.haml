@@ -60,10 +60,6 @@
               .signer-nickname
                 = current_user.nickname
           = link_to sign_form_campaign_path(@campaign), remote: true do
-            .campaign-sign-input.nickname{ style: "display: none" }
-              이름
-            .campaign-sign-input.email
-              이메일
             .campaign-sign-input.word
               %p 나도 한마디
               %br
