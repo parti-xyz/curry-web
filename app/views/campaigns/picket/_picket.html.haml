@@ -1,0 +1,43 @@
+.modal.fade{ id: modal_dom_id, tabindex: -1, role: 'dialog' }
+  .modal-dialog{ role: 'document' }
+    .modal-content
+      .modal-header{ style: "border: 0; padding: 5px 5px 0 0;" }
+        %button.close{ 'data-dismiss' => 'modal', 'aria-label' => 'Close' }
+          %span{ 'aira-hidden' => 'true' } &times;
+      .modal-body
+        %section.section-picket-more
+          .picket-info
+            .control-btn 신고
+            .user
+              .user-image-sm{ style: "background-image:url(#{asset_url(@picket.user_image)});" }
+              .user-name
+                = @picket.user_nickname
+              .picket-date
+                = date_f @picket.created_at
+      .picket-image{ style: "background-image:url(#{asset_url(@picket.image)});" }
+      .modal-body
+        %section.section-picket-more
+          .picket-body
+            = @picket.body
+          .picket-tags
+            - @picket.tags.each do |tag|
+              .picket-tag
+                = tag.name
+          .like-button
+            = render 'likes/button', likable: @picket
+      .modal-body
+        %section.section-comments.section-picket-more
+          .picket-comment-info
+            %i.fa.fa-heart
+              .text
+                공감
+                = @picket.merged_likes_count
+            %i.fa.fa-heart
+              .text
+                댓글
+                = @picket.comments.count
+          .section-title
+            댓글을 남겨주세요.
+          - page_dom_id = build_uid
+          = render 'comments/picket_form_line', commentable: @picket
+          = render 'comments/picket', commentable: @picket, comments: @picket.comments.recent.page(1), dom_id: page_dom_id

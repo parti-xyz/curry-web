@@ -102,6 +102,7 @@ Rails.application.routes.draw do
       get 'signers'
       get 'pickets'
       get 'stories/:story_id', action: 'story', as: :story
+      get 'picket'
     end
   end
   resources :polls do

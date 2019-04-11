@@ -1220,6 +1220,12 @@
           .fa-comment {
             margin: 0 4px 0 10px;
           }
+          .not-yet-liked {
+            display: inline;
+          }
+          .liked {
+            display: inline;
+          }
         }
       }
       .campaign-picket-photo {
@@ -1291,15 +1297,11 @@
         .picket-footer {
           padding: 20px;
           background-color: #ffffff;
-          display: flex;
           .liked {
-            display: flex;
+            display: inline;
           }
           .not-yet-liked {
-            margin: 0 2px 0 4px;
-          }
-          .comment-counts {
-            margin-left: 4px;
+            display: inline;
           }
         }
       }
@@ -1323,6 +1325,112 @@
         .picket-tag-count {
           line-height: 1.5;
           font-size: 11px;
+        }
+      }
+    }
+  }
+  .modal-content {
+    .picket-image {
+        z-index: 1;
+        position: relative;
+        width: 100%;
+        height: 495px;
+        background-size: cover;
+        top: -43px;
+        margin-bottom: -98px;
+    }
+  }
+  .section-picket-more {
+    margin: 12px 40px 40px;
+    .picket-info {
+      .control-btn {
+        text-align: center;
+        font-size: 11px;
+        position: absolute;
+        right: 40px;
+        letter-spacing: -0.4px;
+        width: 44px;
+        height: 24px;
+        line-height: 24px;
+        border: solid 1px #c3c3c3;
+      }
+      .user {
+        align-items: center;
+        display: flex;
+        .user-image-sm {
+          width: 40px;
+          height: 40px;
+        }
+        .user-name {
+          font-weight: 500;
+          margin-left: 8px;
+          color: #303030;
+          font-size: 22px;
+          letter-spacing: -1.6px;
+        }
+        .picket-date {
+          font-size: 14px;
+          margin-left: 8px;
+          letter-spacing: -0.4px;
+          color: #717171;
+        }
+      }
+    }
+    .picket-body {
+      font-size: 16px;
+      padding-top: 40px;
+      margin-top: 12px;
+      border-top: solid 1px #e0e0e0;
+      letter-spacing: -0.5px;
+      line-height: 1.63;
+      color: #717171;
+      word-break: keep-all;
+      text-align: justify;
+    }
+    .picket-tags {
+      margin-top: 20px;
+      display: flex;
+      letter-spacing: -0.4px;
+      color: #2575ef;
+      font-size: 14px;
+      .picket-tag {
+        margin-right: 7px;
+      }
+    }
+    .like-button {
+      width: 114px;
+      margin: 20px auto 0;
+      height: 44px;
+      border: solid 1px #c3c3c3;
+      text-align: center;
+      line-height: 44px;
+      color: #717171;
+      letter-spacing: -0.4px;
+      li {
+        color: #bdbdbd;
+      }
+      .not-yet-liked {
+        display: inline;
+      }
+      .liked {
+        display: inline;
+      }
+    }
+    .picket-comment-info {
+      padding-bottom: 13px;
+      border-bottom: solid 1px #e0e0e0;
+      margin-bottom: 16px;
+      display: flex;
+      i {
+        color: #bdbdbd;
+        margin-right: 22px;
+        display: flex;
+        .text {
+          margin-left: 3px;
+          display: flex;
+          color: #717171;
+          font-size: 14px;
+          letter-spacing: -0.4px;
         }
       }
     }

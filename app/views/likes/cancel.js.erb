@@ -1,5 +1,7 @@
 <% if @likable.present? %>
 var $likable = $('#<%= like_btn_dom_id(@likable) %>');
 $likable.replaceWith('<%= j(render('likes/button', likable: @likable)) %>');
+var $likable_picket = $('.like-button #<%= like_btn_dom_id(@likable) %>');
+$likable_picket.replaceWith('<%= j(render('likes/button', likable: @likable)) %>');
 UnobtrusiveFlash.showFlashFromCookies();
 <% end %>

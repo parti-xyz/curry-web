@@ -1,0 +1,45 @@
+-# params
+-#  only_my_comments
+-#  target_agent_id
+-#  sort
+
+%div{ id: local_assigns[:dom_id] }
+  .comments
+    - comments.each do |comment|
+      .comment.infinite-item
+        .comment-controls
+          - if can? :destroy, comment
+            = link_to '삭제', comment, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
+          - if current_user != comment.user
+            = render 'reports/button', reportable: comment
+        .comment-line
+          .commenter-image{ style: "background-image:url(#{asset_url(comment.user_image)});" }
+          .comment-right
+            .comment-header
+              .nickname
+                = comment.user_nickname
+                - if comment.target_agents.any?
+                  .comment-agent
+                    = comment.target_agents.shuffle.first.name
+                    - if comment.target_agents.count > 1
+                      외 #{comment.target_agents.count - 1}
+                    에 촉구
+
+                  - readers_dom_id = build_uid
+                  - any_read = false
+                  %span.comment-readers.js-popover.cursor-pointer{ "data-url": readers_comment_url(comment, ), "data-placement": "bottom", "data-trigger": "click", "data-type": "async", class: ('any_read' if any_read) }
+                    - if comment.orders.all_read.count > 0
+                      %i.fa.fa-envelope-open-o
+                    - else
+                      %i.fa.fa-envelope-o
+              %span.sign-info
+                - if comment.orders_count > 0
+                  #{comment.user_order_seq}번째 촉구자
+
+                .date= date_f comment.updated_at
+            .comment-body
+              = raw comment.body
+            .comment-footer
+              = render 'likes/button', likable: comment
+  - if !comments.last_page? and !local_assigns[:finite]
+    = link_to '', comments_path(commentable_id: commentable.id, commentable_type: 'Comment', page: comments.next_page, comment_user_id: params[:comment_user_id], sort: params[:sort], page_dom_id: local_assigns[:dom_id], partial: 'campaigns-petition-comments_page'), class: "infinite-more-link"

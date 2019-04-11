@@ -25,7 +25,7 @@
     = csrf_meta_tags
 
   %body{class: "app-#{params[:controller]} app-#{params[:controller]}-#{params[:action]}"}
-    %section(style='position: fixed; z-index: 1000; width: 80%; left: 0; margin-left: auto; margin-right: auto; right: 0;')
+    %section(style='position: fixed; z-index: 2000; width: 80%; left: 0; margin-left: auto; margin-right: auto; right: 0;')
       .unobtrusive-flash-container
 
     = render 'application/sidebar'
