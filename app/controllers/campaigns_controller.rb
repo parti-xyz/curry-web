@@ -147,7 +147,7 @@ class CampaignsController < ApplicationController
       :signer_email_title, :signer_address_title, :signer_real_name_title, :signer_phone_title,
       :agent_section_title, :agent_section_response_title, :sign_hidden, :area_id, :issue_id,
       :special_slug, :sign_form_intro, (:template if params[:action] == 'create'), :slug, :title_to_agent, :message_to_agent,
-      :agent_id)
+      :agent_id, :css)
   end
 
   def reset_meta_tags_for_show
