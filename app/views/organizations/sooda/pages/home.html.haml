@@ -60,6 +60,7 @@
     = link_to "내 경험 공유하기", slug_campaign_path(campaign_slug), class: 'btn btn-primary-less-dark btn-action', target: '_blank'
 
     - commentable = Campaign.find_by(slug: campaign_slug)
+
     - if commentable.present?
       - comments = commentable.comments.recent.first(3)
       - if comments.any?
@@ -81,6 +82,8 @@
                     .comment-body
                       = excerpt(comment.body, length: 200)
           = link_to "#{commentable.comments_count}개 목소리 모두 보기", slug_campaign_path(campaign_slug), class: 'comments-more', target: '_blank'
+    - if commentable.try(:comments).blank?
+      .section-desc{ style: 'margin-top: 1em' } 공유된 경험이 아직 없습니다. 가장 먼저 경험을 공유해 보세요.
 
 - modal_dom_id = "sooda-modal-#{SecureRandom.uuid}"
 
