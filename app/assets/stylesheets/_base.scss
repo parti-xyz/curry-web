@@ -171,6 +171,15 @@ html.has-footer {
   }
 }
 
+.btn-primary-less-dark {
+  background-color: $brand-primary-less-dark;
+  color: white;
+  &:hover {
+    background-color: lighten($brand-primary-less-dark, 5%);
+    color: white;
+  }
+}
+
 .btn-primary-neutral {
   background-color: $gray-darker;
   color: white;

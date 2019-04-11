@@ -41,6 +41,12 @@ namespace :organizations do
         single_project_slug: 'rebootkorea',
         slogan: '국민주도 헌법개정 전국 네트워크')
 
+      seed(site_name: '차별잇수다',
+        title: '차별잇수다',
+        description: '차별잇수다',
+        slug: 'sooda',
+        slogan: '차별에 맞서는 용기를 잇는 수다')
+
     end
   end
 

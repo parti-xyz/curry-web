@@ -1,0 +1,204 @@
+- set_meta_tags og: { image: asset_url('organizations/sooda/main.png') }
+
+%section#about-section
+  .container
+    .title 차별에 맞서는 용기를 잇는 수다,
+    .main
+      = image_tag 'organizations/sooda/main.png'
+    .section-desc
+      우리의 차별 이야기가 만나 공명할 때
+      %br
+      차별에 맞서는 대안이 생깁니다.
+
+%section.actions-section.visible-xs-block.hidden-sm
+  .container
+    .actions
+      .action
+        .panel.panel-default
+          .panel-body
+            차별 받았을 때 어떤
+            기분이 들었나요?
+            .no 1
+          .panel-footer.clearfix
+            목소리 모으기
+            %i.fa.fa-angle-right
+      .action
+        .panel.panel-default
+          .panel-body
+            평등한 세상을 위한 대안을 함께 만들어볼까요?
+            .no 2
+          .panel-footer.clearfix
+            모임 참여하기
+            %i.fa.fa-angle-right
+    .actions
+      .action
+        .panel.panel-default
+          .panel-body
+            차별금지법 제정에 함께해주세요!
+            .no 3
+          .panel-footer.clearfix
+            서명하기
+            %i.fa.fa-angle-right
+      .action
+        .panel.panel-default
+          .panel-body
+            지인들에게 '차별잇수다' 캠페인을 알려주세요.
+            .no 4
+          .panel-footer.clearfix
+            공유하기
+            %i.fa.fa-angle-right
+
+- campaign_slug = :sooda
+%section.comments-section
+  .container
+    .section-title
+      %span.no 1
+      목소리 모으기
+    .section-slogan 차별을 받았을 때 어떤 기분이 들었나요?
+    .section-desc 내가 겪었던 차별 경험, 그때 받았던 느낌을 자유롭게 써주세요.
+
+    = link_to "내 경험 공유하기", slug_campaign_path(campaign_slug), class: 'btn btn-primary-less-dark btn-action', target: '_blank'
+
+    - commentable = Campaign.find_by(slug: campaign_slug)
+    - if commentable.present?
+      - comments = commentable.comments.recent.first(3)
+      - if comments.any?
+        .section-subtitle 최신글
+        .comments
+          - comments.each do |comment|
+            - commenter = User.find_by(id: comment.user_id)
+            = link_to slug_campaign_path(campaign_slug), target: '_blank' do
+              .comment.panel.panel-default
+                .panel-body
+                  .comment-left
+                    .user-image-sm{style:"background-color: #eee; background-image:url(#{(commenter.try(:has_image?) ? asset_url(commenter.image) : 'default-user.png')}); #{"background-position: 0 4px; background-repeat: no-repeat;" unless commenter.try(:has_image?)}"}
+                  .comment-center
+                    .comment-meta
+                      %span.comment-commenter
+                        = comment.user_nickname
+                      %span.comment-date
+                        = date_f(comment.created_at)
+                    .comment-body
+                      = excerpt(comment.body, length: 200)
+          = link_to "#{commentable.comments_count}개 목소리 모두 보기", slug_campaign_path(campaign_slug), class: 'comments-more', target: '_blank'
+
+- modal_dom_id = "sooda-modal-#{SecureRandom.uuid}"
+
+%section.meeting-section
+  .container
+    .section-title
+      %span.no 2
+      모임 참여하기
+    .section-slogan
+      우리 동네에서 진행되는
+      %br
+      차별잇수다 모임에서 만나요!
+    .section-desc
+      일상의 공간과 관계에서 차별 경험을 나눕니다.
+      %br
+      공감과 지지를 표하고 대안을 이야기합니다.
+      %br
+      타인의 이야기에 관심이 있는 누구나 참여할 수 있습니다.
+    .section-subtitle 최신모임
+    .row
+      - Rails.cache.delete('sooda-home') if params[:clear_cache] = 'ok'
+      - cache "sooda-home", race_condition_ttl: 30.seconds, expires_in: 10.minutes do
+        - calendars = nil
+        - ical_url = ENV["SOODDA_ICAL_URL"]
+        - ical_url = "https://calendar.google.com/calendar/ical/parti.xyz_8ko977t26cahcafmutfs0kdg5g%40group.calendar.google.com/public/basic.ics"
+        - if ical_url.present?
+          - open(ical_url) { |cal| calendars = Icalendar::Calendar.parse(cal) }
+          - calendars.each do |calendar|
+            - calendar.events.each do |event|
+              - area = ''
+              - location = event.location
+              - if event.location.present?
+                - splited_location = event.location.split('-', 2)
+                - if splited_location.length > 1
+                  - area = splited_location[0]
+                  - location = splited_location[1]
+              .col-xs-12.col-sm-6{ class: ('col-sm-offset-3' if calendars.length <= 1) }
+                .meeting.panel.panel-default
+                  .panel-body
+                    .meeting-area
+                      %span= area
+                    .meeting-body
+                      = event.summary
+                    .meeting-meta
+                      = human_datetime_f(event.dtstart)
+                      = location
+                    - if event.description.present? and event.description.start_with?("http://", "mailto", "https://")
+                      .meeting-join
+                        = link_to "참여신청", event.description.to_s, class: 'btn btn-primary-less-dark btn-action', target: '_blank'
+
+
+    .go-meetings-calendar
+      = link_to "모임 캘린더 전체 보기", "https://calendar.google.com/calendar/embed?src=parti.xyz_8ko977t26cahcafmutfs0kdg5g%40group.calendar.google.com&ctz=Asia%2FSeoul", class: 'meetings-calendar', target: '_blank'
+
+    .meeting-open.clearfix
+      = link_to "##{modal_dom_id}", class: 'btn btn-primary btn-action', "data-toggle": "modal" do
+        주변에 모임을 열어보세요
+        %i.fa.fa-angle-right
+      .meeting-open-help
+        * 직접 모임을 주최하실 수 있습니다. 학교, 회사, 소모임, 어디에서든 모임을 열어보세요.
+
+%section.petition-section
+  .container
+    .section-title
+      %span.no 3
+      서명하기
+    .section-slogan
+      차별금지법 제정에 함께해주세요!
+    .section-desc
+      차별금지법 제정을 위한 한마디
+    .petition-action
+      = link_to "서명하러 가기", 'https://bit.ly/차별금지법', class: 'btn btn-primary-less-dark btn-action', target: '_blank'
+
+%section.share-section
+  .container
+    .section-title
+      %span.no 4
+      공유하기
+    .section-slogan
+      차별잇수다를 공유해주세요!
+    .share-action
+      = link_to "https://www.facebook.com/sharer/sharer.php?u=#{root_url(subdomain: :sooda)}", target: '_blank' do
+        = image_tag 'organizations/sooda/facebook.png'
+      = link_to "http://twitter.com/share?url=#{root_url(subdomain: :sooda)}", target: '_blank' do
+        = image_tag 'organizations/sooda/twitter.png'
+      %a.js-clipboard.btn-clipboard.cursor-pointer{ 'data-clipboard-text': root_url(subdomain: :sooda), 'data-toggle': 'tooltip', 'data-trigger': 'manual', 'data-title': '주소를 복사하였습니다.' }
+        %i.fa.fa-clipboard
+
+.modal.modal-new-meeting.fade{id: modal_dom_id, :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &#215;
+        %h4.modal-title
+          주변에 모임을 열어보세요
+
+      .modal-body
+        %p.desc
+          모임을 진행하고 싶은데,
+          %br
+          잘 할 수 있을지 걱정이세요?
+          %br
+          다른 진행자들의 이야기가 궁금하세요?
+        %p.desc
+          ﻿차별잇수다 자료에서 모임 팁과 경험,
+          %br
+          소식을 공유하고 있습니다.
+
+        .modal-actions<>
+          = link_to '#', class: 'btn btn-parimary btn-inverted btn-download' do
+            %i.fa.fa-folder
+            툴킷 다운로드
+          &nbsp;
+          = link_to '#', class: 'btn btn-parimary btn-inverted btn-download' do
+            %i.fa.fa-folder
+            가이드 다운로드
+
+          = link_to '#', class: 'btn btn-primary-less-dark btn-add-meeting' do
+            모임 등록하기
+

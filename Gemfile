@@ -86,6 +86,7 @@ gem 'unobtrusive_flash', '~> 3.1'
 gem 'ruby_dig', '~> 0.0.2'
 gem 'identicon', '~> 0.0.5'
 gem 'rails-timeago', '~> 2.15'
+gem 'icalendar', '~> 2.5', '>= 2.5.3'
 
 # image
 gem 'exifr'

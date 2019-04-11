@@ -161,6 +161,10 @@ class User < ApplicationRecord
     [User::INTERVAL_ISSUE_MAILING.to_date.yesterday, self.issues_summary_email_sent_at].compact.max.at_beginning_of_day
   end
 
+  def has_image?
+    self.read_attribute(:image).present?
+  end
+
   private
 
   def set_uid

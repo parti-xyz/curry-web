@@ -35,8 +35,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'c/:id', to: redirect { |params, req| "/p/#{URI.escape(Project.find_by(id: params[:id]).slug)}"}, constraints: lambda { |request, params|
-    Project.exists?(id: params[:id])
+  get 'c/:slug', as: :slug_campaign, to: redirect { |params, req| "/campaigns/#{Campaign.find_by(slug: params[:slug]).id}"}, constraints: lambda { |request, params|
+    Campaign.exists?(slug: params[:slug])
   }
   get 'events/:id', to: redirect { |params, req| "/campaigns/#{Campaign.find_by(previous_event_id: params[:id]).id}"}, constraints: lambda { |request, params|
     Campaign.exists?(previous_event_id: params[:id])

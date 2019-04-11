@@ -502,7 +502,7 @@ function parti_partial$($partial) {
                 height: image_height
               },
               webLink: {
-                text: '우주당에서 보기',
+                text: '가브크래프트에서 보기',
                 url: url
               }
             });
