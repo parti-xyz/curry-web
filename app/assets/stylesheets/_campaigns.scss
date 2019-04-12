@@ -1057,6 +1057,16 @@
     //   color: $gray-title;
     //   line-height: 24px;
     // }
+    .waiting-stories {
+      text-align: center;
+      p {
+        color: #717171;
+        letter-spacing: -0.4px;
+        font-size: 14px;
+        text-align: center;
+        margin-top: 20px;
+      }
+    }
     .stories {
       .story {
         padding: 16px;
@@ -1432,6 +1442,15 @@
           font-size: 14px;
           letter-spacing: -0.4px;
         }
+      }
+    }
+    .waiting-comments {
+      text-align: center;
+      p {
+        margin-top: 20px;
+        font-size: 16px;
+        letter-spacing: -0.5px;
+        color: #717171;
       }
     }
   }

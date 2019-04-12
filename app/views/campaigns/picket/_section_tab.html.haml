@@ -31,6 +31,6 @@
         - if menu == 'story'
           소식
         - else
-          = link_to '소식', '#'
+          = link_to '소식', stories_campaign_path
   .container-picket
     = link_to '팻말들기', picket_form_campaign_path(@campaign), class: 'picket-btn medium-fold', remote: true

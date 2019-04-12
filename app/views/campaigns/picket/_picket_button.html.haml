@@ -1,0 +1,5 @@
+- if @campaign.opened?
+  %section.section-sign-btn.js-sticky-sign-button.stuck.hidden-sm.visible-xs-block
+    = link_to picket_form_campaign_path(@campaign), remote: true, class: "btn btn-danger btn-lg btn-block stuck sign-btn" do
+      .sign-btn-text
+        팻말들기

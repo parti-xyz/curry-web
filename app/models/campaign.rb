@@ -180,7 +180,15 @@ class Campaign < ApplicationRecord
   end
 
   def percentage
-    has_goal? ? ( signs_count.to_f / signs_goal_count * 100 ).to_i : 100
+    if has_goal?
+      if picketable?
+        comments_count.fdiv(signs_goal_count) * 100
+      else
+        ( signs_count.to_f / signs_goal_count * 100 ).to_i
+      end
+    else
+      100
+    end
   end
 
   def success_order?
@@ -238,6 +246,10 @@ class Campaign < ApplicationRecord
     self.template == 'petition'
   end
 
+  def picketable?
+    %(basic photo map).include? self.template
+  end
+
   def mailing_issue
     self.issue_mailings.where(action: 'add').where(deleted_at: nil).update_all(deleted_at: DateTime.now)
     self.issue_mailings.find_or_create_by(issue: self.issue, action: 'add')
@@ -247,6 +259,10 @@ class Campaign < ApplicationRecord
     return @__order_users_count if @__order_users_count.present?
     @__order_users_count = self.comments.joins(:orders).select(:commenter_name, :commenter_email).distinct.size
     @__order_users_count
+  end
+
+  def pickets_count
+    picketable? ? comments_count : 0
   end
 
   def highlight_ordered_comments(limit)

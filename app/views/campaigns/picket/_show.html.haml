@@ -1,97 +1,80 @@
-
 = render 'campaigns/picket/section_cover'
-
-/ %section.section-summary
-/   .campaign-body
-/     선거때마다 후보들을...
-/     해도 괜찮습니다.
-/     방법은 단순합니다
-/     (1) '5인' 이상 모입니다.
-/     (2) 모임 인증샷을 남깁니다.
-/     (3) #갈숲에게 연락합니다.
-/   .more 내용 보기
-/   .campaign-body-info
-/     등록일: 2018.09.14
-/     아젠다: 환경
-/     이슈: 1회용컵 사용
-/   .campaign-progress
-/     .campaign-progress-bar
-/       .sucess-badge 성공
-/       .signs-bar{ style: "width: 70%" }
-/     .campaign-time-to-left
-/     .campaign-progress-meta
-/       .goal-count 목표 팻말: 10,000개
-/       .picket-count 등록 팻말: 7,000개
-/       .current-percent 70%
-/   .order-info
-/     지금 스타벅스외 27 촉구에 참여해 보세요.
-/     촉구하러가기
-/     .agents
-/       .agent
-/         .agent-image
-/         .agent-image-top
-/         .agent-info
-/           .agent-name 홍길동
-/           .agent-organization 스탑복스
-/           .agent-order-btn 10번째로 촉구하기
-
-/ %section.section-share
-/   .campaign-share
-/     .campaign-share-buttons
-/       .campaign-share-button
-/         %i.fa.fa-facebook-f
-/         공유하기
-/       .campaign-share-button
-/         %i.fa.fa-twitter
-/         트윗
-/       .campaign-share-button
-/         %i.fa.fa-clipboard
-/         주소 복사
-
 = render 'campaigns/picket/section_tab', menu: 'content'
 
-/ %section.section-tab
-/   팻말
-/   촉구
-/   소식
+%section.section-panel
+  = render 'campaigns/picket/section_right'
 
-/ %section.section-post-picket
-/   내 팻말 등록
+  %section.section-left
+    %section.section-body
+      .section-title
+        캠페인 소개
+      .campaign-body
+        = raw @campaign.body
 
-/ %secton.section-picket-tags
-/   .picket-tags
-/     .picket-tag #노인(5)
-/     .picket-tag #경로당(5)
-/     .picket-tag #경로(5)
-/     .picket-tag #아동(5)
-/     .picket-tag-more +25
+      .campaign-body-info
+        이 캠페인은 #{static_day_f(@campaign.created_at)}에 시작되었습니다.
+        - if @campaign.issue.present?
+          %br
+          이슈
+          %span.issue= @campaign.issue.title
+    - if @campaign.agents.any?
+      %hr
+      %section.section-orders.section-orders-tab
+        .section-title
+          캠페인 촉구
+        - if @campaign.opened?
+          .order-title
+            지금
+            %span.underline
+              #{@campaign.agents.first.name}
+              - if @campaign.agents.count > 1
+                외 #{@campaign.agents.count - 1}
+            에 촉구해 주세요
+          .order-info
+            - order_users_with_name = @campaign.comments.joins(:orders).where.not(commenter_name: nil).order("comment_id desc").limit(3)
+            - if order_users_with_name.any?
+              #{order_users_with_name.first.commenter_name}님
+              - if @campaign.order_users_count >=1
+                외 #{@campaign.order_users_count - 1}분이
+              촉구에 참여중입니다.
+            - elsif @campaign.order_users_count >= 1
+              이름을 알리지 않은 #{@campaign.order_users_count}분이 참여하고 있습니다.
+            - else
+              지금 바로 촉구하여 참여해보세요.
+          .order-users
+            - order_users_with_image = User.where(id: @campaign.comments.where.not(user_id: nil).uniq.pluck(:user_id)).limit(3)
+            - if order_users_with_image.any?
+              .user-images
+                - order_users_with_image.reverse.each do |user|
+                  .user-image-sm.overlapped{ style: "background-image:url(#{asset_url(user.image_url(:md))});" }
+            -if @campaign.order_users_count > 3
+              .more +
+              .count= @campaign.order_users_count - 3
+        - else
+          = render 'campaigns/order_dashboard', campaign: @campaign
 
-/ %section.section-pickets
-/   .campaign-pickets-info
-/     전체 팻말(700)
-/     내 팻말(3)
-/   .campaign-pickets
-/     .campaign-picket
-/       .control-btn 신고
-/       .user-image
-/       .user-name 홍길동
-/       .picket-date 2018.04.12
-/       .picket-message
-/         노인들이 편히 쉴 수 있는 공간을!
-/         안녕하십니까? 저는...
-/         님도 찾아뵙고...
-/       .more 더보기
-/       .like 1024
-/       .comment-counts 502
-/     .campaign-picket
-/       .control-btn 신고
-/       .user-image
-/       .user-name 홍길동
-/       .picket-date 2018.04.12
-/       .picket-message
-/         노인들이 편히 쉴 수 있는 공간을!
-/         안녕하십니까? 저는...
-/         님도 찾아뵙고...
-/       .more 더보기
-/       .like 1024
-/       .comment-counts 502
+        - if @campaign.responded_agents.any? or @campaign.closed?
+          .orders-tab-title-h5.title-wrap
+            .title-left 촉구 응답 현황
+          = render 'campaigns/agents_with_statement', campaign: @campaign
+
+        - if @campaign.opened?
+          .orders-tab-title-h5.title-wrap
+            .title-left 촉구하기
+
+          - agents_shuffled = @campaign.need_to_order_agents_shuffled
+          - if agents_shuffled.any?
+            .agents
+              - agents_shuffled.first(3).each do |agent|
+                = render 'campaigns/agent', campaign: @campaign, agent: agent, statement: @campaign.statement_of(agent)
+          .more
+            = link_to '더 보기', orders_campaign_path(@campaign)
+    %hr
+    %section.section-comments
+      .section-title
+        팻말
+      = render 'comments/page_formal', commentable: @campaign, comments: @campaign.comments.recent.page(1), finite: true
+      .more
+        = link_to '더 보기', pickets_campaign_path(@campaign)
+
+= render 'campaigns/picket/picket_button'

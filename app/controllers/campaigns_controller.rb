@@ -138,8 +138,12 @@ class CampaignsController < ApplicationController
   end
 
   def stories
-    render_404 and return unless %(petition order special_agenda).include?(@campaign.template)
-    render template: "campaigns/#{@campaign.template}/stories"
+    render_404 and return unless %(petition order special_agenda basic photo map).include?(@campaign.template)
+    if %(basic photo map).include?(@campaign.template)
+      render template: "campaigns/picket/stories"
+    else
+      render template: "campaigns/#{@campaign.template}/stories"
+    end
   end
 
   def signers

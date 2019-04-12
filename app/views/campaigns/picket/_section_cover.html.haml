@@ -31,8 +31,7 @@
           %span.control-buttons{ style: 'background-color: rgba(0,0,0,0.5); padding: 5px 10px 2px;' }
             = buttons
 
-      / - if @campaign.success?
-      - if @campaign.comments.count.fdiv(@campaign.signs_goal_count) * 100 >= 100
+      - if @campaign.success?
         .label.label-success
           성공
       .label.label-picket
@@ -53,12 +52,11 @@
 
     .picket-info
       .picket-progress-bar
-        - current_percent = [100, @campaign.comments.count.fdiv(@campaign.signs_goal_count) * 100].min
-        .current-percent{ style: "width: #{current_percent}%" }
+        .current-percent{ style: "width: #{[@campaign.percentage, 100].min}%" }
       .picket-summary
         .picket-summary-left
           .picket-counts
-            = @campaign.comments.count
+            = @campaign.pickets_count
           목표 팻말 #{@campaign.signs_goal_count}
         .picket-day-to-left
           #{(Time.now - @campaign.created_at).to_i / 1.day}일 지남
