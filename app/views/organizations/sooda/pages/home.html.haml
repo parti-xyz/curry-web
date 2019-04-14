@@ -14,40 +14,45 @@
   .container
     .actions
       .action
-        .panel.panel-default
-          .panel-body
-            차별 받았을 때 어떤
-            기분이 들었나요?
-            .no 1
-          .panel-footer.clearfix
-            목소리 모으기
-            %i.fa.fa-angle-right
+        = link_to "#anchor-comments-section" do
+          .panel.panel-default
+            .panel-body
+              차별 받았을 때 어떤
+              기분이 들었나요?
+              .no 1
+            .panel-footer.clearfix
+              목소리 모으기
+              %i.fa.fa-angle-right
       .action
-        .panel.panel-default
-          .panel-body
-            평등한 세상을 위한 대안을 함께 만들어볼까요?
-            .no 2
-          .panel-footer.clearfix
-            모임 참여하기
-            %i.fa.fa-angle-right
+        = link_to "#anchor-meeting-section" do
+          .panel.panel-default
+            .panel-body
+              평등한 세상을 위한 대안을 함께 만들어볼까요?
+              .no 2
+            .panel-footer.clearfix
+              모임 참여하기
+              %i.fa.fa-angle-right
     .actions
       .action
-        .panel.panel-default
-          .panel-body
-            차별금지법 제정에 함께해주세요!
-            .no 3
-          .panel-footer.clearfix
-            서명하기
-            %i.fa.fa-angle-right
+        = link_to "#anchor-petition-section" do
+          .panel.panel-default
+            .panel-body
+              차별금지법 제정에 함께해주세요!
+              .no 3
+            .panel-footer.clearfix
+              서명하기
+              %i.fa.fa-angle-right
       .action
-        .panel.panel-default
-          .panel-body
-            지인들에게 '차별잇수다' 캠페인을 알려주세요.
-            .no 4
-          .panel-footer.clearfix
-            공유하기
-            %i.fa.fa-angle-right
+        = link_to "#anchor-share-section" do
+          .panel.panel-default
+            .panel-body
+              지인들에게 '차별잇수다' 캠페인을 알려주세요.
+              .no 4
+            .panel-footer.clearfix
+              공유하기
+              %i.fa.fa-angle-right
 
+%a{id: "anchor-comments-section"}
 - campaign_slug = :sooda
 %section.comments-section
   .container
@@ -87,6 +92,7 @@
 
 - modal_dom_id = "sooda-modal-#{SecureRandom.uuid}"
 
+%a{id: "anchor-meeting-section"}
 %section.meeting-section
   .container
     .section-title
@@ -145,6 +151,7 @@
       .meeting-open-help
         * 직접 모임을 주최하실 수 있습니다. 학교, 회사, 소모임, 어디에서든 모임을 열어보세요.
 
+%a{id: "anchor-petition-section"}
 %section.petition-section
   .container
     .section-title
@@ -157,6 +164,7 @@
     .petition-action
       = link_to "서명하러 가기", 'https://bit.ly/차별금지법', class: 'btn btn-primary-less-dark btn-action', target: '_blank'
 
+%a{id: "anchor-share-section"}
 %section.share-section
   .container
     .section-title
