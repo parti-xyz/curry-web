@@ -114,7 +114,7 @@
       - cache "sooda-home", race_condition_ttl: 30.seconds, expires_in: 10.minutes do
         - calendars = nil
         - ical_url = ENV["SOODDA_ICAL_URL"]
-        - ical_url = "https://calendar.google.com/calendar/ical/parti.xyz_8ko977t26cahcafmutfs0kdg5g%40group.calendar.google.com/public/basic.ics"
+        - ical_url = "https://calendar.google.com/calendar/ical/voiceofcourage2019%40gmail.com/public/basic.ics"
         - if ical_url.present?
           - open(ical_url) { |cal| calendars = Icalendar::Calendar.parse(cal) }
           - calendars.each do |calendar|
@@ -142,7 +142,7 @@
 
 
     .go-meetings-calendar
-      = link_to "모임 캘린더 전체 보기", "https://calendar.google.com/calendar/embed?src=parti.xyz_8ko977t26cahcafmutfs0kdg5g%40group.calendar.google.com&ctz=Asia%2FSeoul", class: 'meetings-calendar', target: '_blank'
+      = link_to "모임 캘린더 전체 보기", "https://calendar.google.com/calendar/embed?src=voiceofcourage2019%40gmail.com&ctz=Asia%2FSeoul", class: 'meetings-calendar', target: '_blank'
 
     .meeting-open.clearfix
       = link_to "##{modal_dom_id}", class: 'btn btn-primary btn-action', "data-toggle": "modal" do
