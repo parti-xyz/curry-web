@@ -119,23 +119,19 @@
           - open(ical_url) { |cal| calendars = Icalendar::Calendar.parse(cal) }
           - calendars.each do |calendar|
             - calendar.events.each do |event|
-              - area = ''
-              - location = event.location
-              - if event.location.present?
-                - splited_location = event.location.split('-', 2)
-                - if splited_location.length > 1
-                  - area = splited_location[0]
-                  - location = splited_location[1]
+              - geo_result = Geocoder.search(event.location, language: 'ko').first
+              - area = geo_result.try(:state_code) || ''
               .col-xs-12.col-sm-6{ class: ('col-sm-offset-3' if calendars.length <= 1) }
                 .meeting.panel.panel-default
                   .panel-body
-                    .meeting-area
-                      %span= area
+                    - if area.present?
+                      .meeting-area
+                        %span= area
                     .meeting-body
                       = event.summary
                     .meeting-meta
                       = human_datetime_f(event.dtstart)
-                      = location
+                      = event.location
                     - if event.description.present? and event.description.start_with?("http://", "mailto", "https://")
                       .meeting-join
                         = link_to "참여신청", event.description.to_s, class: 'btn btn-primary-less-dark btn-action', target: '_blank'
@@ -210,6 +206,6 @@
             %i.fa.fa-folder
             가이드 다운로드
 
-          = link_to '#', class: 'btn btn-primary-less-dark btn-add-meeting' do
+          = link_to 'https://bit.ly/차별잇수다', target: '_blank', class: 'btn btn-primary-less-dark btn-add-meeting' do
             모임 등록하기
 
