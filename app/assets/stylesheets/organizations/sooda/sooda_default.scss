@@ -18,6 +18,9 @@ body.app-pages-home {
       color: $color-brand-primary-active;
       vertical-align: sub;
     }
+    @media (max-width: $screen-xs-max) {
+      padding-top: 40px;
+    }
   }
   .section-slogan {
     padding-top: 20px;
@@ -35,6 +38,7 @@ body.app-pages-home {
     margin-bottom: 40px;
     @media (max-width: $screen-xs-max) {
       font-size: 14px;
+      margin-bottom: 16px;
     }
   }
   .btn-action {
@@ -51,6 +55,7 @@ body.app-pages-home {
     color: $gray-title;
     font-size: 14px;
     @media (max-width: $screen-xs-max) {
+      margin-top: 40px;
       font-size: 12px;
     }
   }
@@ -150,9 +155,14 @@ body.app-pages-home {
     .comments {
       text-align: center;
       margin-bottom: 60px;
-      .comments-more {
-        text-decoration: underline;
-        color: $brand-primary-less-dark;
+      @media (max-width: $screen-xs-max) {
+        margin-bottom: 40px;
+      }
+      .btn-comments-more {
+        min-width: 380px;
+        @media (max-width: $screen-xs-max) {
+          min-width: 100%;
+        }
       }
     }
     .comment {
@@ -183,6 +193,50 @@ body.app-pages-home {
         }
       }
     }
+    .panel-guide {
+      background-color: #fee756;
+      padding: 40px 46px 66px;
+      text-align: left;
+      margin-right: auto;
+      margin-left: auto;
+      max-width: 380px;
+      margin-bottom: 40px;
+      @media (max-width: $screen-xs-max) {
+        margin-bottom: 20px;
+      }
+      @media (max-width: $screen-xs-max) {
+        min-width: 100%;
+        padding: 16px;
+      }
+      .guide-meta {
+        margin-bottom: 16px;
+        text-align: center;
+        @media (max-width: $screen-xs-max) {
+          text-align: left;
+        }
+        .guide-label {
+          display: inline-block;
+          color: #c0a80b;
+          border: 1px solid #d1b70d;
+          padding: 4px 12px;
+          border-radius: 16px;
+          font-size: 12px;
+          margin-bottom: 34px;
+          @media (max-width: $screen-xs-max) {
+            margin-bottom: 0;
+          }
+        }
+      }
+      .under-line {
+        display: inline-block;
+        width: 3em;
+        text-decoration: underline;
+        border-bottom: 1px solid $gray-title;
+      }
+      p {
+        font-size: 16px;
+      }
+    }
   }
   .meeting-section {
     text-align: center;
@@ -191,6 +245,9 @@ body.app-pages-home {
     }
     background-color: white;
     margin-top: 8px;
+    .section-subtitle {
+      margin-top: 40px;
+    }
     .meeting {
       .panel-body {
         text-align: left;
@@ -251,6 +308,9 @@ body.app-pages-home {
     margin-top: 8px;
     .petition-action {
       margin-bottom: 60px;
+      @media (max-width: $screen-xs-max) {
+        margin-bottom: 40px;
+      }
     }
   }
   .share-section {
@@ -330,5 +390,8 @@ body.app-pages-home {
         }
       }
     }
+  }
+  .text-important {
+    background-color: #fee756
   }
 }

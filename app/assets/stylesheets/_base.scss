@@ -199,6 +199,15 @@ html.has-footer {
   }
 }
 
+.btn-gray {
+  border: 1px solid $gray-lighter;
+  background-color: $gray-lightest;
+  color: $gray-darker;
+  &:hover {
+    background-color: #fafafa;
+  }
+}
+
 @media (max-width: $screen-xs-max) {
   .btn-xs-block {
     display: block;

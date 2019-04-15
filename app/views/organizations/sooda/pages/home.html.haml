@@ -59,8 +59,35 @@
     .section-title
       %span.no 1
       목소리 모으기
-    .section-slogan 차별을 받았을 때 어떤 기분이 들었나요?
+    .section-slogan
+      %span.text-important> 차별
+      %span 을 받았을 때 어떤
+      %span
+        %span.text-important> 기분
+        이 들었나요?
     .section-desc 내가 겪었던 차별 경험, 그때 받았던 느낌을 자유롭게 써주세요.
+
+    .panel.panel-default.panel-guide
+      .panel-body
+        .guide-meta
+          .guide-label 등록 가이드
+        %p
+          ① 나는
+          %span.under-line
+          할 때
+          %span.under-line
+          한 감정을 느꼈어
+        %p
+          ② 그때 나는
+          %span.under-line
+          했는데,
+          혹은
+          %span.under-line
+          하지 못했는데
+        %p{ style: 'margin-bottom: 0;'}
+          ③ 왜나면
+          %span.under-line
+          했기 때문이야
 
     = link_to "내 경험 공유하기", slug_campaign_path(campaign_slug), class: 'btn btn-primary-less-dark btn-action', target: '_blank'
 
@@ -86,7 +113,7 @@
                         = date_f(comment.created_at)
                     .comment-body
                       = excerpt(comment.body, length: 200)
-          = link_to "#{commentable.comments_count}개 목소리 모두 보기", slug_campaign_path(campaign_slug), class: 'comments-more', target: '_blank'
+          = link_to "#{commentable.comments_count}개 목소리 모두 보기", slug_campaign_path(campaign_slug), class: 'btn btn-default btn-gray btn-comments-more', target: '_blank'
     - if commentable.try(:comments).blank?
       .section-desc{ style: 'margin-top: 1em' } 공유된 경험이 아직 없습니다. 가장 먼저 경험을 공유해 보세요.
 
@@ -100,8 +127,9 @@
       모임 참여하기
     .section-slogan
       우리 동네에서 진행되는
-      %br
-      차별잇수다 모임에서 만나요!
+      %br<>
+      %span.text-important<> 차별잇수다 모임
+      %span<> 에서 만나요!
     .section-desc
       일상의 공간과 관계에서 차별 경험을 나눕니다.
       %br
