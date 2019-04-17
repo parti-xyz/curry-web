@@ -1,4 +1,4 @@
-- set_meta_tags og: { image: asset_url('organizations/sooda/main.png') }
+- set_meta_tags og: { image: asset_url('organizations/sooda/seo.png'), title: '우리의 차별 이야기가 만나 평등한 세상을 향해 갑니다.', description: '우리의 차별 이야기가 만나 평등한 세상을 향해 갑니다.',  }
 
 %section#about-section
   .container
@@ -93,28 +93,31 @@
 
     - commentable = Campaign.find_by(slug: campaign_slug)
 
+    - comments = []
     - if commentable.present?
-      - comments = commentable.comments.recent.first(3)
+      - comments = commentable.comments.where.not(id: commentable.comments.joins(:reports).group('reports.reportable_id').uniq).recent.first(3)
       - if comments.any?
-        .section-subtitle 최신글
-        .comments
-          - comments.each do |comment|
-            - commenter = User.find_by(id: comment.user_id)
-            = link_to slug_campaign_path(campaign_slug), target: '_blank' do
-              .comment.panel.panel-default
-                .panel-body
-                  .comment-left
-                    .user-image-sm{style:"background-color: #eee; background-image:url(#{(commenter.try(:has_image?) ? asset_url(commenter.image) : 'default-user.png')}); #{"background-position: 0 4px; background-repeat: no-repeat;" unless commenter.try(:has_image?)}"}
-                  .comment-center
-                    .comment-meta
-                      %span.comment-commenter
-                        = comment.user_nickname
-                      %span.comment-date
-                        = date_f(comment.created_at)
-                    .comment-body
-                      = excerpt(comment.body, length: 200)
-          = link_to "#{commentable.comments_count}개 목소리 모두 보기", slug_campaign_path(campaign_slug), class: 'btn btn-default btn-gray btn-comments-more', target: '_blank'
-    - if commentable.try(:comments).blank?
+        .section-subtitle 최신 글
+        - Rails.cache.delete('sooda-comments') if params[:clear_cache] = 'ok'
+        - cache "sooda-comments", race_condition_ttl: 30.seconds, expires_in: 10.minutes do
+          .comments
+            - comments.each do |comment|
+              - commenter = User.find_by(id: comment.user_id)
+              = link_to slug_campaign_path(campaign_slug), target: '_blank' do
+                .comment.panel.panel-default
+                  .panel-body
+                    .comment-left
+                      .user-image-sm{style:"background-color: #eee; background-image:url(#{(commenter.try(:has_image?) ? asset_url(commenter.image) : 'default-user.png')}); #{"background-position: 0 4px; background-repeat: no-repeat;" unless commenter.try(:has_image?)}"}
+                    .comment-center
+                      .comment-meta
+                        %span.comment-commenter
+                          = comment.user_nickname
+                        %span.comment-date
+                          = date_f(comment.created_at)
+                      .comment-body
+                        = excerpt(comment.body, length: 200)
+            = link_to "#{commentable.comments_count}개 목소리 모두 보기", slug_campaign_path(campaign_slug), class: 'btn btn-default btn-gray btn-comments-more', target: '_blank'
+    - if comments.blank?
       .section-desc{ style: 'margin-top: 1em' } 공유된 경험이 아직 없습니다. 가장 먼저 경험을 공유해 보세요.
 
 - modal_dom_id = "sooda-modal-#{SecureRandom.uuid}"
@@ -136,7 +139,7 @@
       공감과 지지를 표하고 대안을 이야기합니다.
       %br
       타인의 이야기에 관심이 있는 누구나 참여할 수 있습니다.
-    .section-subtitle 최신모임
+    .section-subtitle 최신 모임
     .row
       - Rails.cache.delete('sooda-home') if params[:clear_cache] = 'ok'
       - cache "sooda-home", race_condition_ttl: 30.seconds, expires_in: 10.minutes do
@@ -149,6 +152,8 @@
             - calendar.events.each do |event|
               - geo_result = Geocoder.search(event.location, language: 'ko').first
               - area = geo_result.try(:state_code) || ''
+              - event_modal_dom_id = "event-modal-#{SecureRandom.uuid}"
+
               .col-xs-12.col-sm-6{ class: ('col-sm-offset-3' if calendars.length <= 1) }
                 .meeting.panel.panel-default
                   .panel-body
@@ -159,11 +164,37 @@
                       = event.summary
                     .meeting-meta
                       = human_datetime_f(event.dtstart)
-                      = event.location
-                    - if event.description.present? and event.description.start_with?("http://", "mailto", "https://")
-                      .meeting-join
-                        = link_to "참여신청", event.description.to_s, class: 'btn btn-primary-less-dark btn-action', target: '_blank'
+                      %span.text-nowrap
+                        = event.location
+                    .meeting-join
+                      = link_to "참여신청", "##{event_modal_dom_id}", class: 'btn btn-primary-less-dark btn-action', "data-toggle": "modal"
 
+              .modal.modal-new-meeting.fade{id: event_modal_dom_id, :role => "dialog", :tabindex => "-1"}
+                .modal-dialog{:role => "document"}
+                  .modal-content
+                    .modal-header
+                      %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                        %span{"aria-hidden" => "true"} &#215;
+                      %h4.modal-title
+                        참여신청 안내
+
+                    .modal-body
+                      .meeting.panel.panel-default{ style: 'border: none; -webkit-box-shadow: none; box-shadow: none;' }
+                        .panel-body
+                          - if area.present?
+                            .meeting-area
+                              %span= area
+                          .meeting-body
+                            = event.summary
+                          %p.meeting-desc{ style: 'padding: 1em 0;' }
+                            - if event.description.present?
+                              = event.description
+                            - else
+                              준비 중입니다.
+                          .meeting-meta
+                            = human_datetime_f(event.dtstart)
+                            %span.text-nowrap
+                              = event.location
 
     .go-meetings-calendar
       = link_to "모임 캘린더 전체 보기", "https://calendar.google.com/calendar/embed?src=voiceofcourage2019%40gmail.com&ctz=Asia%2FSeoul", class: 'meetings-calendar', target: '_blank'
