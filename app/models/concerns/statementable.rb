@@ -116,7 +116,10 @@ module Statementable
     if @__cached_statements.blank?
       @__cached_statements = statements.to_a
     end
-    @__cached_statements.select { |statement| statement.agent_id == agent.id }.try(:first)
+    result = @__cached_statements.select { |statement| statement.agent_id == agent.id }.try(:first)
+    return result if result.present?
+
+    @__cached_statements = statements.to_a
   end
 
   def total_action_assignables

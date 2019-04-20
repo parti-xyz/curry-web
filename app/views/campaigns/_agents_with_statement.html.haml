@@ -33,7 +33,7 @@
               %strong= agent.name
               - if agent.category == '개인'
                 %small.text-muted= agent.organization
-              - if !statement.no_stancable?
+              - if !statement.try(:no_stancable?)
                 - if statement.try(:sure?)
                   %strong= statement.try(:stance).try(:text)
                   %span.text-muted 입장을 밝혔습니다.
