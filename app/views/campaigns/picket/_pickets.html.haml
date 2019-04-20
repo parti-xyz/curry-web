@@ -3,7 +3,8 @@
     .masonry-container.js-infinite-container
       - pickets.each do |picket|
         .campaign-picket.masonry-item.infinite-item
-          .control-btn 신고
+          .control-btn
+            = render 'reports/button', reportable: picket
           .user
             .user-image-sm{ style: "background-image:url(#{asset_url(picket.user_image)});" }
             .user-name
@@ -12,7 +13,8 @@
               = date_f picket.created_at
           .picket-message
             = smart_format picket.body
-          = link_to '더보기', picket_campaign_path(@campaign, picket_id: picket), remote: true, class: 'more'
+          = link_to '더보기', picket_campaign_path(@campaign, picket_id: picket), class: 'more phone-unfold'
+          = link_to '더보기', picket_campaign_path(@campaign, picket_id: picket), remote: true, class: 'more phone-fold'
           .picket-footer
             = render 'likes/button', likable: picket
             %li.fa.fa-comment
@@ -28,7 +30,8 @@
           =link_to picket_campaign_path(@campaign, picket_id: picket), remote: true do
             %section.section-campaign-picket-photo
               .picket-info
-                .control-btn 신고
+                .control-btn
+                  = render 'reports/button', reportable: @picket
                 .user
                   .user-image-sm{ style: "background-image:url(#{asset_url(picket.user_image)});" }
                   .user-name
@@ -65,7 +68,8 @@
     .masonry-container.js-infinite-container
       - pickets.each do |picket|
         .campaign-picket.masonry-item.infinite-item
-          .control-btn 신고
+          .control-btn
+            = render 'reports/button', reportable: @picket
           .user
             .user-image-sm{ style: "background-image:url(#{asset_url(picket.user_image)});" }
             .user-name

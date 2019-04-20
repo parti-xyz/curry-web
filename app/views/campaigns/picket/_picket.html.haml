@@ -7,14 +7,16 @@
       .modal-body
         %section.section-picket-more
           .picket-info
-            .control-btn 신고
+            .control-btn
+              = render 'reports/button', reportable: @picket
             .user
               .user-image-sm{ style: "background-image:url(#{asset_url(@picket.user_image)});" }
               .user-name
                 = @picket.user_nickname
               .picket-date
                 = date_f @picket.created_at
-      .picket-image{ style: "background-image:url(#{asset_url(@picket.image)});" }
+      - if @picket.image.present?
+        .picket-image{ style: "background-image:url(#{asset_url(@picket.image)});" }
       .modal-body
         %section.section-picket-more
           .picket-body

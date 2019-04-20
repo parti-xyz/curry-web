@@ -10,3 +10,5 @@
 
     - if reportable.class.name == 'Comment'
       = render 'comments/toxic_button', comment: reportable
+- else
+  = link_to '신고', '#', data: { confirm: '로그인하시기 바랍니다.' }
