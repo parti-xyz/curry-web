@@ -118,14 +118,28 @@ class ImageUploader < CarrierWave::Uploader::Base
       img.tap(&:auto_orient)
     end
   end
-
   process :fix_exif_rotation
 
+  def store_gps
+    if image?(self.file) and model.present? and model.respond_to?(:"init_gps_by_#{mounted_as}")
+      begin
+        gps = EXIFR::JPEG.new(self.file.file).gps
+        model.send(:"init_gps_by_#{mounted_as}", gps) if gps.present?
+      rescue EXIFR::MalformedJPEG => e
+      end
+    end
+  end
+  process :store_gps
 
   protected
 
   def secure_token(length=16)
     var = :"@#{mounted_as}_secure_token"
     model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.hex(length/2))
+  end
+
+  def image?(new_file)
+    return false unless new_file.present?
+    new_file.content_type.try(:start_with?, 'image')
   end
 end

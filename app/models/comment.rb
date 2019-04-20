@@ -28,8 +28,6 @@ class Comment < ApplicationRecord
   validate :commenter_should_be_present_if_user_is_blank
   after_validation :fetch_geocode, if: ->(obj){ obj.full_street_address.present? and obj.full_street_address_changed? }
 
-  before_save :save_gps
-
   attr_accessor :target_agent_id
 
   def user_nickname
@@ -63,20 +61,13 @@ class Comment < ApplicationRecord
       .distinct.size
   end
 
-  private
-
-  def save_gps
-    begin
-      if self.image.present? and self.full_street_address.blank?
-        gps = EXIFR::JPEG.new(self.image.file.path).gps
-        if gps.present?
-          self.latitude = gps.latitude
-          self.longitude = gps.longitude
-        end
-      end
-    rescue EXIFR::MalformedJPEG => e
-    end
+  def init_gps_by_image(gps)
+    return if gps.blank?
+    self.latitude = gps.latitude
+    self.longitude = gps.longitude
   end
+
+  private
 
   def commenter_should_be_present_if_user_is_blank
     if user.blank? and commenter_name.blank?
