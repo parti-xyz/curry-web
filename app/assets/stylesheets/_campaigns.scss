@@ -173,6 +173,13 @@
     }
   }
 
+  .phone-unfold {
+    display: none;
+    @media (max-width: $screen-xs-max) {
+      display: block;
+    }
+  }
+
   .medium-fold {
     display: block;
     @media (max-width: $screen-sm-max) {
@@ -1453,5 +1460,10 @@
         color: #717171;
       }
     }
+  }
+  .section-picket-header {
+    padding: 20px;
+    justify-content: space-between;
+    display: flex;
   }
 }
