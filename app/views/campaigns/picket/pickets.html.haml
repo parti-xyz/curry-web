@@ -24,3 +24,5 @@
           전체 팻말(#{@campaign.comments.count})
         .packet-count-user 내 팻말(3)
       = render 'campaigns/picket/pickets', template: @campaign.template, pickets: @pickets
+
+= render 'campaigns/picket/picket_button'
