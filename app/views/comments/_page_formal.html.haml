@@ -31,7 +31,7 @@
   .comments{ class: ('js-infinite-container' unless local_assigns[:finite]) }
     - comments.each do |comment|
       - empty_comments = false
-      .comment.infinite-item
+      .comment.infinite-item[comment]
         .comment-controls
           - if can? :destroy, comment
             = link_to '삭제', comment, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }

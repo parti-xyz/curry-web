@@ -2,7 +2,7 @@
   .campaign-pickets
     .masonry-container.js-infinite-container
       - pickets.each do |picket|
-        .campaign-picket.masonry-item.infinite-item
+        .campaign-picket.masonry-item.infinite-item[picket]
           .control-btn
             = render 'reports/button', reportable: picket
           .user
@@ -26,7 +26,7 @@
   .campaign-pickets
     .masonry-container.js-infinite-container
       - pickets.each do |picket|
-        .campaign-picket-photo.masonry-item.infinite-item
+        .campaign-picket-photo.masonry-item.infinite-item[picket]
           =link_to picket_campaign_path(@campaign, picket_id: picket), remote: true do
             %section.section-campaign-picket-photo
               .picket-info
@@ -67,9 +67,9 @@
   .campaign-pickets
     .masonry-container.js-infinite-container
       - pickets.each do |picket|
-        .campaign-picket.masonry-item.infinite-item
+        .campaign-picket.masonry-item.infinite-item[picket]
           .control-btn
-            = render 'reports/button', reportable: @picket
+            = render 'reports/button', reportable: picket
           .user
             .user-image-sm{ style: "background-image:url(#{asset_url(picket.user_image)});" }
             .user-name
