@@ -32,7 +32,7 @@ class Sign < ApplicationRecord
   def valid_signer
     if campaign.use_signer_real_name?
       if signer_real_name.blank?
-        errors.add(:signer_name, I18n.t('errors.messages.blank'))
+        errors.add(:signer_real_name, I18n.t('errors.messages.blank'))
       end
     else
       if user.blank? and signer_name.blank?
@@ -41,11 +41,11 @@ class Sign < ApplicationRecord
     end
 
     if campaign.use_signer_email? and signer_email.blank?
-      errors.add(:signer_name, I18n.t('errors.messages.blank'))
+      errors.add(:signer_email, I18n.t('errors.messages.blank'))
     end
 
-    if campaign.use_signer_address? and signer_address.blank?
-      errors.add(:signer_name, I18n.t('errors.messages.blank'))
+    if campaign.use_signer_address.required? and signer_address.blank?
+      errors.add(:signer_address, I18n.t('errors.messages.blank'))
     end
   end
 end

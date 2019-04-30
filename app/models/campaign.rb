@@ -1,6 +1,7 @@
 class Campaign < ApplicationRecord
   include Statementable
   include Likable
+  extend Enumerize
 
   TEMPLATES = %w( basic petition photo order map )
   TEMPLATES_SPECIAL = %w( special_map_with_assembly special_any_speech special_speech special_agenda )
@@ -136,6 +137,8 @@ class Campaign < ApplicationRecord
     ['홍철호', '경기', '김포시을',  '경기도 김포시 김포한강1로 247 해리움타운 508호'],
     ['황영철', '강원', '홍천군철원군화천군양구군인제군', '강원도 홍천군 홍천읍 진삼거리길 13 한샘빌딩 3층 후원회사무실']
   ]
+
+  enumerize :use_signer_address, in: [:unused, :required, :optional], default: :unused
 
   belongs_to :user
   belongs_to :project

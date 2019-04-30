@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190320224949) do
+ActiveRecord::Schema.define(version: 20190430094215) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -315,7 +315,6 @@ ActiveRecord::Schema.define(version: 20190320224949) do
     t.string   "social_image"
     t.boolean  "use_signer_real_name",                       default: false
     t.boolean  "use_signer_email",                           default: false
-    t.boolean  "use_signer_address",                         default: false
     t.string   "signer_real_name_title"
     t.string   "signer_email_title"
     t.string   "signer_address_title"
@@ -337,6 +336,7 @@ ActiveRecord::Schema.define(version: 20190320224949) do
     t.text     "message_to_agent",             limit: 65535
     t.integer  "previous_event_id"
     t.text     "css",                          limit: 65535
+    t.string   "use_signer_address",                         default: "unused"
     t.index ["area_id"], name: "index_campaigns_on_area_id", using: :btree
     t.index ["issue_id"], name: "index_campaigns_on_issue_id", using: :btree
     t.index ["project_id"], name: "index_campaigns_on_project_id", using: :btree

@@ -354,6 +354,10 @@ ko:
           disagree: 반대합니다
           unsure: 의견을 확인 중입니다
           partially: 일부 찬성합니다
+      use_signer_address:
+        unused: 제외
+        required: 필수
+        optional: 생략가능
     votefuture:
       stance:
         agree: 반영

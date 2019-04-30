@@ -17,12 +17,10 @@
     체크해 두면 이메일 주소를 받습니다.(선택사항)
 
 .form-group
-  .checkbox
-    %label
-      = f.check_box :use_signer_address
-      = Campaign.human_attribute_name("use_signer_address")
+  = f.label :use_signer_address
+  = f.select :use_signer_address, Campaign.use_signer_address.options, class: 'form-control'
   %p.help-block
-    체크해 두면 자택주소를 받습니다.(선택사항)
+    집주소를 받지 않거나(제외) 반드시 받거나(필수), 입력란은 보여주되 입력하지 않아도 됩니다.(생략가능)
 
 .form-group
   .checkbox

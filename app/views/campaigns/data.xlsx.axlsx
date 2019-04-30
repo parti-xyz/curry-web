@@ -7,7 +7,7 @@ if @campaign.confirm_privacy.present?
   if @campaign.use_signer_email?
     row_definition << [:user_email, '이메일']
   end
-  if @campaign.use_signer_address?
+  unless @campaign.use_signer_address.unused?
     row_definition << [:signer_address, '주소']
   end
   if @campaign.use_signer_phone?

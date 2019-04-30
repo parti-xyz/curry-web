@@ -13,7 +13,7 @@
         .form-group
           = f.label :signer_email
           = f.text_field :signer_email, class: 'form-control'
-      - if @sign.campaign.use_signer_address?
+      - unless @sign.campaign.use_signer_address.unused?
         .form-group
           = f.label :signer_address
           = f.text_field :signer_address, class: 'form-control'
