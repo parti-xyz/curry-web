@@ -1,5 +1,13 @@
 %legend.m-t 서명 상세 설정
 
+
+
+.form-group
+  = f.label :sign_title
+  = f.text_field :sign_title, class: 'form-control'
+  %p.help-block
+    서명 영역의 내용 입력폼 제목을 정합니다. 비워두면 적절히 표시됩니다.
+
 .form-group
   .checkbox
     %label
@@ -12,7 +20,7 @@
   = f.label :signer_real_name_title
   = f.text_field :signer_real_name_title, class: 'form-control'
   %p.help-block
-    서명 영역의 실명 제목을 정합니다. 비워두면 적절히 표시됩니다.
+    서명 영역의 실명 입력폼 제목을 정합니다. 비워두면 적절히 표시됩니다.
 
 .form-group
   .checkbox
@@ -26,7 +34,7 @@
   = f.label :signer_email_title
   = f.text_field :signer_email_title, class: 'form-control'
   %p.help-block
-    서명 영역의 이메일 제목을 정합니다. 비워두면 적절히 표시됩니다.
+    서명 영역의 이메일 입력폼 제목을 정합니다. 비워두면 적절히 표시됩니다.
 
 .form-group
   = f.label :use_signer_address
@@ -38,7 +46,7 @@
   = f.label :signer_address_title
   = f.text_field :signer_address_title, class: 'form-control'
   %p.help-block
-    서명 영역의 주소 제목을 정합니다. 비워두면 적절히 표시됩니다.
+    서명 영역의 주소 입력폼 제목을 정합니다. 비워두면 적절히 표시됩니다.
 
 .form-group
   = f.label :use_signer_phone
@@ -50,7 +58,7 @@
   = f.label :signer_phone_title
   = f.text_field :signer_phone_title, class: 'form-control'
   %p.help-block
-    서명 영역의 연락처 제목을 정합니다. 비워두면 적절히 표시됩니다.
+    서명 영역의 연락처 입력폼 제목을 정합니다. 비워두면 적절히 표시됩니다.
 
 .form-group
   = f.label :confirm_privacy
