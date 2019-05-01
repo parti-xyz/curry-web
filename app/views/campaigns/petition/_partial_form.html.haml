@@ -4,31 +4,55 @@
   .checkbox
     %label
       = f.check_box :use_signer_real_name
-      = Campaign.human_attribute_name("use_signer_real_name")
+      %strong= Campaign.human_attribute_name("use_signer_real_name")
   %p.help-block
     체크해 두면 실명을 받습니다.(선택사항)
+
+.form-group
+  = f.label :signer_real_name_title
+  = f.text_field :signer_real_name_title, class: 'form-control'
+  %p.help-block
+    서명 영역의 실명 제목을 정합니다. 비워두면 적절히 표시됩니다.
 
 .form-group
   .checkbox
     %label
       = f.check_box :use_signer_email
-      = Campaign.human_attribute_name("use_signer_email")
+      %strong= Campaign.human_attribute_name("use_signer_email")
   %p.help-block
     체크해 두면 이메일 주소를 받습니다.(선택사항)
+
+.form-group
+  = f.label :signer_email_title
+  = f.text_field :signer_email_title, class: 'form-control'
+  %p.help-block
+    서명 영역의 이메일 제목을 정합니다. 비워두면 적절히 표시됩니다.
 
 .form-group
   = f.label :use_signer_address
   = f.select :use_signer_address, Campaign.use_signer_address.options, class: 'form-control'
   %p.help-block
-    집주소를 받지 않거나(제외) 반드시 받거나(필수), 입력란은 보여주되 입력하지 않아도 됩니다.(생략가능)
+    주소를 받지 않거나(제외) 반드시 받거나(필수), 입력란은 보여주되 입력하지 않아도 됩니다.(생략가능)
+
+.form-group
+  = f.label :signer_address_title
+  = f.text_field :signer_address_title, class: 'form-control'
+  %p.help-block
+    서명 영역의 주소 제목을 정합니다. 비워두면 적절히 표시됩니다.
 
 .form-group
   .checkbox
     %label
       = f.check_box :use_signer_phone
-      = Campaign.human_attribute_name("use_signer_phone")
+      %strong= Campaign.human_attribute_name("use_signer_phone")
   %p.help-block
     체크해 두면 전화번호를 받습니다.(선택사항)
+
+.form-group
+  = f.label :signer_phone_title
+  = f.text_field :signer_phone_title, class: 'form-control'
+  %p.help-block
+    서명 영역의 전화번호 제목을 정합니다. 비워두면 적절히 표시됩니다.
 
 .form-group
   = f.label :confirm_privacy

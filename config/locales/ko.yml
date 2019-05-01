@@ -156,7 +156,7 @@ ko:
         use_signer_real_name: 실명 입력 여부
         use_signer_email: 이메일 입력 여부
         use_signer_address: 집주소 입력 여부
-        use_signer_phone: 전화번호 입력 여부
+        use_signer_phone: 연락처 입력 여부
       sign:
         signer_name: 이름
         signer_email: 이메일
