@@ -53,9 +53,9 @@
                     = f.label :signer_address, raw("#{campaign.signer_address_title.presence || t('activerecord.attributes.sign.signer_address')} #{'&middot; 선택입력' if campaign.use_signer_address.optional?}")
                     = f.text_field :signer_address, placeholder: '주소', class: 'form-control', data: { 'rule-required': campaign.use_signer_address.required? }
 
-                - if campaign.use_signer_phone?
+                - unless campaign.use_signer_phone.unused?
                   .form-group
-                    = f.label :signer_phone, campaign.signer_phone_title.presence || t('activerecord.attributes.sign.signer_phone')
+                    = f.label :signer_phone, raw("#{campaign.signer_phone_title.presence || t('activerecord.attributes.sign.signer_phone')} #{'&middot; 선택입력' if campaign.use_signer_phone.optional?}")
                     = f.text_field :signer_phone, placeholder: '연락처', class: 'form-control', data: { 'rule-required': true }
 
                 - if campaign.id == 29

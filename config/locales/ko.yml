@@ -155,7 +155,7 @@ ko:
         message_to_agent: 촉구하기 내용 본보기
         use_signer_real_name: 실명 입력 여부
         use_signer_email: 이메일 입력 여부
-        use_signer_address: 집주소 입력 여부
+        use_signer_address: 주소 입력 여부
         use_signer_phone: 연락처 입력 여부
       sign:
         signer_name: 이름
@@ -355,9 +355,13 @@ ko:
           unsure: 의견을 확인 중입니다
           partially: 일부 찬성합니다
       use_signer_address:
-        unused: 제외
-        required: 필수
-        optional: 생략가능
+        unused: 사용하지 않음
+        required: 필수 입력
+        optional: 옵션 입력
+      use_signer_phone:
+        unused: 사용하지 않음
+        required: 필수 입력
+        optional: 옵션 입력
     votefuture:
       stance:
         agree: 반영

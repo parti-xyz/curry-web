@@ -139,6 +139,7 @@ class Campaign < ApplicationRecord
   ]
 
   enumerize :use_signer_address, in: [:unused, :required, :optional], default: :unused
+  enumerize :use_signer_phone, in: [:unused, :required, :optional], default: :unused
 
   belongs_to :user
   belongs_to :project

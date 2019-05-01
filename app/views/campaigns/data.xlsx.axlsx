@@ -10,7 +10,7 @@ if @campaign.confirm_privacy.present?
   unless @campaign.use_signer_address.unused?
     row_definition << [:signer_address, '주소']
   end
-  if @campaign.use_signer_phone?
+  unless @campaign.use_signer_phone.unused?
     row_definition << [:signer_phone, '연락처']
   end
 end
