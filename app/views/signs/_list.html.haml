@@ -63,7 +63,7 @@
 
                 .form-group
                   = f.label :body, campaign.sign_title || Sign.human_attribute_name(:body)
-                  = f.text_field :body, placeholder: '나는...', class: 'form-control'
+                  = f.text_field :body, placeholder: (@campaign.sign_placeholder || '나는...'), class: 'form-control'
 
                 - if campaign.confirm_privacy.present?
                   %p{ style: "color: gray"}

@@ -141,6 +141,7 @@ ko:
         thanks_mention: 서명한 뒤에 표시되는 문구(선택)
         comment_enabled: 댓글 사용 여부
         sign_title: 한마디 입력란 안내문구
+        sign_placeholder: 한마디 입력란 예시문구
         signer_real_name_title: 실명 입력란 안내문구
         signer_email_title: 이메일 입력란 안내문구
         signer_phone_title: 연락처 입력란 안내문구

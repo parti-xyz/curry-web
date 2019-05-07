@@ -1,12 +1,16 @@
 %legend.m-t 서명 상세 설정
 
-
-
 .form-group
   = f.label :sign_title
   = f.text_field :sign_title, class: 'form-control'
   %p.help-block
     서명 영역의 내용 입력폼 제목을 정합니다. 비워두면 적절히 표시됩니다.
+
+.form-group
+  = f.label :sign_placeholder
+  = f.text_field :sign_placeholder, class: 'form-control'
+  %p.help-block
+    서명 영역의 내용 입력폼 예시글을 정합니다. 비워두면 적절히 표시됩니다.
 
 .form-group
   .checkbox
