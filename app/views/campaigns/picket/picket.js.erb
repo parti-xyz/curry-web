@@ -1,3 +1,7 @@
+<% if @campaign.template == 'map' %>
+var picket_map = '<%= j(render "campaigns/picket/picket_map") %>';
+$($('.picket-map-more')[0]).replaceWith(picket_map);
+<% else %>
 <% modal_dom_id = "picket-modal-#{SecureRandom.uuid}" %>
 var partial_picket_modal = '<%= j(render "campaigns/picket/picket", modal_dom_id: modal_dom_id) %>'
 $('body').append(partial_picket_modal);
@@ -7,3 +11,4 @@ $('#<%= modal_dom_id %>').on('hidden.bs.modal',
     $(this).remove();
 });
 parti_partial$($('#<%= modal_dom_id %>'));
+<% end %>

@@ -131,6 +131,23 @@ class CommentsController < ApplicationController
     render layout: nil
   end
 
+  def show
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: {
+            id: @comment.id,
+            created_at: @comment.created_at,
+            nickname: @comment.user_nickname,
+            image: @comment.image_url(:sm),
+            latitude: @comment.latitude,
+            longitude: @comment.longitude,
+            body: @comment.body
+          }.to_json
+      }
+    end
+  end
+
   private
 
   def comment_params

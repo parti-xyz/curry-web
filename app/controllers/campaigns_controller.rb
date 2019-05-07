@@ -161,6 +161,8 @@ class CampaignsController < ApplicationController
     render_404 and return unless %(basic photo map).include?(@campaign.template)
     if params[:tag].present?
       @pickets = @campaign.comments.tagged_with(params[:tag]).recent.page(params[:page]).per(9)
+    elsif params[:map_bounds].present?
+      @pickets = @campaigns.comments.select{ |c| c.latitude.present? }
     else
       @pickets = @campaign.comments.recent.page(params[:page]).per(9)
     end

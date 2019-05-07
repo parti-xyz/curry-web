@@ -17,12 +17,16 @@
         .picket-tag
           + #{tag_more}
 
-  %section.section-pickets
-    .container-picket
-      .campaign-pickets-info
-        .packet-count-all
-          전체 팻말(#{@campaign.comments.count})
-        .packet-count-user 내 팻말(3)
-      = render 'campaigns/picket/pickets', template: @campaign.template, pickets: @pickets
+  %section
+  - if @campaign.template == 'map'
+    = render 'campaigns/picket/section_map'
+  - else
+    %section.section-pickets
+      .container-picket
+        .campaign-pickets-info
+          .packet-count-all
+            전체 팻말(#{@campaign.comments.count})
+          .packet-count-user 내 팻말(3)
+        = render 'campaigns/picket/pickets', template: @campaign.template, pickets: @pickets
 
 = render 'campaigns/picket/picket_button'
