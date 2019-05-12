@@ -28,6 +28,8 @@ class CampaignsController < ApplicationController
     if @campaign.template == 'special_speech'
       @speeches = @campaign.speeches.recent.limit(browser.device.mobile? ? 4 : 8)
       @hero_speech = @campaign.speeches.sample
+    elsif %w(basic photo map).include? @campaign.template
+      redirect_to pickets_campaign_path(@campaign)
     end
 
     if params[:mode] == 'widget'
@@ -155,6 +157,11 @@ class CampaignsController < ApplicationController
     @story = Story.find params[:story_id]
     @story.increment!(:views_count)
     render 'campaigns/story'
+  end
+
+  def contents
+    render_404 and return unless %(basic photo map).include?(@campaign.template)
+    render template: "campaigns/picket/contents"
   end
 
   def pickets

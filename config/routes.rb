@@ -100,6 +100,7 @@ Rails.application.routes.draw do
       get 'comments'
       get 'stories'
       get 'signers'
+      get 'contents'
       get 'pickets'
       get 'stories/:story_id', action: 'story', as: :story
       get 'picket'

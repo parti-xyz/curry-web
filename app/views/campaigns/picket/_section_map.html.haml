@@ -1,11 +1,10 @@
 - google_map_apikey = 'AIzaSyBmxQGhxC-UzPzxIMlE9Sy09Dv9zUtiiW4'
 %section.section-map-panel
-  %section.section-right
-    .picket-map-more
+  / %section.section-right
+  /   .picket-map-more
 
-  %section.section-left.picket-map
-    / { style: 'width: 600px; height: 600px; margin: 0 auto' }
-    #map{ style: 'width: 100%; height: 600px' }
+  %section.picket-map
+    #map{ style: 'width: 100%; height: 100%' }
     %script{:src => "https://maps.googleapis.com/maps/api/js?key=#{google_map_apikey}"}
 
 
