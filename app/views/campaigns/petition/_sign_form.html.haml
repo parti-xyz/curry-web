@@ -66,8 +66,10 @@
 
               .form-group
                 = f.label :body, @campaign.sign_title || Sign.human_attribute_name(:body)
-                ~ f.text_area :body, placeholder: (@campaign.sign_placeholder || '나는...'), class: 'form-control', rows: 5
-
+                ~ f.text_area :body, class: 'form-control', rows: 5
+                - if @campaign.sign_placeholder.present?
+                  %p.help-text
+                    = simple_format(@campaign.sign_placeholder)
               - if @campaign.confirm_privacy.present?
                 %p{ style: "color: gray"}
                   참여하시면 본 서명의

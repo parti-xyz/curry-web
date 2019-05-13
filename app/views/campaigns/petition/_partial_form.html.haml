@@ -8,7 +8,7 @@
 
 .form-group
   = f.label :sign_placeholder
-  = f.text_field :sign_placeholder, class: 'form-control'
+  ~ f.text_area :sign_placeholder, class: 'form-control'
   %p.help-block
     서명 영역의 내용 입력폼 예시글을 정합니다. 비워두면 적절히 표시됩니다.
 
