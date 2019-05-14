@@ -99,6 +99,7 @@ Rails.application.routes.draw do
       get 'comments'
       get 'stories'
       get 'signers'
+      get 'stories/:story_id', action: 'story', as: :story
     end
   end
   resources :polls do

@@ -1,0 +1,33 @@
+= render "campaigns/#{campaign.template}/section_cover"
+= render "campaigns/#{campaign.template}/section_tab", menu: 'story'
+
+%section.section-panel
+  = render "campaigns/#{campaign.template}/section_right"
+
+  %section.section-left
+    %section.section-story
+      .section-title.clearfix
+        %span.title-text 캠페인 소식을 만나 보세요!
+        - if can?(:create_story, campaign)
+          = link_to '작성', new_story_path(story: { storiable_id: campaign.id, storiable_type: 'Campaign' }), class: 'btn btn-primary', style: 'float: right'
+      .stories
+        - campaign.stories.recent.each do |story|
+          .story
+            .story-header
+              .user-image-sm{ style: "background-image:url(#{asset_url(campaign.user.image_url(:md))});" }
+              .user-nickname= campaign.user.nickname
+              .date= date_f story.published_at
+            = link_to story_campaign_path(story_id: story.id) do
+              .story-title= story.title
+              .story-body
+                = excerpt(story.body, length: 200)
+            .story-footer
+              = render 'likes/button', likable: story
+              - if story.comment_enabled
+                &nbsp;
+                / = link_to story, class: 'comments-count' do
+                /   %i.fa.fa-comment-o
+                /   댓글
+                /   = story.comments_count
+
+= local_assigns[:bottom_section]

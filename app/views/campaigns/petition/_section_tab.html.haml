@@ -2,46 +2,25 @@
   %ul.menu
     %li{ class: [menu == 'content' && "active"] }
       .menu-item
-        - if menu == 'content'
-          내용
-        - else
-          = link_to '내용', campaign_path
+        = link_to '내용', campaign_path
     - if @campaign.agents.any?
       %li{ class: [menu == 'order' && "active"]  }
         .menu-item
-          - if menu == 'order'
-            촉구
-          - else
-            = link_to '촉구', orders_campaign_path
+          = link_to '촉구', orders_campaign_path
     %li{ class: [menu == 'comment' && "active"]  }
       .menu-item
-        - if menu == 'comment'
+        = link_to comments_campaign_path do
           의견
           - if @campaign.comments.any?
             %span.count
               = number_with_limit(@campaign.comments.size, 1000)
-        - else
-          = link_to comments_campaign_path do
-            의견
-            - if @campaign.comments.any?
-              %span.count
-                = number_with_limit(@campaign.comments.size, 1000)
     %li{ class: [menu == 'story' && "active"] }
       .menu-item
-        - if menu == 'story'
-          소식
-        - else
-          = link_to '소식', stories_campaign_path
+        = link_to '소식', stories_campaign_path
     %li{ class: [menu == 'signer' && "active"]  }
       .menu-item
-        - if menu == 'singer'
+        = link_to signers_campaign_path do
           서명
           - if @campaign.signs.any?
             %span.count
               = number_with_limit(@campaign.signs.size, 1000)
-        - else
-          = link_to signers_campaign_path do
-            서명
-            - if @campaign.signs.any?
-              %span.count
-                = number_with_limit(@campaign.signs.size, 1000)

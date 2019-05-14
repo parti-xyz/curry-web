@@ -390,6 +390,23 @@
     font-weight: 500;
     @extend .typo-h5;
     color: $gray-title;
+
+    > .title-text {
+      vertical-align: text-top;
+    }
+  }
+
+   section > .section-title-back {
+    margin-bottom: 32px;
+    > a {
+      font-weight: normal;
+      font-size: $font-size-medium;
+      color: $gray-caption;
+
+      > .title-text {
+        vertical-align: text-top;
+      }
+    }
   }
 
   .section-body {

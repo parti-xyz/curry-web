@@ -18,6 +18,7 @@ class StoriesController < ApplicationController
 
   def show
     @project = @story.storiable if @story.storiable.is_a? Project
+    @campaign = @story.storiable if @story.storiable.is_a? Campaign
     @story.increment!(:views_count)
   end
 

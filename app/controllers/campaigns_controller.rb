@@ -138,6 +138,12 @@ class CampaignsController < ApplicationController
     render template: "campaigns/#{@campaign.template}/signers"
   end
 
+  def story
+    @story = Story.find params[:story_id]
+    @story.increment!(:views_count)
+    render 'campaigns/story'
+  end
+
   private
 
   def campaign_params
