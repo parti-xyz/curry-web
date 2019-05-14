@@ -11,8 +11,13 @@
         = @picket.user_nickname
       .picket-date
         = date_f @picket.created_at
-  - if @picket.image.present?
+  - if @picket.image_url.present?
     .picket-image{ style: "background-image:url(#{asset_url(@picket.image)});" }
+  - if @picket.latitude.present? and @picket.longitude.present?
+    .picket-map-location
+      #picket-map{ style: 'width: 100%; height: 100%' }
+      - google_map_apikey = 'AIzaSyBmxQGhxC-UzPzxIMlE9Sy09Dv9zUtiiW4'
+      %script{:src => "https://maps.googleapis.com/maps/api/js?key=#{google_map_apikey}"}
   .picket-body
     = @picket.body
   .picket-tags
@@ -41,3 +46,20 @@
       %p 등록된 댓글이 없습니다.
   - else
     = render 'comments/picket', commentable: @picket, comments: @picket.comments.recent.page(1), dom_id: page_dom_id
+
+- if @picket.latitude.present? and @picket.longitude.present?
+  = content_for :script do
+    :javascript
+      var picket_map = new google.maps.Map(document.getElementById('picket-map'),
+        {
+          zoom: 13,
+          center: new google.maps.LatLng(#{@picket.latitude}, #{@picket.longitude}),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+      );
+      var picket_marker = new google.maps.Marker(
+        {
+          position: new google.maps.LatLng(#{@picket.latitude}, #{@picket.longitude}),
+          map: picket_map,
+          icon: '#{image_url("picket.png")}'
+        });

@@ -22,16 +22,16 @@
   - unless pickets.per(9).last_page?
     = link_to '', pickets_campaign_path(@campaign, page: pickets.next_page), class: 'infinite-more-link'
 
-- elsif template == "photo"
+- elsif template == "photo" or template == "map"
   .campaign-pickets
     .masonry-container.js-infinite-container
       - pickets.each do |picket|
         .campaign-picket-photo.masonry-item.infinite-item[picket]
-          =link_to picket_campaign_path(@campaign, picket_id: picket), remote: true do
-            %section.section-campaign-picket-photo
-              .picket-info
-                .control-btn
-                  = render 'reports/button', reportable: @picket
+          %section.section-campaign-picket-photo
+            .picket-info
+              .control-btn
+                = render 'reports/button', reportable: @picket
+              = link_to picket_campaign_path(@campaign, picket_id: picket), remote: true do
                 .user
                   .user-image-sm{ style: "background-image:url(#{asset_url(picket.user_image)});" }
                   .user-name
@@ -40,26 +40,27 @@
                     = date_f picket.created_at
                 .picket-message
                   = smart_format picket.body
-              .cover-image{ style: "background-color: #777;" }
-                - uid_header_bg = build_uid
-                - uid_alpha_linear = build_uid
-                - uid_mask = build_uid
-                .overlay{ style: 'position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3);' }
-                %svg{height: "100%", width: "100%", preserveAspectRatio: "xMidYMid slice", version: "1.1", xmlns: "http://www.w3.org/2000/svg"}
-                  %defs
-                    %lineargradient{ id: uid_alpha_linear, x0: "10%", x1: "90%", y1: "0%", y2: "100%" }
-                      %stop{:offset => "0%", "stop-color" => "#ffffff", "stop-opacity" => "1"}
-                      %stop{:offset => "70%", "stop-color" => "#aaaaaa", "stop-opacity" => "0.7"}
-                    %mask{ id: uid_mask }
-                      %rect{:fill => "url(##{uid_alpha_linear})", :height => "100%", :width => "100%", :x => "0", :y => "0"}
-                  %filter{ id: uid_header_bg }
-                    %fegaussianblur{in: "SourceGraphic", stdDeviation: "0.5"}
-                  %image{externalResourcesRequired: "true", height: "100%", width: "100%", preserveAspectRatio: "xMidYMid slice", style: "filter:url(##{uid_header_bg})", mask: "url(##{uid_mask})", x: "0", y: "0", "xlink:href": (picket.image.sm.url.present? ? picket.image.sm.url : asset_url("default-image.png")), "xmlns:xlink": "http://www.w3.org/1999/xlink"}
-            / .picket-photo{ style: "background-image:url(#{picket.image.sm})" }
-            .picket-footer
-              = render 'likes/button', likable: picket
-              %li.fa.fa-comment
-              = picket.comments.count
+            .cover-image{ style: "background-color: #777;" }
+              - uid_header_bg = build_uid
+              - uid_alpha_linear = build_uid
+              - uid_mask = build_uid
+              .overlay{ style: 'position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3);' }
+              %svg{height: "100%", width: "100%", preserveAspectRatio: "xMidYMid slice", version: "1.1", xmlns: "http://www.w3.org/2000/svg"}
+                %defs
+                  %lineargradient{ id: uid_alpha_linear, x0: "10%", x1: "90%", y1: "0%", y2: "100%" }
+                    %stop{:offset => "0%", "stop-color" => "#ffffff", "stop-opacity" => "1"}
+                    %stop{:offset => "70%", "stop-color" => "#aaaaaa", "stop-opacity" => "0.7"}
+                  %mask{ id: uid_mask }
+                    %rect{:fill => "url(##{uid_alpha_linear})", :height => "100%", :width => "100%", :x => "0", :y => "0"}
+                %filter{ id: uid_header_bg }
+                  %fegaussianblur{in: "SourceGraphic", stdDeviation: "0.5"}
+                %image{externalResourcesRequired: "true", height: "100%", width: "100%", preserveAspectRatio: "xMidYMid slice", style: "filter:url(##{uid_header_bg})", mask: "url(##{uid_mask})", x: "0", y: "0", "xlink:href": (picket.image.sm.url.present? ? picket.image.sm.url : asset_url("default-image.png")), "xmlns:xlink": "http://www.w3.org/1999/xlink"}
+          .picket-footer
+            = link_to '더보기', picket_campaign_path(@campaign, picket_id: picket), class: 'more phone-unfold'
+            = link_to '더보기', picket_campaign_path(@campaign, picket_id: picket), remote: true, class: 'more phone-fold'
+            = render 'likes/button', likable: picket
+            %li.fa.fa-comment
+            = picket.comments.count
   - unless pickets.per(9).last_page?
     = link_to '', pickets_campaign_path(@campaign, page: pickets.next_page), class: 'infinite-more-link'
 

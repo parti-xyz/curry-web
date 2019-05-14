@@ -47,7 +47,7 @@
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(pickets[i].latitude, pickets[i].longitude),
         map: map,
-        // icon: circle
+        icon: '#{image_url('picket.png')}'
       });
       bounds.extend(marker.position);
       google.maps.event.addListener(marker, 'click',

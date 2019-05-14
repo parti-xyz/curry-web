@@ -507,6 +507,7 @@
   .section-sign-btn {
     background-color: #f0f0f0;
     width: 100%;
+    z-index: 100;
     &.stuck {
       position:fixed;
       bottom: 0;
@@ -1307,6 +1308,9 @@
             width: 100%;
             height: 100%;
             .control-btn {
+              a {
+                color: #424242;
+              }
               text-align: center;
               position: absolute;
               top: 12px;
@@ -1360,6 +1364,7 @@
           }
         }
         .picket-footer {
+          color: #717171;
           padding: 20px;
           background-color: #ffffff;
           .liked {
@@ -1367,6 +1372,9 @@
           }
           .not-yet-liked {
             display: inline;
+          }
+          a {
+            color: #717171;
           }
         }
       }
@@ -1404,6 +1412,10 @@
         top: -43px;
         margin-bottom: -98px;
     }
+    .picket-map-location {
+      width: 100%;
+      height: 495px;
+    }
   }
   .section-picket-more {
     margin: 12px 40px 40px;
@@ -1418,6 +1430,9 @@
         height: 24px;
         line-height: 24px;
         border: solid 1px #c3c3c3;
+        a {
+          color: #717171;
+        }
       }
       .user {
         align-items: center;
@@ -1440,6 +1455,15 @@
           color: #717171;
         }
       }
+    }
+    .picket-image {
+      width: 100%;
+      height: 495px;
+      background-size: cover;
+    }
+    .picket-map-location {
+      width: 100%;
+      height: 495px;
     }
     .picket-body {
       font-size: 16px;
@@ -1473,6 +1497,9 @@
       letter-spacing: -0.4px;
       li {
         color: #bdbdbd;
+      }
+      a {
+        color: #717171;
       }
       .not-yet-liked {
         display: inline;
@@ -1624,5 +1651,8 @@
     padding: 20px;
     justify-content: space-between;
     display: flex;
+    a {
+      color: #717171;
+    }
   }
 }

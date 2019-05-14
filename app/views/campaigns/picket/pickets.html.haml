@@ -5,6 +5,9 @@
 
   = render 'campaigns/picket/section_tab', menu: 'picket'
 
+  - if @campaign.template == 'map'
+    = render 'campaigns/picket/section_map'
+
   %section.section-picket-tags.medium-fold
     .picket-tags
       - @campaign.comments.tag_counts_on(:tags).order("taggings_count desc, name").take(5).each do |tag|
@@ -17,16 +20,14 @@
         .picket-tag
           + #{tag_more}
 
-  %section
-  - if @campaign.template == 'map'
-    = render 'campaigns/picket/section_map'
-  - else
-    %section.section-pickets
-      .container-picket
-        .campaign-pickets-info
-          .packet-count-all
-            전체 팻말(#{@campaign.comments.count})
-          .packet-count-user 내 팻말(3)
-        = render 'campaigns/picket/pickets', template: @campaign.template, pickets: @pickets
+  %section.section-pickets
+    .container-picket
+      .campaign-pickets-info
+        .packet-count-all
+          전체 팻말(#{@campaign.comments.count})
+        - if user_signed_in?
+          .packet-count-user
+            내 팻말(#{@campaign.comments.where(user: user).count})
+      = render 'campaigns/picket/pickets', template: @campaign.template, pickets: @pickets
 
 = render 'campaigns/picket/picket_button'

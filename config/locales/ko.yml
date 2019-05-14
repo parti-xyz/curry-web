@@ -228,6 +228,7 @@ ko:
         commenter_name: 이름
         commenter_email: 이메일(선택)
         image: 사진
+        full_street_address: 주소(선택)
         body: 내용
         tag_list: 태그(선택)
       article:
