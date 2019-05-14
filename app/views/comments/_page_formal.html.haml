@@ -3,8 +3,10 @@
 -#  target_agent_id
 -#  sort
 
+- empty_comments = comments.blank?
+
 %div{ id: local_assigns[:dom_id] }
-  - unless local_assigns[:finite]
+  - if !local_assigns[:finite] and !empty_comments
     .comment-filter
       .filters
         - filter_base_params = { commentable_id: commentable.id, commentable_type: 'Campaign', page_dom_id: local_assigns[:dom_id], partial: 'campaigns-petition-comments_page' }
@@ -23,11 +25,12 @@
             = link_to '최신순', comments_path(filter_sort_params.merge(sort: :recent)), remote: true, class: "filter #{'active' if params[:sort] == 'recent' or params[:sort].blank?}", 'data-disable-with': '로딩 중...'
             = link_to '공감순', comments_path(filter_sort_params.merge(sort: :merged_likes_count)), remote: true, class: "filter #{'active' if params[:sort] == 'merged_likes_count'}", 'data-disable-with': '로딩 중...'
 
-            - if commentable.respond_to? :agents
+            - if commentable.respond_to?(:agents) and commentable.agents.any?
               - filter_target_params = filter_base_params.merge(sort: params[:sort], format: :js)
               = select_tag "target_agent_id", options_for_select([['촉구대상별 보기', '', { 'data-url':  comments_path(filter_target_params) } ]] + commentable.agents.map{ |agent| [ agent.name, agent.id, { 'data-url':  comments_path(filter_target_params.merge(target_agent_id: agent.id)), 'selected': (params[:target_agent_id] == agent.id.to_s) } ] }), class: 'filter filter-select-agent js-select-link', 'data-select-link-remote': 'true'
   .comments{ class: ('js-infinite-container' unless local_assigns[:finite]) }
     - comments.each do |comment|
+      - empty_comments = false
       .comment.infinite-item
         .comment-controls
           - if can? :destroy, comment
@@ -65,5 +68,10 @@
               = raw comment.body
             .comment-footer
               = render 'likes/button', likable: comment
+    - if empty_comments
+      .no-comments
+        = image_tag 'no-comment.png'
+        .no-comments-message 댓글이 없습니다. 첫 댓글을 남겨주세요.
+
   - if !comments.last_page? and !local_assigns[:finite]
     = link_to '', comments_path(commentable_id: commentable.id, commentable_type: 'Campaign', page: comments.next_page, comment_user_id: params[:comment_user_id], sort: params[:sort], page_dom_id: local_assigns[:dom_id], partial: 'campaigns-petition-comments_page'), class: "infinite-more-link"

@@ -316,4 +316,13 @@
     background-size: cover;
     background-position: center;
   }
+  .no-comments {
+    text-align: center;
+    > img {
+      width: 64px;
+    }
+    > .no-comments-message {
+      margin-top: 20px;
+    }
+  }
 }
