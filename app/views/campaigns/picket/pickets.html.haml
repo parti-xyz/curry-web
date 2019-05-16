@@ -27,7 +27,7 @@
           전체 팻말(#{@campaign.comments.count})
         - if user_signed_in?
           .packet-count-user
-            내 팻말(#{@campaign.comments.where(user: user).count})
+            내 팻말(#{@campaign.comments.where(user: current_user).count})
       = render 'campaigns/picket/pickets', template: @campaign.template, pickets: @pickets
 
 = render 'campaigns/picket/picket_button'
