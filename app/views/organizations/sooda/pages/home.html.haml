@@ -67,27 +67,27 @@
         이 들었나요?
     .section-desc 내가 겪었던 차별 경험, 그때 받았던 느낌을 자유롭게 써주세요.
 
-    .panel.panel-default.panel-guide
-      .panel-body
-        .guide-meta
-          .guide-label 등록 가이드
-        %p
-          ① 나는
-          %span.under-line
-          할 때
-          %span.under-line
-          한 감정을 느꼈어
-        %p
-          ② 그때 나는
-          %span.under-line
-          했는데,
-          혹은
-          %span.under-line
-          하지 못했는데
-        %p{ style: 'margin-bottom: 0;'}
-          ③ 왜나면
-          %span.under-line
-          했기 때문이야
+    / .panel.panel-default.panel-guide
+    /   .panel-body
+    /     .guide-meta
+    /       .guide-label 등록 가이드
+    /     %p
+    /       ① 나는
+    /       %span.under-line
+    /       할 때
+    /       %span.under-line
+    /       한 감정을 느꼈어
+    /     %p
+    /       ② 그때 나는
+    /       %span.under-line
+    /       했는데,
+    /       혹은
+    /       %span.under-line
+    /       하지 못했는데
+    /     %p{ style: 'margin-bottom: 0;'}
+    /       ③ 왜나면
+    /       %span.under-line
+    /       했기 때문이야
 
     = link_to "내 경험 공유하기", slug_campaign_path(campaign_slug), class: 'btn btn-primary-less-dark btn-action', target: '_blank'
 
@@ -95,7 +95,7 @@
 
     - comments = []
     - if commentable.present?
-      - comments = commentable.comments.where.not(id: commentable.comments.joins(:reports).group('reports.reportable_id').uniq).recent.first(3)
+      - comments = commentable.comments.where.not(id: commentable.comments.joins(:reports).group('reports.reportable_id').uniq).recent.first(20).sample(5)
       - if comments.any?
         .section-subtitle 최신 글
         - Rails.cache.delete('sooda-comments') if params[:clear_cache] = 'ok'
@@ -140,7 +140,7 @@
       %br
       타인의 이야기에 관심이 있는 누구나 참여할 수 있습니다.
     .section-subtitle 최신 모임
-    .row
+    .row.masonry-container
       - Rails.cache.delete('sooda-home') if params[:clear_cache] = 'ok'
       - cache "sooda-home", race_condition_ttl: 30.seconds, expires_in: 10.minutes do
         - calendars = nil
@@ -154,7 +154,7 @@
               - area = geo_result.try(:state_code) || ''
               - event_modal_dom_id = "event-modal-#{SecureRandom.uuid}"
 
-              .col-xs-12.col-sm-6{ class: ('col-sm-offset-3' if calendars.length <= 1) }
+              .col-xs-12.col-sm-6{ class: ('col-sm-offset-3' if calendar.events.length <= 1) }
                 .meeting.panel.panel-default
                   .panel-body
                     - if area.present?
@@ -163,7 +163,7 @@
                     .meeting-body
                       = event.summary
                     .meeting-meta
-                      = human_datetime_f(event.dtstart)
+                      = human_datetime_f(event.dtstart.in_time_zone)
                       %span.text-nowrap
                         = event.location
                     .meeting-join
