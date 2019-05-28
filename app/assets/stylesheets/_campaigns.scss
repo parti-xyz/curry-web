@@ -1207,7 +1207,13 @@
   }
   .section-pickets {
     background: #f0f0f0;
-    padding-bottom: 20px;
+    // padding-bottom: 20px;
+    .waiting-pickets {
+      padding: 20px;
+      text-align: center;
+      background-color: white;
+      color: #717171;
+    }
     .campaign-pickets-info {
       padding: 15px 8px 0 0;
       width: 100%;
@@ -1221,9 +1227,11 @@
       letter-spacing: 0.2px;
       .packet-count-all {
         font-weight: 500;
+        color: #717171;
       }
       .packet-count-user {
         margin-left: 18px;
+        color: #717171;
       }
     }
     .campaign-pickets {
@@ -1315,7 +1323,7 @@
               position: absolute;
               top: 12px;
               right: 12px;
-              width: 27px;
+              padding: 0 5px;
               height: 18px;
               font-size: 11px;
               letter-spacing: -0.4px;

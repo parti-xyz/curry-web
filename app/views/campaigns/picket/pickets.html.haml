@@ -19,15 +19,19 @@
       - if tag_more > 0
         .picket-tag
           + #{tag_more}
-
-  %section.section-pickets
-    .container-picket
-      .campaign-pickets-info
-        .packet-count-all
-          전체 팻말(#{@campaign.comments.count})
-        - if user_signed_in?
-          .packet-count-user
-            내 팻말(#{@campaign.comments.where(user: current_user).count})
-      = render 'campaigns/picket/pickets', template: @campaign.template, pickets: @pickets
+  - if @pickets.count == 0
+    %section.waiting-pickets
+      = image_tag('no-comment')
+      %p 아직 등록된 팻말이 없습니다.
+  - else
+    %section.section-pickets
+      .container-picket
+        .campaign-pickets-info
+          = link_to pickets_campaign_path(@campaign), class: 'packet-count-all' do
+            전체 팻말(#{@campaign.comments.count})
+          - if user_signed_in?
+            = link_to pickets_campaign_path(@campaign, pickets_user_id: current_user), class: 'packet-count-user' do
+              내 팻말(#{@campaign.comments.where(user: current_user).count})
+        = render 'campaigns/picket/pickets', template: @campaign.template, pickets: @pickets
 
 = render 'campaigns/picket/picket_button'

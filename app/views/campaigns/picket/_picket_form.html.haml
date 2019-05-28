@@ -23,7 +23,7 @@
         = f.label :body, '나도 한마디'
         ~ f.text_area :body, placeholder: '여러분의 목소리를 들려주세요', class: 'form-control input-lg', data: { 'rule-required': true }
       .form-group
-        = f.text_field :tag_list, placeholder: @campaign.title.split(' ').shuffle.take(2).join(', '), class: 'form-control'
+        = f.text_field :tag_list, placeholder: '태그, 태그를 입력해주세요', class: 'form-control'
       .form-group
         = f.submit '등록', class: 'btn btn-primary btn-lg btn-block'
 

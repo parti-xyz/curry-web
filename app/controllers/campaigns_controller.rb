@@ -170,6 +170,8 @@ class CampaignsController < ApplicationController
       @pickets = @campaign.comments.tagged_with(params[:tag]).recent.page(params[:page]).per(9)
     elsif params[:map_bounds].present?
       @pickets = @campaigns.comments.select{ |c| c.latitude.present? }
+    elsif params[:pickets_user_id].present?
+      @pickets = @campaign.comments.where(user_id: params[:pickets_user_id]).recent.page(params[:page]).per(9)
     else
       @pickets = @campaign.comments.recent.page(params[:page]).per(9)
     end
