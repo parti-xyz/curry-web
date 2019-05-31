@@ -7,7 +7,7 @@ $('#<%= modal_dom_id %>').on('hidden.bs.modal',
     $(this).remove();
 });
 
-<% if @campaign.template == "map" %>
+<% if @campaign.template == "map" and @picket.latitude.present? and @picket.longitude.present? %>
   var picket_map = new google.maps.Map(document.getElementById('picket-map'),
     {
       zoom: 13,

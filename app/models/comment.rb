@@ -26,6 +26,7 @@ class Comment < ApplicationRecord
   validates :body, presence: true
   validates :commenter_email, format: { with: Devise.email_regexp }, if: 'commenter_email.present?'
   validate :commenter_should_be_present_if_user_is_blank
+  validate :photo_and_map_campaign_should_check_image_attachment
   after_validation :fetch_geocode, if: ->(obj){ obj.full_street_address.present? and obj.full_street_address_changed? }
 
   attr_accessor :target_agent_id
@@ -75,9 +76,16 @@ class Comment < ApplicationRecord
     end
   end
 
+  def photo_and_map_campaign_should_check_image_attachment
+    if %w(photo map).include? commentable.try(:template) and image.blank?
+      errors.add(:image, '사진을 선택하세요')
+    end
+  end
+
   def fetch_geocode
     self.latitude = nil
     self.longitude = nil
     geocode
   end
+
 end
