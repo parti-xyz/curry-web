@@ -12,7 +12,7 @@
           = link_to '작성', new_story_path(story: { storiable_id: @campaign.id, storiable_type: 'Campaign' }), class: 'btn btn-primary', style: 'float: right'
       - if @campaign.stories.count == 0
         .waiting-stories
-          = image_tag('campaigns/campaign-waiting-stories')
+          = image_tag('campaigns/campaign-waiting-stories.png')
           %p 등록된 소식이 없습니다.
       .stories
         - @campaign.stories.recent.each do |story|

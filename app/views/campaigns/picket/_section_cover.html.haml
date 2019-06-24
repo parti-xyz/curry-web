@@ -61,6 +61,11 @@
         .picket-day-to-left
           #{(Time.now - @campaign.created_at).to_i / 1.day}일 지남
 
+    .campaign-body.summary
+      = raw @campaign.body.split(/\r\n/).take(4).join("\r\n")
+    .campaign-body{ style: "display:none;" }
+      = raw @campaign.body
+
   .cover-image{ style: "background-color: #777;" }
     - uid_header_bg = build_uid
     - uid_alpha_linear = build_uid
@@ -76,3 +81,9 @@
       %filter{ id: uid_header_bg }
         %fegaussianblur{in: "SourceGraphic", stdDeviation: "3"}
       %image{externalResourcesRequired: "true", height: "100%", width: "100%", preserveAspectRatio: "xMidYMid slice", style: "filter:url(##{uid_header_bg})", mask: "url(##{uid_mask})", x: "0", y: "0", "xlink:href": (@campaign.read_attribute(:cover_image).present? ? @campaign.cover_image_url(:lg) : asset_url("default-image.png")), "xmlns:xlink": "http://www.w3.org/1999/xlink"}
+
+= content_for :script do
+  :javascript
+    $('.campaign-body').on('click', function() {
+      $('.campaign-body').slideToggle()
+    })
