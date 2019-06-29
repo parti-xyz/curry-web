@@ -1410,19 +1410,21 @@
     background-color: #f0f0f0;
     padding-top: 42px;
     .picket-tags {
-      justify-content: center;
-      display: flex;
       .picket-tag {
-        display: flex;
+        display: inline-block;
         border-radius: 14px;
         background-color: #ffffff;
         border: solid 1px #2575ef;
         padding: 6px 12px;
-        line-height: 1.14;
         margin-left: 4px;
+        margin-bottom: 4px;
         .picket-tag-count {
           line-height: 1.5;
           font-size: 11px;
+        }
+        &.selected {
+          background: #2575ef;
+          color: #fff;
         }
       }
     }
