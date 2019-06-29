@@ -1221,10 +1221,12 @@
     background: #f0f0f0;
     // padding-bottom: 20px;
     .waiting-pickets {
-      padding: 20px;
+      margin: 0 auto;
+      padding: $font-size-base*4 0;
       text-align: center;
-      background-color: white;
       color: #717171;
+      width: 80%;
+      max-width: 600px;
     }
     .campaign-pickets-info {
       padding: 15px 8px 0 0;
