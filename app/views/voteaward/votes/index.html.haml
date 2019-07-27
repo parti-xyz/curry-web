@@ -1,0 +1,23 @@
+%section.page-block
+  .container
+    %h3.sub-title
+      투표 인증
+      (#{number_with_delimiter @votes.count})
+    .row
+      - @votes.each do |vote|
+        - v_user = vote.voteaward_user
+        .col-sm-3
+          .card
+            = link_to vote do
+              .card-image{ style: "height: 170px; background-image: url(#{vote.image_filename.url}); background-size: cover; background-position: center; background-repeat:no-repeat;" }
+            .card-content
+              = link_to "#{vote.seq}. #{vote.title}", vote, class: 'card-header'
+              .card-meta= v_user.omniauth_provider
+            .card-content.card-extra
+              - if vote.voteaward_comments.count > 0
+                의견 #{vote.voteaward_comments.count}개
+              - else
+                의견 없음
+            %ul
+              %li
+                = v_user.name

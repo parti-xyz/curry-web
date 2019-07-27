@@ -1,0 +1,16 @@
+%section.page-block
+  .container
+    .page-header
+      .container
+        .row
+          .col-sm-1.profile-thumbnail
+            = render 'profile', v_user: @v_user
+          .col-sm-11
+            %h5
+              = @v_user.name
+            - if @v_user.omniauth_provider.present?
+              %a(href='#{@v_user.omniauth_provider}')
+                %i.fa.fa-home
+                site
+        .row
+          = link_to '투표대잔치 확인', send_confirm_email_voteaward_user_path(@v_user)

@@ -1,0 +1,25 @@
+%section.page-block
+  .container
+    %h3.sub-title
+      어워드
+      (#{number_with_delimiter @awards.count})
+    .row
+      - @awards.each do |award|
+        - v_user = award.voteaward_user
+        .col-sm-3
+          .card
+            = link_to award do
+              - image = v_user.omniauth_image || asset_path('logo-voteaward.png')
+              .card-image{ style: "height: 170px; background-image: url(#{image}); background-size: cover; background-position: center; background-repeat:no-repeat;" }
+            .card-content
+              = link_to "#{award.id}. #{award.title} - #{v_user.name}", award, class: 'card-header'
+              .card-meta= award.content
+            .card-content.card-extra
+              - if award.promise_ids.count > 0
+                - winner = Voteaward::User.find(award.promise_ids.first)
+                =link_to "당첨자 #{winner.name}", winner
+              - else
+                당첨자 없음
+            %ul
+              %li
+                = award.prize

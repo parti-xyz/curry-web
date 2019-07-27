@@ -132,6 +132,24 @@ Rails.application.routes.draw do
 
   get 'specials/voteaward2018'
 
+  namespace :voteaward do
+    resources :awards do
+    end
+    resources :votes do
+    end
+
+    get :welcome
+
+    resources :users do
+      member do
+        get :confirm_email
+        get :send_confirm_email
+      end
+    end
+
+    root to: 'voteaward#welcome'
+  end
+
   class AllTimelineConstraint
     def matches?(request)
       ["timeline", "list"].include? request.query_parameters["mode"]

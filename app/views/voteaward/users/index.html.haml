@@ -1,0 +1,12 @@
+%section.page-block
+  .container
+    %section
+      .row.masonry
+        - @v_users.each do |user|
+          .col-sm-3
+            .panel.panel-default.panel-floating
+              .panel-body
+                = link_to user do
+                  = user.name
+                .text-muted{ style: 'margin-top: 14px' }
+                  %small= user.email

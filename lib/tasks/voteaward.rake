@@ -225,6 +225,7 @@ namespace :voteaward do
       comment["oid"] = x["_id"]["$oid"]
       comment["commentable_id"] = "Voteaward::#{x['commentable_type']}".constantize.find_by_oid(x["commentable_id"]["$oid"]).id
       comment["voteaward_user_id"] = Voteaward::User.find_by_oid(x["user_id"]["$oid"]).id
+      comment["commentable_type"] = "Voteaward::#{comment['commentable_type']}"
       comment.save!
     end
     puts "#{Voteaward::Comment.count} comments are created."
