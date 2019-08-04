@@ -65,13 +65,13 @@
           - @pinned_posts.each do |pinned_post|
             .posts
               %span.datetime
-                = date_f pinned_post["created_at"].to_date
+                = date_f pinned_post["createdAt"].to_date
               = link_to pinned_post["url"], target: "_blank" do
                 = truncate(pinned_post["specific_desc_striped_tags"], :length => 30)
         .recent.toggle-body{style:"display:none"}
           - @recent_posts.first(4).each do |recent_post|
             .posts
               %span.datetime
-                = date_f recent_post["created_at"].to_date
+                = date_f recent_post["createdAt"].to_date
               = link_to recent_post["url"], target: "_blank" do
                 = truncate(recent_post["specific_desc_striped_tags"], :length => 30)
