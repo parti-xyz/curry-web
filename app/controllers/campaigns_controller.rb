@@ -180,9 +180,9 @@ class CampaignsController < ApplicationController
 
   def picket
     render_404 and return unless %(basic photo map).include?(@campaign.template)
-    if params[:picket_id].present?
-      @picket = Comment.find(params[:picket_id])
-    end
+
+    @picket = Comment.find_by(id: params[:picket_id])
+    render_404 and return if @picket.blank?
     render template: "campaigns/picket/picket"
   end
 
