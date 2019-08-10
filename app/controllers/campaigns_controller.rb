@@ -114,12 +114,11 @@ class CampaignsController < ApplicationController
   end
 
   def picket_form
-    render 'campaigns/picket/picket_form'
-    # if %(basic photo map).include?(@campaign.template) and request.format.js?
-    #   render 'campaigns/picket/picket_form'
-    # else
-    #   render_404
-    # end
+    if %(basic photo map).include?(@campaign.template) and request.format.js?
+      render 'campaigns/picket/picket_form'
+    else
+      render_404
+    end
   end
 
   def orders
