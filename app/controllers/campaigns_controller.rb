@@ -122,19 +122,23 @@ class CampaignsController < ApplicationController
   end
 
   def orders
-    render_404 and return if !%(petition order special_agenda).include?(@campaign.template) or @campaign.agents.blank?
-    render template: "campaigns/#{@campaign.template}/orders"
+    render_404 and return if !%(petition order special_agenda photo map).include?(@campaign.template) or @campaign.agents.blank?
+    if %(basic photo map).include?(@campaign.template)
+      render template: "campaigns/picket/orders"
+    else
+      render template: "campaigns/#{@campaign.template}/orders"
+    end
   end
 
   def need_to_order_agents
-    render_404 and return unless %(petition order special_agenda).include?(@campaign.template)
+    render_404 and return unless %(petition order special_agenda photo map).include?(@campaign.template)
 
     @agents = @campaign.need_to_order_agents.order(name: :asc).page(params[:page]).per(10)
     render template: "campaigns/#{@campaign.template}/need_to_order_agents"
   end
 
   def comments
-    render_404 and return unless %(petition order special_agenda).include?(@campaign.template)
+    render_404 and return unless %(petition order special_agenda photo map).include?(@campaign.template)
     render template: "campaigns/#{@campaign.template}/comments"
   end
 

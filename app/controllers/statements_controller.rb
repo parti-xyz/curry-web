@@ -1,7 +1,7 @@
 class StatementsController < ApplicationController
   load_and_authorize_resource only: :create
   def create
-    @previous_statement = @statement.statementable.find_by(agent_id: @statement.agent_id)
+    @previous_statement = @statement.statementable.statements.find_by(agent_id: @statement.agent_id)
     if @previous_statement.present?
       @previous_statement.assign_attributes(update_params)
       @statement = @previous_statement

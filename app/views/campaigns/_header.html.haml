@@ -5,12 +5,6 @@
     - buttons = capture do
       - if can? :edit, campaign
         = link_to '수정', edit_campaign_path(campaign)
-      - if can? :edit, campaign
-        &middot;
-        = link_to '촉구대상 관리', edit_agents_campaign_path(campaign)
-      - if can? :mail_signs, campaign
-        &middot;
-        = link_to '참여자에게 메일 보내기', mail_form_campaign_signs_path(campaign)
       - if can? :destroy, campaign
         &middot;
         = link_to '삭제', campaign, method: :delete, data: { confirm: '삭제하시겠습니까?' }
@@ -41,18 +35,4 @@
     - if cover_image.present?
       %section.no-container-margin-xs{ style: "margin-top: 15px; margin-top: 15px; height: 250px; background-image: url(#{cover_image}); background-size: cover; background-repeat: no-repeat; background-position: center" }
 
-    .m-t.m-b
-      = link_to campaign_path(campaign, anchor: 'anchor-sign') do
-        - if campaign.has_goal?
-          .progress
-            .progress-bar{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{campaign.percentage}", :role => "progressbar", :style => "width: #{campaign.percentage}%;"}
-          .pull-right #{campaign.percentage}% 달성
-          %span.count
-            #{number_with_delimiter(campaign.signs_count)}명 참여
-        - else
-          .progress
-            .progress-bar{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "100", :role => "progressbar", :style => "width: 100%;"}
-          %span.count
-            %i.fa.fa-user
-            #{number_with_delimiter(campaign.signs_count)}명 참여
 

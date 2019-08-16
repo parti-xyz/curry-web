@@ -14,12 +14,6 @@
               %i.fa.fa-paper-plane-o
               촉구 관리
           &nbsp;
-        - if can? :mail_signs, @campaign
-          = link_to mail_form_campaign_signs_path(@campaign) do
-            %span{ style: "color:white; font-weight: 200;" }
-              %i.fa.fa-envelope
-              메일링
-          &nbsp;
         - if can? :destroy, @campaign
           = link_to @campaign, method: :delete, data: { confirm: '삭제하시겠습니까?' } do
             %span{ style: "color:white; font-weight: 200;" }

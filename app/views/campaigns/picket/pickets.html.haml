@@ -15,7 +15,7 @@
           .more.cursor-pointer.collapse.js-tags-read-more-button{ style: 'float: right; line-height: 34px; margin-right: 28px;' }
             더 보기
           .origin.js-tags-read-more-origin
-            - @campaign.comments.tag_counts_on(:tags).limit(9).order("count desc, name").each do |tag|
+            - @campaign.comments.tag_counts_on(:tags).order("count desc, name").each do |tag|
               = link_to pickets_campaign_path(@campaign, {tag: tag.name}) do
                 .picket-tag{ class: ( params[:tag] == tag.name ? "selected" : "" ) }
                   = tag.name
