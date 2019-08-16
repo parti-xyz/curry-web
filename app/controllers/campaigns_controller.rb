@@ -65,7 +65,7 @@ class CampaignsController < ApplicationController
 
     if @campaign.save
       @campaign.issue&.followers&.each{ |x| FollowingIssueMailer.notify(x, @campaign.issue, @campaign).deliver_later }
-      redirect_to @campaign || @project
+      redirect_to @campaign
     else
       render 'new'
     end
