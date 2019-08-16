@@ -66,14 +66,14 @@
                     %rect{:fill => "url(##{uid_alpha_linear})", :height => "100%", :width => "100%", :x => "0", :y => "0"}
                 %filter{ id: uid_header_bg }
                   %fegaussianblur{in: "SourceGraphic", stdDeviation: "0.5"}
-                %image{externalResourcesRequired: "true", height: "100%", width: "100%", preserveAspectRatio: "xMidYMid slice", style: "filter:url(##{uid_header_bg})", mask: "url(##{uid_mask})", x: "0", y: "0", "xlink:href": (picket.image.sm.url.present? ? picket.image.sm.url : asset_url("default-image.png")), "xmlns:xlink": "http://www.w3.org/1999/xlink"}
+                %image{externalResourcesRequired: "true", height: "100%", width: "100%", preserveAspectRatio: "xMidYMid slice", style: "filter:url(##{uid_header_bg})", mask: "url(##{uid_mask})", x: "0", y: "0", "xlink:href": (picket.image.md.url.present? ? picket.image.md.url : asset_url("default-image.png")), "xmlns:xlink": "http://www.w3.org/1999/xlink"}
           .picket-footer
             = link_to '더보기', picket_campaign_path(@campaign, picket_id: picket), class: 'more phone-unfold'
             = link_to '더보기', picket_campaign_path(@campaign, picket_id: picket), remote: true, class: 'more phone-fold'
             = render 'likes/button', likable: picket
             %li.fa.fa-comment
             = picket.comments.count
-  - unless pickets.per(9).last_page?
+  - unless pickets.last_page?
     = link_to '', pickets_campaign_path(@campaign, page: pickets.next_page), class: 'infinite-more-link'
 
 - else

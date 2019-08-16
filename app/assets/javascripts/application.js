@@ -353,6 +353,30 @@ $(function(){
       setTimeout(function() { $target.tooltip('hide'); }, 1000);
     });
   });
+
+  (function() {
+    $.each($('.js-tags-read-more'), function(index, elm) {
+      var $elm = $(elm);
+      var ORIGIN_HEIGHT = $elm.css('height');
+      if(elm.scrollHeight > elm.clientHeight) {
+        $elm.find('.js-tags-read-more-button').show();
+      }
+
+      $elm.find('.js-tags-read-more-button').on('click', function(e) {
+        var mode = $elm.data('tags-read-more-mode');
+        if(!mode || mode == 'collapse') {
+          $elm.css('height', 'auto');
+          $elm.data('tags-read-more-mode', 'extend');
+          $(e.currentTarget).text('접어보기');
+        } else {
+          $elm.css('height', ORIGIN_HEIGHT);
+          $elm.data('tags-read-more-mode', 'collapse');
+          $(e.currentTarget).text('더 보기');
+        }
+      });
+    });
+  })();
+
 });
 
 //
@@ -568,3 +592,4 @@ $(document).ajaxError(function (e, xhr, settings) {
     UnobtrusiveFlash.showFlashMessage('먼저 로그인해 주세요.', {type: 'notice'})
   }
 });
+
