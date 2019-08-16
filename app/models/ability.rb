@@ -73,6 +73,9 @@ class Ability
         false
       end
 
+      can :manage, Note do |note|
+        user == note.user
+      end
 
       can :data, [Campaign], user_id: user.id
 

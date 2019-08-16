@@ -54,10 +54,9 @@
             = link_to '삭제', note, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
           - if current_user != note.user
             = render 'reports/button', reportable: note
-
         .note__body
           = screened(note, :body) do |body|
             != simple_format h(body)
-      .media-right{ style: 'position: relative; width: 100px;' }
+      .media-right{ style: 'position: relative; min-width: 100px;' }
         .note__likes
           = render 'likes/button', likable: note
