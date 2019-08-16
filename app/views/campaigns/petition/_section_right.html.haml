@@ -22,9 +22,10 @@
         .current-message
           - if @campaign.opened?
             현재 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}명이 서명하였습니다.
-            - if @campaign.has_goal?
-              #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}명
-            서명에 동참해주세요.
+            - if !@campaign.signed?(current_user)
+              - if @campaign.has_goal?
+                #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}명
+              서명에 동참해주세요.
           - else
             총 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}명이 서명하였습니다.
       - if @campaign.has_goal?
@@ -54,32 +55,39 @@
 
       - if @campaign.opened?
         .campaign-sign-form.hidden-xs
-          .campaign-sign
-            - if user_signed_in?
-              .signer-image{ style: "background-image:url(#{asset_url(user_signed_in? ? current_user.image_url(:xs) : 'default-user.png')});" }
-              .signer-nickname
-                = current_user.nickname
-          = link_to sign_form_campaign_path(@campaign), remote: true do
-            .campaign-sign-input.word
-              %p 나도 한마디
-              %br
-          / %button.btn.btn-danger.btn-lg.btn-block.campaign-sign-btn{"data-target" => "#sign-form-modal", "data-toggle" => "modal", :type => "button"}
-          = link_to '서명하기', sign_form_campaign_path(@campaign), remote: true, class: "btn btn-danger btn-lg btn-block campaign-sign-btn"
-          - if @campaign.confirm_privacy.present?
-            .campaign-sign-privacy-policy
-              서명하기를 누르시면 본 서명의
-              %a{ "data-target" => "#privacy-modal", "data-toggle" => "modal", :type => "button", style: 'cursor:pointer' }
-                개인정보취급방침
-              에 동의하게 됩니다.
-            #privacy-modal.modal.fade{:role => "dialog", :tabindex => "0"}
-              .modal-dialog{:role => "document"}
-                .modal-content
-                  .modal-header
-                    %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-                      %span{"aria-hidden" => "true"} &#215;
-                    %h4.modal-title 개인정보취급방침
-                  .modal-body
-                    != @campaign.confirm_privacy
+          - if @campaign.signed?(current_user)
+            .btn.btn-danger.btn-lg.btn-block.campaign-sign-btn.cursor-default{ style: 'background: white; color: #000; opacity: 1  ; border: 1px solid  #1779f3;' }
+              .campaign-sign
+                .signer-image{ style: "background-image:url(#{asset_url(user_signed_in? ? current_user.image_url(:xs) : 'default-user.png')});" }
+              #{current_user.nickname}님은
+              서명하셨습니다.
+          - else
+            .campaign-sign
+              - if user_signed_in?
+                .signer-image{ style: "background-image:url(#{asset_url(user_signed_in? ? current_user.image_url(:xs) : 'default-user.png')});" }
+                .signer-nickname
+                  = current_user.nickname
+            = link_to sign_form_campaign_path(@campaign), remote: true do
+              .campaign-sign-input.word
+                %p 나도 한마디
+                %br
+            / %button.btn.btn-danger.btn-lg.btn-block.campaign-sign-btn{"data-target" => "#sign-form-modal", "data-toggle" => "modal", :type => "button"}
+            = link_to '서명하기', sign_form_campaign_path(@campaign), remote: true, class: "btn btn-danger btn-lg btn-block campaign-sign-btn"
+            - if @campaign.confirm_privacy.present?
+              .campaign-sign-privacy-policy
+                서명하기를 누르시면 본 서명의
+                %a{ "data-target" => "#privacy-modal", "data-toggle" => "modal", :type => "button", style: 'cursor:pointer' }
+                  개인정보취급방침
+                에 동의하게 됩니다.
+              #privacy-modal.modal.fade{:role => "dialog", :tabindex => "0"}
+                .modal-dialog{:role => "document"}
+                  .modal-content
+                    .modal-header
+                      %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                        %span{"aria-hidden" => "true"} &#215;
+                      %h4.modal-title 개인정보취급방침
+                    .modal-body
+                      != @campaign.confirm_privacy
 
 
       .campaign-share.phone-fold

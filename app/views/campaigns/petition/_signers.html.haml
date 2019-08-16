@@ -9,5 +9,5 @@
         .count
           #{@campaign.signs.where("id <= ?", sign).count}번째 서명자
       .signer-word= sign.body
-- unless signs.last_page?
+- if local_assigns[:finite] != true and !signs.try(:last_page?)
   = link_to '', signers_campaign_path(@campaign, page: signs.next_page), class: 'infinite-more-link'

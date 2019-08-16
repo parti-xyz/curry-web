@@ -169,7 +169,7 @@ class Campaign < ApplicationRecord
   after_save :mailing_issue,  if: :issue_id_changed?
 
   def signed? someone
-    signs.exists?(user: someone)
+    someone.present? and signs.exists?(user: someone)
   end
 
   def has_goal?
