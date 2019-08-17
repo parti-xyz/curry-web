@@ -12,7 +12,7 @@
     %section.section-picket-tags
       .container
         .picket-tags.clearfix.js-tags-read-more{ style: 'height: 38px; overflow: hidden' }
-          .more.cursor-pointer.collapse.js-tags-read-more-button{ style: 'float: right; line-height: 34px; margin-right: 28px;' }
+          .more.cursor-pointer.collapse.js-tags-read-more-button{ style: 'float: right; line-height: 34px; margin-left: 28px;' }
             더 보기
           .origin.js-tags-read-more-origin
             - @campaign.comments.tag_counts_on(:tags).order("count desc, name").each do |tag|
