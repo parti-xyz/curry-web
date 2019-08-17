@@ -336,7 +336,6 @@ ActiveRecord::Schema.define(version: 20190507023536) do
     t.integer  "previous_event_id"
     t.text     "css",                          limit: 65535
     t.string   "use_signer_address",                         default: "unused"
-    t.boolean  "use_signer_phone_boolean",                   default: false
     t.string   "use_signer_phone",                           default: "unused"
     t.string   "sign_placeholder"
     t.index ["area_id"], name: "index_campaigns_on_area_id", using: :btree
@@ -1251,18 +1250,21 @@ ActiveRecord::Schema.define(version: 20190507023536) do
     t.string   "name"
     t.string   "password"
     t.string   "email"
-    t.string   "oid",                 null: false
+    t.string   "oid",                                 null: false
     t.string   "omniauth"
     t.string   "omniauth_token"
     t.string   "omniauth_expires_at"
     t.boolean  "omniauth_expires"
     t.string   "omniauth_image"
-    t.string   "omniauth_provider",   null: false
-    t.string   "omniauth_uid",        null: false
+    t.string   "omniauth_provider",                   null: false
+    t.string   "omniauth_uid",                        null: false
     t.string   "omniauth_url"
     t.integer  "user_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.boolean  "email_confirmed",     default: false
+    t.datetime "email_confirmed_at"
+    t.string   "confirm_token"
     t.index ["oid"], name: "idx_voteaward_users_oid", using: :btree
     t.index ["omniauth_provider", "omniauth_uid"], name: "idx_voteaward_users_uid", using: :btree
   end
