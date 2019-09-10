@@ -18,7 +18,7 @@ gem 'enumerize', '~> 2.0'
 gem 'acts-as-taggable-on', '~> 4.0'
 gem 'by_star', '~> 2.2', '>= 2.2.1'
 gem 'groupdate', '~> 3.1', '>= 3.1.1'
-gem 'chartkick', '~> 2.2', '>= 2.2.1'
+gem "chartkick", ">= 3.2.0"
 gem 'friendly_id', '~> 5.2.0'
 gem 'bulk_insert'
 gem 'merit'
@@ -53,17 +53,17 @@ gem 'roo', '~> 2.7', '>= 2.7.1'
 gem 'google_drive'
 gem 'rest-client', '~> 2.0', '>= 2.0.2'
 gem 'streamio-ffmpeg'
-gem 'nokogiri', '~> 1.8.1'
+gem "nokogiri", ">= 1.10.4"
 
 # file upload
 gem 'carrierwave', '~> 0.10.0'
-gem "mini_magick"
+gem "mini_magick", ">= 4.9.4"
 gem 'file_validators', '~> 2.0', '>= 2.0.2'
 gem "fog"
 
 # auth
 gem 'cancancan', '~> 1.10'
-gem 'devise', '~> 4.2'
+gem "devise", ">= 4.6.0"
 gem 'omniauth', '~> 1.3', '>= 1.3.1'
 gem 'omniauth-facebook', '~> 4.0'
 gem 'omniauth-twitter', '~> 1.2', '>= 1.2.1'
