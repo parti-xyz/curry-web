@@ -20,6 +20,6 @@ class AgendaMailer < ApplicationMailer
 
 
     mail(to: @agent.email,
-      subject: "[빠띠 가브크래프트] 귀하의 '#{@opinion.issue.try(:title)}'에 대한 입장에 대해 #{@note.user_nickname}님이 의견을 보냅니다.")
+      subject: "[빠띠 캠페인즈] 귀하의 '#{@opinion.issue.try(:title)}'에 대한 입장에 대해 #{@note.user_nickname}님이 의견을 보냅니다.")
   end
 end

@@ -1,7 +1,7 @@
 - campaign = @comment.commentable
 - message.subject = campaign.formatted_title_to_agent(@comment.user_nickname)
 %p
-  #{@agent.name}님 안녕하세요? 세상을 바꾸는 시민들의 일상 정치 플랫폼, 빠띠 가브크래프트입니다.
+  #{@agent.name}님 안녕하세요? 세상을 바꾸는 시민들의 일상 정치 플랫폼, 빠띠 캠페인즈입니다.
 %p
   서명
   = link_to polymorphic_url(campaign) do
@@ -35,7 +35,7 @@
         %a(href='http://govcraft.org/' target="_blank" style='color: #777; text-decoration: none;')
           세상을 바꾸는 시민들의 일상 정치 플랫폼
           %br
-          %strong '빠띠 가브크래프트'
+          %strong '빠띠 캠페인즈'
           http://govcraft.org/
 
 = image_tag beacon_order_url(@order)

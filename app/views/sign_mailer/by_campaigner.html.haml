@@ -1,5 +1,5 @@
 %p
-  #{@sign.user_name}님 안녕하세요? 세상을 바꾸는 시민들의 일상 정치 플랫폼, 가브크래프트입니다. #{@sign.user_name}님이 서명하신
+  #{@sign.user_name}님 안녕하세요? 세상을 바꾸는 시민들의 일상 정치 플랫폼, 캠페인즈입니다. #{@sign.user_name}님이 서명하신
   %b "#{@sign.campaign.title}"
   에서 진행 소식을 알려드립니다.
 %p
@@ -18,7 +18,7 @@
         %a(href='http://govcraft.org/' target="_blank" style='color: #777; text-decoration: none;')
           세상을 바꾸는 시민들의 일상 정치 플랫폼
           %br
-          %strong '빠띠 가브크래프트'
+          %strong '빠띠 캠페인즈'
           http://govcraft.org/
   %p{ style: 'text-align: center; color: #777; font-size: 12px' }
     수신거부를 원하시면 #{link_to "여기", unsubscribe_url(id: @unsubscribe, title: @sign.campaign.title, link: campaign_url(@sign.campaign))}를 클릭하십시오

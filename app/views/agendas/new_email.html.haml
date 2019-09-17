@@ -26,9 +26,9 @@
               .form-group
                 = label_tag :title, '제목'
                 - if is_question
-                  = text_field_tag :title, params[:title] ||  "[빠띠 가브크래프트] #{@agenda.name} #{Agenda.model_name.human}에 대해 의견을 묻고자 합니다", class: 'form-control'
+                  = text_field_tag :title, params[:title] ||  "[빠띠 캠페인즈] #{@agenda.name} #{Agenda.model_name.human}에 대해 의견을 묻고자 합니다", class: 'form-control'
                 - else
-                  = text_field_tag :title, params[:title] || (@agent.has_opinion_of?(@agenda) ? "[빠띠 가브크래프트] #{@agenda.name} #{Agenda.model_name.human}에 대해 행동을 보여주세요!" : "[빠띠 가브크래프트] #{@agenda.name} #{Agenda.model_name.human}에 대해 의견을 듣고자 합니다"), class: 'form-control'
+                  = text_field_tag :title, params[:title] || (@agent.has_opinion_of?(@agenda) ? "[빠띠 캠페인즈] #{@agenda.name} #{Agenda.model_name.human}에 대해 행동을 보여주세요!" : "[빠띠 캠페인즈] #{@agenda.name} #{Agenda.model_name.human}에 대해 의견을 듣고자 합니다"), class: 'form-control'
               .form-group
                 %textarea{ name: :body, rows: 40, class: 'form-control redactor' }
                   = params[:body] || (@agent.has_opinion_of?(@agenda) ? @agenda.request_amendment_example : @agenda.request_opinion_example)
@@ -38,11 +38,7 @@
             %p 트위터주소를 알 수 없는 국회의원입니다.
           - else
             - if is_question
-              - tweeter_msg = "[빠띠 가브크래프트] #{@agenda.name} #{Agenda.model_name.human}에 대해 의견을 묻고자 합니다"
+              - tweeter_msg = "[빠띠 캠페인즈] #{@agenda.name} #{Agenda.model_name.human}에 대해 의견을 묻고자 합니다"
             - else
-              - tweeter_msg = @agent.has_opinion_of?(@agenda) ? "[빠띠 가브크래프트] #{@agenda.name} #{Agenda.model_name.human}에 대해 행동을 보여주세요!" : "[빠띠 가브크래프트] #{@agenda.name} #{Agenda.model_name.human}에 대해 의견을 듣고자 합니다"
+              - tweeter_msg = @agent.has_opinion_of?(@agenda) ? "[빠띠 캠페인즈] #{@agenda.name} #{Agenda.model_name.human}에 대해 행동을 보여주세요!" : "[빠띠 캠페인즈] #{@agenda.name} #{Agenda.model_name.human}에 대해 의견을 듣고자 합니다"
             = link_to "#{@agent.name}님에게 트위터 멘션 보내기", "https://twitter.com/intent/tweet?text=@#{@agent.twitter} #{ tweeter_msg}", target:'_blank'
-
-
-
-

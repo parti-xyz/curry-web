@@ -1,6 +1,6 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "Emails #{l(Date.today)}") do |sheet|
-  sheet.add_row ["빠띠 가브크래프트 회원 이메일리스트 (#{DateTime.now.strftime("%Y년 %m월 %d일 %H시 %M분")} 기준)"]
+  sheet.add_row ["빠띠 캠페인즈 회원 이메일리스트 (#{DateTime.now.strftime("%Y년 %m월 %d일 %H시 %M분")} 기준)"]
   sheet.add_row ["닉네임", "이메일"]
   @emails.each do |data|
     sheet.add_row [data[:nickname], data[:email]]

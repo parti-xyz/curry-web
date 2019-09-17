@@ -1,6 +1,6 @@
 %p #{@agent.name}님! 안녕하세요.
 %p
-  빠띠 가브크래프트
+  빠띠 캠페인즈
   %a(href="#{opinion_url(@opinion)}" target="_blank") 의제 '#{@opinion.issue.title}'
   에서 #{@agent.name}님의 입장을 읽고
   #{@note.user_nickname}님이 발신한 메일입니다.
@@ -8,7 +8,7 @@
   != simple_format h(@note.body)
 
 %p{ style: 'text-align: center' }
-  %a{:href => opinion_url(@opinion), :style => "font-size: 14px; display: inline-block; color: rgb(150, 111, 214); background: none; border-radius: 3px; padding: 16px 20px; text-decoration: none; outline: 0px; font-family: AppleSDGothic, \"apple sd gothic neo\", \"noto sans korean\", \"noto sans korean regular\", \"noto sans cjk kr\", \"noto sans cjk\", \"nanum gothic\", \"malgun gothic\", dotum, sans-serif; border-width: 2px; border-style: solid; border-color: rgb(150, 111, 214);_display:inline", :target => "_blank"} 빠띠 가브크래프트로 이동하기
+  %a{:href => opinion_url(@opinion), :style => "font-size: 14px; display: inline-block; color: rgb(150, 111, 214); background: none; border-radius: 3px; padding: 16px 20px; text-decoration: none; outline: 0px; font-family: AppleSDGothic, \"apple sd gothic neo\", \"noto sans korean\", \"noto sans korean regular\", \"noto sans cjk kr\", \"noto sans cjk\", \"nanum gothic\", \"malgun gothic\", dotum, sans-serif; border-width: 2px; border-style: solid; border-color: rgb(150, 111, 214);_display:inline", :target => "_blank"} 빠띠 캠페인즈로 이동하기
 
 %div(style="margin-top: 60px;")
   %table
@@ -20,5 +20,5 @@
         %a(href='http://govcraft.org/' target="_blank" style='color: #777; text-decoration: none;')
           세상을 바꾸는 시민들의 일상 정치 플랫폼
           %br
-          %strong '빠띠 가브크래프트'
+          %strong '빠띠 캠페인즈'
           http://govcraft.org/

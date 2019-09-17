@@ -546,7 +546,7 @@ function parti_partial$($partial) {
                 height: image_height
               },
               webLink: {
-                text: '가브크래프트에서 보기',
+                text: '빠띠 캠페인즈에서 보기',
                 url: url
               }
             });
@@ -592,4 +592,3 @@ $(document).ajaxError(function (e, xhr, settings) {
     UnobtrusiveFlash.showFlashMessage('먼저 로그인해 주세요.', {type: 'notice'})
   }
 });
-

@@ -1,4 +1,4 @@
-# 빠띠 가브크래프트 GovCraft
+# 빠띠 캠페인즈 Campaigns
 
 ## 실환경 구축 방법
 
@@ -164,4 +164,3 @@ $ bin/rails organizations:seed
 ### 시의원 데이터 목록
 
 * data/2018_07_seongnam_city_council.xlsx : 2018년 7월 성남시의원 데이터
-

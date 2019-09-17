@@ -3,7 +3,7 @@
     %mj-text{:align => "center", :padding => "0px"}
       .main-title
         %span.text-nowrap #{DateTime.now.strftime("%Y년 %-m월 %-d일")}
-        %span.text-nowrap 빠띠 가브크래프트 새소식
+        %span.text-nowrap 빠띠 캠페인즈 새소식
 %mj-section
   %mj-column{:width => "100%"}
     %mj-text{:align => "center"}
@@ -33,5 +33,3 @@
         %mj-column{"padding-bottom" => "0", :width => "25%"}
           %mj-image{:href => polymorphic_url(campaign), :src => campaign.cover_image_url(:md)}
     %mj-spacer{:height => "10px"}
-
-

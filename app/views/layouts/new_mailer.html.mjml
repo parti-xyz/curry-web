@@ -1,6 +1,6 @@
 %mjml
   %mj-head
-    %mj-title 빠띠 가브크래프트 소식
+    %mj-title 빠띠 캠페인즈 소식
     %mj-attributes
       %mj-all{"font-family" => "AppleSDGothic,'apple sd gothic neo','malgun gothic',dotum,sans-serif"}
       %mj-text{:color => "#616161", "font-size" => "16px", "font-weight" => "300", "line-height" => "24px"}
@@ -21,7 +21,7 @@
       %mj-column
         %mj-text{:href => root_url }
           %a{:href => root_url, :style => "color: #616161; text-decoration: none"}
-            빠띠 가브크래프트
+            빠띠 캠페인즈
             %small{ style: 'font-size: 10px'} 세상을 바꾸는 시민들의 일상 정치 플랫폼
     %mj-section{"padding-bottom" => "0px", "padding-top" => "0px"}
       %mj-column
