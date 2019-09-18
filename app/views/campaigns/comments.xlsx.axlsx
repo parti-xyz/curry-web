@@ -1,0 +1,16 @@
+row_definition = [
+  [:created_at, '일시'],
+  [:user_nickname, '닉네임'],
+  [:body, '내용']
+]
+
+row_titles = row_definition.map { |c| c[1] }
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "의견 #{@campaign.comments_count}건") do |sheet|
+  sheet.add_row row_titles
+  @campaign.comments.earlier.each do |comment|
+    sheet.add_row row_definition.map { |c|
+      (c[0] == :body) ? HTMLEntities.new.decode(strip_tags(comment.send(c[0]))) : comment.send(c[0])
+    }, types: :string
+  end
+end
