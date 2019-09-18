@@ -98,6 +98,7 @@ Rails.application.routes.draw do
       get 'orders'
       get 'need_to_order_agents'
       get 'comments'
+      get 'comments_data'
       get 'stories'
       get 'signers'
       get 'contents'

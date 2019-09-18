@@ -139,11 +139,12 @@ class CampaignsController < ApplicationController
 
   def comments
     render_404 and return unless %(petition order special_agenda photo map).include?(@campaign.template)
+    render template: "campaigns/#{@campaign.template}/comments"
+  end
+
+  def comments_data
     respond_to do |format|
       format.xlsx
-      format.html {
-        render template: "campaigns/#{@campaign.template}/comments"
-      }
     end
   end
 
