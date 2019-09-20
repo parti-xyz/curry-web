@@ -184,7 +184,7 @@ class Campaign < ApplicationRecord
   def percentage
     if has_goal?
       if picketable?
-        comments_count.fdiv(signs_goal_count) * 100
+        (comments_count.fdiv(signs_goal_count) * 100).to_i
       else
         ( signs_count.to_f / signs_goal_count * 100 ).to_i
       end

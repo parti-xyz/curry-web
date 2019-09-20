@@ -90,6 +90,7 @@
           background-image: linear-gradient(to right, #37a6ff, #2575ef 66%, #2575ef);
           height: 12px;
           border-radius: 12px;
+          text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
         }
       }
       .picket-summary {
@@ -311,6 +312,7 @@
         position: absolute;
         left: 8px;
         color: white;
+        text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
       }
       .success-badge {
         background-color: $yellow-gold;

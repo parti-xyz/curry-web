@@ -122,7 +122,6 @@ class CampaignsController < ApplicationController
   end
 
   def orders
-    render_404 and return if !%(petition order special_agenda photo map).include?(@campaign.template) or @campaign.agents.blank?
     if %(basic photo map).include?(@campaign.template)
       render template: "campaigns/picket/orders"
     else
