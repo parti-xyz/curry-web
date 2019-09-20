@@ -3,7 +3,7 @@ class CampaignsController < ApplicationController
   include Statementing
 
   load_and_authorize_resource
-  before_action :reset_meta_tags_for_show, only: :show
+  before_action :reset_meta_tags_for_show
   before_action :verify_organization
 
   def index
@@ -208,6 +208,7 @@ class CampaignsController < ApplicationController
   end
 
   def reset_meta_tags_for_show
+    return if @campaign.blank?
     prepare_meta_tags({
       site_name: ("#{@campaign.project.title} - #{@campaign.project.user.nickname}" if @campaign.project.present?),
       title: "[캠페인] " + @campaign.title,
