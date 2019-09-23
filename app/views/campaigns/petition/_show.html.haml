@@ -147,7 +147,9 @@
     %section.section-comments
       .section-title
         의견
-      = render 'comments/form_line', commentable: @campaign
+      - extra = capture do
+        = render 'campaigns/comments_privacy_confirm', campaign: @campaign
+      = render 'comments/form_line', commentable: @campaign, extra: extra
       = render 'comments/page_formal', commentable: @campaign, comments: @campaign.comments.recent.page(1), finite: true
       .more
         = link_to '더 보기', comments_campaign_path(@campaign)

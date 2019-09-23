@@ -10,7 +10,9 @@
       .section-title
         의견을 공유해 보세요
       - page_dom_id = build_uid
-      = render 'comments/form_line', commentable: @campaign
+      - extra = capture do
+        = render 'campaigns/comments_privacy_confirm', campaign: @campaign
+      = render 'comments/form_line', commentable: @campaign, extra: extra
       = render 'comments/page_formal', commentable: @campaign, comments: @campaign.comments.recent.page(1), dom_id: page_dom_id
 
 = render 'campaigns/petition/sign_button'

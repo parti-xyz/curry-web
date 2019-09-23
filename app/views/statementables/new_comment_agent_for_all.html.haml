@@ -34,8 +34,23 @@
             - unless is_redactorable?
               - f.object.body = strip_tags(f.object.body)
             ~ f.text_area :body, placeholder: '촉구합니다...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), style: 'height: 150px', data: { 'rule-required': true }
+          - if commentable.try(:confirm_privacy).present?
+            .form-group
+              .campaign-sign-privacy-policy
+                촉구하기를 누르시면 본 서명의
+                %a{ "data-target" => "#privacy-modal", "data-toggle" => "modal", :type => "button", style: 'cursor:pointer' }
+                  개인정보취급방침
+                에 동의하게 됩니다.
+              #privacy-modal.modal.fade{:role => "dialog", :tabindex => "0"}
+                .modal-dialog{:role => "document"}
+                  .modal-content
+                    .modal-header
+                      %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                        %span{"aria-hidden" => "true"} &#215;
+                      %h4.modal-title 개인정보취급방침
+                    .modal-body
+                      != commentable.confirm_privacy
           = f.submit '작성', class: 'btn btn-default btn-sm btn-inverted'
-
 %hr
 
 - if @statementable.project
