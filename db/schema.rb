@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190507023536) do
+ActiveRecord::Schema.define(version: 20190923033502) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -384,6 +384,7 @@ ActiveRecord::Schema.define(version: 20190507023536) do
     t.integer  "merged_likes_count",                  default: 0
     t.integer  "orders_count",                        default: 0
     t.integer  "comments_count",                      default: 0
+    t.boolean  "confirm_privacy",                     default: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
     t.index ["target_agent_id"], name: "index_comments_on_target_agent_id", using: :btree
     t.index ["user_id"], name: "index_comments_on_user_id", using: :btree

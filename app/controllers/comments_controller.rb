@@ -76,6 +76,7 @@ class CommentsController < ApplicationController
       end
     end
 
+    @comment.confirm_privacy = true if @comment.commentable.try(:confirm_privacy).present?
     if @comment.save
       flash[:notice] = I18n.t('messages.commented')
 

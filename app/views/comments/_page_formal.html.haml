@@ -32,13 +32,6 @@
     - comments.each do |comment|
       - empty_comments = false
       .comment.infinite-item[comment]
-        .comment-controls
-          - if can? :destroy, comment
-            = link_to '삭제', comment, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
-          - if current_user != comment.user
-            = render 'reports/button', reportable: comment
-            / %a  # TODO: 박제 버튼 구현 방법 고민
-            /   박제
         .comment-line
           .commenter-image{ style: "background-image:url(#{asset_url(comment.user_image)});" }
           .comment-right
@@ -67,6 +60,13 @@
             .comment-body
               = raw comment.body
             .comment-footer
+              .comment-controls
+                - if can? :destroy, comment
+                  = link_to '삭제', comment, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
+                - if current_user != comment.user
+                  = render 'reports/button', reportable: comment
+                  / %a  # TODO: 박제 버튼 구현 방법 고민
+                  /   박제
               = render 'likes/button', likable: comment
     - if empty_comments
       .no-comments
