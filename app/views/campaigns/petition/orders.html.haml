@@ -31,8 +31,8 @@
             = link_to [:edit_statements, @campaign], class: 'response-header-btn' do
               답변하기
 
-        - agents = @campaign.need_to_order_agents.order(name: :asc).page(1).per(10)
+        - agents = @campaign.agents.order(name: :asc).page(1).per(10)
         - if agents.any?
-          = render 'campaigns/agents_page', campaign: @campaign, agents: agents, next_path: need_to_order_agents_campaign_path(@campaign, page: agents.next_page)
+          = render 'campaigns/agents_page', campaign: @campaign, agents: agents, next_path: agents_campaign_path(@campaign, page: agents.next_page)
 
 = render 'campaigns/petition/sign_button'

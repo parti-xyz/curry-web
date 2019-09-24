@@ -130,10 +130,13 @@ class CampaignsController < ApplicationController
   end
 
   def need_to_order_agents
-    render_404 and return unless %(petition order special_agenda photo map).include?(@campaign.template)
-
     @agents = @campaign.need_to_order_agents.order(name: :asc).page(params[:page]).per(10)
-    render template: "campaigns/#{@campaign.template}/need_to_order_agents"
+    render template: "campaigns/need_to_order_agents"
+  end
+
+  def agents
+    @agents = @campaign.agents.order(name: :asc).page(params[:page]).per(10)
+    render template: "campaigns/agents"
   end
 
   def comments
