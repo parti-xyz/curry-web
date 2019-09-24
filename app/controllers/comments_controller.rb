@@ -59,7 +59,11 @@ class CommentsController < ApplicationController
 
     if @comment.mailing.ready? and @comment.commentable.respond_to?(:agents)
       if @comment.target_agent_id.blank?
-        target_agents = @comment.commentable.need_to_order_agents
+        target_agents = if params[:order_filter] == 'no_reaction'
+          @comment.commentable.need_to_order_agents
+        else
+          @comment.commentable.agents
+        end
         if params[:action_assignable_type].present? and params[:action_assignable_id].present?
           action_assignable_model = params[:action_assignable_type].classify.safe_constantize
           if action_assignable_model.present?
@@ -78,7 +82,11 @@ class CommentsController < ApplicationController
 
     @comment.confirm_privacy = true if @comment.commentable.try(:confirm_privacy).present?
     if @comment.save
-      flash[:notice] = I18n.t('messages.commented')
+      flash[:notice] = if @comment.target_agents.any?
+        I18n.t('messages.order_commented')
+      else
+        I18n.t('messages.commented')
+      end
 
       if @comment.commentable.try(:statementable?)
         @comment.orders.each do |order|

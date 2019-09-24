@@ -42,7 +42,6 @@
                 %label
                   = f.check_box :mailing, { checked: true }, 'ready', 'disable'
                   #{@agent.name}님에게 메일로도 발송합니다.
-          = f.submit '작성', class: 'btn btn-default btn-sm btn-inverted'
           - if commentable.try(:confirm_privacy).present?
             .campaign-sign-privacy-policy
               촉구하기를 누르시면 본 서명의
@@ -58,7 +57,7 @@
                     %h4.modal-title 개인정보취급방침
                   .modal-body
                     != commentable.confirm_privacy
-
+          = f.submit '촉구하기', class: 'btn btn-default btn-sm btn-inverted'
 
 %hr
 

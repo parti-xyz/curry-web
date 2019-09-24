@@ -19,6 +19,7 @@ ko:
     saved: '저장되었습니다'
     signed: '<strong>이제 다음 행동을 함께해 주세요.</strong>'
     already_signed: '이미 서명하셨습니다.'
+    order_commented: '촉구하고 내용을 댓글로 게시했습니다!'
     commented: '댓글을 게시했습니다!'
     need_to_email: '보내시는 분의 메일을 입력해주세요'
     closed_commentable: '종료되어 촉구할 수 없습니다'

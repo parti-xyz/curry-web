@@ -10,7 +10,7 @@
   .container
     .page-header.page-header-narrow
       %h3.sub-title
-        모든 인물 #{@statementable.need_to_order_agents.count}명에게 행동을 촉구합니다.
+        모든 인물 #{@statementable.agents.count}명에게 행동을 촉구합니다.
     .panel-body.component-box
       .comments-form
         = form_for @comment, html: { class: 'gov-action-form-validation' } do |f|
@@ -50,7 +50,11 @@
                       %h4.modal-title 개인정보취급방침
                     .modal-body
                       != commentable.confirm_privacy
-          = f.submit '작성', class: 'btn btn-default btn-sm btn-inverted'
+          = f.submit '모두에게 촉구하기', class: 'btn btn-primary btn-sm'
+          - if @statementable.agents.count != @statementable.need_to_order_agents.count
+            = f.button name: :order_filter, value: :no_reaction, class: 'btn btn-default btn-sm btn-inverted' do
+              반대&middot무응답 촉구 대상에게만 촉구하기
+
 %hr
 
 - if @statementable.project
