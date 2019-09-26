@@ -24,7 +24,7 @@ class Comment < ApplicationRecord
   scope :with_target_agent, ->(agent) { joins(:target_agents).where('orders.agent_id = ?', agent.id) }
 
   validates :body, presence: true
-  validates :commenter_email, format: { with: Devise.email_regexp }, if: 'commenter_email.present?'
+  validates :commenter_email, format: { with: Devise.email_regexp, message: :need_to_valid_email }, if: 'commenter_email.present?'
   validate :commenter_should_be_present_if_user_is_blank
   validate :photo_and_map_campaign_should_check_image_attachment
   after_validation :fetch_geocode, if: ->(obj){ obj.full_street_address.present? and obj.full_street_address_changed? }
