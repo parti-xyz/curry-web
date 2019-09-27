@@ -35,16 +35,16 @@
                     .media-right
                       - if @statementable.assigned?(agent)
                         - statement = @statementable.statement_of(agent)
-                        - if statement.try(:stance).nil?
+                        - if statement.try(:respond_status).blank?
                           - btn_stance_class = 'btn-default'
-                        - elsif statement.stance.agree?
+                        - elsif statement.try(:respond_status?, :agree, :replied)
                           - btn_stance_class = 'btn-success'
-                        - elsif statement.stance.disagree?
+                        - elsif statement.try(:respond_status?, :disagree)
                           - btn_stance_class = 'btn-danger'
                         - else
                           - btn_stance_class = 'btn-default'
                         = link_to polymorphic_path([:edit_statements, @statementable], agent_id: agent.id), class: "btn btn-xs text-nowrap #{btn_stance_class}" do
-                          = statement.try(:stance).try(:text) || '검토 중'
+                          = t("enumerize.defaults.repond.#{statement.try(:respond_status)}", default: '검토 중')
                           - if statement.try(:body).try(:present?)
                             %i.fa.fa-commenting-o
                       - else
@@ -68,10 +68,6 @@
                 = f.hidden_field :statementable_id, value: @statementable.id
                 = f.hidden_field :statementable_type, value: @statementable.class.to_s
               - if !statement.no_stancable?
-                .form-group
-                  = f.label :stance, '찬반여부'
-                  = f.select :stance, Statement.stance.options, { }, class: 'form-control'
-              - else
                 .form-group
                   = f.label :stance, '응답여부'
                   = f.select :stance, [['응답완료', 'agree'], ['무응답', 'unsure']], { }, class: 'form-control'

@@ -17,6 +17,9 @@ class Statement < ApplicationRecord
   scope :disagreed, -> { where(stance: :disagree) }
   scope :sure, -> { where.not(stance: :unsure) }
 
+  attr_accessor :respond_status
+  after_initialize :setup_respond_status
+
   def is_responded?
     sure? or body.present?
   end
@@ -36,5 +39,21 @@ class Statement < ApplicationRecord
   def no_stancable?
     return false if !statementable.respond_to?(:no_stancable?)
     statementable.no_stancable?
+  end
+
+  def respond_status?(*status)
+    status.try(:compact!)
+    return false if status.blank?
+    status.map(&:to_sym).include?(self.respond_status.to_sym)
+  end
+
+  private
+
+  def setup_respond_status
+    self.respond_status = if statementable.try(:need_stance?)
+      self.stance.value.to_sym
+    else
+      body.present? ? :replied : :unsure
+    end
   end
 end

@@ -45,10 +45,6 @@
         .modal-body
           %div[statement]
             %div
-              - if statement.stance.present? and !statement.no_stancable?
-                %h4{ style: 'line-height: 24px;' }
-                  %span.text-success= statement.stance.text
-
               - if statement.body.present?
                 .opinion__body.text-basic-wrap{ style: 'font-weight: normal;' }
                   != statement.body

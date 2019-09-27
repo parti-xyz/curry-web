@@ -3,13 +3,15 @@
     - unless campaign.statement_of(agent).present?
       .agent-unsure 무응답
     - else
-      - case campaign.statement_of(agent).stance
-      - when "unsure"
+      - case campaign.statement_of(agent).respond_status
+      - when :unsure
         .agent-unsure 무응답
-      - when "agree"
+      - when :agree
+        .agent-agree 찬성
+      - when :disagree
+        .agent-disagree 반대
+      - when :replied
         .agent-agree 응답
-      - when "disagree"
-        .agent-disagree 무응답
   .agent-info
     .agent-name= agent.name
     .agent-organization= agent.organization

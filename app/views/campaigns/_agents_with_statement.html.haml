@@ -4,17 +4,17 @@
     %div{ style: 'margin: 14px 0' }
       - agents.each do |agent|
         - statement = campaign.cached_statement_of(agent)
-        - if statement.try(:stance).try(:agree?)
+        - if statement.try(:respond_status?, :agree, :replied)
           - stance_class = 'success'
           - action_style = 'color: white'
           - stance_icon = capture do
             %i.fa.fa-check
-        - elsif statement.try(:stance).try(:disagree?)
+        - elsif statement.try(:respond_status?, :disagree?)
           - stance_class = 'danger'
           - action_style = 'color: white'
           - stance_icon = capture do
             %i.fa.fa-ban
-        - elsif statement.try(:stance).try(:hold?)
+        - elsif statement.try(:respond_status?, :hold?)
           - stance_class = 'hold'
           - action_style = 'color: white'
           - stance_icon = capture do

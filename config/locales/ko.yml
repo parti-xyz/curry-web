@@ -159,6 +159,7 @@ ko:
         use_signer_email: 이메일 입력 여부
         use_signer_address: 주소 입력 여부
         use_signer_phone: 연락처 입력 여부
+        need_stance: 촉구 대상에게 요구하는 답변 방식
       sign:
         signer_name: 이름
         signer_email: 이메일
@@ -366,6 +367,19 @@ ko:
           disagree: 반대합니다
           unsure: 의견을 확인 중입니다
           partially: 일부 찬성합니다
+      repond:
+        agree: 찬성
+        disagree: 반대
+        unsure: 검토 중
+        hold: 유보
+        partially: 일부찬성
+        replied: 답변
+        long:
+          agree: 찬성합니다
+          disagree: 반대합니다
+          unsure: 의견을 확인 중입니다
+          partially: 일부 찬성합니다
+          replied: 답변했습니다
       use_signer_address:
         unused: 사용하지 않음
         required: 필수 입력

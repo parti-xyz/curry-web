@@ -1,3 +1,4 @@
+
 %legend.m-t 촉구
 
 .form-group
@@ -17,6 +18,16 @@
   ~ f.text_area :message_to_agent, class: 'form-control redactor'
   %p.help-block
     촉구 메시지의 본보기를 적습니다.
+
+.form-group
+  = f.label :need_stance
+  .radio
+    %label.radio-inline
+      = f.radio_button :need_stance, true
+      의견과 찬반 요구
+    %label.radio-inline
+      = f.radio_button :need_stance, false
+      의견만 요구
 
 .form-group
   = f.label :confirm_privacy
