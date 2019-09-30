@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.0', '>= 5.0.7.1'
 gem 'bundler', '~> 1.14', '>= 1.14.5'
 gem 'unicorn'
+gem 'rb-readline'
 
 # database
 gem 'sqlite3'
@@ -54,6 +55,7 @@ gem 'google_drive'
 gem 'rest-client', '~> 2.0', '>= 2.0.2'
 gem 'streamio-ffmpeg'
 gem "nokogiri", ">= 1.10.4"
+gem 'html2text'
 
 # file upload
 gem 'carrierwave', '~> 0.10.0'

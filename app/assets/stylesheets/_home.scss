@@ -52,7 +52,7 @@
     height: 100%;
     display: block !important;
     top: 0;
-    z-index: 10; /* 리본보다 더 높게 */
+    z-index: 101; /* 리본보다 더 높게 */
     position: fixed;
     overflow: scroll;
     .menu-btn, .slogan-or-navi, #urimanna_menu {

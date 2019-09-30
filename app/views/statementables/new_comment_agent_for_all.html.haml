@@ -32,7 +32,7 @@
           .form-group
             = f.label :body, "보내는 내용"
             - unless is_redactorable?
-              - f.object.body = strip_tags(f.object.body)
+              - f.object.body = Html2Text.convert(f.object.body)
             ~ f.text_area :body, placeholder: '촉구합니다...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), style: 'height: 150px', data: { 'rule-required': true }
           - if commentable.try(:confirm_privacy).present?
             .form-group

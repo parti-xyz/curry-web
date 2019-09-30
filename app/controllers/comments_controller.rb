@@ -81,6 +81,11 @@ class CommentsController < ApplicationController
     end
 
     @comment.confirm_privacy = true if @comment.commentable.try(:confirm_privacy).present?
+
+    unless helpers.is_redactorable?
+      @comment.body = ApplicationController.helpers.simple_format(ERB::Util.h(@comment.body), {}, sanitize: false)
+    end
+
     if @comment.save
       flash[:notice] = if @comment.target_agents.any?
         I18n.t('messages.order_commented')
