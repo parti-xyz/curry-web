@@ -33,7 +33,7 @@
               %strong= agent.name
               - if agent.category == '개인'
                 %small.text-muted= agent.organization
-              - if !statement.try(:no_stancable?)
+              - if statement.try(:stancable?)
                 - if statement.try(:sure?)
                   %strong= statement.try(:stance).try(:text)
                   %span.text-muted 입장을 밝혔습니다.
@@ -73,7 +73,7 @@
                 .modal-body
                   %div[statement]
                     %div
-                      - if statement.stance.present? and !statement.no_stancable?
+                      - if statement.stance.present? and statement.stancable?
                         %h4{ style: 'line-height: 24px;' }
                           %span.text-success= statement.stance.text
 

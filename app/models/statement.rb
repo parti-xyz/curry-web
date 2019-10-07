@@ -16,6 +16,8 @@ class Statement < ApplicationRecord
   scope :agreed, -> { where(stance: :agree) }
   scope :disagreed, -> { where(stance: :disagree) }
   scope :sure, -> { where.not(stance: :unsure) }
+  scope :replied, -> { where.not(body: nil) }
+  scope :unreplied, -> { where(body: nil) }
 
   attr_accessor :respond_status
   after_initialize :setup_respond_status
@@ -36,9 +38,9 @@ class Statement < ApplicationRecord
     statement_keys.exists?(key: key) and !statement_keys.find_by(key: key).expired?
   end
 
-  def no_stancable?
-    return false if !statementable.respond_to?(:no_stancable?)
-    statementable.no_stancable?
+  def stancable?
+    return false if !statementable.respond_to?(:stancable?)
+    statementable.stancable?
   end
 
   def respond_status?(*status)

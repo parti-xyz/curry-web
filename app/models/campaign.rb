@@ -279,7 +279,7 @@ class Campaign < ApplicationRecord
     result
   end
 
-  def no_stancable?
-    !need_stance or self.template == 'special_agenda'
+  def stancable?
+    need_stance and self.template != 'special_agenda'
   end
 end

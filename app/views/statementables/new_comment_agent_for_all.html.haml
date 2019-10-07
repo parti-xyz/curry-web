@@ -50,10 +50,10 @@
                       %h4.modal-title 개인정보취급방침
                     .modal-body
                       != commentable.confirm_privacy
-          = f.submit '모두에게 촉구하기', class: 'btn btn-primary btn-sm'
+          = f.submit '모두에게 촉구하기', class: 'btn btn-primary btn-sm btn-xs-block'
           - if @statementable.agents.count != @statementable.need_to_order_agents.count
             %div.visible-xs-block{ style: 'height: 10px' }
-            = f.button name: :order_filter, value: :no_reaction, class: 'btn btn-default btn-sm btn-inverted' do
+            = f.button name: :order_filter, value: :no_reaction, class: 'btn btn-default btn-sm btn-inverted btn-xs-block' do
               반대&middot무응답 촉구 대상에게만 촉구하기
 
 %hr
