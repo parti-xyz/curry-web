@@ -40,7 +40,11 @@ module Statementable
   end
 
   def need_to_order_agents(action_assignable = nil)
-    not_agree_agents(action_assignable)
+    if !self.respond_to?(:stancable?) or stancable?
+      not_agree_agents(action_assignable)
+    else
+      unreplied_agents(action_assignable)
+    end
   end
 
   def not_agree_agents(action_assignable = nil)
@@ -63,6 +67,12 @@ module Statementable
 
   def responded_agents(action_assignable = nil)
     result = agents.where(id: statements.responded_only.select(:agent_id))
+    result = result.where(id: action_assignable.statementable_agents) if action_assignable.present?
+    result
+  end
+
+  def unreplied_agents(action_assignable = nil)
+    result = agents.where(id: statements.unreplied.select(:agent_id))
     result = result.where(id: action_assignable.statementable_agents) if action_assignable.present?
     result
   end

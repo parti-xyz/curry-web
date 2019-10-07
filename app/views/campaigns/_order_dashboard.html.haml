@@ -1,14 +1,22 @@
 .response-present
   .response-counts
-    .response-count
-      .response-tag.agree 찬성
-      .count= campaign.statements.group(:stance).count['agree'] || 0
-    .response-count
-      .response-tag.disagree 반대
-      .count= campaign.statements.group(:stance).count['disagree'] || 0
-    .response-count
-      .response-tag.noresponse 무응답
-      .count= campaign.statements.group(:stance).count['unsure'] || 0
+    - if campaign.stancable?
+      .response-count
+        .response-tag.agree 찬성
+        .count= campaign.statements.group(:stance).count['agree'] || 0
+      .response-count
+        .response-tag.disagree 반대
+        .count= campaign.statements.group(:stance).count['disagree'] || 0
+      .response-count
+        .response-tag.noresponse 무응답
+        .count= campaign.statements.group(:stance).count['unsure'] || 0
+    - else
+      .response-count
+        .response-tag.agree 응답
+        .count= campaign.statements.replied.count || 0
+      .response-count
+        .response-tag.noresponse 무응답
+        .count= campaign.statements.unreplied.count || 0
   - if campaign.opened?
     .response-text
     = link_to [:new_comment_agent, campaign], class: 'response-btn' do

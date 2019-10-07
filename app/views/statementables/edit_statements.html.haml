@@ -67,7 +67,7 @@
                 = f.hidden_field :agent_id, value: @target_agent.id
                 = f.hidden_field :statementable_id, value: @statementable.id
                 = f.hidden_field :statementable_type, value: @statementable.class.to_s
-              - if !statement.no_stancable?
+              - if statement.stancable?
                 .form-group
                   = f.label :stance, '응답여부'
                   = f.select :stance, [['응답완료', 'agree'], ['무응답', 'unsure']], { }, class: 'form-control'
