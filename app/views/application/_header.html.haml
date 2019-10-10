@@ -17,7 +17,7 @@
             프로젝트
           = project.title
       - else
-        = organization.try(:slogan) || '세상을 바꾸는 시민들의 일상 정치 플랫폼'
+        = organization.try(:slogan)
     .right-navi.js-top-menu.menu-btn
       - if @current_organization.try(:slug) == 'urimanna'
         %div#urimanna_menu
@@ -38,15 +38,6 @@
         = link_to Campaign.model_name.human, campaigns_url(subdomain: root_subdomain)
         %br
         = link_to Issue.model_name.human, issues_path(subdomain: root_subdomain)
-
-        %div{style:"font-size:22px; line-height:35px; margin-top: 30px;"}
-          = link_to Project.model_name.human, projects_url(subdomain: root_subdomain)
-          %br
-          = link_to Story.model_name.human, stories_url(subdomain: root_subdomain)
-          %br
-          = link_to Archive.model_name.human, archives_url(subdomain: root_subdomain)
-          %br
-          = link_to '커뮤니티', 'https://parti.xyz'
       - else
         = render "organizations/#{organization.slug}/pages/header", organization: organization
       %br
