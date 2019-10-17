@@ -91,7 +91,7 @@ gem 'rails-timeago', '~> 2.15'
 gem 'icalendar', '~> 2.5', '>= 2.5.3'
 
 # image
-gem 'exifr'
+gem 'exifr', '1.2.6'
 gem 'imgkit', '~> 1.6', '>= 1.6.1'
 group :development, :test do
   gem 'wkhtmltoimage-binary', '~> 0.12.2'
