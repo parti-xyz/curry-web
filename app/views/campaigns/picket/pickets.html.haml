@@ -25,7 +25,7 @@
   %section.section-pickets
     - if @pickets.count == 0
       .waiting-pickets
-        = image_tag('no-comment')
+        = image_tag('no-comment.png')
         %p.lead 등록된 팻말이 없습니다. 첫번 째로 팻말을 들어주세요.
         = link_to '팻말들기', picket_form_campaign_path(@campaign), class: 'btn btn-warning btn-large', remote: true
 
