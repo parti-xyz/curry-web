@@ -798,7 +798,7 @@ DEPENDENCIES
   bootstrap3-datetimepicker-rails
   browser (~> 2.0, >= 2.0.2)
   bulk_insert
-  bundler (~> 1.14, >= 1.14.5)
+  bundler (= 2.0.1)
   by_star (~> 2.2, >= 2.2.1)
   byebug
   cancancan (~> 1.10)
@@ -897,4 +897,4 @@ DEPENDENCIES
   wkhtmltoimage-binary (~> 0.12.2)
 
 BUNDLED WITH
-   1.17.3
+   2.0.2
