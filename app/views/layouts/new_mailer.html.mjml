@@ -22,7 +22,7 @@
         %mj-text{:href => root_url }
           %a{:href => root_url, :style => "color: #616161; text-decoration: none"}
             빠띠 캠페인즈
-            %small{ style: 'font-size: 10px'} 세상을 바꾸는 시민들의 일상 정치 플랫폼
+            %small{ style: 'font-size: 10px'} 세상을 바꾸는 시민들
     %mj-section{"padding-bottom" => "0px", "padding-top" => "0px"}
       %mj-column
         %mj-text{"font-size" => "10px", "line-height" => "12px", "padding-bottom" => "0px", "padding-top" => "0px"}

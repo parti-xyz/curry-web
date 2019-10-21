@@ -2,9 +2,7 @@
   .container
     %h2{ style: 'line-height: 1.0;' }
       %small{ style: 'color: #fff;' }
-        세상을 바꾸는 시민들의
-        %br
-        일상 정치 플랫폼
+        세상을 바꾸는 시민들
       %br
       %strong{style:"font-size:61px;line-height:80px;"}
         빠띠 캠페인즈
@@ -34,13 +32,3 @@
         = link_to 'https://m.me/PartiUnion', class: 'btn btn-lg' do
           %i.fa.fa-comment-o
           빠띠에 문의하기
-
-%section#stories.page-block
-  .container-fluid
-    %h3
-      = Issue.model_name.human
-      .pull-right
-        = link_to issues_path do
-          %small 더 보기
-    .row.masonry-container
-      = render @issues
