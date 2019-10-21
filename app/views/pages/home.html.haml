@@ -20,7 +20,7 @@
         = link_to campaigns_url(subdomain: root_subdomain) do
           %small 더 보기
     .row
-      = render Campaign.recent.where("signs_count > 100").limit(6)
+      = render Campaign.popular.limit(12)
 
     %div{ style: 'padding:14px; background: #fff; border-radius: 14px; text-align: center;'}
       %h3{ style: 'letter-spacing: -1px; line-height: 1.5;' }
