@@ -1,5 +1,6 @@
 <%
   branch = `git rev-parse --abbrev-ref HEAD`.strip rescue nil
+  branch = branch.gsub('/', '_')
   local_env = YAML.load_file("#{Rails.root}/local_env.yml").dig(Rails.env) || {}
 %>
 
