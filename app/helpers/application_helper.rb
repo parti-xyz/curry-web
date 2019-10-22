@@ -120,4 +120,8 @@ module ApplicationHelper
   def build_uid
     "uid-#{SecureRandom.uuid}"
   end
+
+  def congress
+    Agency.find(1)
+  end
 end

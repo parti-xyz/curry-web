@@ -25,6 +25,10 @@ class Agent < ApplicationRecord
   scope :of_positions, ->(*positions) { where(id: Appointment.of_positions(positions).select(:agent_id)) }
   scoped_search on: [:name]
 
+  def self.popular
+    joins(:campaigns).group("agents_campaigns.id").order("count(agents_campaigns.id) desc")
+  end
+
   def details
     "#{name} - #{organization}"
   end
@@ -69,4 +73,3 @@ class Agent < ApplicationRecord
     self.refresh_access_token_at = nil
   end
 end
-

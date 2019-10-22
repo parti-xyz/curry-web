@@ -32,3 +32,10 @@
         = link_to 'https://m.me/PartiUnion', class: 'btn btn-lg' do
           %i.fa.fa-comment-o
           빠띠에 문의하기
+
+%section#players
+  .container
+    %h3 국회의원
+    .row
+      - congress.agents.popular.limit(12).each do |agent|
+        .col-sm-2.col-xs-4= render agent
