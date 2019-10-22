@@ -71,21 +71,21 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   end
   # end
 
-  def url(version = nil)
-    super_result = super(version)
+  # def url(version = nil)
+  #   super_result = super(version)
 
-    if Rails.env.production?
-      return super_result
-    elsif self.model.read_attribute(self.mounted_as.to_sym).blank?
-      super_result
-    else
-      if self.file.try(:exists?) or ENV["S3_BUCKET"].blank?
-        ActionController::Base.helpers.asset_url(super_result)
-      else
-        "https://#{ENV["S3_BUCKET"]}.s3.amazonaws.com#{super_result}"
-      end
-    end
-  end
+  #   if Rails.env.production?
+  #     return super_result
+  #   elsif self.model.read_attribute(self.mounted_as.to_sym).blank?
+  #     super_result
+  #   else
+  #     if self.file.try(:exists?) or ENV["S3_BUCKET"].blank?
+  #       ActionController::Base.helpers.asset_url(super_result)
+  #     else
+  #       "https://#{ENV["S3_BUCKET"]}.s3.amazonaws.com#{super_result}"
+  #     end
+  #   end
+  # end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.

@@ -8,7 +8,7 @@
 
       %p.text-basic-wrap
         이 캠페인을 친구들에게 알려 주세요
-        - share_image_url = @campaign.read_attribute(:cover_image).present? ? @campaign.cover_image_url(:lg) : asset_url("default-image.png")
+        - share_image_url = @campaign.read_attribute(:cover_image).present? ? @campaign.cover_image.lg.url : asset_url("default-image.png")
         .share-box{ 'data-share-image': share_image_url }
       - if @campaign.agents.any?
         %p.text-basic-wrap

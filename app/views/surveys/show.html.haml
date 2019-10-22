@@ -1,7 +1,7 @@
 - if params[:mode] == 'widget'
   = render 'widget'
 - else
-  - cover_image = @survey.cover_image_url(:lg)
+  - cover_image = @survey.cover_image.lg.url
   %section#survey-section.component-header
     .container
       %span.gov-label

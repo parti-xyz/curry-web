@@ -1,7 +1,7 @@
 %section#sympathy-block.page-block
   .container
     .panel.panel-default.panel-post
-      - cover_image = @sympathy.cover_image_url(:lg)
+      - cover_image = @sympathy.cover_image.lg.url
       .panel-heading
         %h2
           %small.label.label-danger

@@ -1,6 +1,6 @@
 .column
   .ui.card.fluid
-    .image{ style: "height: 140px; background-image: url(#{timeline.image_url(:md)}); background-size: cover; background-position: center center;" }
+    .image{ style: "height: 140px; background-image: url(#{timeline.image.md.url}); background-size: cover; background-position: center center;" }
       %a.ui.brown.ribbon.label= Timeline.model_name.human
     .content
       = link_to timeline.title, timeline, class: 'header'

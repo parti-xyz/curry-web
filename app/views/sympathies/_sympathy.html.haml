@@ -1,7 +1,7 @@
 .col-md-6.col-sm-6.col-xs-12
   .sympathy-card[sympathy]
     = link_to sympathy do
-      .card-image{ style: "background-image: url(#{sympathy.cover_image_url(:md)});"}
+      .card-image{ style: "background-image: url(#{sympathy.cover_image.md.url});"}
         .overlay
           .title
             = sympathy.title

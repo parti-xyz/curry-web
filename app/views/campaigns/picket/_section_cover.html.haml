@@ -40,7 +40,7 @@
       = @campaign.title
 
     .user
-      .user-image-xs{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+      .user-image-xs{ style: "background-image:url(#{asset_url(@campaign.user.image.md.url)});" }
       .user-name
         = @campaign.user.nickname
 
@@ -72,4 +72,4 @@
           %rect{:fill => "url(##{uid_alpha_linear})", :height => "100%", :width => "100%", :x => "0", :y => "0"}
       %filter{ id: uid_header_bg }
         %fegaussianblur{in: "SourceGraphic", stdDeviation: "3"}
-      %image{externalResourcesRequired: "true", height: "100%", width: "100%", preserveAspectRatio: "xMidYMid slice", style: "filter:url(##{uid_header_bg})", mask: "url(##{uid_mask})", x: "0", y: "0", "xlink:href": (@campaign.read_attribute(:cover_image).present? ? @campaign.cover_image_url(:lg) : asset_url("default-image.png")), "xmlns:xlink": "http://www.w3.org/1999/xlink"}
+      %image{externalResourcesRequired: "true", height: "100%", width: "100%", preserveAspectRatio: "xMidYMid slice", style: "filter:url(##{uid_header_bg})", mask: "url(##{uid_mask})", x: "0", y: "0", "xlink:href": (@campaign.read_attribute(:cover_image).present? ? @campaign.cover_image.lg.url : asset_url("default-image.png")), "xmlns:xlink": "http://www.w3.org/1999/xlink"}

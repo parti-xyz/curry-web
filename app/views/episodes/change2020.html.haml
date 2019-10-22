@@ -1,4 +1,4 @@
-%section.page-block{style: "background-image: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url(#{asset_url(@project.image_url(:lg))});"}
+%section.page-block{style: "background-image: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url(#{asset_url(@project.image.lg.url)});"}
   .container
     %h3.title= link_to @project.title, @project, style: 'color: white'
     - max_votes = @polls.maximum(:votes_count)

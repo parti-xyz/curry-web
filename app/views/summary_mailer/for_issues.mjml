@@ -31,5 +31,5 @@
             = excerpt(campaign.body, length: 100)
       - if has_image
         %mj-column{"padding-bottom" => "0", :width => "25%"}
-          %mj-image{:href => polymorphic_url(campaign), :src => campaign.cover_image_url(:md)}
+          %mj-image{:href => polymorphic_url(campaign), :src => campaign.cover_image.md.url}
     %mj-spacer{:height => "10px"}

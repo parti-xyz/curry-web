@@ -20,7 +20,7 @@
 
     - if @timeline_document.image.file.present?
       .post-block__image
-        = image_tag @timeline_document.image_url(:lg)
+        = image_tag @timeline_document.image.lg.url
 
     .post-block__body
       = raw @timeline_document.body
