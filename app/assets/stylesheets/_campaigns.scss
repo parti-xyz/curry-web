@@ -1274,6 +1274,9 @@
           font-size: 11px;
           letter-spacing: -0.4px;
         }
+        &.campaign-picket-basic .control-btn{
+          top: 0;
+        }
         .user {
           align-items: center;
           display: flex;
@@ -1466,8 +1469,7 @@
       height: 495px;
       background: no-repeat center;
       background-size: cover;
-      top: -43px;
-      margin-bottom: -98px;
+      margin-top: 24px;
     }
     .picket-map-location {
       width: 100%;
@@ -1485,6 +1487,7 @@
         letter-spacing: -0.4px;
         line-height: 24px;
         white-space: nowrap;
+        top: 0;
         a {
           padding: 4px 16px;
           color: #717171;
@@ -1492,10 +1495,11 @@
         }
       }
       .user {
-        align-items: center;
         display: flex;
+        align-items: flex-start;
         .user-image-sm {
           width: 40px;
+          min-width: 40px;
           height: 40px;
         }
         .user-name {
@@ -1525,14 +1529,17 @@
     }
     .picket-body {
       font-size: 16px;
-      padding-top: 40px;
-      margin-top: 12px;
+      padding-top: 24px;
+      margin-top: 0;
       border-top: solid 1px #e0e0e0;
       letter-spacing: -0.5px;
       line-height: 1.63;
       color: #717171;
       word-break: break-all;
       text-align: justify;
+      &.no-border {
+        border-top: none;
+      }
     }
     .picket-tags {
       margin-top: 20px;

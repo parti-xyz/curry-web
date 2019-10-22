@@ -8,7 +8,7 @@
         = @picket.user_nickname
       .picket-date
         = date_f @picket.created_at
-  .picket-image{ style: "background-image:url(#{@picket.image_url});" }
+  .picket-image{ style: "background-image:url(#{@picket.image.lg.url});" }
   .picket-body
     = @picket.body
   .picket-tags

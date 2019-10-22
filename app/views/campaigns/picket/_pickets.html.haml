@@ -2,7 +2,7 @@
   .campaign-pickets
     .masonry-container.js-infinite-container
       - pickets.each do |picket|
-        .campaign-picket.masonry-item.infinite-item[picket]
+        .campaign-picket.campaign-picket-basic.masonry-item.infinite-item[picket]
           .control-btn
             - if picket.user.present? and picket.user == current_user
               = link_to "삭제", comment_path(picket), method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
@@ -33,8 +33,8 @@
   .campaign-pickets
     .masonry-container.js-infinite-container
       - pickets.each do |picket|
-        = link_to picket_campaign_path(@campaign, picket_id: picket), remote: true do
-          .campaign-picket-photo.masonry-item.infinite-item[picket]
+        = link_to picket_campaign_path(@campaign, picket_id: picket), remote: true, class: 'masonry-item' do
+          .campaign-picket-photo.infinite-item[picket]
             %section.section-campaign-picket-photo
               .picket-info
                 .user
