@@ -41,6 +41,8 @@ Rails.application.routes.draw do
   get 'privacy', to: "pages#privacy", as: 'privacy'
   get 'terms', to: "pages#terms", as: 'terms'
 
+  post 'simple_mail/callback' => 'simple_mail#callback'
+
   resources :users
   resources :comments do
     get '/readers', on: :member, to: 'comments#readers'

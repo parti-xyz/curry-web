@@ -39,7 +39,11 @@ class CommentMailer < ApplicationMailer
       end
     end
 
+    headers['X-PARTI-ORDERS'] = [@order.id].to_json
+
     mail(to: @agent.email,
       template_name: template_name)
+    # mail(to: "complaint@simulator.amazonses.com",
+    #   template_name: template_name, delivery_method: :aws_sdk)
   end
 end
