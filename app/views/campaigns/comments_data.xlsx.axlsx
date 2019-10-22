@@ -1,8 +1,13 @@
 row_definition = [
   [:created_at, '일시'],
-  [:user_nickname, '닉네임'],
-  [:body, '내용']
+  [:user_nickname, '닉네임']
 ]
+
+if @campaign.confirm_privacy.present?
+  row_definition << [:user_email, '이메일']
+end
+
+row_definition << [:body, '내용']
 
 row_titles = row_definition.map { |c| c[1] }
 wb = xlsx_package.workbook
