@@ -153,7 +153,7 @@ class CommentsController < ApplicationController
             id: @comment.id,
             created_at: @comment.created_at,
             nickname: @comment.user_nickname,
-            image: @comment.image_url(:sm),
+            image: @comment.image.sm.url,
             latitude: @comment.latitude,
             longitude: @comment.longitude,
             body: @comment.body

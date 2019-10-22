@@ -1,4 +1,4 @@
-- cover_image = @campaign.cover_image_url(:lg)
+- cover_image = @campaign.cover_image.lg.url
 %section.campaign-widget.cover-section{ style: "padding-top: 0;" }
   %section{ style: "padding-top: 20px; padding-bottom: 56px; background-image: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(#{cover_image}); background-size: cover; background-position: center top; background-repeat: no-repeat;" }
     .container

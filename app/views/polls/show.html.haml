@@ -42,7 +42,7 @@
       .panel-post__share
         %h3.sub-title 이 이슈를 친구들에게 알려 주세요
         .panel-body.component-box
-          - cover_image = @poll.cover_image_url(:lg)
+          - cover_image = @poll.cover_image.lg.url
           .share-box{ 'data-share-image': image_url(cover_image) }
           %input{value: "<iframe width='100%' height='495' src='#{poll_url(@poll, mode: :widget)}' frameborder='0'></iframe>", style: 'width: 100%;'}
 

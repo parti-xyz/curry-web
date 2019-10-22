@@ -46,7 +46,7 @@
             - if order_users_with_image.any?
               .user-images
                 - order_users_with_image.reverse.each do |user|
-                  .user-image-sm.overlapped{ style: "background-image:url(#{asset_url(user.image_url(:md))});" }
+                  .user-image-sm.overlapped{ style: "background-image:url(#{asset_url(user.image.md.url)});" }
             -if @campaign.order_users_count > 3
               .more +
               .count= @campaign.order_users_count - 3

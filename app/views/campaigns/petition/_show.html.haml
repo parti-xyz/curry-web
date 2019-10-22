@@ -60,13 +60,13 @@
               - if @campaign.signed?(current_user)
                 .btn.btn-danger.btn-lg.btn-block.campaign-sign-btn.cursor-default{ style: 'background: white; color: #000; opacity: 1  ; border: 1px solid  #1779f3;' }
                   .campaign-sign
-                    .signer-image{ style: "background-image:url(#{asset_url(user_signed_in? ? current_user.image_url(:xs) : 'default-user.png')});" }
+                    .signer-image{ style: "background-image:url(#{asset_url(user_signed_in? ? current_user.image.xs.url : 'default-user.png')});" }
                   #{current_user.nickname}님은
                   서명하셨습니다.
               - else
                 .campaign-sign
                   - if user_signed_in?
-                    .signer-image{ style: "background-image:url(#{asset_url(user_signed_in? ? current_user.image_url(:xs) : 'default-user.png')});" }
+                    .signer-image{ style: "background-image:url(#{asset_url(user_signed_in? ? current_user.image.xs.url : 'default-user.png')});" }
                     .signer-nickname
                       = current_user.nickname
                 = link_to sign_form_campaign_path(@campaign), remote: true do
@@ -120,7 +120,7 @@
             - if order_users_with_image.any?
               .user-images
                 - order_users_with_image.reverse.each do |user|
-                  .user-image-sm.overlapped{ style: "background-image:url(#{asset_url(user.image_url(:md))});" }
+                  .user-image-sm.overlapped{ style: "background-image:url(#{asset_url(user.image.md.url)});" }
             -if @campaign.order_users_count > 3
               .more +
               .count= @campaign.order_users_count - 3

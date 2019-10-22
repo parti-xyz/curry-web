@@ -13,7 +13,7 @@ json.events @archive.documents do |document|
       end
     elsif document.image.file.present?
       json.media do
-        json.url request.protocol + request.host_with_port + document.image_url(:lg)
+        json.url request.protocol + request.host_with_port + document.image.lg.url
       end
     end
 

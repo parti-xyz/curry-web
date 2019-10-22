@@ -1,6 +1,6 @@
 .col-md-4.col-sm-6.col-xs-12
   .card
-    .card-image{ style: "height: 140px; background-image: url(#{memorial.image_url(:md)}); background-size: cover; background-position: center center;" }
+    .card-image{ style: "height: 140px; background-image: url(#{memorial.image.md.url}); background-size: cover; background-position: center center;" }
       %span.label.label-warning.label-ribbon-left= Memorial.model_name.human
     .card-content
       = link_to memorial.title, memorial, class: 'header'
