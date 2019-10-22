@@ -1,6 +1,5 @@
-%span.link-toxic
-  = link_to comment_path(comment, { comment: {toxic: !comment.toxic? } }), class: 'js-popover', method: :put, remote: true, data: { confirm: "박제#{ '를 취소' if comment.toxic? }하시겠습니까?", content: "악의적인 댓글을 작성자가 <br>임의로 삭제할 수 없게<br> 증거로 남기는 기능입니다.<br>'검토 중인 의견'에서 확인<br>하실 수 있습니다.", placement: 'bottom', trigger: 'hover' } do
-    - if comment.toxic?
-      박제취소
-    - else
-      박제
+= link_to comment_path(comment, { comment: {toxic: !comment.toxic? } }), class: "js-popover js-link-toxic", method: :put, remote: true, data: { confirm: "박제#{ '를 취소' if comment.toxic? }하시겠습니까?", content: "악의적인 댓글을 작성자가 <br>임의로 삭제할 수 없게<br> 증거로 남기는 기능입니다.<br>'검토 중인 의견'에서 확인<br>하실 수 있습니다.", placement: 'bottom', trigger: 'hover' } do
+  - if comment.toxic?
+    박제취소
+  - else
+    박제

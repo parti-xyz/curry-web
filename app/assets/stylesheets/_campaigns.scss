@@ -1483,12 +1483,12 @@
         position: absolute;
         right: 40px;
         letter-spacing: -0.4px;
-        width: 44px;
-        height: 24px;
         line-height: 24px;
-        border: solid 1px #c3c3c3;
+        white-space: nowrap;
         a {
+          padding: 4px 16px;
           color: #717171;
+          border: solid 1px #c3c3c3;
         }
       }
       .user {
@@ -1531,7 +1531,7 @@
       letter-spacing: -0.5px;
       line-height: 1.63;
       color: #717171;
-      word-break: keep-all;
+      word-break: break-all;
       text-align: justify;
     }
     .picket-tags {
