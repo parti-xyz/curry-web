@@ -1,16 +1,18 @@
 - if likable?(likable)
-  = link_to likes_path(like: { likable_id: likable.id, likable_type: likable.class.name}), method: :post, remote: true, class: 'liked', id: like_btn_dom_id(likable) do
-    - if likable.merged_likes_count > 0
-      %li.fa.fa-heart.not-yet-liked
+  - if likable.merged_likes_count > 0
+    = link_to_if (local_assigns[:no_link] != true), likes_path(like: { likable_id: likable.id, likable_type: likable.class.name}), method: :post, remote: true, class: 'liked', id: like_btn_dom_id(likable) do
+      %i.fa.fa-heart.not-yet-liked
       .not-yet-liked= likable.merged_likes_count
-    - else
-      %li.fa.fa-heart.not-yet-liked
+  - else
+    = link_to_if (local_assigns[:no_link] != true), likes_path(like: { likable_id: likable.id, likable_type: likable.class.name}), method: :post, remote: true, class: 'liked', id: like_btn_dom_id(likable) do
+      %i.fa.fa-heart.not-yet-liked
       .not-yet-liked 공감해요
 - else
-  = link_to likes_path(like: { likable_id: likable.id, likable_type: likable.class.name}), method: :delete, remote: true, class: 'not-yet-liked', id: like_btn_dom_id(likable) do
-    - if likable.merged_likes_count > 0
-      %li.fa.fa-heart.liked
+  - if likable.merged_likes_count > 0
+    = link_to_if (local_assigns[:no_link] != true), likes_path(like: { likable_id: likable.id, likable_type: likable.class.name}), method: :delete, remote: true, class: 'not-yet-liked', id: like_btn_dom_id(likable) do
+      %i.fa.fa-heart.liked
       .liked= likable.merged_likes_count
-    - else
-      %li.fa.fa-heart.liked
+  - else
+    = link_to_if (local_assigns[:no_link] != true), likes_path(like: { likable_id: likable.id, likable_type: likable.class.name}), method: :delete, remote: true, class: 'not-yet-liked', id: like_btn_dom_id(likable) do
+      %i.fa.fa-heart.liked
       .not-yet-liked 공감해요

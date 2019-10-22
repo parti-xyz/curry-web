@@ -23,7 +23,7 @@
       .modal-body
         %section.section-picket-more
           .picket-body
-            = @picket.body
+            != @picket.body
           .picket-tags
             - @picket.tags.each do |tag|
               .picket-tag
