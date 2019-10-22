@@ -897,4 +897,4 @@ DEPENDENCIES
   wkhtmltoimage-binary (~> 0.12.2)
 
 BUNDLED WITH
-   2.0.2
+   2.0.1
