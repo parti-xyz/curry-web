@@ -73,7 +73,7 @@
                   = f.select :stance, [['응답완료', 'agree'], ['무응답', 'unsure']], { }, class: 'form-control'
               .form-group
                 = f.label :body, '의견'
-                ~ f.text_area :body, class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), data: { 'rule-required': true }
+                ~ f.text_area :body, class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : '')
               = hidden_field_tag :after_save_url, polymorphic_path([:edit_statements, @statementable], agent_id: @target_agent.id)
               - unless can?(:update, @statementable)
                 %hr
