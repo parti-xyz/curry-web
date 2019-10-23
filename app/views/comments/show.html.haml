@@ -1,3 +1,0 @@
-- if @comment.commentable.try(:template).present?
-  = render "#{@comment.commentable.class.name.pluralize.underscore}/#{@comment.commentable.template}/comment", comment: @comment
-
