@@ -62,21 +62,13 @@
     %h3
       관련 인물 - #{base_agents.count}명
 
-    - preview_count = 8
     - @agency.positions.each do |position|
       - agents = @agency.agents.of_positions(position)
       %h4
         = position.name
         (#{agents.count})
 
-        - if preview_count < agents.count
-          .pull-right
-            = link_to agents_agency_path(@agency, position_name: position.name) do
-              %span.text-muted 더 보기
-
       .row
-        - agents.shuffle.first(preview_count).each do |agent|
-          .col-xs-6.col-sm-3.col-lg-2
+        - agents.shuffle.each do |agent|
+          .col-xs-4.col-sm-2
             = render agent
-
-

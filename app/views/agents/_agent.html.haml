@@ -3,11 +3,6 @@
     %h4.card-title
       = link_to agent do
         = agent.name
-        %small= agent.organization
 
     .meta
-      = link_to agent do
-        캠페인 #{agent.campaigns.count}개
-      &middot;
-      = link_to agent do
-        의견 #{agent.opinions.count}개
+      = agent.organization
