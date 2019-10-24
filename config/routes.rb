@@ -3,8 +3,10 @@ Rails.application.routes.draw do
     def matches?(request)
       short_domain = if Rails.env.production?
         ['cmz.kr']
-      elsif Rails.env.development?
+      elsif Rails.env.staging?
         ['dev.cmz.kr']
+      elsif Rails.env.development?
+        ['cmz.test']
       else
         []
       end
@@ -13,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   constraints(ShortDomainConstraint.new) do
+    get '/', to: redirect { |params, req| "#{req.protocol}#{Rails.application.routes.default_url_options[:host]}" }
     get '/:slug', as: :short_slug_campaign, to: redirect { |params, req| "#{req.protocol}#{Rails.application.routes.default_url_options[:host]}/campaigns/#{ Campaign.find_by(slug: params[:slug]).try(:id) }" }, constraints: lambda { |request, params|
       Campaign.exists?(slug: params[:slug])
     }
