@@ -1,4 +1,26 @@
 Rails.application.routes.draw do
+  class ShortDomainConstraint
+    def matches?(request)
+      short_domain = if Rails.env.production?
+        ['cmz.kr']
+      elsif Rails.env.development?
+        ['dev.cmz.kr']
+      else
+        []
+      end
+      short_domain.include? request.host
+    end
+  end
+
+  constraints(ShortDomainConstraint.new) do
+    get '/:slug', as: :short_slug_campaign, to: redirect { |params, req| "#{req.protocol}#{Rails.application.routes.default_url_options[:host]}/campaigns/#{ Campaign.find_by(slug: params[:slug]).try(:id) }" }, constraints: lambda { |request, params|
+      Campaign.exists?(slug: params[:slug])
+    }
+    get '/:id', as: :short_id_campaign, to: redirect { |params, req| "#{req.protocol}#{Rails.application.routes.default_url_options[:host]}/campaigns/#{ params[:id] }" }, constraints: lambda { |request, params|
+      Campaign.exists?(id: params[:id])
+    }
+  end
+
   mount Redactor2Rails::Engine => '/redactor2_rails'
   devise_for :users, controllers: {
     registrations: 'users/registrations',
@@ -42,6 +64,7 @@ Rails.application.routes.draw do
     Campaign.exists?(previous_event_id: params[:id])
   }
   get 'petitions/:id', to: redirect { |params, req| "/campaigns/#{URI.escape(params[:id])}"}
+
   resources :projects, path: :p
   resources :episodes do
     collection do
