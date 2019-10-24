@@ -16,6 +16,9 @@ class Agency < ApplicationRecord
   #   Agent.tagged_with(position_list, on: :positions, any: true)
   # end
 
+  def related_campaigns
+    agents.map { |a| a.campaigns }.flatten.uniq
+  end
 
   # action_assignable interface
   def statementable_agents()

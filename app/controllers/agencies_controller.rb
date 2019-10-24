@@ -5,7 +5,7 @@ class AgenciesController < ApplicationController
   end
 
   def show
-    @campaigns = Campaign.to_action_assignable(@agency)
+    @campaigns = @agency.related_campaigns
     @form_campaign = Campaign.new(special_slug: Special::SLUG_VOTEAWARD2018)
   end
 
