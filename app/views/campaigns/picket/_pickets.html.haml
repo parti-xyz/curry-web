@@ -33,8 +33,8 @@
   .campaign-pickets
     .masonry-container.js-infinite-container
       - pickets.each do |picket|
-        = link_to picket_campaign_path(@campaign, picket_id: picket), remote: true, class: 'masonry-item' do
-          .campaign-picket-photo.infinite-item[picket]
+        .masonry-item.campaign-picket-photo.infinite-item[picket]
+          = link_to picket_campaign_path(@campaign, picket_id: picket), remote: true, style: 'display: inline-block; width: 100%' do
             %section.section-campaign-picket-photo
               .picket-info
                 .user

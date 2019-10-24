@@ -1230,7 +1230,7 @@
   }
   .section-pickets {
     background: #f0f0f0;
-    // padding-bottom: 20px;
+    padding-bottom: 40px;
     .waiting-pickets {
       margin: 0 auto;
       padding: $font-size-base * 4 0;
@@ -1316,6 +1316,7 @@
           color: #717171;
           font-size: 11px;
           letter-spacing: -0.4px;
+          margin-bottom: 0;
           a {
             display: flex;
             li {
@@ -1418,6 +1419,7 @@
           padding: 20px;
           background-color: #ffffff;
           list-style: none;
+          margin-bottom: 0;
           .liked {
             display: inline;
           }
