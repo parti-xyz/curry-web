@@ -33,7 +33,7 @@ namespace :branchdb do
   end
 
   desc '현재 브랜치DB를 삭제합니다'
-  task 'remove' => :environment do
+  task 'drop' => :environment do
 
     branch = `git rev-parse --abbrev-ref HEAD`.strip rescue nil
     if branch.blank?
