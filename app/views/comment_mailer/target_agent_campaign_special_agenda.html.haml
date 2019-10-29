@@ -1,5 +1,5 @@
-- campaign = @comment.commentable
-- message.subject = campaign.formatted_title_to_agent(@comment.user_nickname)
+- campaign = @commentable
+- message.subject = campaign.formatted_title_to_agent((@comments.first.try(:user_nickname))
 %p
   #{@agent.name}님 안녕하세요? 세상을 바꾸는 시민들의 일상 정치 플랫폼, 빠띠 캠페인즈입니다.
 %p
@@ -12,10 +12,12 @@
   %p= excerpt(campaign.body, length: 1000)
   = link_to polymorphic_url(campaign), target: "_blank" do
     자세히 보기
-%p
-  이 캠페인에 대해 #{@comment.user_nickname}님이 #{@agent.name}님에게 행동을 촉구합니다.
-.container
-  != @comment.body
+
+- @comments.each do |comment|
+  %p
+    이 캠페인에 대해 #{comment.user_nickname}님이 #{@agent.name}님에게 행동을 촉구합니다.
+  .container
+    != comment.body
 
 %p{ style: 'text-align: center' }
   아래 버튼을 눌러 이 캠페인에 대한 #{@agent.name}님의 행동을 보여주세요.
