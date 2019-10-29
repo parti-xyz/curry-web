@@ -1,5 +1,5 @@
-- campaign = @comment.commentable
-- message.subject = campaign.formatted_title_to_agent(@comment.user_nickname)
+- campaign = @commentable
+- message.subject = campaign.formatted_title_to_agent(@comments.first.try(:user_nickname))
 %p
   #{@agent.name}님 안녕하세요? 세상을 바꾸는 시민들, 빠띠 캠페인즈입니다.
 %p
@@ -12,10 +12,7 @@
   %p= excerpt(campaign.body, length: 1000)
   = link_to polymorphic_url(campaign), target: "_blank" do
     자세히 보기
-%p
-  이 서명에 대해 #{@comment.user_nickname}님이 #{@agent.name}님에게 행동을 촉구합니다.
-.container
-  != @comment.body
+
 
 - if campaign.need_stance?
   %p{ style: 'text-align: center' }
@@ -31,6 +28,20 @@
   %p{ style: 'text-align: center' }
     %a{:href => update_statement_agent_campaign_url(campaign, statement_id: @statement_key.statement.id, key: @statement_key.key), :style => "font-size: 14px; display: inline-block; color: #22be34; background: none; border-radius: 3px; padding: 16px 20px; text-decoration: none; outline: 0px; font-family: AppleSDGothic, \"apple sd gothic neo\", \"noto sans korean\", \"noto sans korean regular\", \"noto sans cjk kr\", \"noto sans cjk\", \"nanum gothic\", \"malgun gothic\", dotum, sans-serif; border-width: 2px; border-style: solid; border-color: #22be34;_display:inline", :target => "_blank"} 의견 등록하기
 
+%p
+  &nbsp;
+%p
+  &nbsp;
+
+- @comments.each do |comment|
+  %p
+    이 서명에 대해 #{comment.user_nickname}님이 #{@agent.name}님에게 행동을 촉구합니다.
+  .container
+    != comment.body
+  %p
+    &nbsp;
+  %p
+    &nbsp;
 
 %div(style="margin-top: 60px;")
   %table
@@ -45,4 +56,5 @@
           %strong '빠띠 캠페인즈'
           http://campaigns.kr/
 
-= image_tag beacon_order_url(@order)
+- @orders.each do |order|
+  = image_tag beacon_order_url(order)

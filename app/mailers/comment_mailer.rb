@@ -1,25 +1,39 @@
 class CommentMailer < ApplicationMailer
-  def target_agent(comment_id, order_id, statement_key_id)
-    @comment = Comment.find_by(id: comment_id)
-    return if @comment.blank?
+  def target_agent(commentable_type, commentable_id, agent_id, params_items)
+    # comment_id, order_id, statement_key_id
+    @commentable = commentable_type.classify.safe_constantize.try(:find_by, {id: commentable_id})
+    return if @commentable.blank?
 
-    @statement_key = StatementKey.find_by(id: statement_key_id)
-    return if @statement_key.blank?
+    @comments = []
+    @orders = []
+    @statement_key = nil
+    params_items.each do |params|
+      comment = Comment.find_by(id: params['comment_id'])
+      next if comment.blank?
+      statement_key = StatementKey.find_by(id: params['statement_key_id'])
+      next if statement_key.blank?
+      @statement_key = statement_key
+      order = Order.find_by(id: params['order_id'])
+      next if order.blank?
 
-    @order = Order.find_by(id: order_id)
-    return if @order.blank?
+      @comments << comment
+      @orders << order
+    end
 
-    @agent = @order.agent
 
-    unless @agent.try(:email).try(:present?)
-      @comment.update_attributes(mailing: :fails)
+    @agent = Agent.find_by(id: agent_id)
+    return if @agent.blank?
+
+    all_comments = Comment.where(id: @comments)
+    unless @agent.email.present?
+      all_comments.update_all(mailing: :fails)
       return
     end
-    @comment.update_attributes(mailing: :sent)
+    all_comments.update_all(mailing: :sent)
 
-    template_name = "target_agent_#{@comment.commentable.class.name.underscore}"
-    if @comment.commentable.respond_to? :template
-      special_template_name = "target_agent_#{@comment.commentable.class.name.underscore}_#{@comment.commentable.template}"
+    template_name = "target_agent_#{@commentable.class.name.underscore}"
+    if @commentable.respond_to? :template
+      special_template_name = "target_agent_#{@commentable.class.name.underscore}_#{@commentable.template}"
       if lookup_context.exists?("comment_mailer/#{special_template_name}")
         template_name = special_template_name
       end

@@ -162,7 +162,7 @@ class DeprecatedEvent < ApplicationRecord
   end
 
   def formatted_title_to_agent(user_nickname = nil)
-    "\"#{self.title_to_agent}\"에 대해 #{"#{user_nickname}님이 " if user_nickname.present?}행동을 촉구합니다"
+    "\"#{self.title_to_agent}\"에 대해 #{"#{user_nickname}님 등이 " if user_nickname.present?}행동을 촉구합니다"
   end
 
   def closed?

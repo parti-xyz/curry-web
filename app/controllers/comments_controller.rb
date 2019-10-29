@@ -29,11 +29,11 @@ class CommentsController < ApplicationController
   end
 
   def create
-    unless verify_recaptcha(model: @comment)
-      errors_to_flash(@comment)
-      redirect_back(fallback_location: root_path)
-      return
-    end
+    # unless verify_recaptcha(model: @comment)
+    #   errors_to_flash(@comment)
+    #   redirect_back(fallback_location: root_path)
+    #   return
+    # end
 
     if @comment.commentable.try(:comment_closed?)
       flash[:notice] = t("messages.#{@comment.commentable_type.pluralize.underscore}.closed")
@@ -100,7 +100,7 @@ class CommentsController < ApplicationController
           statement_key = statement.statement_keys.build(key: SecureRandom.hex(50))
           statement_key.save!
           if @comment.mailing.ready? and agent.email.present?
-            CommentMailer.target_agent(@comment.id, order.id, statement_key.id).deliver_later
+            CommentToAgentJob.perform_async({ comment_id: @comment.id, order_id: order.id, statement_key_id: statement_key.id })
           end
         end
       end
