@@ -12,6 +12,7 @@ class Agent < ApplicationRecord
   has_many :appointments, dependent: :destroy
   has_many :positions, through: :appointments
   has_many :agencies, -> { distinct }, through: :positions
+  has_many :orders, dependent: :destroy
   extend Enumerize
   enumerize :category, in: %i(개인 법인)
 
@@ -25,8 +26,23 @@ class Agent < ApplicationRecord
   scope :of_positions, ->(*positions) { where(id: Appointment.of_positions(positions).select(:agent_id)) }
   scoped_search on: [:name]
 
-  def self.popular
-    joins(:campaigns).group("agents_campaigns.id").order("count(agents_campaigns.id) desc")
+  def self.popular_limit(limit)
+    result = self.popular_orders.limit(limit).to_a
+    result += self.popular_campaigns.limit(limit - result.count).to_a
+
+    result
+  end
+
+  def self.popular_campaigns
+    self.joins(:campaigns).group("agents_campaigns.id").order("count(agents_campaigns.id) desc")
+  end
+
+  def self.popular_orders
+    self.joins(:orders).where('orders.created_at > ?', Order.last.created_at.ago(7.days)).group("orders.agent_id").order("count(orders.agent_id) desc").having("count(orders.agent_id) > 0")
+  end
+
+  def related_campaigns
+     self.campaigns.union_all(id: ActionTarget.where(action_assignable: self.agencies).select(:action_targetable_id)).order(id: :desc)
   end
 
   def details

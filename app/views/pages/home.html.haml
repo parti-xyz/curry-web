@@ -41,5 +41,5 @@
         = link_to Agency.assembly_20th do
           %small 더 보기
     .row
-      - Agency.assembly_20th.agents.popular.limit(12).each do |agent|
+      - Agency.assembly_20th.agents.popular_limit(12).each do |agent|
         .col-sm-2.col-xs-4= render agent
