@@ -38,8 +38,8 @@
     %h3
       국회의원
       .pull-right
-        = link_to congress do
+        = link_to Agency.assembly_20th do
           %small 더 보기
     .row
-      - congress.agents.popular.limit(12).each do |agent|
+      - Agency.assembly_20th.agents.popular.limit(12).each do |agent|
         .col-sm-2.col-xs-4= render agent

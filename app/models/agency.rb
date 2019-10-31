@@ -17,6 +17,7 @@ class Agency < ApplicationRecord
   # end
 
   def related_campaigns
+
     agents.map { |a| a.campaigns }.flatten.uniq
   end
 
@@ -44,5 +45,9 @@ class Agency < ApplicationRecord
 
   def agents_unspoken_limit
     30
+  end
+
+  def self.assembly_20th
+    Agency.find_by(slug: 'assembly_20th')
   end
 end
