@@ -9,6 +9,7 @@ gem 'bundler', '2.0.1'
 gem 'sqlite3'
 gem 'mysql2', '>= 0.3.13', '< 0.5'
 gem 'activerecord_any_of', github: 'oelmekki/activerecord_any_of', ref: '22b3bf'
+gem 'active_record_union', '~> 1.3'
 # model
 gem 'sequenced', '~> 3.1', '>= 3.1.1'
 gem 'kaminari', '~> 0.17.0'
@@ -20,7 +21,7 @@ gem 'acts-as-taggable-on', '~> 4.0'
 gem 'by_star', '~> 2.2', '>= 2.2.1'
 gem 'groupdate', '~> 3.1', '>= 3.1.1'
 gem "chartkick", ">= 3.2.0"
-gem 'friendly_id', '~> 5.2.0'
+gem 'friendly_id', '~> 5.3'
 gem 'bulk_insert'
 gem 'merit'
 

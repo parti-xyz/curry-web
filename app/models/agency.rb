@@ -17,8 +17,8 @@ class Agency < ApplicationRecord
   # end
 
   def related_campaigns
-
-    agents.map { |a| a.campaigns }.flatten.uniq
+     Campaign.joins(:dedicated_agents).where('agents.id': self.agents).distinct
+     .union_all(id: ActionTarget.where(action_assignable: self).select(:action_targetable_id)).order(id: :desc)
   end
 
   # action_assignable interface
