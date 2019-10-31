@@ -16,6 +16,10 @@ class Agency < ApplicationRecord
   #   Agent.tagged_with(position_list, on: :positions, any: true)
   # end
 
+  def related_campaigns
+     Campaign.joins(:dedicated_agents).where('agents.id': self.agents).distinct
+     .union_all(id: ActionTarget.where(action_assignable: self).select(:action_targetable_id)).order(id: :desc)
+  end
 
   # action_assignable interface
   def statementable_agents()
@@ -41,5 +45,9 @@ class Agency < ApplicationRecord
 
   def agents_unspoken_limit
     30
+  end
+
+  def self.assembly_20th
+    Agency.find_by(slug: 'assembly_20th')
   end
 end
