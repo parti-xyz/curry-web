@@ -1,4 +1,4 @@
-- cover_image = @campaign.cover_image_url(:lg)
+- cover_image = @campaign.cover_image.lg.url
 %section.cover-section{ style: "background-image: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(#{cover_image})" }
   .container.container-fluid
     - if @project

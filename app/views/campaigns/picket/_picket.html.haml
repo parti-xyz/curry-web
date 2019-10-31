@@ -5,25 +5,25 @@
         %button.close{ 'data-dismiss' => 'modal', 'aria-label' => 'Close' }
           %span{ 'aira-hidden' => 'true' } &times;
       .modal-body
-        %section.section-picket-more
+        %section.section-picket-more{ style: 'margin-bottom: -16px;' }
           .picket-info
             .control-btn
               = render 'reports/button', reportable: @picket
             .user
-              .user-image-sm{ style: "background-image:url(#{asset_url(@picket.user_image)});" }
-              .user-name
+              .user-image-sm{ style: "line-height: 40px; background-image:url(#{asset_url(@picket.user_image)});" }
+              .user-name{ style: 'line-height: 40px;' }
                 = @picket.user_nickname
-              .picket-date
+              .picket-date{ style: 'line-height: 40px;' }
                 = date_f @picket.created_at
       - unless @picket.image.file.nil?
-        .picket-image{ style: "background-image:url(#{asset_url(@picket.image)});" }
+        .picket-image{ style: "background-image:url(#{asset_url(@picket.image.lg.url)});" }
       - if @picket.latitude.present? and @picket.longitude.present?
         .picket-map-location
           #picket-map{ style: 'width: 100%; height: 100%' }
       .modal-body
         %section.section-picket-more
-          .picket-body
-            = @picket.body
+          .picket-body.no-border
+            != @picket.body
           .picket-tags
             - @picket.tags.each do |tag|
               .picket-tag
@@ -41,13 +41,13 @@
               .text
                 댓글
                 = @picket.comments.count
-          .section-title
+          .section-title{ style: 'margin-bottom: 0' }
             댓글을 남겨주세요.
           - page_dom_id = build_uid
           = render 'comments/picket_form_line', commentable: @picket
           - if @picket.comments.count == 0
             .waiting-comments
-              = image_tag(asset_url('campaigns/campaign-waiting-comments'))
+              = image_tag(asset_url('campaigns/campaign-waiting-comments.png'))
               %p 등록된 댓글이 없습니다.
           - else
             = render 'comments/picket', commentable: @picket, comments: @picket.comments.recent.page(1), dom_id: page_dom_id

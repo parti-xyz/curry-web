@@ -1,5 +1,5 @@
 - if params[:controller] == 'projects'
-  %section.cover-section{style: "background-image: linear-gradient(rgba(0, 0, 0, .8), rgba(0, 0, 0, .6)), url(#{asset_url(project.image_url(:lg))});"}
+  %section.cover-section{style: "background-image: linear-gradient(rgba(0, 0, 0, .8), rgba(0, 0, 0, .6)), url(#{asset_url(project.image.lg.url)});"}
     .container
       %h3.cover-section__title
         = project.title
@@ -25,12 +25,12 @@
             %p 참여(#{project.organizers.count})
 
           = link_to project.user do
-            = image_tag project.user.image_url(:sm), class: 'user-image-sm'
+            = image_tag project.user.image.sm.url, class: 'user-image-sm'
           - organizers = project.organizers.where.not(user: project.user)
           - if organizers.any?
             %i.fa.fa-times
             - organizers.each do |organizer|
               = link_to organizer.user do
-                = image_tag organizer.user.image_url(:sm), class: 'user-image-sm'
+                = image_tag organizer.user.image.sm.url, class: 'user-image-sm'
 
       = render 'projects/header_admin_menu', project: project

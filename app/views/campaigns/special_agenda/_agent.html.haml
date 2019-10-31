@@ -1,5 +1,5 @@
 .agent
-  .agent-image.agent-image-top{ style: "background-image:url(#{asset_url(agent.image_url(:md))});" }
+  .agent-image.agent-image-top{ style: "background-image:url(#{asset_url(agent.image.md.url)});" }
     - unless campaign.statement_of(agent).present?
       .agent-unsure 무응답
     - else

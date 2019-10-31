@@ -1,5 +1,5 @@
 .agent{ class: local_assigns[:dom_class] }
-  .agent-image{ class: (agent.category == '개인' ? 'agent-image-top' : 'agent-image-corporation'), style: "background-image:url(#{asset_url(agent.image_url(:md))});" }
+  .agent-image{ class: (agent.category == '개인' ? 'agent-image-top' : 'agent-image-corporation'), style: "background-image:url(#{asset_url(agent.image.md.url)});" }
     - unless statement.present?
       .agent-unsure 무응답
     - else

@@ -1,4 +1,4 @@
-- cover_image = @campaign.cover_image_url(:lg)
+- cover_image = @campaign.cover_image.lg.url
 - comments = params[:tag] ? @campaign.comments.tagged_with(params[:tag]) : @campaign.comments
 - google_map_apikey = 'AIzaSyBmxQGhxC-UzPzxIMlE9Sy09Dv9zUtiiW4'
 
@@ -79,9 +79,9 @@
                 .comment__image
                   - if comment.latitude && comment.longitude
                     %a{ "data-target" => "#comment-modal", "data-toggle" => "modal", "data-comment-id" => comment.id, :type => "button", style: 'cursor:pointer' }
-                      = image_tag comment.image_url(:lg), style: 'width: 100%;'
+                      = image_tag comment.image.lg.url, style: 'width: 100%;'
                   - else
-                    = image_tag comment.image_url(:lg), style: 'width: 100%;'
+                    = image_tag comment.image.lg.url, style: 'width: 100%;'
               .comment__body
                 %h4{ style: 'font-size: 16px; letter-spacing: -0.02em; line-height: 1.4;'}= smart_format comment.body
               .comment__meta{ style: 'color: #5f5f5f;font-size: 12px' }
@@ -124,7 +124,7 @@
     })
 
 
-    var locations = #{comments.select{|c| c.latitude.present? }.collect{ |c| ['<div><b>' + c.tag_list.join(',') + '</b></div>' + (c.image.present? ? '<div style="max-height: 150px; overflow: hidden;">' + image_tag(c.image_url(:sm), style: 'width: 100%;') + '</div>' : '') + '<div>' + c.body + '</div>' + '<div><span style="color: #5f5f5f; font-size: 12px">' + (c.user.present? ? c.user.nickname : c.commenter_name) + date_f(c.created_at) + '</span></div>', c.latitude, c.longitude] }}
+    var locations = #{comments.select{|c| c.latitude.present? }.collect{ |c| ['<div><b>' + c.tag_list.join(',') + '</b></div>' + (c.image.present? ? '<div style="max-height: 150px; overflow: hidden;">' + image_tag(c.image.sm.url, style: 'width: 100%;') + '</div>' : '') + '<div>' + c.body + '</div>' + '<div><span style="color: #5f5f5f; font-size: 12px">' + (c.user.present? ? c.user.nickname : c.commenter_name) + date_f(c.created_at) + '</span></div>', c.latitude, c.longitude] }}
 
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 7,

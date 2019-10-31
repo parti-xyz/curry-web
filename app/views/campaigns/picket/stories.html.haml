@@ -18,7 +18,7 @@
         - @campaign.stories.recent.each do |story|
           .story
             .story-header
-              .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image_url(:md))});" }
+              .user-image-sm{ style: "background-image:url(#{asset_url(@campaign.user.image.md.url)});" }
               .user-nickname= @campaign.user.nickname
               .date= date_f story.published_at
             = link_to story do

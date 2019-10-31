@@ -1,4 +1,4 @@
-%section.agency-header-block.hero-block{style:"background-position:center; background-size:cover; background-image: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .8)), url(#{asset_url(@agency.image_url(:lg))});"}
+%section.agency-header-block.hero-block{style:"background-position:center; background-size:cover; background-image: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .8)), url(#{asset_url(@agency.image.lg.url)});"}
   .container
     %h2= @agency.title
     %p.agency-header__meta.lead

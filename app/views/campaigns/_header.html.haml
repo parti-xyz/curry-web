@@ -31,7 +31,7 @@
           = link_to campaign.issue do
             = campaign.issue.title
 
-    - cover_image = campaign.cover_image_url(:lg)
+    - cover_image = campaign.cover_image.lg.url
     - if cover_image.present?
       %section.no-container-margin-xs{ style: "margin-top: 15px; margin-top: 15px; height: 250px; background-image: url(#{cover_image}); background-size: cover; background-repeat: no-repeat; background-position: center" }
 

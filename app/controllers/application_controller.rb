@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  before_action :redirect_new_domain_if_old
+
   if Rails.env.production? or Rails.env.staging?
     rescue_from ActiveRecord::RecordNotFound, ActionController::UnknownFormat do |exception|
       render_404
@@ -117,6 +119,15 @@ class ApplicationController < ActionController::Base
   helper_method :seletable_projects_in_form
 
   private
+
+  def redirect_new_domain_if_old
+    if ['govcraft.org', 'govcraft.test'].include? request.domain
+      return unless request.get? or request.xhr?
+
+      new_full_domain = [request.subdomain.presence, Rails.application.routes.default_url_options[:host]].compact.join('.')
+      redirect_to "#{request.protocol}#{new_full_domain}#{request.fullpath}", status: :moved_permanently
+    end
+  end
 
   def prepare_flash
     obtrusive_flash = flash.select { |key, value| !unobtrusive_flash_keys.include?(key.to_sym) } if flash.any?

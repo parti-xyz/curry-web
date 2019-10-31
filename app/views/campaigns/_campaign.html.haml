@@ -1,7 +1,7 @@
 .col-sm-6.col-xs-12
   .action-card.panel-floating[campaign]
     = link_to campaign do
-      .card-image{ style: "background-image: url(#{campaign.cover_image_url(:md)});"}
+      .card-image{ style: "background-image: url(#{campaign.cover_image.md.url});"}
         .overlay
           .title
             - if campaign.project.present?
