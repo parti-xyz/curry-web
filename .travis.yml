@@ -1,18 +1,18 @@
 language: ruby
 rvm:
-- 2.4.7
+  - 2.4.7
+if: tag =~ /^v[0-9]+\.[0-9]+\.[0-9]+$/
 before_install:
-- rvm use @global
-- gem uninstall bundler -x
-- gem install bundler --version=2.0.1 -f
-- bundler --version
+  - rvm use @global
+  - gem uninstall bundler -x
+  - gem install bundler --version=2.0.1 -f
+  - bundler --version
 script:
-- echo "skipping tests"
+  - echo "skipping tests"
 deploy:
-  provider: engineyard
-  environment: oasis
-  on: master
-  app: govcraft
-  migrate: !ruby/string:HighLine::String rake db:migrate
-  api_key:
-    secure: ts0SrAJYZLQd2cQq5jJhE5x40uih9TVm+eNM/kV6asK/cdJFVa/CnpqAG8eqlMQueHoAc9ADRk9dQTwgXfGT0Gj6M92d1LPVMUop/fxK61HxaWSCCbjRyIQGH3dlELZ2I0BdJy0k9GU+vEaSfCzZceAIi43M6iT/aAecVkAkbSwV3GdnNccdKfBrzCWmpndkKsCMEHINCnSzqn2TwMRwyA7lua4mf522kW7bZ1b36IFg+xY0kGDI3IJITQvWgyzVO9g6iloT88iaA4VY/uNeMfj+twJEARr6xebR9W3O+FTDzXNsM+ia2hFZ9cz/UG7C+u2MGwpPIyVby2ZdtcY4iA3lL4WpVMG1uVBmbzKAcw9cpr9Hddg4fkhQMxpjbtTi4PuoKqkSLAAxXKGW4yy2djHLg/BfZdlP1XnNrTyu4KS2W8SZk/61VW/qdKptj5CluyuFiw5Zp9NfaTNcpVytQ8ea232Bzs+au6rv08mnpZrU3AFJBc683jupf6JuhLD4pjxnivk5UY/diKOwrLhr2uQp0K1qb0IkQlDfPmrw+P46To9zcFNNfm8Qu5KwRISTxcNGabyeh3pRGWDKJdOnQhsQiDdk4yZ/5CIIGWYW/ysG+b90WHXduzgRWxLpYixKcMEBcV3vW35HMwEMVF4wkXaUgPPtoil8a3NKb0uoVG8=
+  - provider: engineyard
+    environment: oasis
+    app: govcraft
+    migrate: "!ruby/string:HighLine::String rake db:migrate"
+    api_key:
+      secure: ts0SrAJYZLQd2cQq5jJhE5x40uih9TVm+eNM/kV6asK/cdJFVa/CnpqAG8eqlMQueHoAc9ADRk9dQTwgXfGT0Gj6M92d1LPVMUop/fxK61HxaWSCCbjRyIQGH3dlELZ2I0BdJy0k9GU+vEaSfCzZceAIi43M6iT/aAecVkAkbSwV3GdnNccdKfBrzCWmpndkKsCMEHINCnSzqn2TwMRwyA7lua4mf522kW7bZ1b36IFg+xY0kGDI3IJITQvWgyzVO9g6iloT88iaA4VY/uNeMfj+twJEARr6xebR9W3O+FTDzXNsM+ia2hFZ9cz/UG7C+u2MGwpPIyVby2ZdtcY4iA3lL4WpVMG1uVBmbzKAcw9cpr9Hddg4fkhQMxpjbtTi4PuoKqkSLAAxXKGW4yy2djHLg/BfZdlP1XnNrTyu4KS2W8SZk/61VW/qdKptj5CluyuFiw5Zp9NfaTNcpVytQ8ea232Bzs+au6rv08mnpZrU3AFJBc683jupf6JuhLD4pjxnivk5UY/diKOwrLhr2uQp0K1qb0IkQlDfPmrw+P46To9zcFNNfm8Qu5KwRISTxcNGabyeh3pRGWDKJdOnQhsQiDdk4yZ/5CIIGWYW/ysG+b90WHXduzgRWxLpYixKcMEBcV3vW35HMwEMVF4wkXaUgPPtoil8a3NKb0uoVG8=
