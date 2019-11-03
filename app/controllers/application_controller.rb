@@ -190,4 +190,8 @@ class ApplicationController < ActionController::Base
       all_projects = all_projects.organize_by(current_user, 'Project')
     end
   end
+
+  def can_recaptcha?
+    (Rails.env.production? or Rails.env.staging?) or ENV['RECAPTCHA']
+  end
 end

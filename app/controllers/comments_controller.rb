@@ -29,11 +29,11 @@ class CommentsController < ApplicationController
   end
 
   def create
-    # unless verify_recaptcha(model: @comment)
-    #   errors_to_flash(@comment)
-    #   redirect_back(fallback_location: root_path)
-    #   return
-    # end
+    if can_recaptcha? and !verify_recaptcha(model: @comment)
+      errors_to_flash(@comment)
+      redirect_back(fallback_location: root_path)
+      return
+    end
 
     if @comment.commentable.try(:comment_closed?)
       flash[:notice] = t("messages.#{@comment.commentable_type.pluralize.underscore}.closed")

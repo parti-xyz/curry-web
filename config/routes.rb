@@ -93,6 +93,8 @@ Rails.application.routes.draw do
       get 'new_comment_agent'
       get 'edit_statement'
       get 'edit_statements'
+
+      get 'update_statement_agent', to: redirect{ |params, req| "#{ req.path.gsub(/update_statement_agent/, 'edit_statement') }?#{req.params.to_query}" }
     end
   end
 

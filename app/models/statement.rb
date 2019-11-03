@@ -5,7 +5,7 @@ class Statement < ApplicationRecord
   has_many :statement_keys
 
   extend Enumerize
-  enumerize :stance, in: %i(agree disagree hold unsure)
+  enumerize :stance, in: %i(agree disagree unsure)
   validates :stance, presence: true
 
   scope :recent, -> { order('updated_at DESC').order('id DESC') }
@@ -46,14 +46,14 @@ class Statement < ApplicationRecord
   def respond_status?(*status)
     status.try(:compact!)
     return false if status.blank?
-    status.map(&:to_sym).include?(self.respond_status.to_sym)
+    status.map(&:to_sym).include?(self.respond_status.try(:to_sym))
   end
 
   private
 
   def setup_respond_status
     self.respond_status = if statementable.try(:need_stance?)
-      self.stance.value.to_sym
+      self.stance.try(:value).try(:to_sym)
     else
       body.present? ? :replied : :unsure
     end
