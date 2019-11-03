@@ -18,7 +18,7 @@
     .comments-form
       = form_for @statement, html: { class: 'gov-action-form-validation' } do |f|
         = hidden_field_tag :key, @statement_key.key
-        - if @statementable.try(:statement_mode).try(:need_stance?)
+        - if @statementable.try(:need_stance?)
           .form-group
             = f.label :stance, '찬반여부'
             = f.select :stance, Statement.stance.options, { }, class: 'form-control'

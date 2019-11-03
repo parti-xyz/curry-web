@@ -14,11 +14,6 @@
           - action_style = 'color: white'
           - stance_icon = capture do
             %i.fa.fa-ban
-        - elsif statement.try(:respond_status?, :hold?)
-          - stance_class = 'hold'
-          - action_style = 'color: white'
-          - stance_icon = capture do
-            %i.fa.fa-minus{ style: 'color: lightgray'}
         - else
           - stance_class = 'default'
           - action_style = 'color: black'
