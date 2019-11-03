@@ -3,25 +3,18 @@
   = render 'projects/header', project: @statementable.project
 - commentable = @statementable
 %section.page-block
-  - if params[:stance].present? and !@statement.stance.unsure?
-    .container
-      .alert.alert-success
-        %h3 #{@statement.stance_text} 의견이 등록되었습니다!
-        %p
-          = link_to @statementable do
-            "#{@statementable.title}"
-          #{statementable_human_name}에 대해 #{@agent.name}님의 #{@statement.stance_text} 의견이 등록이 되었습니다.
-          %br
-          아래에서 찬반여부를 바꾸거나 추가 의견을 등록하실 수 있습니다.
+  .container
+    .alert.alert-success
+      %h3 #{@agent.name}님의 의견 등록
       %p
         = link_to @statementable do
-          "#{@statementable.title}" #{statementable_human_name}에서 확인하기
-          %i.fa.fa-arrow-right
+          "#{@statementable.title}"
+        #{statementable_human_name}에 대해 #{@agent.name}님의 의견을 등록하세요.
+    %p
+      = link_to @statementable do
+        "#{@statementable.title}" #{statementable_human_name} 확인하기
+        %i.fa.fa-arrow-right
   .container
-    .page-header
-      %h4
-        %span.image.agent-image.agent-image--mini{style: "background-image: url(#{@agent.image.xs.url}); display: inline-block; width: 1em; height: 1em;"}
-        #{@agent.name}님 의견 등록
     .comments-form
       = form_for @statement, html: { class: 'gov-action-form-validation' } do |f|
         = hidden_field_tag :key, @statement_key.key

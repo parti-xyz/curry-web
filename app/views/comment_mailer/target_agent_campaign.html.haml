@@ -14,19 +14,11 @@
     자세히 보기
 
 
-- if campaign.need_stance?
-  %p{ style: 'text-align: center' }
-    아래 찬성이나 반대 버튼을 눌러 이 서명에 대한 #{@agent.name}님의 의견을 등록하세요.
+%p{ style: 'text-align: center' }
+  이 캠페인에 대한 #{@agent.name}님의 의견을 등록하세요.
 
-  %p{ style: 'text-align: center' }
-    %a{:href => update_statement_agent_campaign_url(campaign, statement_id: @statement_key.statement.id, key: @statement_key.key, stance: :agree), :style => "font-size: 14px; display: inline-block; color: #22be34; background: none; border-radius: 3px; padding: 16px 20px; text-decoration: none; outline: 0px; font-family: AppleSDGothic, \"apple sd gothic neo\", \"noto sans korean\", \"noto sans korean regular\", \"noto sans cjk kr\", \"noto sans cjk\", \"nanum gothic\", \"malgun gothic\", dotum, sans-serif; border-width: 2px; border-style: solid; border-color: #22be34;_display:inline", :target => "_blank"} 찬성
-    %a{:href => update_statement_agent_campaign_url(campaign, statement_id: @statement_key.statement.id, key: @statement_key.key, stance: :disagree), :style => "font-size: 14px; display: inline-block; color: #d01919; background: none; border-radius: 3px; padding: 16px 20px; text-decoration: none; outline: 0px; font-family: AppleSDGothic, \"apple sd gothic neo\", \"noto sans korean\", \"noto sans korean regular\", \"noto sans cjk kr\", \"noto sans cjk\", \"nanum gothic\", \"malgun gothic\", dotum, sans-serif; border-width: 2px; border-style: solid; border-color: #d01919;_display:inline", :target => "_blank"} 반대
-- else
-  %p{ style: 'text-align: center' }
-    이 캠페인에 대한 #{@agent.name}님의 의견을 등록하세요.
-
-  %p{ style: 'text-align: center' }
-    %a{:href => update_statement_agent_campaign_url(campaign, statement_id: @statement_key.statement.id, key: @statement_key.key), :style => "font-size: 14px; display: inline-block; color: #22be34; background: none; border-radius: 3px; padding: 16px 20px; text-decoration: none; outline: 0px; font-family: AppleSDGothic, \"apple sd gothic neo\", \"noto sans korean\", \"noto sans korean regular\", \"noto sans cjk kr\", \"noto sans cjk\", \"nanum gothic\", \"malgun gothic\", dotum, sans-serif; border-width: 2px; border-style: solid; border-color: #22be34;_display:inline", :target => "_blank"} 의견 등록하기
+%p{ style: 'text-align: center' }
+  %a{:href => edit_statement_campaign_url(campaign, statement_id: @statement_key.statement.id, key: @statement_key.key), :style => "font-size: 14px; display: inline-block; color: #22be34; background: none; border-radius: 3px; padding: 16px 20px; text-decoration: none; outline: 0px; font-family: AppleSDGothic, \"apple sd gothic neo\", \"noto sans korean\", \"noto sans korean regular\", \"noto sans cjk kr\", \"noto sans cjk\", \"nanum gothic\", \"malgun gothic\", dotum, sans-serif; border-width: 2px; border-style: solid; border-color: #22be34;_display:inline", :target => "_blank"} 의견 등록하기
 
 %p
   &nbsp;

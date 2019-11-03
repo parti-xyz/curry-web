@@ -23,7 +23,7 @@ module Statementing
       end
     end
 
-    render 'statementables/edit_agents'
+    render 'statementing/edit_agents'
   end
 
   def add_agent
@@ -57,9 +57,9 @@ module Statementing
       @agent = Agent.find_by(id: params[:agent_id])
       render_404 and return if @agent.blank?
 
-      render 'statementables/new_comment_agent'
+      render 'statementing/new_comment_agent'
     else
-      render 'statementables/new_comment_agent_for_all'
+      render 'statementing/new_comment_agent_for_all'
     end
   end
 
@@ -75,10 +75,10 @@ module Statementing
       @target_agent = Agent.find_by(id: params[:agent_id])
       @target_agent = nil unless @statementable.assigned?(@target_agent)
     end
-    render 'statementables/edit_statements'
+    render 'statementing/edit_statements'
   end
 
-  def update_statement_agent
+  def edit_statement
     @statementable = fetch_statementable
 
     @statement = Statement.find_by(id: params[:statement_id])
@@ -89,12 +89,7 @@ module Statementing
     @agent = @statement.agent
     redirect_to polymorphic_path([:edit_statements, @statementable], agent_id: @agent.id, stance: params[:stance]) and return if @statement_key.expired?
 
-    if params[:stance].present?
-      @statement.stance = params[:stance]
-      @statement.save
-    end
-
-    render 'statementables/update_statement_agent'
+    render 'statementing/edit_statement'
   end
 
   def remove_agent
@@ -122,13 +117,13 @@ module Statementing
       redirect_to @statementable
     else
       error_to_flash(@statementable)
-      render 'statementables/edit_message_to_agent'
+      render 'statementing/edit_message_to_agent'
     end
   end
 
   def edit_message_to_agent
     @statementable = fetch_statementable
-    render 'statementables/edit_message_to_agent'
+    render 'statementing/edit_message_to_agent'
   end
 
   private
