@@ -153,6 +153,23 @@ $ source .powenv && bundle exec sidekiq
 
 puma를 재기동합니다
 
+### SES 반송 테스트
+
+ngrok 등을 이용, 로컬 웹서버를 외부에 오픈합니다.
+
+$ ngrok http -host-header=govcraft.test govcraft.test:80
+
+AWS SES의 해당 Email Address에서 Notifications 설정합니다.
+arn:aws:sns:***는 AWS SNS 구독 ID입니다.
+
+```
+Bounce Notifications SNS Topic:	arn:aws:sns:***
+  Include Original Headers:	enabled
+Complaint Notifications SNS Topic: arn:aws:sns:***
+  Include Original Headers: enabled
+```
+
+
 ### 조직 기본 데이터 등록
 
 ```
