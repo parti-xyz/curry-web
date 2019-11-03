@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191029050430) do
+ActiveRecord::Schema.define(version: 20191103014131) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -340,6 +340,7 @@ ActiveRecord::Schema.define(version: 20191029050430) do
     t.string   "use_signer_phone",                           default: "unused"
     t.string   "sign_placeholder"
     t.boolean  "need_stance",                                default: true
+    t.text     "default_statement_body",       limit: 65535
     t.index ["area_id"], name: "index_campaigns_on_area_id", using: :btree
     t.index ["issue_id"], name: "index_campaigns_on_issue_id", using: :btree
     t.index ["project_id"], name: "index_campaigns_on_project_id", using: :btree
@@ -676,11 +677,13 @@ ActiveRecord::Schema.define(version: 20191029050430) do
   create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.integer  "comment_id"
     t.integer  "agent_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.datetime "read_at"
     t.string   "mailing_result_type"
     t.string   "mailing_result_subtype"
+    t.string   "mailing_result_timestamp"
+    t.string   "mailing_result_recipient"
     t.index ["agent_id"], name: "index_orders_on_agent_id", using: :btree
     t.index ["comment_id", "agent_id"], name: "comments_target_speakers_uk", unique: true, using: :btree
     t.index ["comment_id"], name: "index_orders_on_comment_id", using: :btree

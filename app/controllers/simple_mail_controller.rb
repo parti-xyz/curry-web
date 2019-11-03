@@ -34,7 +34,27 @@ class SimpleMailController < ApplicationController
           json['complaint']['complaintFeedbackType']
         else
         end
-      Order.where(id: order_ids).update_all(mailing_result_type: mailing_result_type, mailing_result_subtype: mailing_result_subtype)
+
+      recipients = case mailing_result_type
+        when 'Bounce'
+          json['bounce']['bouncedRecipients']
+        when 'Complaint'
+          json['complaint']['complainedRecipients']
+        else
+        end
+      if recipients.present? and recipients.any?
+        mailing_result_recipient = recipients.to_json
+      end
+
+      mailing_result_timestamp = case mailing_result_type
+        when 'Bounce'
+          json['bounce']['timestamp']
+        when 'Complaint'
+          json['complaint']['timestamp']
+        else
+        end
+
+      Order.where(id: order_ids).update_all(mailing_result_type: mailing_result_type, mailing_result_subtype: mailing_result_subtype, mailing_result_recipient: mailing_result_recipient, mailing_result_timestamp: mailing_result_timestamp)
     end
   end
 end
