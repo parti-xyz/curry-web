@@ -81,7 +81,7 @@ Rails.application.routes.draw do
   end
   resources :speeches
   resources :statements
-  concern :statementable do
+  concern :statementing do
     member do
       get 'edit_message_to_agent'
       put 'update_message_to_agent'
@@ -91,7 +91,7 @@ Rails.application.routes.draw do
       put 'add_action_target'
       delete 'remove_action_target'
       get 'new_comment_agent'
-      get 'update_statement_agent'
+      get 'edit_statement'
       get 'edit_statements'
     end
   end
@@ -106,7 +106,7 @@ Rails.application.routes.draw do
   end
   resources :discussion_categories
   resources :sympathies
-  resources :campaigns, concerns: :statementable do
+  resources :campaigns, concerns: :statementing do
     resources :signs do
       collection do
         get 'mail_form'
