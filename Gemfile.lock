@@ -724,6 +724,10 @@ GEM
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
     simple_oauth (0.3.1)
+    skylight (4.2.0)
+      skylight-core (= 4.2.0)
+    skylight-core (4.2.0)
+      activesupport (>= 4.2.0)
     slack-notifier (1.5.1)
     spring (2.0.2)
       activesupport (>= 4.2)
@@ -891,6 +895,7 @@ DEPENDENCIES
   sidekiq-cron (~> 1.1)
   sidekiq-grouping (~> 1.0, >= 1.0.10)
   sidekiq-unique-jobs (~> 6.0, >= 6.0.12)
+  skylight
   slack-notifier (~> 1.4)
   spring
   sqlite3
