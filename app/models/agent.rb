@@ -1,10 +1,6 @@
 class Agent < ApplicationRecord
+
   has_many :opinions, dependent: :destroy
-  validates :name, presence: true
-  mount_uploader :image, ImageUploader
-
-  include Positionable
-
   has_many :sent_requests, dependent: :destroy
   has_many :agenda_documents, dependent: :destroy
   has_many :election_candidates, dependent: :nullify
@@ -13,14 +9,15 @@ class Agent < ApplicationRecord
   has_many :positions, through: :appointments
   has_many :agencies, -> { distinct }, through: :positions
   has_many :orders, dependent: :destroy
+
   extend Enumerize
   enumerize :category, in: %i(개인 법인)
 
+  validates :name, presence: true
   validates :category, presence: true
+  mount_uploader :image, ImageUploader
 
-  # X_POSITION
-  # scope :of_position, ->(*positions) { tagged_with(positions, on: :positions) }
-  # acts_as_taggable_on :positions
+  before_save :build_appointments_by_position_name_list
 
   scope :of_position_names, ->(*position_names) { where(id: Appointment.of_positions_named(position_names).select(:agent_id)) }
   scope :of_positions, ->(*positions) { where(id: Appointment.of_positions(positions).select(:agent_id)) }
@@ -87,5 +84,36 @@ class Agent < ApplicationRecord
   def clear_refresh_access_token
     self.refresh_access_token = nil
     self.refresh_access_token_at = nil
+  end
+
+  def position_name_list
+    return @_position_name_list if @_position_name_list.present?
+
+    @_position_name_list = positions.map(&:name).join(', ')
+    @_position_name_list
+  end
+
+  def position_name_list=(names)
+    @_position_name_list_touched = true
+    @_position_name_list = names
+  end
+
+  def build_appointments_by_position_name_list
+    if @_position_name_list_touched
+      rebuilding_position_names = []
+      if @_position_name_list.present?
+        rebuilding_position_names = @_position_name_list.split(',').map(&:strip)
+      end
+
+      rebuilding_positions = Position.named(*rebuilding_position_names).to_a
+
+      self.appointments.where.not(position: rebuilding_positions).destroy_all
+      rebuilding_positions.each do |position|
+        if !self.appointments.exists?(position: position)
+          self.appointments.build(position: position)
+        end
+      end
+    end
+    @_position_name_list_touched = false
   end
 end
