@@ -340,7 +340,6 @@ ActiveRecord::Schema.define(version: 20191103014131) do
     t.string   "use_signer_phone",                           default: "unused"
     t.string   "sign_placeholder"
     t.boolean  "need_stance",                                default: true
-    t.text     "default_statement_body",       limit: 65535
     t.index ["area_id"], name: "index_campaigns_on_area_id", using: :btree
     t.index ["issue_id"], name: "index_campaigns_on_issue_id", using: :btree
     t.index ["project_id"], name: "index_campaigns_on_project_id", using: :btree
