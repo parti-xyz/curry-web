@@ -9,18 +9,11 @@ class Statement < ApplicationRecord
   validates :stance, presence: true
 
   scope :recent, -> { order('updated_at DESC').order('id DESC') }
-  scope :responded_body, -> { where('body is not null') }
-  scope :responded_stance_only, -> { where.not(stance: 'unsure') }
-  scope :responded_body_only, -> { where.not(body: nil).where.not(body: "") }
-  scope :responded_only, -> { responded_stance_only.or(Statement.responded_body_only) }
+  scope :sure_stance, -> { where.not(stance: 'unsure') }
+  scope :responded_only, -> { sure_stance.or(any_body) }
   scope :agreed, -> { where(stance: :agree) }
   scope :disagreed, -> { where(stance: :disagree) }
-  scope :sure, -> { where.not(stance: :unsure) }
-  scope :replied, -> { where.not(body: nil) }
-  scope :unreplied, -> { where(body: nil) }
-
-  attr_accessor :respond_status
-  after_initialize :setup_respond_status
+  scope :any_body, -> { where.not(body: nil).where.not(body: "") }
 
   def is_responded?
     sure? or body.present?
@@ -49,13 +42,11 @@ class Statement < ApplicationRecord
     status.map(&:to_sym).include?(self.respond_status.try(:to_sym))
   end
 
-  private
-
-  def setup_respond_status
-    self.respond_status = if statementable.try(:need_stance?)
+  def respond_status
+    if statementable.try(:need_stance?)
       self.stance.try(:value).try(:to_sym)
     else
-      body.present? ? :replied : :unsure
+      self.body.present? ? :any_body : :unsure
     end
   end
 end

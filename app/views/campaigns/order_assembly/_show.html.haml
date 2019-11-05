@@ -1,8 +1,8 @@
-= render 'campaigns/special_agenda/section_cover'
-= render 'campaigns/special_agenda/section_tab', menu: 'content'
+= render 'campaigns/order_assembly/section_cover'
+= render 'campaigns/order_assembly/section_tab', menu: 'content'
 
 %section.section-panel
-  = render 'campaigns/special_agenda/section_right'
+  = render 'campaigns/order_assembly/section_right'
 
   %section.section-left
     %section.section-body
@@ -56,7 +56,7 @@
 
 
         .orders-tab-title-h5 촉구 응답 현황
-        = render 'campaigns/special_agenda/order_dashboard', campaign: @campaign
+        = render 'campaigns/order_dashboard', campaign: @campaign
 
         = render 'campaigns/agents_with_statement', campaign: @campaign, responded_agents_only: true
         - if @campaign.closed?
@@ -70,7 +70,7 @@
           - if agents_shuffled.any?
             .agents
               - agents_shuffled.first(3).each do |agent|
-                = render 'campaigns/special_agenda/agent', campaign: @campaign, agent: agent, statement: @campaign.statement_of(agent)
+                = render 'campaigns/agent', campaign: @campaign, agent: agent, statement: @campaign.statement_of(agent)
           .more
             = link_to '더 보기', orders_campaign_path(@campaign)
     %hr

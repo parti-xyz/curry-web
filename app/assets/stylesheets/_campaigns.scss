@@ -688,7 +688,7 @@
           text-align: center;
           @extend .typo-mini;
           line-height: 17px;
-          background-color: #f7a329;
+          background-color: #8b8b8b;
           color: white;
         }
         .agent-disagree {
@@ -940,7 +940,7 @@
             background-color: #e74c3c;
           }
           .noresponse {
-            background-color: #f7a329;
+            background-color: #8b8b8b;
           }
           .count {
             margin-left: 8px;
@@ -992,7 +992,7 @@
           text-align: center;
           @extend .typo-mini;
           line-height: 17px;
-          background-color: #f7a329;
+          background-color: #8b8b8b;
           color: white;
         }
         .agent-disagree {
@@ -1091,14 +1091,10 @@
       }
       .order-party-vs {
         display: flex;
+        margin: 0 -2.5px;
         .order-party-cell {
           flex: 1;
-          &.responded {
-            padding-right: 5px;
-          }
-          &.no_respond {
-            padding-left: 5px;
-          }
+          padding: 2.5px;
           .cell-header {
             color: white;
             height: 90px;
@@ -1107,17 +1103,21 @@
             align-items: center;
             justify-content: center;
           }
-          &.responded .cell-header {
-            background-color: $color-brand-primary;
+          &.agree .cell-header,
+          &.any-body .cell-header {
+            background-color: #13d1a7;
           }
-          &.no_respond .cell-header {
+          &.unsure .cell-header,
+          &.blank-body .cell-header {
             background-color: #8b8b8b;
+          }
+          &.disagree .cell-header {
+            background-color: #e74c3c;
           }
         }
         @media (max-width: $screen-xs-max) {
           flex-flow: column;
-          .order-party-cell.responded,
-          .order-party-cell.no_respond {
+          .order-party-cell.assembly-party {
             width: 100%;
             padding: 0;
           }
@@ -1213,6 +1213,7 @@
     display: flex;
     margin: 10px 0;
     padding-left: 0;
+    position: relative;
     .agent-order-left {
       min-width: 26px;
       width: 26px;
@@ -1225,7 +1226,9 @@
       flex: 1;
     }
     .agent-order-right {
-      width: 60px;
+      position: absolute;
+      right: 0;
+      top: 0;
     }
   }
   .section-pickets {

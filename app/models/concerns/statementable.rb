@@ -43,7 +43,7 @@ module Statementable
     if !self.respond_to?(:stancable?) or stancable?
       not_agree_agents(action_assignable)
     else
-      unreplied_agents(action_assignable)
+      blank_body_agents(action_assignable)
     end
   end
 
@@ -54,38 +54,38 @@ module Statementable
   end
 
   def unsure_agents(action_assignable = nil)
-    result = agents.where.not(id: statements.sure.select(:agent_id))
+    result = agents.where.not(id: statements.sure_stance.select(:agent_id))
     result = result.where(id: action_assignable.statementable_agents) if action_assignable.present?
     result
   end
 
   def sure_agents(action_assignable = nil)
-    result = agents.where(id: statements.sure.select(:agent_id))
+    result = agents.where(id: statements.sure_stance.select(:agent_id))
     result = result.where(id: action_assignable.statementable_agents) if action_assignable.present?
     result
+  end
+
+  def agree_agents
+    agents.where(id: statements.agreed.select(:agent_id))
+  end
+
+  def disagree_agents
+    agents.where(id: statements.disagreed.select(:agent_id))
+  end
+
+  def blank_body_agents(action_assignable = nil)
+    result = agents.where.not(id: statements.any_body.select(:agent_id))
+    result = result.where(id: action_assignable.statementable_agents) if action_assignable.present?
+    result
+  end
+
+  def any_body_agents
+    agents.where(id: statements.any_body.select(:agent_id))
   end
 
   def responded_agents(action_assignable = nil)
     result = agents.where(id: statements.responded_only.select(:agent_id))
     result = result.where(id: action_assignable.statementable_agents) if action_assignable.present?
-    result
-  end
-
-  def unreplied_agents(action_assignable = nil)
-    result = agents.where(id: statements.unreplied.select(:agent_id))
-    result = result.where(id: action_assignable.statementable_agents) if action_assignable.present?
-    result
-  end
-
-  def reacted_agents_count
-    self.statements.group(:stance).count['agree'] || 0
-  end
-
-  def no_reaction_agents_count
-    agree_count = self.reacted_agents_count
-    result = agents.count - agree_count
-    result = 0 if result <= 0
-
     result
   end
 

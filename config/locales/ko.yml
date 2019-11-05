@@ -371,13 +371,13 @@ ko:
         disagree: 반대
         unsure: 검토 중
         partially: 일부찬성
-        replied: 답변
+        any_body: 답변
         long:
           agree: 찬성합니다
           disagree: 반대합니다
           unsure: 의견을 확인 중입니다
           partially: 일부 찬성합니다
-          replied: 답변했습니다
+          any_body: 답변했습니다
       use_signer_address:
         unused: 사용하지 않음
         required: 필수 입력

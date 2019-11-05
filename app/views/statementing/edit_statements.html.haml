@@ -37,7 +37,7 @@
                         - statement = @statementable.statement_of(agent)
                         - if statement.try(:respond_status).blank?
                           - btn_stance_class = 'btn-default'
-                        - elsif statement.try(:respond_status?, :agree, :replied)
+                        - elsif statement.try(:respond_status?, :agree, :any_body)
                           - btn_stance_class = 'btn-success'
                         - elsif statement.try(:respond_status?, :disagree)
                           - btn_stance_class = 'btn-danger'

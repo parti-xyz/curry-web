@@ -21,7 +21,7 @@ class CommentToAgentJob
       next if commentable.blank?
       params_items_per_agent_id.each do |agent_id, params_items|
         next if agent_id.blank?
-        sleep(5)
+        sleep(1)
         CommentMailer.target_agent(commentable.class.name, commentable.id, agent_id, params_items).deliver_now
       end
     end
