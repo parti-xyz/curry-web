@@ -63,10 +63,3 @@
   = f.text_field :signer_phone_title, class: 'form-control'
   %p.help-block
     서명 영역의 연락처 입력폼 제목을 정합니다. 비워두면 적절히 표시됩니다.
-
-.form-group
-  = f.label :confirm_privacy
-  %p.help-block
-    개인보호 정책 동의에 추가할 문구입니다.(선택사항)
-  ~ f.text_area :confirm_privacy, class: 'form-control redactor'
-
