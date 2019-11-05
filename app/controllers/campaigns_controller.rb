@@ -140,7 +140,7 @@ class CampaignsController < ApplicationController
   end
 
   def comments
-    render_404 and return unless %(petition order special_agenda photo map).include?(@campaign.template)
+    render_404 and return unless %(petition order order_assembly photo map).include?(@campaign.template)
     render template: "campaigns/#{@campaign.template}/comments"
   end
 
@@ -151,7 +151,7 @@ class CampaignsController < ApplicationController
   end
 
   def stories
-    render_404 and return unless %(petition order special_agenda basic photo map).include?(@campaign.template)
+    render_404 and return unless %(petition order order_assembly basic photo map).include?(@campaign.template)
     if %(basic photo map).include?(@campaign.template)
       render template: "campaigns/picket/stories"
     else

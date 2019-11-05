@@ -2,36 +2,50 @@
 - message.subject = campaign.formatted_title_to_agent(@comments.first.try(:user_nickname))
 %p
   #{@agent.name}님 안녕하세요? 세상을 바꾸는 시민들, 빠띠 캠페인즈입니다.
+
 %p
-  서명
+  &nbsp;
+
+%p
+  캠페인
   = link_to polymorphic_url(campaign) do
     "#{campaign.title}" #{polymorphic_url(campaign)}
   이 진행 중입니다.
 .container
   %h4= link_to campaign.title, polymorphic_url(campaign), target: "_blank"
-  %p= excerpt(campaign.body, length: 1000)
+  %p= excerpt(campaign.body, length: 200)
   = link_to polymorphic_url(campaign), target: "_blank" do
     자세히 보기
 
-
-%p{ style: 'text-align: center' }
-  이 캠페인에 대한 #{@agent.name}님의 의견을 등록하세요.
-
-%p{ style: 'text-align: center' }
-  %a{:href => edit_statement_campaign_url(campaign, statement_id: @statement_key.statement.id, key: @statement_key.key), :style => "font-size: 14px; display: inline-block; color: #22be34; background: none; border-radius: 3px; padding: 16px 20px; text-decoration: none; outline: 0px; font-family: AppleSDGothic, \"apple sd gothic neo\", \"noto sans korean\", \"noto sans korean regular\", \"noto sans cjk kr\", \"noto sans cjk\", \"nanum gothic\", \"malgun gothic\", dotum, sans-serif; border-width: 2px; border-style: solid; border-color: #22be34;_display:inline", :target => "_blank"} 의견 등록하기
-
 %p
   &nbsp;
-%p
-  &nbsp;
+
+- if @comments.count > 4
+  %p{ style: 'text-align: center' }
+    이 캠페인에 대한 #{@agent.name}님의 의견을 등록하세요.
+
+  %p{ style: 'text-align: center' }
+    %a{:href => edit_statement_campaign_url(campaign, statement_id: @statement_key.statement.id, key: @statement_key.key), :style => "font-size: 14px; display: inline-block; color: #22be34; background: none; border-radius: 3px; padding: 16px 20px; text-decoration: none; outline: 0px; font-family: AppleSDGothic, \"apple sd gothic neo\", \"noto sans korean\", \"noto sans korean regular\", \"noto sans cjk kr\", \"noto sans cjk\", \"nanum gothic\", \"malgun gothic\", dotum, sans-serif; border-width: 2px; border-style: solid; border-color: #22be34;_display:inline", :target => "_blank"} 의견 등록하기
+
+  %p
+    &nbsp;
 
 - @comments.each do |comment|
   %p
-    이 서명에 대해 #{comment.user_nickname}님이 #{@agent.name}님에게 행동을 촉구합니다.
+    이 캠페인에 대해 #{comment.user_nickname}님이 #{@agent.name}님에게 행동을 촉구합니다.
   .container
     != comment.body
+
   %p
     &nbsp;
+
+- if @comments.any?
+  %p{ style: 'text-align: center' }
+    이 캠페인에 대한 #{@agent.name}님의 의견을 등록하세요.
+
+  %p{ style: 'text-align: center' }
+    %a{:href => edit_statement_campaign_url(campaign, statement_id: @statement_key.statement.id, key: @statement_key.key), :style => "font-size: 14px; display: inline-block; color: #22be34; background: none; border-radius: 3px; padding: 16px 20px; text-decoration: none; outline: 0px; font-family: AppleSDGothic, \"apple sd gothic neo\", \"noto sans korean\", \"noto sans korean regular\", \"noto sans cjk kr\", \"noto sans cjk\", \"nanum gothic\", \"malgun gothic\", dotum, sans-serif; border-width: 2px; border-style: solid; border-color: #22be34;_display:inline", :target => "_blank"} 의견 등록하기
+
   %p
     &nbsp;
 

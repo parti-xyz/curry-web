@@ -4,7 +4,7 @@
     %div{ style: 'margin: 14px 0' }
       - agents.each do |agent|
         - statement = campaign.cached_statement_of(agent)
-        - if statement.try(:respond_status?, :agree, :replied)
+        - if statement.try(:respond_status?, :agree, :any_body)
           - stance_class = 'success'
           - action_style = 'color: white'
           - stance_icon = capture do

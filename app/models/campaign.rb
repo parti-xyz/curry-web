@@ -4,7 +4,7 @@ class Campaign < ApplicationRecord
   extend Enumerize
 
   TEMPLATES = %w( basic petition photo order map sympathy )
-  TEMPLATES_SPECIAL = %w( special_map_with_assembly special_any_speech special_speech special_agenda )
+  TEMPLATES_SPECIAL = %w( special_map_with_assembly special_any_speech special_speech order_assembly )
 
   LARGE_AREA = %w(서울특별시 부산광역시 대구광역시 인천광역시 광주광역시 대전광역시 울산광역시 세종특별자치시 경기도 경기남부 경기북부 강원도 충청북도 충청남도 전라북도 전라남도 경상북도 경상남도 제주특별자치도)
   CONGRESSMEN = [
@@ -230,7 +230,7 @@ class Campaign < ApplicationRecord
   end
 
   def comment_closed?
-    if %w(petition special_agenda).include?(self.template)
+    if %w(petition order_assembly).include?(self.template)
       !self.comment_enabled
     else
       closed?
@@ -281,6 +281,6 @@ class Campaign < ApplicationRecord
   end
 
   def stancable?
-    need_stance and self.template != 'special_agenda'
+    need_stance
   end
 end
