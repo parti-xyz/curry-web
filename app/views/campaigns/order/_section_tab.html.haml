@@ -3,9 +3,14 @@
     %li{ class: [menu == 'content' && "active"] }
       .menu-item
         = link_to '내용', campaign_path
-    %li{ class: [menu == 'order' && "active"]  }
-      .menu-item
-        = link_to '촉구', orders_campaign_path
+    - if @campaign.agents.any?
+      %li{ class: [menu == 'order' && "active"]  }
+        .menu-item
+          = link_to '촉구', orders_campaign_path
+    - else
+      %li{ 'data-toggle' => 'tooltip',  'data-placement' => 'top', 'data-boundary' => 'viewport', 'title' => '촉구 대상을 등록하겠습니다. 잠시 기다려주세요' }
+        .menu-item
+          = link_to '촉구', '#'
     %li{ class: [menu == 'comment' && "active"]  }
       .menu-item
         = link_to comments_campaign_path do
@@ -15,4 +20,3 @@
               = number_with_limit(@campaign.comments.size, 1000)
     %li{ class: [menu == 'story' && "active"] }
       = link_to '소식', stories_campaign_path
-
