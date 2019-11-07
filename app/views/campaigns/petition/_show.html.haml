@@ -12,12 +12,14 @@
       .campaign-body
         = raw @campaign.body
 
-      .campaign-body-info
-        이 캠페인은 #{static_day_f(@campaign.created_at)}에 시작되었습니다.
-        - if @campaign.issue.present?
-          %br
-          이슈
-          %span.issue= @campaign.issue.title
+      - if @campaign.opened?
+        .campaign-body-info
+          이 캠페인은 #{static_day_f(@campaign.opened_at)}에 시작되었습니다.
+          - if @campaign.issue.present?
+            %br
+            이슈
+            %span.issue= @campaign.issue.title
+
     %hr
       %section.section-info{ style: 'margin-bottom: 70px;' }
         .section-title

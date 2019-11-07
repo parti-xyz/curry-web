@@ -167,6 +167,7 @@ class Campaign < ApplicationRecord
   scope :by_organization, ->(organization) { where(project: organization.projects) }
   scoped_search on: [:title]
 
+  before_save :default_opened_at
   after_save :mailing_issue,  if: :issue_id_changed?
 
   def signed? someone
@@ -226,6 +227,7 @@ class Campaign < ApplicationRecord
   end
 
   def opened?
+    return false if self.opened_at.blank? or self.opened_at > DateTime.now
     !closed?
   end
 
@@ -282,5 +284,19 @@ class Campaign < ApplicationRecord
 
   def stancable?
     need_stance
+  end
+
+  def opened_at_to_human
+    return I18n.t('views.campaign.unknown_opened_at') if self.opened_at.blank? or self.opened_at > DateTime.now
+
+    opened_at
+  end
+
+  private
+
+  def default_opened_at
+    if self.opened_at.blank?
+      self.opened_at = Date.today
+    end
   end
 end
