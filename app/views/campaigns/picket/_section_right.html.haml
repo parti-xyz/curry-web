@@ -2,7 +2,7 @@
   %section.section-info
     .campaign-progress
       - if @campaign.opened?
-        .campaign-time-to-left.js-campaign-time-to-left.hidden-xs{ 'data-campaign-time-to-left-due-date': bot_day_f(@campaign.created_at)}
+        .campaign-time-to-left.js-campaign-time-to-left.hidden-xs{ 'data-campaign-time-to-left-due-date': bot_day_f(@campaign.opened_at)}
           진행 시간
           %br
           .digit-to-left.days

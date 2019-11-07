@@ -160,6 +160,7 @@ ko:
         use_signer_address: 주소 입력 여부
         use_signer_phone: 연락처 입력 여부
         need_stance: 촉구 대상에게 요구하는 답변 방식
+        opened_at: 시작일
       sign:
         signer_name: 이름
         signer_email: 이메일
@@ -350,6 +351,8 @@ ko:
         commenter_email: 이메일(선택)
         full_street_address: 주소(선택)
         tag_list: 태그(선택)
+      campaign:
+        opened_at: 시작일(선택)
   enumerize:
     defaults:
       choice:
@@ -413,6 +416,8 @@ ko:
       form_title:
         default: 의견을 남겨주세요
         sympathy: 추모의 글을 남겨주세요
+    campaign:
+      unknown_opened_at: 준비 중
   recaptcha:
     errors:
       verification_failed: reCAPTCHA 인증이 실패했습니다. 잠시 후 다시 시도해 주세요.

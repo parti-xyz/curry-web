@@ -8,19 +8,37 @@ module ApplicationHelper
   end
 
   def static_day_f(date)
+    return date if date.blank?
     date.strftime("%Y년 %m월 %d일")
+  rescue ArgumentError
+    date
   end
 
   def bot_day_f(date)
+    return date if date.blank?
     date.strftime("%Y-%m-%d %H:%M:%S")
+  rescue ArgumentError
+    date
+  end
+
+  def bot_short_day_f(date)
+    return date if date.blank?
+    date.strftime("%Y-%m-%d")
+  rescue ArgumentError
+    date
   end
 
   def human_datetime_f(date)
     date.strftime("%Y년 %m월 %d일 %H:%M")
+  rescue ArgumentError
+    date
   end
 
   def date_f(date)
+    return date if date.blank?
     timeago_tag date, lang: :ko, limit: 3.days.ago
+  rescue ArgumentError
+    date
   end
 
   def screened(model, attr)

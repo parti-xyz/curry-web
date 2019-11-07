@@ -23,7 +23,7 @@
         = link_to @campaign.user.nickname, @campaign.user
       &middot;
       %span
-        = date_f @campaign.created_at
+        = date_f @campaign.opened_at_to_human
       &middot;
       %span
         조회

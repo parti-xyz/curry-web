@@ -52,8 +52,9 @@
           .picket-counts
             = @campaign.pickets_count
           목표 팻말 #{@campaign.signs_goal_count}
-        .picket-day-to-left
-          #{(Time.now - @campaign.created_at).to_i / 1.day}일 지남
+        - if @campaign.opened?
+          .picket-day-to-left
+            #{(Time.now - @campaign.opened_at).to_i / 1.day}일 지남
 
     .campaign-body
       = raw @campaign.body
