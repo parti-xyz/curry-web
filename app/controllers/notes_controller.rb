@@ -3,7 +3,7 @@ class NotesController < ApplicationController
   load_and_authorize_resource
 
   def create
-    if can_recaptcha? and verify_recaptcha(model: @note)
+    if can_recaptcha? and !verify_recaptcha(model: @note)
       errors_to_flash(@note)
       redirect_back(fallback_location: root_path)
       return
