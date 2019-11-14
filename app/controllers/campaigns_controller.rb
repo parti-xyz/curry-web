@@ -14,7 +14,7 @@ class CampaignsController < ApplicationController
 
   def show
     @project = @campaign.project
-    @campaign.increment!(:views_count)
+    #@campaign.increment!(:views_count)
     @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
     @signs = params[:mode] == 'widget' ? @signs.limit(10) : @signs.page(params[:page])
 
