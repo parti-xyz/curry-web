@@ -20,7 +20,8 @@
         = link_to campaigns_url(subdomain: root_subdomain) do
           %small 더 보기
     .row
-      = render Campaign.popular.limit(12)
+      - cache "home-campaigns", race_condition_ttl: 30.seconds, expires_in: 1.hours do
+        = render Campaign.popular.limit(12)
 
     %div{ style: 'padding:14px; background: #fff; border-radius: 14px; text-align: center;'}
       %h3{ style: 'letter-spacing: -1px; line-height: 1.5;' }
@@ -41,5 +42,6 @@
         = link_to Agency.assembly_20th do
           %small 더 보기
     .row
-      - Agency.assembly_20th.agents.popular_limit(12).each do |agent|
-        .col-sm-2.col-xs-4= render agent
+      - cache "home-assembly_20th", race_condition_ttl: 30.seconds, expires_in: 1.hours do
+        - Agency.assembly_20th.agents.popular_limit(12).each do |agent|
+          .col-sm-2.col-xs-4= render agent
