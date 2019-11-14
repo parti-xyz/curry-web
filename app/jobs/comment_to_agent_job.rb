@@ -1,7 +1,8 @@
 class CommentToAgentJob
   include Sidekiq::Worker
-  sidekiq_options batch_flush_size: 100,
-    batch_flush_interval: 60,
+  sidekiq_options unique: :while_executing,
+    batch_flush_size: 300 * 20,
+    batch_flush_interval: 60 * 5,
     retry: 5
 
   def perform(grouping_params)
