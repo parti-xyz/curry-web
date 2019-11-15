@@ -4,7 +4,7 @@ require 'open-uri'
 
 class ClypitJob
   include Sidekiq::Worker
-  sidekiq_options unique: :while_executing
+  sidekiq_options lock: :until_executed
 
   def perform
     document = ArchiveDocument.left_outer_joins(:clypit).find_by(media_type: '음성', clypits: { id: nil })
