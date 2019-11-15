@@ -1,5 +1,12 @@
 GIT
-  remote: git://github.com/oelmekki/activerecord_any_of.git
+  remote: https://github.com/doabit/semantic-ui-sass.git
+  revision: 97fc26081d91213370cde9223db69049bbe69e7d
+  specs:
+    semantic-ui-sass (2.4.2.0)
+      sass (>= 3.2)
+
+GIT
+  remote: https://github.com/oelmekki/activerecord_any_of.git
   revision: 22b3bfb4614c2223242dc496328356923a239bed
   ref: 22b3bf
   specs:
@@ -7,7 +14,7 @@ GIT
       activerecord (>= 3.2.13, < 6)
 
 GIT
-  remote: git://github.com/randym/axlsx.git
+  remote: https://github.com/randym/axlsx.git
   revision: d41258edda220620226c20fb75ee25f36abe3636
   ref: d41258e
   specs:
@@ -16,13 +23,6 @@ GIT
       mimemagic (~> 0.3)
       nokogiri (>= 1.6.6)
       rubyzip (~> 1.2)
-
-GIT
-  remote: https://github.com/doabit/semantic-ui-sass.git
-  revision: 97fc26081d91213370cde9223db69049bbe69e7d
-  specs:
-    semantic-ui-sass (2.4.2.0)
-      sass (>= 3.2)
 
 GEM
   remote: https://rubygems.org/
@@ -590,7 +590,8 @@ GEM
       nio4r (~> 2.0)
     raabro (1.1.6)
     rack (2.0.7)
-    rack-cors (1.0.3)
+    rack-cors (1.0.5)
+      rack (>= 1.6.0)
     rack-mini-profiler (1.0.2)
       rack (>= 1.2.0)
     rack-protection (2.0.7)
