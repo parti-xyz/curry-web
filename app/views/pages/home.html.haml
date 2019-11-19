@@ -1,16 +1,30 @@
-%section#about-section{style:"background-position:center; background-size:cover;background-image: url(#{asset_url('gov_bg3.png')});"}
-  .container
-    %h2{ style: 'line-height: 1.0;' }
-      %small{ style: 'color: #fff;' }
-        세상을 바꾸는 시민들
-      %br
-      %strong{style:"font-size:61px;line-height:80px;"}
-        빠띠 캠페인즈
-    %div
-      = link_to 'https://parti.coop/solutions/campaign', class: 'btn btn-lg btn-danger', target: '_blank' do
-        빠띠 캠페인즈 소개
-      = link_to 'http://parti.coop/', class: 'btn btn-lg btn-info', target: '_blank' do
-        빠띠 소개
+- if Campaign.popular.any?
+  - campaign = Campaign.popular.limit(5).shuffle.first
+  %section#about-section{style:"background-position:center; background-size:cover;background-image: url(#{asset_url(campaign.cover_image)});"}
+    .container
+      %h2{ style: 'line-height: 1.0;' }
+        %small{ style: 'color: #fff; text-shadow: 0 0 12px rgba(0,0,0);' }
+          캠페인
+        %br
+        %strong{style:"font-size: 61px; line-height: 80px; text-shadow: 0 0 12px rgba(0,0,0,0.9);"}
+          = campaign.title
+      %div
+        = link_to campaign, class: 'btn btn-lg btn-danger', target: '_blank' do
+          참여하기
+- else
+  %section#about-section{style:"background-position:center; background-size:cover;background-image: url(#{asset_url('gov_bg3.png')});"}
+    .container
+      %h2{ style: 'line-height: 1.0;' }
+        %small{ style: 'color: #fff;' }
+          세상을 바꾸는 시민들
+        %br
+        %strong{style:"font-size:61px;line-height:80px;"}
+          빠띠 캠페인즈
+      %div
+        = link_to 'https://parti.coop/solutions/campaign', class: 'btn btn-lg btn-danger', target: '_blank' do
+          빠띠 캠페인즈 소개
+        = link_to 'http://parti.coop/', class: 'btn btn-lg btn-info', target: '_blank' do
+          빠띠 소개
 
 %section#petitions.page-block
   .container-fluid
