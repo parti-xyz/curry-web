@@ -805,7 +805,7 @@
           .count {
             display: inline;
             @extend .typo-mini;
-            color: blue;
+            color: $brand-sub;
             line-height: 32px;
           }
         }

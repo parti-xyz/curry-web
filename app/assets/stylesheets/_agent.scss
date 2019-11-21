@@ -44,6 +44,8 @@
 .card-agent {
   background-size: cover;
   background-position: center center;
+  position: relative;
+  margin-bottom: $font-size-base;
 
   .caption {
     position: absolute;
