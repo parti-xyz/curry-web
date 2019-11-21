@@ -1,6 +1,6 @@
 class SpeechesViewCountJob
   include Sidekiq::Worker
-  sidekiq_options unique: :while_executing
+  sidekiq_options lock: :until_executed
 
   def perform
     Speech.where(is_expired_view_count: true).each do |speech|

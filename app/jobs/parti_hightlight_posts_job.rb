@@ -1,6 +1,6 @@
 class PartiHightlightPostsJob
   include Sidekiq::Worker
-  sidekiq_options unique: :while_executing
+  sidekiq_options lock: :until_executed
 
   def perform
     highlight_posts = RestClient.get "https://parti.xyz/api/v1/groups/kdemo/highlight_posts?limit=10"

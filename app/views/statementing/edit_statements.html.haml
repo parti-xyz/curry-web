@@ -69,8 +69,8 @@
                 = f.hidden_field :statementable_type, value: @statementable.class.to_s
               - if statement.stancable?
                 .form-group
-                  = f.label :stance, '응답여부'
-                  = f.select :stance, [['응답완료', 'agree'], ['무응답', 'unsure']], { }, class: 'form-control'
+                  = f.label :stance, '찬반여부'
+                  = f.select :stance, Statement.stance.options, { }, class: 'form-control'
               .form-group
                 = f.label :body, '의견'
                 ~ f.text_area :body, class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : '')

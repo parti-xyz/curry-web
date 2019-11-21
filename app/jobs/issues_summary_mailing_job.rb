@@ -1,6 +1,6 @@
 class IssuesSummaryMailingJob
   include Sidekiq::Worker
-  sidekiq_options unique: :while_executing
+  sidekiq_options lock: :until_executed
 
   def perform
     User.need_to_delivery_issues_summary_mailing.limit(300).each do |user|

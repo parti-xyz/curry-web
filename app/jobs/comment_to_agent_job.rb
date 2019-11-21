@@ -1,6 +1,6 @@
 class CommentToAgentJob
   include Sidekiq::Worker
-  sidekiq_options unique: :while_executing,
+  sidekiq_options lock: :until_executed,
     batch_flush_size: 300 * 20,
     batch_flush_interval: 60 * 5,
     retry: 5
