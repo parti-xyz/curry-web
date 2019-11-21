@@ -49,24 +49,24 @@
 
       - if @campaign.opened?
         .campaign-sign-form
-          = link_to [:new_comment_agent, @campaign], class: "btn btn-danger btn-lg btn-block campaign-sign-btn" do
-            촉구하기
-          - if @campaign.confirm_privacy.present?
-            .campaign-sign-privacy-policy
-              촉구하기를 누르시면 본 서명의
-              %a{ "data-target" => "#privacy-modal", "data-toggle" => "modal", :type => "button", style: 'cursor:pointer' }
-                개인정보취급방침
-              에 동의하게 됩니다.
-            #privacy-modal.modal.fade{:role => "dialog", :tabindex => "0"}
-              .modal-dialog{:role => "document"}
-                .modal-content
-                  .modal-header
-                    %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-                      %span{"aria-hidden" => "true"} &#215;
-                    %h4.modal-title 개인정보취급방침
-                  .modal-body
-                    != @campaign.confirm_privacy
-
+          - if @campaign.agents.any?
+            = link_to [:new_comment_agent, @campaign], class: "btn btn-danger btn-lg btn-block campaign-sign-btn" do
+              촉구하기
+            - if @campaign.confirm_privacy.present?
+              .campaign-sign-privacy-policy
+                촉구하기를 누르시면 본 서명의
+                %a{ "data-target" => "#privacy-modal", "data-toggle" => "modal", :type => "button", style: 'cursor:pointer' }
+                  개인정보취급방침
+                에 동의하게 됩니다.
+              #privacy-modal.modal.fade{:role => "dialog", :tabindex => "0"}
+                .modal-dialog{:role => "document"}
+                  .modal-content
+                    .modal-header
+                      %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                        %span{"aria-hidden" => "true"} &#215;
+                      %h4.modal-title 개인정보취급방침
+                    .modal-body
+                      != @campaign.confirm_privacy
 
       .more{ style: 'text-align: center; margin: 1em 0 0;' }
         = link_to '자세히 보기...', orders_campaign_path(@campaign), style: 'color: gray'
