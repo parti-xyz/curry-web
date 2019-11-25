@@ -1,9 +1,12 @@
 class CommentToAgentJob
   include Sidekiq::Worker
-  sidekiq_options lock: :until_executed,
-    batch_flush_size: 300 * 20,
-    batch_flush_interval: 60 * 5,
-    retry: 5
+
+  if Rails.env.production? or Rails.env.staging?
+    sidekiq_options lock: :until_executed,
+      batch_flush_size: 300 * 20,
+      batch_flush_interval: 60 * 5,
+      retry: 5
+  end
 
   def perform(grouping_params)
     payload_map = {}
