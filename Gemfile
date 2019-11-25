@@ -76,7 +76,7 @@ gem 'google-api-client', '~> 0.9.2'
 gem 'rolify'
 
 # util
-gem 'rack-cors'
+gem 'rack-cors', '~> 1.0', '>= 1.0.5'
 gem 'rails-i18n'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'dotenv-rails'
