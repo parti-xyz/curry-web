@@ -3,7 +3,7 @@ class Special
 
   def self.build_campaign(campaign)
     if campaign.special_slug == Special::SLUG_VOTEAWARD2018
-      campaign.signs_goal_count = 0
+      campaign.goal_count = 0
     end
     campaign.action_targets.build(action_assignable: Election.of_slug(Election::SLUG_20180613))
   end

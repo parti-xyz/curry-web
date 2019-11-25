@@ -38,6 +38,12 @@
           %p.help-block
             캠페인 시작 날짜를 yyyy-mm-dd 형태로 입력해 주세요.
 
+        - if @campaign.goalable?
+          .form-group
+            = f.label :goal_count
+            = f.number_field :goal_count, class: 'form-control', placeholder: '1000'
+            %p.help-block
+              캠페인의 목표 참여 숫자를 입력하세요.
 
         = render_if_exist "campaigns/#{@campaign.template}/partial_form", f: f
 
