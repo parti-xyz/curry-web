@@ -150,6 +150,12 @@ class CampaignsController < ApplicationController
     end
   end
 
+  def orders_data
+    respond_to do |format|
+      format.xlsx
+    end
+  end
+
   def stories
     render_404 and return unless %(petition order order_assembly basic photo map).include?(@campaign.template)
     if %(basic photo map).include?(@campaign.template)

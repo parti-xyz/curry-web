@@ -20,6 +20,12 @@
               %i.fa.fa-trash
               캠페인삭제
           &nbsp;
+        - if can?(:edit, @campaign) and  @campaign.agents.any?
+          = link_to orders_data_campaign_path(@campaign, format: :xlsx) do
+            %span{ style: "color:white; font-weight: 200;" }
+              %i.fa.fa-download
+              촉구 다운로드
+          &nbsp;
       - if buttons.present?
         %p
           %span.control-buttons{ style: 'background-color: rgba(0,0,0,0.5); padding: 5px 10px 2px;' }
