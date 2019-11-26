@@ -65,6 +65,7 @@ Rails.application.configure do
   config.action_mailer.asset_host =  'http://campaigns.kr'
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :aws_sdk
+  config.action_mailer.logger = nil
   # config.action_mailer.postmark_settings = {
   #   :api_token => ENV['POSTMARKER_API_KEY']
   # }

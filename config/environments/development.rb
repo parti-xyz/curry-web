@@ -31,6 +31,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.default_url_options = { :host => 'campaigns.test' }
   config.action_mailer.asset_host =  'http://campaigns.test'
+  # config.action_mailer.logger = nil
   # config.action_mailer.delivery_method = :aws_sdk
 
   config.action_mailer.perform_caching = false
