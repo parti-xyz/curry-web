@@ -8,7 +8,7 @@
               %i.fa.fa-edit
               수정
           &nbsp;
-        - if can? :edit, @campaign
+        - if can?(:edit, @campaign) and @campaign.agents.any?
           = link_to edit_agents_campaign_path(@campaign) do
             %span{ style: "color:white; font-weight: 200;" }
               %i.fa.fa-paper-plane-o
