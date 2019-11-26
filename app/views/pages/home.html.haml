@@ -1,5 +1,5 @@
-- if Campaign.popular.any?
-  - campaign = Campaign.popular.limit(5).shuffle.first
+- if Campaign.published.popular.any?
+  - campaign = Campaign.published.popular.limit(5).shuffle.first
   %section#about-section{style:"background-position:center; background-size:cover;background-image: url(#{asset_url(campaign.cover_image)});"}
     .container
       %h2{ style: 'line-height: 1.0;' }
@@ -35,7 +35,7 @@
           %small 더 보기
     .row
       - cache "home-campaigns", race_condition_ttl: 30.seconds, expires_in: 1.hours do
-        = render Campaign.popular.limit(12)
+        = render Campaign.published.popular.limit(12)
 
     %div{ style: 'padding:14px; background: #fff; border-radius: 14px; text-align: center;'}
       %h3{ style: 'letter-spacing: -1px; line-height: 1.5;' }

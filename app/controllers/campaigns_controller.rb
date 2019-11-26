@@ -7,7 +7,7 @@ class CampaignsController < ApplicationController
   before_action :verify_organization
 
   def index
-    @campaigns = Campaign.recent
+    @campaigns = Campaign.published.recent
     @current_organization = fetch_organization_from_request
     @campaigns = @campaigns.by_organization(@current_organization) if @current_organization.present?
   end
