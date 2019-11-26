@@ -21,7 +21,7 @@ row_titles = row_definition.map { |c| c[1] }
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "서명 #{@campaign.signs_count}건") do |sheet|
   sheet.add_row row_titles
-  @campaign.signs.each do |sign|
+  @campaign.signs.earlier.each do |sign|
     sheet.add_row row_definition.map { |c|
       if %i(user_email signer_address signer_phone).include?(c[0])
         unless sign.confirm_privacy?

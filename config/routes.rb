@@ -119,6 +119,7 @@ Rails.application.routes.draw do
     end
     member do
       get 'data'
+      get 'orders_data'
       put 'close'
       put 'open'
       get 'sign_form'
