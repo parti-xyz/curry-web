@@ -136,7 +136,7 @@ ko:
         project_id: 프로젝트
         title: 제목
         body: 내용
-        signs_goal_count: 서명 목표인수
+        goal_count: 목표 참여자수
         cover_image: 커버이미지(선택)
         social_image: 소셜공유이미지(선택)
         thanks_mention: 서명한 뒤에 표시되는 문구(선택)

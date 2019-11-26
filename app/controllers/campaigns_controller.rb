@@ -206,7 +206,7 @@ class CampaignsController < ApplicationController
   private
 
   def campaign_params
-    params.require(:campaign).permit(:title, :body, :project_id, :signs_goal_count, :cover_image, :thanks_mention,
+    params.require(:campaign).permit(:title, :body, :project_id, :goal_count, :cover_image, :thanks_mention,
       :comment_enabled, :sign_title, :sign_placeholder, :social_image, :confirm_privacy, :opened_at,
       :use_signer_email, :use_signer_address, :use_signer_real_name, :use_signer_phone,
       :signer_email_title, :signer_address_title, :signer_real_name_title, :signer_phone_title,

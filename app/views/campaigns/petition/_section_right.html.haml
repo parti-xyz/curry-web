@@ -24,7 +24,7 @@
             현재 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}명이 서명하였습니다.
             - if !@campaign.signed?(current_user)
               - if @campaign.has_goal?
-                #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}명
+                #{number_with_delimiter(@campaign.goal_count, delimiter:",")}명
               서명에 동참해주세요.
           - else
             총 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}명이 서명하였습니다.
@@ -42,7 +42,7 @@
           .signs-count
             서명 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}
           .goal-count
-            목표 #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}
+            목표 #{number_with_delimiter(@campaign.goal_count, delimiter:",")}
       .campaign-signs
         - @campaign.signs.recent.limit(3).each do |sign|
           .campaign-sign

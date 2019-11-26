@@ -160,7 +160,7 @@ class Campaign < ApplicationRecord
   mount_uploader :cover_image, ImageUploader
   mount_uploader :social_image, ImageUploader
 
-  validates :signs_goal_count, :numericality => { :greater_than_or_equal_to => 0 }
+  validates :goal_count, :numericality => { :greater_than_or_equal_to => 0 }
 
   scope :popular, -> { where("views_count > 2000").order('created_at DESC') }
   scope :recent, -> { order('created_at DESC') }
@@ -175,7 +175,11 @@ class Campaign < ApplicationRecord
   end
 
   def has_goal?
-    signs_goal_count.present? && signs_goal_count > 0
+    goal_count.present? && goal_count > 0
+  end
+
+  def goalable?
+    !%w( sympathy special_map_with_assembly special_any_speech special_speech ).include?(self.template)
   end
 
   def success?
@@ -186,9 +190,9 @@ class Campaign < ApplicationRecord
   def percentage
     if has_goal?
       if picketable?
-        (comments_count.fdiv(signs_goal_count) * 100).to_i
+        (comments_count.fdiv(goal_count) * 100).to_i
       else
-        ( signs_count.to_f / signs_goal_count * 100 ).to_i
+        (signs_count.fdiv(goal_count) * 100).to_i
       end
     else
       100
@@ -201,7 +205,7 @@ class Campaign < ApplicationRecord
   end
 
   def percentage_order
-    has_goal? ? ( order_users_count.to_f / signs_goal_count * 100 ).to_i : 100
+    has_goal? ? ( order_users_count.to_f / goal_count * 100 ).to_i : 100
   end
 
   def has_cover_image?

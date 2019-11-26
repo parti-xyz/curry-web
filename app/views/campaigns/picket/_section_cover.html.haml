@@ -63,7 +63,7 @@
         .picket-summary-left
           .picket-counts
             = @campaign.pickets_count
-          목표 팻말 #{@campaign.signs_goal_count}
+          목표 팻말 #{@campaign.goal_count}
         - if @campaign.opened?
           .picket-day-to-left
             #{(Time.now - @campaign.opened_at).to_i / 1.day}일 지남

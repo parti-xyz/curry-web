@@ -23,7 +23,7 @@
           - if @campaign.opened?
             현재 #{number_with_delimiter(@campaign.pickets_count, delimiter:",")}개의 팻말이 있습니다.
             - if @campaign.has_goal?
-              목표 팻말 #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}개를
+              목표 팻말 #{number_with_delimiter(@campaign.goal_count, delimiter:",")}개를
             달성시켜 주세요.
           - else
             총 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}개 팻말이 있습니다.
@@ -41,7 +41,7 @@
           .signs-count
             팻말 #{number_with_delimiter(@campaign.pickets_count, delimiter:",")}
           .goal-count
-            목표 #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}
+            목표 #{number_with_delimiter(@campaign.goal_count, delimiter:",")}
       .campaign-signs
         - @campaign.comments.recent.limit(3).each do |picket|
           .campaign-sign

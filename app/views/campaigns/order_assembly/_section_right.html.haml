@@ -38,7 +38,7 @@
           .signs-count
             촉구 #{number_with_delimiter(@campaign.order_users_count, delimiter:",")}
           .goal-count
-            목표 #{number_with_delimiter(@campaign.signs_goal_count, delimiter:",")}
+            목표 #{number_with_delimiter(@campaign.goal_count, delimiter:",")}
 
       .campaign-signs
         - @campaign.highlight_ordered_comments(3).each do |comment|
