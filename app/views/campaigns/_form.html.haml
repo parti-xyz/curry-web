@@ -36,7 +36,7 @@
           = f.label :opened_at
           = f.text_field :opened_at, value: bot_short_day_f(@campaign.opened_at), class: 'form-control', placeholder: bot_short_day_f(Date.today)
           %p.help-block
-            캠페인 시작 날짜를 yyyy-mm-dd 형태로 입력해 주세요.
+            캠페인 시작 날짜를 yyyy-mm-dd 형태로 입력해 주세요. 미래의 날짜로 입력하면 홈과 캠페인 목록에 노출되지 않습니다.
 
         - if @campaign.goalable?
           .form-group

@@ -166,6 +166,7 @@ class Campaign < ApplicationRecord
   scope :recent, -> { order('created_at DESC') }
   scope :by_organization, ->(organization) { where(project: organization.projects) }
   scoped_search on: [:title]
+  scope :published, -> { where('opened_at <= ?', DateTime.now) }
 
   before_save :default_opened_at
   after_save :mailing_issue,  if: :issue_id_changed?
