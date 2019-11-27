@@ -9,7 +9,7 @@
           - action_style = 'color: white'
           - stance_icon = capture do
             %i.fa.fa-check
-        - elsif statement.try(:respond_status?, :disagree?)
+        - elsif statement.try(:respond_status?, :disagree)
           - stance_class = 'danger'
           - action_style = 'color: white'
           - stance_icon = capture do
@@ -20,12 +20,13 @@
           - stance_icon = capture do
             %i.fa.fa-minus{ style: 'color: lightgray'}
 
-        .media.text-basic-wrap{ class: "text-#{stance_class}", style: 'margin: 6px 0; padding-left: 0; list-style-type: none;' }
+        .media.text-basic-wrap{ class: "text-#{stance_class}", style: 'margin: 16px 0; padding-left: 0; list-style-type: none;' }
           .media-left= stance_icon
           .media-body
             - line_body = capture do
-              = image_tag agent.image.md.url, style: "height: 24px;"
-              %strong= agent.name
+              = link_to agent, style: 'color: #111' do
+                = image_tag agent.image.md.url, style: "height: 24px;"
+                %strong= agent.name
               - if agent.category == '개인'
                 %small.text-muted= agent.organization
               - if statement.try(:stancable?)
@@ -43,43 +44,18 @@
                 - else
                   %span.text-muted 답변하지 않았습니다.
 
+
+            = line_body
+            - if statement.try(:individually_orderable?)
+              &nbsp;
+              = link_to order_form_campaign_path(campaign_id: campaign.id, agent_id: agent.id), remote: true, class: 'agent-order-btn' do
+                %i.fa.fa-send-o
+                #{Order.where(agent_id: agent).where(comment_id: campaign.comments).count + 1}번째로 촉구하기
             - if statement.try(:body).present?
-              %a.text-nowrap{"href": "#", "data-target" => "#agent-statement-modal-#{agent.id}", "data-toggle" => "modal", :type => "button" }
-                = line_body
-                %small
-                  %i.fa.fa-commenting-o
-                  답변보기
-            - else
-              = line_body
+              .bubble-body.bubble-body-default
+                != statement.body
 
-        - if statement.try(:body).present?
-          %div.modal.fade{id: "agent-statement-modal-#{agent.id}", :role => "dialog", :tabindex => "-1"}
-            .modal-dialog{:role => "document"}
-              .modal-content
-                .modal-header
-                  %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-                    %span{"aria-hidden" => "true"} &#215;
-                  %h4.modal-title
-                    = image_tag agent.image.md.url, style: "height: 36px;"
-                    %strong= agent.name
-                    %span.text-muted= agent.organization
-                    님의 답변
-
-                .modal-body
-                  %div[statement]
-                    %div
-                      - if statement.stance.present? and statement.stancable?
-                        %h4{ style: 'line-height: 24px;' }
-                          %span.text-success= statement.stance.text
-
-                      - if statement.body.present?
-                        .opinion__body.text-basic-wrap{ style: 'font-weight: normal;' }
-                          != statement.body
-
-                      %div
-                        = link_to agent, class: 'btn btn-success btn-block' do
-                          %strong= agent.name
-                          = agent.organization
-                          님의 다른 답변 보기
-
-
+      .media
+        .media-body.text-muted{ style: 'padding-left: 24px; word-break: keep-all' }
+          %i.fa.fa-info-circle
+          촉구하면 발송되는 이메일에 촉구 대상이 응답한 내용입니다.
