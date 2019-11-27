@@ -50,6 +50,7 @@ module Statementing
     @statementable = fetch_statementable
     @comment = Comment.new
     if @statementable.respond_to? :message_to_agent
+      @comment.is_html_body = true
       @comment.body = (@statementable.message_to_agent || '') + "<p></p>"
     end
 

@@ -33,9 +33,10 @@
               = f.text_field :commenter_email, class: 'form-control'
           .form-group
             = f.label :body, "보내는 내용"
+            = f.hidden_field :is_html_body, value: is_redactorable?
             - unless is_redactorable?
-              - f.object.body = strip_tags(f.object.body)
-            ~ f.text_area :body, placeholder: '제 생각에는...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), data: { 'rule-required': true }
+              - f.object.body = Html2Text.convert(f.object.body)
+            ~ f.text_area :body, placeholder: '제 생각에는...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), style: 'height: 150px', data: { 'rule-required': true }
           - if @agent.email.present?
             .form-group
               .checkbox

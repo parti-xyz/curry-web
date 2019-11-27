@@ -21,7 +21,10 @@
           = f.text_field :full_street_address, class: 'form-control'
       .form-group
         = f.label :body, '나도 한마디'
-        ~ f.text_area :body, placeholder: '여러분의 목소리를 들려주세요', class: 'form-control input-lg', data: { 'rule-required': true }
+        = f.hidden_field :is_html_body, value: is_redactorable?
+        - unless is_redactorable?
+          - f.object.body = Html2Text.convert(f.object.body)
+        ~ f.text_area :body, placeholder: '여러분의 목소리를 들려주세요', class: 'form-control input-lg validate ' + ( is_redactorable? ? 'redactor' : ''), style: 'height: 150px', data: { 'rule-required': true }
       .form-group
         = f.text_field :tag_list, placeholder: '태그, 태그를 입력해주세요', class: 'form-control'
       .form-group

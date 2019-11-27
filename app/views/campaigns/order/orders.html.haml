@@ -6,7 +6,7 @@
   = render 'campaigns/order/section_right'
 
   %section.section-left
-    %section.section-orders-tab.section-orders-tab-special-agenda
+    %section.section-orders.section-orders-tab.section-orders-tab-special-agenda
       - agents_count = @campaign.agents.count
       - if agents_count > 0
         .orders-tab-title

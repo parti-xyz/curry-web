@@ -58,7 +58,7 @@
 
                 .date= date_f comment.updated_at
             .comment-body
-              = raw comment.body
+              != comment.smart_body
             .comment-footer
               .comment-controls
                 - if can? :destroy, comment
