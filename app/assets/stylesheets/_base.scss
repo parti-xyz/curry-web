@@ -562,3 +562,17 @@ figure img {
 h4.modal-title {
   font-size: $font-size-large;
 }
+
+.bubble-body {
+  padding: 16px;
+  border: 1px solid;
+  margin: 8px 0;
+  border-radius: 16px;
+  border-color: $gray-lighter;
+  &.bubble-body-default {
+    color: $text-color;
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
