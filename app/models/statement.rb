@@ -49,4 +49,8 @@ class Statement < ApplicationRecord
       self.body.present? ? :any_body : :unsure
     end
   end
+
+  def individually_orderable?
+    !respond_status?(:agree, :any_body)
+  end
 end

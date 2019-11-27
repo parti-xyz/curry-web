@@ -22,7 +22,7 @@
           %span.text-nowrap
             %i.fa.fa-commenting-o
             답변보기
-    - elsif campaign.opened?
+    - elsif campaign.opened? and statement.try(:individually_orderable?)
       = link_to order_form_campaign_path(campaign_id: campaign.id, agent_id: agent.id), remote: true, class: 'agent-order-btn' do
         %small
           %span.text-nowrap
