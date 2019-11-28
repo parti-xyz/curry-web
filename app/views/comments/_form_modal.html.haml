@@ -20,7 +20,10 @@
                 = f.label :commenter_email
                 = f.text_field :commenter_email, class: 'form-control'
             .form-group
-              ~ f.text_area :body, placeholder: '제 생각은...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), data: { 'rule-required': true }
+              = f.hidden_field :is_html_body, value: is_redactorable?
+              - unless is_redactorable?
+                - f.object.body = Html2Text.convert(f.object.body)
+              ~ f.text_area :body, placeholder: '제 생각은...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), style: 'height: 150px', data: { 'rule-required': true }
             - if commentable.try(:confirm_privacy).present?
               .form-group
                 .campaign-sign-privacy-policy

@@ -755,6 +755,9 @@
           margin: 12px 0;
           padding: 8px;
           width: 140px;
+          @media (max-width: $screen-xs-max) {
+            width: 120px;
+          }
           height: 32px;
         }
       }

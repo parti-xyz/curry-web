@@ -89,7 +89,10 @@
                         = f.label :commenter_email
                         = f.text_field :commenter_email, class: 'form-control'
                 .form-group
-                  ~ f.text_area :body, placeholder: '제 생각에는...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), data: { 'rule-required': true }
+                  = f.hidden_field :is_html_body, value: is_redactorable?
+                  - unless is_redactorable?
+                    - f.object.body = Html2Text.convert(f.object.body)
+                  ~ f.text_area :body, placeholder: '제 생각에는...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), style: 'height: 150px', data: { 'rule-required': true }
                 .form-group
                   = f.label :full_street_address, '주소(필수)'
                   = f.select :full_street_address, options_for_select(Campaign::LARGE_AREA), {}, class: 'form-control'

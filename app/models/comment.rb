@@ -3,6 +3,9 @@ class Comment < ApplicationRecord
   include Choosable
   include Reportable
 
+  include ActionView::Helpers::TextHelper
+  include SmartTextHelper
+
   extend Enumerize
   enumerize :mailing, in: %i(disable ready sent fail)
 
@@ -84,6 +87,14 @@ class Comment < ApplicationRecord
       self.longitude = address["x"]
       self.latitude = address["y"]
     rescue
+    end
+  end
+
+  def smart_body(htmlable = true)
+    if htmlable
+      self.is_html_body ? self.body : smart_format(self.body)
+    else
+      self.is_html_body ? Html2Text.convert(self.body) : self.body
     end
   end
 

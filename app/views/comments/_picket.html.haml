@@ -38,7 +38,7 @@
 
                 .date= date_f comment.updated_at
             .comment-body
-              = raw comment.body
+              != comment.smart_body
             .comment-footer
               = render 'likes/button', likable: comment
   - if !comments.last_page? and !local_assigns[:finite]

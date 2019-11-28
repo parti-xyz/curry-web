@@ -82,8 +82,9 @@ class CommentsController < ApplicationController
 
     @comment.confirm_privacy = true if @comment.commentable.try(:confirm_privacy).present?
 
-    unless helpers.is_redactorable?
-      @comment.body = ApplicationController.helpers.simple_format(ERB::Util.h(@comment.body), {}, sanitize: false)
+    unless @comment.is_html_body?
+      @comment.body = ApplicationController.helpers.smart_format(@comment.body)
+      @comment.is_html_body = true
     end
 
     if @comment.save
@@ -171,7 +172,7 @@ class CommentsController < ApplicationController
       :tag_list, :image,
       :target_agent_id, :mailing,
       :toxic,
-      :test, :comment_user_id
+      :test, :comment_user_id, :is_html_body
     )
   end
 end

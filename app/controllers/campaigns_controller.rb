@@ -110,6 +110,7 @@ class CampaignsController < ApplicationController
 
   def order_form
     @comment = Comment.new
+    @comment.is_html_body = true
     @comment.body = (@campaign.message_to_agent || '') + "<p></p>"
   end
 

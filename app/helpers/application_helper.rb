@@ -55,14 +55,6 @@ module ApplicationHelper
     end
   end
 
-  def smart_format(text, html_options = {}, options = {})
-    parsed_text = simple_format(h(text), html_options, options).to_str
-    raw(auto_link(parsed_text,
-      html: {class: 'auto_link', target: '_blank'},
-      link: :urls,
-      sanitize: false))
-  end
-
   def asset_data_base64(path)
     content, content_type = parse_asset(path)
     base64 = Base64.encode64(content).gsub(/\s+/, "")

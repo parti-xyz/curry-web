@@ -59,7 +59,10 @@
       = f.label :image
       = f.file_field :image, class: 'form-control'
     .form-group
-      ~ f.text_area :body, placeholder: '지금 나는...', required: true, rows: 3, class: 'form-control', data: { 'rule-required': true }
+      = f.hidden_field :is_html_body, value: is_redactorable?
+      - unless is_redactorable?
+        - f.object.body = Html2Text.convert(f.object.body)
+      ~ f.text_area :body, placeholder: '지금 나는...', required: true, rows: 3, class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), style: 'height: 150px', data: { 'rule-required': true }
     = f.submit '작성', class: 'btn btn-primary btn-block'
 %section.page-block
   .container
@@ -83,7 +86,8 @@
                   - else
                     = image_tag comment.image.lg.url, style: 'width: 100%;'
               .comment__body
-                %h4{ style: 'font-size: 16px; letter-spacing: -0.02em; line-height: 1.4;'}= smart_format comment.body
+                %h4{ style: 'font-size: 16px; letter-spacing: -0.02em; line-height: 1.4;'}
+                  != comment.smart_body
               .comment__meta{ style: 'color: #5f5f5f;font-size: 12px' }
                 - if comment.latitude && comment.longitude
                   %i.fa.fa-map-marker.text-danger
