@@ -1,12 +1,12 @@
 - if Campaign.published.popular.any?
   - campaign = Campaign.published.popular.limit(5).shuffle.first
-  %section#about-section{style:"background-position:center; background-size:cover;background-image: url(#{asset_url(campaign.cover_image)});"}
+  %section#about-section.featured-campaign{style:"background-position:center; background-size:cover;background-image: url(#{asset_url(campaign.cover_image)});"}
     .container
-      %h2{ style: 'line-height: 1.0;' }
-        %small{ style: 'color: #fff; text-shadow: 0 0 12px rgba(0,0,0);' }
+      %h2
+        %small
           캠페인
         %br
-        %strong{style:"font-size: 61px; line-height: 80px; text-shadow: 0 0 12px rgba(0,0,0,0.9);"}
+        %strong
           = campaign.title
       %div
         = link_to campaign, class: 'btn btn-lg btn-danger', target: '_blank' do

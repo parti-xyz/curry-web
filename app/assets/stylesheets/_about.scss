@@ -11,6 +11,20 @@
         background: linear-gradient(135deg, rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(32,111,176,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#206fb0',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
     }
+    &.featured-campaign {
+        h2 {
+          line-height: 1.0;
+          text-shadow: 0 0 12px rgba(0,0,0,0.9);
+          @media (max-width: $screen-xs-max) {
+            font-size: 30px;
+            line-height: 1.2;
+          }
+          small {
+            color: #fff;
+            text-shadow: 0 0 12px rgb(0,0,0);
+          }
+        }
+    }
     padding-top: 50px;
     height: 400px;
     h2 {
