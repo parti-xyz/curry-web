@@ -22,9 +22,9 @@
           &nbsp;
         - if can?(:edit, @campaign) and  @campaign.agents.any?
           = link_to orders_data_campaign_path(@campaign, format: :xlsx) do
-            %span{ style: "color:white; font-weight: 200;" }
+            %span.text-nowrap{ style: "color:white; font-weight: 200;" }
               %i.fa.fa-download
-              촉구 다운로드
+              촉구 참여 데이터
           &nbsp;
       - if buttons.present?
         %p
