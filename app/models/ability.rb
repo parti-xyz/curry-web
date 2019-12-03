@@ -51,7 +51,7 @@ class Ability
         user == discussion.user or discussion.try(:project).try(:organizer?, user)
       end
 
-      can [:edit_agents, :add_agent, :remove_agent, :add_action_target, :remove_action_target, :edit_message_to_agent, :update_message_to_agent, :open, :close, :comments_data], [Campaign] do |action|
+      can [:edit_agents, :add_agent, :remove_agent, :add_action_target, :remove_action_target, :edit_message_to_agent, :update_message_to_agent, :open, :close, :comments_data, :data, :orders_data], [Campaign] do |action|
         user == action.user or action.try(:project).try(:organizer?, user)
       end
       can [:mail_signs], Campaign do |campaign|
