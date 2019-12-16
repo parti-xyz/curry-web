@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/oelmekki/activerecord_any_of.git
+  remote: https://github.com/oelmekki/activerecord_any_of.git
   revision: 22b3bfb4614c2223242dc496328356923a239bed
   ref: 22b3bf
   specs:
@@ -7,7 +7,7 @@ GIT
       activerecord (>= 3.2.13, < 6)
 
 GIT
-  remote: git://github.com/randym/axlsx.git
+  remote: https://github.com/randym/axlsx.git
   revision: d41258edda220620226c20fb75ee25f36abe3636
   ref: d41258e
   specs:
@@ -177,7 +177,7 @@ GEM
     exception_notification (4.4.0)
       actionmailer (>= 4.0, < 7)
       activesupport (>= 4.0, < 7)
-    excon (0.66.0)
+    excon (0.71.0)
     execjs (2.7.0)
     exifr (1.2.6)
     ey_config (0.0.7)
