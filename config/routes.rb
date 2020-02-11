@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   get '404', :to => 'application#page_not_found'
 
-  root 'pages#home'
+  root 'campaigns#index'
 
   get 'about', to: 'pages#about', as: :about
   get 'components', to: 'pages#components'
