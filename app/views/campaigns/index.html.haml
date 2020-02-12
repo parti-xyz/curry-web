@@ -46,28 +46,19 @@
           %i.fa.fa-comment-o
           빠띠에 캠페인 협업 문의하기
 
+%section#campaigns.page-block
+  = render 'campaigns/list', campaigns: @campaigns, title_label: "모든 캠페인 (#{Campaign.count}건)"
+  .text-center
+    = paginate @campaigns, theme: 'twitter-bootstrap-3'
 
-%section
-  .container-fluid
-    %ul.nav.nav-tabs
-      %li.active
-        %a{ href: "#campaigns", role: "tab", "data-toggle" => "tab" } 캠페인 (#{Campaign.count}건)
-      %li
-        %a{ href: "#players", role: "tab", "data-toggle" => "tab" } 국회의원
-
-%section
-  .tab-content
-    %section#campaigns.page-block.tab-pane.active
-      = render 'campaigns/list', campaigns: @campaigns
-
-    %section#players.tab-pane
-      .container
-        %h3
-          국회의원
-          .pull-right
-            = link_to Agency.assembly_20th do
-              %small 더 보기
-        .row
-          - cache "home-assembly_20th", race_condition_ttl: 30.seconds, expires_in: 1.hours do
-            - Agency.assembly_20th.agents.popular_limit(24).each do |agent|
-              .col-sm-2.col-xs-4= render agent
+%section#players.page-block
+  .container
+    %h3
+      국회의원
+      .pull-right
+        = link_to Agency.assembly_20th do
+          %small 더 보기
+    .row
+      - cache "home-assembly_20th", race_condition_ttl: 30.seconds, expires_in: 1.hours do
+        - Agency.assembly_20th.agents.popular_limit(24).each do |agent|
+          .col-sm-2.col-xs-4= render agent

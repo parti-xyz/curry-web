@@ -1,6 +1,6 @@
 .container-fluid
   %h3
-    - if @project.present?
+    - if @project.present? or local_assigns[:title_label].present?
       = local_assigns[:title_label] || @project.try(:component_title, 'campaign')
     - else
       = Campaign.model_name.human
