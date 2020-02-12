@@ -47,9 +47,10 @@
           빠띠에 캠페인 협업 문의하기
 
 %section#campaigns.page-block
-  = render 'campaigns/list', campaigns: @campaigns, title_label: "모든 캠페인 (#{Campaign.count}건)"
+  %a{ id: 'anchor-campaigns-list' }
+  = render 'campaigns/list', campaigns: @campaigns, title_label: raw("모든 캠페인 <small>총 #{Campaign.count}건 중 #{@campaigns.current_page} 페이지</small>")
   .text-center
-    = paginate @campaigns, theme: 'twitter-bootstrap-3'
+    = paginate @campaigns, theme: 'twitter-bootstrap-3', params: { :anchor => 'anchor-campaigns-list' }
 
 %section#players.page-block
   .container
