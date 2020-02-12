@@ -10,6 +10,8 @@ ExceptionNotification.configure do |config|
     webhook_url: ENV["SLACK_EXCEPTION_WEBHOOK_URL"],
     additional_parameters: {
       mrkdwn: true
-    }
+    },
+    backtrace_lines: 20,
+    additional_fields: [{ title: 'Platform', value: '캠페인즈' }]
   }
 end
