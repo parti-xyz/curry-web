@@ -56,7 +56,7 @@
               .campaign-sign-privacy-policy
                 촉구하기를 누르시면 본 서명의
                 %a{ "data-target" => "#privacy-modal", "data-toggle" => "modal", :type => "button", style: 'cursor:pointer' }
-                  개인정보취급방침
+                  개인정보처리방침
                 에 동의하게 됩니다.
               #privacy-modal.modal.fade{:role => "dialog", :tabindex => "0"}
                 .modal-dialog{:role => "document"}
@@ -64,7 +64,7 @@
                     .modal-header
                       %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
                         %span{"aria-hidden" => "true"} &#215;
-                      %h4.modal-title 개인정보취급방침
+                      %h4.modal-title 개인정보처리방침
                     .modal-body
                       != @campaign.confirm_privacy
 
@@ -85,5 +85,3 @@
           = hidden_field_tag "share-url", "#{campaign_url(@campaign)}"
           .js-clipboard.campaign-share-button{ 'data-clipboard-text': campaign_url(@campaign), 'data-toggle': 'tooltip', 'data-trigger': 'manual', 'data-title': '캠페인 공유 주소를 복사하였습니다.', style: "margin-left: 6px" }
             %i.fa.fa-clipboard
-
-

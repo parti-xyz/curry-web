@@ -77,7 +77,7 @@
               .campaign-sign-privacy-policy
                 서명하기를 누르시면 본 서명의
                 %a{ "data-target" => "#privacy-modal", "data-toggle" => "modal", :type => "button", style: 'cursor:pointer' }
-                  개인정보취급방침
+                  개인정보처리방침
                 에 동의하게 됩니다.
               #privacy-modal.modal.fade{:role => "dialog", :tabindex => "0"}
                 .modal-dialog{:role => "document"}
@@ -85,7 +85,7 @@
                     .modal-header
                       %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
                         %span{"aria-hidden" => "true"} &#215;
-                      %h4.modal-title 개인정보취급방침
+                      %h4.modal-title 개인정보처리방침
                     .modal-body
                       != @campaign.confirm_privacy
 
