@@ -10,6 +10,7 @@ class CampaignsController < ApplicationController
     @campaigns = Campaign.published.recent
     @current_organization = fetch_organization_from_request
     @campaigns = @campaigns.by_organization(@current_organization) if @current_organization.present?
+    @campaigns = @campaigns.page(params[:page]).per(20)
   end
 
   def show

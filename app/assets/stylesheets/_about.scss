@@ -12,6 +12,8 @@
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#206fb0',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
     }
     &.featured-campaign {
+        background-position:center;
+        background-size:cover;
         h2 {
           line-height: 1.0;
           text-shadow: 0 0 12px rgba(0,0,0,0.9);

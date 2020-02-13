@@ -3,33 +3,6 @@ class PagesController < ApplicationController
 
   before_action :subdomain_view_path, only: :home
 
-  def home
-    home_method = :"home_#{@current_organization.try(:slug)}"
-    reset_meta_tags_for_home(@current_organization)
-    if respond_to? home_method
-      send home_method
-    end
-
-    @projects = Project.recent
-    @timelines = Timeline.recent
-    @memorials = Memorial.recent
-    @articles = Article.hot.limit(10)
-    @project_categories = ProjectCategory.where(organization: @current_organization) if @current_organization.present?
-
-    @issues = Issue.limit(6)
-  end
-
-  def home_urimanna
-    json = Rails.cache.read "urimanna_parti_highlight_posts"
-
-    @pinned_posts = json.try(:[], "pinned") || []
-    @recent_posts = json.try(:[], "recent") || []
-
-    if json.nil?
-      PartiHightlightPostsJob.perform_async
-    end
-  end
-
   def about
   end
 
