@@ -32,13 +32,15 @@ production:
 기본적인 Rail 개발 환경에 rbenv, pow/powder를 이용합니다.
 
 ```
-$ rbenv install 2.3.4
-$ bundle install
+$ rbenv install 2.4.7
+$ gem install bundler:2.0.1
+$ bundle _2.0.1_ install
 ```
+에러나면 `# gem update --system`
 
 ### 소스관리 설정
 
-반드시 https://github.com/awslabs/git-secrets를 설치하도록 합니다. 설치 후에 반드시 https://github.com/awslabs/git-secrets#installing-git-secrets 이 부분을 참고하여 로컬 레포지토리에 모두 설정 합니다.
+반드시 https://github.com/awslabs/git-secrets 를 설치하도록 합니다. 설치 후에 반드시 https://github.com/awslabs/git-secrets#installing-git-secrets 이 부분을 참고하여 로컬 레포지토리에 모두 설정 합니다.
 
 ```
 $ git secrets --install
@@ -75,6 +77,26 @@ development:
     username: 사용자이름
     password: 암호
 ```
+
+##### docker mysql
+
+```
+# docker pull mysql:5
+# mkdir -p $HOME/docker/volumes/mysql
+# docker run --rm --name mysql \
+  -e MYSQL_ROOT_PASSWORD=docker \
+  -e MYSQL_DATABASE=govcraft_development_master \
+  -e MYSQL_USER=swain \
+  -e MYSQL_PASSWORD=swain \
+  -d -p 3306:3306 \
+  -v $HOME/docker/volumes/mysql:/var/lib/mysql \
+  mysql:5
+# brew install mysql-client@5.7
+# mysql -h 127.0.0.1 -P 3306 -u swain -D govcraft_development_master -p
+```
+
+gem install mysql2 에러날 시 `# gem install mysql2 -v '0.4.10' --source 'https://rubygems.org/' -- --with-opt-dir="$(brew --prefix openssl)"`
+
 
 ### 로그인 준비
 
