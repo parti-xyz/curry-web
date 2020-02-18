@@ -97,12 +97,12 @@ development:
 
 gem install mysql2 에러날 시 `# gem install mysql2 -v '0.4.10' --source 'https://rubygems.org/' -- --with-opt-dir="$(brew --prefix openssl)"`
 
-
 ### 로그인 준비
 
 #### puma-dev
 
 로컬 개발 환경에 https가 되어야 로그인 테스트가 가능하다.
+* powder (pow) 안쓰는 이유 https://stormconsultancy.co.uk/blog/techtips/switching-pow-puma-rails-development/
 * 퓨마 설치 https://github.com/puma/puma-dev
 * 캠페인즈 서버 띄우기  `# puma-dev link -n campaigns`
 
@@ -199,11 +199,26 @@ Complaint Notifications SNS Topic: arn:aws:sns:***
   Include Original Headers: enabled
 ```
 
+### 데이터 동기화 DB RAKE
+#### 디비 초기화
+```
+# rake db:schema:load // db/schema.rb로 부터 기본 스키마 로딩합니다.
+# rake db:seed // db/seed.rb로 부터 기본 데이터 로딩합니다.
+```
 
-### 조직 기본 데이터 등록
+#### 브랜치에 디비 복사
+```
+# rake -T // 모든 테스트 보기
+# rake branchdb:create // master브랜치 DB를 복사하여 현재 브랜치DB를 만듭니다
 
 ```
+#### 조직 기본 데이터 등록
+```
 $ bin/rails organizations:seed
+```
+#### 추가 데이터 시
+```
+# rails g migration reset_schema
 ```
 
 ## 데이터 정보
