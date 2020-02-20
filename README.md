@@ -29,7 +29,7 @@ production:
 
 ## 로컬 개발 환경 구축 방법
 
-기본적인 Rail 개발 환경에 rbenv, pow/powder를 이용합니다.
+기본적인 Rail 개발 환경에 rbenv, puma-dev를 이용합니다.
 
 ```
 $ rbenv install 2.4.7
@@ -37,22 +37,6 @@ $ gem install bundler:2.0.1
 $ bundle _2.0.1_ install
 ```
 에러나면 `# gem update --system`
-
-### 소스관리 설정
-
-반드시 https://github.com/awslabs/git-secrets 를 설치하도록 합니다. 설치 후에 반드시 https://github.com/awslabs/git-secrets#installing-git-secrets 이 부분을 참고하여 로컬 레포지토리에 모두 설정 합니다.
-
-```
-$ git secrets --install
-$ git secrets --register-aws
-```
-
-그리고 데이터베이스는 각 레포지토리마다 다릅니다. 아래 git hook 을 설정합니다
-
-```
-$ echo $'#!/bin/sh\nif [ "1" == "$3" ]; then spring stop && powder restart; fi' > .git/hooks/post-checkout
-$ chmod +x .git/hooks/post-checkout
-```
 
 ### 데이터베이스 준비
 
@@ -97,6 +81,13 @@ development:
 
 gem install mysql2 에러날 시 `# gem install mysql2 -v '0.4.10' --source 'https://rubygems.org/' -- --with-opt-dir="$(brew --prefix openssl)"`
 
+#### 브랜치 디비 관리
+
+데이터베이스는 각 브랜치마다 다릅니다. 아래 git hook 을 설정합니다
+```
+$ echo $'#!/bin/sh\nif [ "1" == "$3" ]; then spring stop && puma-dev -stop; fi' > .git/hooks/post-checkout
+$ chmod +x .git/hooks/post-checkout
+```
 ### 로그인 준비
 
 #### puma-dev
