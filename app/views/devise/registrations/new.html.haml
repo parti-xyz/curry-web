@@ -30,8 +30,18 @@
             = f.text_field :email, autofocus: true, class: 'form-control'
 
         .form-group
-          = f.check_box :term_agreement
+          %input{ type: "checkbox" }
           이용약관, 개인정보 수집 및 동의, 마케팅 정보 수신(선택)에 모두 동의합니다.
+          %ul
+            %li
+              = f.check_box :term_service
+              이용약관에 동의합니다. (필수) [보기]
+            %li
+              = f.check_box :term_privacy
+              개인정보 수집 및 이용에 동의합니다. (필수) [보기]
+            %li
+              = f.check_box :term_marketing
+              마케팅 정보 수신에 동의합니다. (선택) [보기]
         .form-group
           = f.submit '계속하기', class: 'btn btn-primary btn-block', data: { disable_with: "진행 중..." }
 

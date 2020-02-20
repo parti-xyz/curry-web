@@ -1129,7 +1129,8 @@ ActiveRecord::Schema.define(version: 20200219233613) do
     t.string   "facebook_info"
     t.string   "twitter_info"
     t.datetime "issues_summary_email_sent_at"
-    t.boolean  "term_agreement",                             default: false
+    t.boolean  "term_service",                               default: false
+    t.boolean  "term_privacy",                               default: false
     t.boolean  "term_marketing",                             default: false
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true, using: :btree
   end
