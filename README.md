@@ -90,7 +90,7 @@ development:
   -e MYSQL_PASSWORD=swain \
   -d -p 3306:3306 \
   -v $HOME/docker/volumes/mysql:/var/lib/mysql \
-  mysql:5
+  mysql:5 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 # brew install mysql-client@5.7
 # mysql -h 127.0.0.1 -P 3306 -u swain -D govcraft_development_master -p
 ```
