@@ -10,6 +10,12 @@ default: &default
   adapter:   mysql2
   username:  <%= local_env.dig('database', 'username') %>
   password:  <%= local_env.dig('database', 'password') %>
+  <% if(local_env.dig('database', 'host') != nil) %>
+  host:  <%= local_env.dig('database', 'host') %>
+  <% end %>
+  <% if(local_env.dig('database', 'port') != nil) %>
+  port:  <%= local_env.dig('database', 'port') %>
+  <% end %>
 
 development:
   <<: *default
