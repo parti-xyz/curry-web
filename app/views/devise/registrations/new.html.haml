@@ -33,26 +33,18 @@
           %input{ type: "checkbox", id: "js-checkbox-signup-all" }
           이용약관, 개인정보 수집 및 동의, 마케팅 정보 수신(선택)에 모두 동의합니다.
           %ul
-            %li.js-checkbox-signup
-              = f.check_box :term_service
-              이용약관에 동의합니다. (필수) [보기]
-            %li.js-checkbox-signup
-              = f.check_box :term_privacy
-              개인정보 수집 및 이용에 동의합니다. (필수) [보기]
-            %li.js-checkbox-signup
-              = f.check_box :term_marketing
+            %li.checkbox-signup
+              = f.check_box :term_service, class: "js-checkbox-signup"
+              이용약관에 동의합니다. (필수) 
+              %a.text-primary{href: '/terms', target: '_blank'}
+                %b [보기]
+            %li.checkbox-signup
+              = f.check_box :term_privacy, class: "js-checkbox-signup"
+              개인정보 수집 및 이용에 동의합니다. (필수) 
+              %a.text-primary{href: '/privacy', target: '_blank'}
+                %b [보기]
+            %li.checkbox-signup
+              = f.check_box :term_marketing, class: "js-checkbox-signup"
               마케팅 정보 수신에 동의합니다. (선택) [보기]
         .form-group
-          = f.submit '계속하기', class: 'btn btn-primary btn-block', data: { disable_with: "진행 중..." }
-
-        = form_tag nil, method: :get do
-          = hidden_field_tag(:after_login)
-          %label.remember_me
-            "계속하기"를 클릭하면
-            %a.text-primary{href: '/terms', target: '_blank'}
-              %b 이용약관
-            ,
-            %a.text-primary{href: '/privacy', target: '_blank'}
-              %b 개인정보처리
-            방침 내용을 이해하고
-            동의하게 됩니다.
+          = f.submit '회원 가입하기', class: 'btn btn-primary btn-block', data: { disable_with: "진행 중..." }

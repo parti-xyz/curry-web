@@ -584,10 +584,25 @@ $(function(){
 });
 
 $(function(){
-  $("#js-checkbox-signup-all").on("change", function() {
-    // $(".js-checkbox-signup")
+  $("#js-checkbox-signup-all").change(function(e) {
+    e.preventDefault();
+    var checkboxState = e.target.checked;
+    $(".js-checkbox-signup").prop("checked", checkboxState);
+  });
+
+  $(".js-checkbox-signup").on('change', function(e) {
+    e.preventDefault();
+    // validate(e);
+
+    var $elm = $(e.currentTarget);
+    var $form = $elm.closest('form');
+    var totalLength = $form.find('.js-checkbox-signup').length;
+    var uncheckd_confirm = $form.find('.js-checkbox-signup:checked').length;
+    $form.find("#js-checkbox-signup-all").prop("checked", totalLength == uncheckd_confirm);
   });
 });
+
+
 
 $(document).ajaxError(function (e, xhr, settings) {
   if(xhr.status == 500) {
