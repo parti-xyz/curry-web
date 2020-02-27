@@ -2,7 +2,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   skip_before_filter :verify_authenticity_token, :only => :create
 
   # Overwrite update_resource to let users to update their user without giving their password
-    def update_resource(resource, params)
+  def update_resource(resource, params)
     # abort params.inspect
     resource.update_without_password(params)
   end
@@ -10,7 +10,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-    params.require(:user).permit(:remember_me, :nickname, :image, :email, :password, :password_confirmation)
+    params.require(:user).permit(:remember_me, :nickname, :image, :email, :password, :password_confirmation, :term_service, :term_privacy)
   end
 
   def account_update_params

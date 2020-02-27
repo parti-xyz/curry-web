@@ -75,8 +75,8 @@ class User < ApplicationRecord
     length: Devise.password_length,
     if: :password_required?
   validates_confirmation_of :password, if: :password_required?
-  validates :term_service, presence: true
-  validates :term_privacy, presence: true
+  validates :term_service, :acceptance => {:accept => true}
+  validates :term_privacy, :acceptance => {:accept => true}
   # filters
   before_save :downcase_nickname
   before_validation :strip_whitespace_nickname, only: :nickname
