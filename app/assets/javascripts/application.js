@@ -583,6 +583,12 @@ $(function(){
   parti_partial$($(document));
 });
 
+$(function(){
+  $("#js-checkbox-signup-all").on("change", function() {
+    // $(".js-checkbox-signup")
+  });
+});
+
 $(document).ajaxError(function (e, xhr, settings) {
   if(xhr.status == 500) {
     UnobtrusiveFlash.showFlashMessage('뭔가 잘못되었습니다. 곧 고치겠습니다.', {type: 'error'})
