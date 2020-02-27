@@ -45,6 +45,8 @@
                 %b [보기]
             %li.checkbox-signup
               = f.check_box :term_marketing, class: "js-checkbox-signup"
-              마케팅 정보 수신에 동의합니다. (선택) [보기]
+              마케팅 정보 수신에 동의합니다. (선택)
+              %a.text-primary{href: '/marketing', target: '_blank'}
+                %b [보기]
         .form-group
           = f.submit '회원 가입하기', class: 'btn btn-primary btn-block', data: { disable_with: "진행 중..." }
