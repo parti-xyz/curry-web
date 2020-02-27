@@ -104,6 +104,8 @@ ko:
         password: 비밀번호
         password_confirmation: 비밀번호 확인
         enable_mailing: 메일수신 여부
+        term_service: 이용약관 동의
+        term_privacy: 개인정보 수집 및 이용 동의
       project:
         title: 제목
         subtitle: 부제목
