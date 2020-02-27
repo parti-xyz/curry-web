@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/oelmekki/activerecord_any_of.git
+  remote: https://github.com/oelmekki/activerecord_any_of.git
   revision: 22b3bfb4614c2223242dc496328356923a239bed
   ref: 22b3bf
   specs:
@@ -7,7 +7,7 @@ GIT
       activerecord (>= 3.2.13, < 6)
 
 GIT
-  remote: git://github.com/randym/axlsx.git
+  remote: https://github.com/randym/axlsx.git
   revision: d41258edda220620226c20fb75ee25f36abe3636
   ref: d41258e
   specs:
@@ -485,7 +485,7 @@ GEM
     mime-types (3.3)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.1009)
-    mimemagic (0.3.3)
+    mimemagic (0.3.4)
     mini_magick (4.9.5)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
@@ -582,7 +582,7 @@ GEM
     puma (4.3.1)
       nio4r (~> 2.0)
     raabro (1.1.6)
-    rack (2.0.7)
+    rack (2.2.2)
     rack-cors (1.0.5)
       rack (>= 1.6.0)
     rack-mini-profiler (1.0.2)
