@@ -77,7 +77,7 @@ $(function(){
     }
   );
 
-  $('.js-top-menu i').click(function(){
+  $('.js-top-menu').click(function(){
     $('#header-container').toggleClass('drop-main-menu');
   })
 
