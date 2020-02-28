@@ -14,7 +14,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def account_update_params
-    params.require(:user).permit(:remember_me, :nickname, :description, :image, :email, :enable_mailing, :site_info, :facebook_info, :twitter_info)
+    params.require(:user).permit(:remember_me, :nickname, :description, :image, :email, :enable_mailing, :site_info, :facebook_info, :twitter_info,:term_service, :term_privacy, :term_marketing)
   end
 
   def after_inactive_sign_up_path_for(resource)
