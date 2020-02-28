@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :rememberable, :trackable, :recoverable,
          :omniauthable,
          :omniauth_providers => [:facebook, :twitter]
+        #  :authentication_keys => {term_privacy: true, term_service: true}
 
   # assiciations
   has_many :following_issues, dependent: :destroy
@@ -163,6 +164,10 @@ class User < ApplicationRecord
 
   def has_image?
     self.read_attribute(:image).present?
+  end
+
+  def has_agreed_terms?
+    return self.read_attribute(:term_privacy).presence && self.read_attribute(:term_service).presence
   end
 
   private

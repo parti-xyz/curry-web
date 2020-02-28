@@ -1,0 +1,29 @@
+%section
+  .container
+    %h3.sign-up-header
+      이용약관 및 개인정보보안이 변경되었습니다.
+    .sign-up-form
+      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+        = render 'devise/shared/error_messages', resource: resource
+        = f.hidden_field :remember_me
+        .form-group
+          %input{ type: "checkbox", id: "js-checkbox-signup-all" }
+          이용약관, 개인정보 수집 및 동의, 마케팅 정보 수신(선택)에 모두 동의합니다.
+          %ul
+            %li.checkbox-signup
+              = f.check_box :term_service, class: "js-checkbox-signup"
+              이용약관에 동의합니다. (필수) 
+              %a.text-primary{href: '/terms', target: '_blank'}
+                %b [보기]
+            %li.checkbox-signup
+              = f.check_box :term_privacy, class: "js-checkbox-signup"
+              개인정보 수집 및 이용에 동의합니다. (필수) 
+              %a.text-primary{href: '/privacy', target: '_blank'}
+                %b [보기]
+            %li.checkbox-signup
+              = f.check_box :term_marketing, class: "js-checkbox-signup"
+              마케팅 정보 수신에 동의합니다. (선택)
+              %a.text-primary{href: '/marketing', target: '_blank'}
+                %b [보기]
+        .form-group
+          = f.submit '동의 확인', class: 'btn btn-primary btn-block', data: { disable_with: "진행 중..." }
