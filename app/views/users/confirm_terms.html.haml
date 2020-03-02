@@ -3,9 +3,7 @@
     %h3.sign-up-header
       이용약관 및 개인정보보안이 변경되었습니다.
     .sign-up-form
-      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-        = render 'devise/shared/error_messages', resource: resource
-        = f.hidden_field :remember_me
+      = form_for(current_user, html: { method: :put }) do |f|
         .form-group
           %input{ type: "checkbox", id: "js-checkbox-signup-all" }
           이용약관, 개인정보 수집 및 동의, 마케팅 정보 수신(선택)에 모두 동의합니다.
