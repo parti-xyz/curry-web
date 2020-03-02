@@ -104,7 +104,7 @@ gem install mysql2 에러날 시 `# gem install mysql2 -v '0.4.10' --source 'htt
 
 로컬 개발 환경에 https가 되어야 로그인 테스트가 가능하다.
 * 퓨마 설치 https://github.com/puma/puma-dev
-* 캠페인즈 서버 띄우기  `# puma-dev link -n campaigns`
+* 캠페인즈 서버 설정  `# puma-dev link -n campaigns`
 
 #### SNS 연동
 
