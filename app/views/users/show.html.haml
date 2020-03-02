@@ -1,28 +1,11 @@
 %section.page-block.profile-header
   .container-fluid
-    %div
-      = render 'thumbnail', user: @user
-    %h3
-      = @user.nickname
-
-    %dl
-      %dt 가입일
-      %dd= date_f @user.created_at
-%section.page-block
-  .container-fluid
-    %h3 관심 이슈
-    - if @user.following_issues.any?
-      .issues
-        - @user.following_issues.each do |following_issue|
-          = link_to following_issue.issue do
-            %span.badge-issue.badge-issue-following
-              = following_issue.issue.title
-
-    - if @user.following_issues.empty? or current_user == @user
-      .page-block.page-block-message
-        .text-center
-          %h4 참여하고 싶은 이슈를 더 찾아 보세요
-          %p= link_to '이슈 더보기', issues_path
+    .media
+      .media-left
+        = image_tag @user.image.md.url, width: '150px', class: 'media-object'
+      .media-body
+        %h3= @user.nickname
+        %p.lead= @user.description
 
 %section.page-block
   .container-fluid

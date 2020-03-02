@@ -15,7 +15,7 @@
     .petition-meta
       %span.campaigner
         .user-image-xs{style: "background-image:url(#{asset_url(campaign.user.image)});"}
-        = link_to campaign.user.nickname, campaign.user
+        = link_to campaign.user.nickname, campaign.user, class: 'user-name'
       &middot;
       %span
         = date_f campaign.opened_at_to_human
@@ -34,5 +34,3 @@
     - cover_image = campaign.cover_image.lg.url
     - if cover_image.present?
       %section.no-container-margin-xs{ style: "margin-top: 15px; margin-top: 15px; height: 250px; background-image: url(#{cover_image}); background-size: cover; background-repeat: no-repeat; background-position: center" }
-
-

@@ -1,3 +1,5 @@
+= @campaign.template
+
 - if params[:test] != 'picket' and @campaign.picketable?
   = render "campaigns/picket/show"
 - else

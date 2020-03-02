@@ -53,8 +53,7 @@
 
     .user
       .user-image-xs{ style: "background-image:url(#{asset_url(@campaign.user.image.md.url)});" }
-      .user-name
-        = @campaign.user.nickname
+      = link_to @campaign.user.nickname, @campaign.user, class: 'user-name'
 
   .cover-image{ style: "background-color: #777;" }
     - uid_header_bg = build_uid
