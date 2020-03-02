@@ -12,4 +12,4 @@
     %h3
       #{Campaign.model_name.human}
     .row
-      = render @user.campaigns
+      = render @user.campaigns.order("id desc")
