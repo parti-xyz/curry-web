@@ -54,7 +54,9 @@ class CampaignsController < ApplicationController
     if @campaign.special_slug.present?
       Special.build_campaign @campaign
     end
-
+    if params[:campaign][:confirm_third_party].present?
+      @campaign.confirm_third_party = Time.now
+    end
     if params[:action_assignable_id].present? and params[:action_assignable_type].present?
       action_assignable_model = params[:action_assignable_type].classify.safe_constantize
       render_404 and return if action_assignable_model.blank?
