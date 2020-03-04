@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200219233613) do
+ActiveRecord::Schema.define(version: 20200304231946) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -320,6 +320,7 @@ ActiveRecord::Schema.define(version: 20200219233613) do
     t.string   "signer_email_title"
     t.string   "signer_address_title"
     t.text     "confirm_privacy",              limit: 65535
+    t.datetime "confirm_third_party"
     t.string   "agent_section_title"
     t.string   "agent_section_response_title"
     t.string   "signer_phone_title"
