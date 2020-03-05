@@ -56,7 +56,7 @@ class User < ApplicationRecord
 
   # validations
   VALID_NICKNAME_REGEX = /\A[ㄱ-ㅎ가-힣a-z0-9_]+\z/i
-
+  
   validates :nickname,
     presence: true,
     exclusion: { in: %w(app new edit index session login logout users organizer admin all crew issue group project) },
@@ -75,8 +75,9 @@ class User < ApplicationRecord
     length: Devise.password_length,
     if: :password_required?
   validates_confirmation_of :password, if: :password_required?
-  validates :term_service, :acceptance => {:accept => true}
-  validates :term_privacy, :acceptance => {:accept => true}
+  validates :term_service, :presence => true
+  validates :term_privacy, :presence => true
+  validates :term_privacy_must, :presence => true
   # filters
   before_save :downcase_nickname
   before_validation :strip_whitespace_nickname, only: :nickname
