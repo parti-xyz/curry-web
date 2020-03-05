@@ -1,55 +1,22 @@
-- organization = fetch_organization_from_request || @current_organization
-- project = @project || @campaign.try(:project)
 %section#site-header
-  #header-container.container-fluid.container-fluid-always
-    - unless @current_organization.nil?
-      = link_to root_url(subdomain: @current_organization.slug) do
-        .title
-          = @current_organization.title
-    - else
-      = link_to root_url(subdomain: root_subdomain) do
-        .title
-          빠띠 캠페인즈
-    .slogan-or-navi.hidden-xs
-      - if project.present?
-        = link_to project do
-          %span.header-label
-            프로젝트
-          = project.title
-      - else
-        = organization.try(:slogan)
-    .right-navi.js-top-menu.menu-btn
-      - if @current_organization.try(:slug) == 'urimanna'
-        %div#urimanna_menu
-          = link_to '단체 정보', '/archives/2'
-          = link_to Project.model_name.human, projects_path
-          = link_to '커뮤니티', organization.try(:community_url), target: '_blank'
-      %i.fa.fa-bars{ style: "font-size:17px;" }
-    .right-navi.js-top-menu.close-btn.collapse
-      %i.fa.fa-times
-
-    - if user_signed_in?
-      .right-navi
-        = link_to current_user do
-          = render 'users/thumbnail'
-
-    .menu-list.text-nowrap.collapse
-      - if organization.blank?
-        = link_to Campaign.model_name.human, campaigns_url(subdomain: root_subdomain)
-      - else
-        = render "organizations/#{organization.slug}/pages/header", organization: organization
-      %br
-      %span
-        - if user_signed_in?
-          = current_user.nickname
-          &nbsp;님
-        - else
-          member
-      %br
-      - if user_signed_in?
-        = link_to '프로필', edit_user_registration_url(subdomain: root_subdomain)
-        %br
-        = link_to '로그아웃', sign_out_path, method: :delete
-      - else
-        = link_to new_user_session_path do
-          로그인·가입
+  %nav.navbar.navbar-default.navbar-static-top{ style: 'margin: 0' }
+    #header-container.container-fluid.container-fluid-always
+      .navbar-header
+        %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+          %span.sr-only Toggle navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        = link_to '빠띠 캠페인즈', root_path, class: 'navbar-brand', style: ""
+      #navbar.navbar-collapse.collapse
+        %ul.nav.navbar-nav.navbar-right
+          %li
+            = link_to '캠페인 목록', campaigns_path
+          %li
+            = link_to '캠페인 시작하기', new_campaign_path
+          - if user_signed_in?
+            %li
+              = link_to '로그아웃', sign_out_path, method: :delete
+          - else
+            %li
+              = link_to '로그인', new_user_session_path

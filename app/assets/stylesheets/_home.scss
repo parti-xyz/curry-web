@@ -19,7 +19,6 @@
     border-right:2px solid $gray-light;
     font-weight:700;
     padding:25px 25px 25px 10px;
-    height:80px;
     @media (max-width: $screen-sm-min){
       padding: 27px 5px 25px 10px;
       border-right:0px;
@@ -90,7 +89,6 @@
       }
     }
   }
-  height:80px;
   border-bottom:1px solid $gray-light;
 }
 section#communities{
@@ -139,4 +137,3 @@ section#communities{
     }
   }
 }
-
