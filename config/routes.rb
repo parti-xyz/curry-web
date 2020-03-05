@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   get 'components', to: 'pages#components'
   get 'privacy', to: "pages#privacy", as: 'privacy'
   get 'terms', to: "pages#terms", as: 'terms'
+  get 'marketing', to: "pages#marketing", as: 'marketing'
 
   post 'simple_mail/callback' => 'simple_mail#callback'
 

@@ -14,6 +14,10 @@ class PagesController < ApplicationController
     render "pages/terms"
   end
 
+  def marketing
+    render "pages/terms"
+  end
+
   def polls
     @polls = Poll.recent
   end
