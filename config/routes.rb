@@ -40,7 +40,8 @@ Rails.application.routes.draw do
   get 'components', to: 'pages#components'
   get 'privacy/legacy', to: "pages#privacy_legacy", as: 'privacy_legacy'
   get 'privacy', to: "pages#privacy_current", as: 'privacy_current'
-  get 'terms', to: "pages#terms", as: 'terms'
+  get 'terms/legacy', to: "pages#terms_legacy", as: 'terms_legacy'
+  get 'terms', to: "pages#terms_current", as: 'terms_current'
 
   post 'simple_mail/callback' => 'simple_mail#callback'
 
