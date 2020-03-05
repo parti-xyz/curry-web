@@ -6,6 +6,14 @@ class PagesController < ApplicationController
   def about
   end
 
+  def terms
+    render "pages/terms"
+  end
+
+  def privacy
+    render "pages/terms"
+  end
+
   def polls
     @polls = Poll.recent
   end

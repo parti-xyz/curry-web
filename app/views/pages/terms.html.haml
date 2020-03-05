@@ -1,0 +1,6 @@
+%section
+  .container
+    - version = request.query_parameters[:legacy]
+    - has_legacy = (!version.blank? and lookup_context.find_all("pages/_#{action_name}_legacy_#{version}").any?)
+    = render "#{action_name}_legacy_#{version}" if has_legacy
+    = render action_name
