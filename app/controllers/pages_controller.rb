@@ -14,6 +14,14 @@ class PagesController < ApplicationController
     render "pages/terms"
   end
 
+  def privacy_must
+    render "pages/terms"
+  end
+
+  def privacy_option
+    render "pages/terms"
+  end
+
   def marketing
     render "pages/terms"
   end
