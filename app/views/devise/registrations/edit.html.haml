@@ -37,3 +37,7 @@
             빠띠 캠페인즈 소식을 이메일로 받습니다.
       .form-group
         = f.submit '저장', class: 'btn btn-primary', data: { disable_with: "저장 중..." }
+        = link_to registration_path(current_user), method: :delete, data: { confirm: "정말 탈퇴 하시겠어요? *주의: 복구되지 않습니다. *캠페인이 남아있는 경우 삭제 되지 않습니다. 먼저 캠페인을 삭제해주세요." } do
+          %span.btn.btn-danger.pull-right
+            %i.fa.fa-trash
+              회원 탈퇴
