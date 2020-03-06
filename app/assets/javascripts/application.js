@@ -600,6 +600,16 @@ $(function(){
     var uncheckd_confirm = $form.find('.js-checkbox-signup:checked').length;
     $form.find("#js-checkbox-signup-all").prop("checked", totalLength == uncheckd_confirm);
   });
+
+  $(".js-confirm_third_party").on('change', function(e) {
+    e.preventDefault();
+    var isChecked = e.target.checked;
+    if(isChecked){
+      $(".js-confirm_third_party-help").removeClass("hidden");
+    }else{
+      $(".js-confirm_third_party-help").addClass("hidden");
+    }
+  });
 });
 
 
