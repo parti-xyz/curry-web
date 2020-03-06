@@ -13,4 +13,17 @@ class UsersController < ApplicationController
       url: request.original_url,
     })
   end
+
+  def update
+    if current_user.update(user_terms_params)
+      redirect_to root_path
+    else
+      render "users/confirm_terms"
+    end
+  end
+
+  private 
+  def user_terms_params
+    params.require(:user).permit(:term_service, :term_privacy, :term_marketing, :term_privacy_must, :term_privacy_option)
+  end
 end

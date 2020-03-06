@@ -1,0 +1,34 @@
+
+.form-group
+  %input{ type: "checkbox", id: "js-checkbox-signup-all" }
+  이용약관, 개인정보 수집 및 동의, 마케팅 정보 수신(선택)에 모두 동의합니다.
+  %ul
+    %li.checkbox-signup
+      = f.check_box :term_service, {class: "js-checkbox-signup"}, Time.now
+      이용약관에 동의합니다
+      %b (필수)
+      %a.text-primary{href: '/terms', target: '_blank'}
+        %b [보기]
+    %li.checkbox-signup
+      = f.check_box :term_privacy, {class: "js-checkbox-signup"}, Time.now
+      개인정보 처리방침에 동의합니다
+      %b (필수)
+      %a.text-primary{href: '/privacy', target: '_blank'}
+        %b [보기]
+    %li.checkbox-signup
+      = f.check_box :term_privacy_must, {class: "js-checkbox-signup"}, Time.now
+      개인정보 이용 및 수집 동의 
+      %b (필수)
+      %a.text-primary{href: '/privacy/must', target: '_blank'}
+        %b [보기]
+    %li.checkbox-signup
+      = f.check_box :term_privacy_option, class: "js-checkbox-signup"
+      개인정보 이용 및 수집 동의 (선택)
+      %a.text-primary{href: '/privacy/option', target: '_blank'}
+        %b [보기]
+    %li.checkbox-signup
+      = f.check_box :term_marketing, class: "js-checkbox-signup"
+      마케팅 정보 수신에 동의합니다. (선택)
+      %a.text-primary{href: '/marketing', target: '_blank'}
+        %b [보기]
+     

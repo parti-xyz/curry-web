@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   get 'privacy/option', to: "pages#privacy_option", as: 'privacy_option'
   get 'terms', to: "pages#terms", as: 'terms'
   get 'marketing', to: "pages#marketing", as: 'marketing'
+  get 'confirm_terms', to: "users#confirm_terms", as: 'users_confirm_terms'
 
   post 'simple_mail/callback' => 'simple_mail#callback'
 
