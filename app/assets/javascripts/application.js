@@ -584,7 +584,7 @@ $(function(){
 });
 
 $(function(){
-  $("#js-checkbox-signup-all").change(function(e) {
+  $(".js-checkbox-signup-all").change(function(e) {
     e.preventDefault();
     var checkboxState = e.target.checked;
     $(".js-checkbox-signup").prop("checked", checkboxState);
@@ -598,7 +598,7 @@ $(function(){
     var $form = $elm.closest('form');
     var totalLength = $form.find('.js-checkbox-signup').length;
     var uncheckd_confirm = $form.find('.js-checkbox-signup:checked').length;
-    $form.find("#js-checkbox-signup-all").prop("checked", totalLength == uncheckd_confirm);
+    $form.find(".js-checkbox-signup-all").prop("checked", totalLength == uncheckd_confirm);
   });
 
   $(".js-confirm_third_party").on('change', function(e) {
