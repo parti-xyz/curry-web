@@ -56,7 +56,7 @@
         .form-group
           = f.label :confirm_third_party do
             %p.help-block
-            = f.check_box :confirm_third_party, {class: "js-confirm_third_party" }, Time.now
+            = f.check_box :confirm_third_party, {class: "js-confirm_third_party", checked: ("checked" unless isHidden)}, Time.now
             제3자로서 개인정보를 제공받고 싶습니다. (선택)
           .help-block.js-confirm_third_party-help{:class => ("hidden" if isHidden)}
             %h3 개인정보 보유 및 이용기간에 동의합니다.
