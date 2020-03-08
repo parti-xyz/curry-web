@@ -69,7 +69,7 @@
               %li 개인정보 보유 및 이용기간: 개설한 캠페인 종료(삭제) 후 즉시 삭제를 원칙으로 하되 캠페인 관련 안내 등 연락 목적을 위해 추가 보유가 필요한 경우 캠페인 개설자가 별도 수집∙이용 동의를 받아 처리﻿
 
         .form-group.js-confirm_third_party-help{:class => ("hidden" if isHidden)}
-          = f.label :confirm_privacy, "개인정보 제3자 제공 동의"
+          = f.label :confirm_privacy
           %p.help-block
             개인보호 정책 동의에 추가할 문구입니다.(선택사항)
           ~ f.text_area :confirm_privacy, class: 'form-control redactor'
