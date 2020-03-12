@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200305221854) do
+ActiveRecord::Schema.define(version: 20200311231516) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -319,7 +319,7 @@ ActiveRecord::Schema.define(version: 20200305221854) do
     t.string   "signer_real_name_title"
     t.string   "signer_email_title"
     t.string   "signer_address_title"
-    t.text     "confirm_privacy",              limit: 65535
+    t.text     "deprecated_confirm_privacy",   limit: 65535
     t.datetime "confirm_third_party"
     t.string   "agent_section_title"
     t.string   "agent_section_response_title"
@@ -915,6 +915,7 @@ ActiveRecord::Schema.define(version: 20200305221854) do
     t.boolean  "subscribed",                          default: true
     t.datetime "subscribed_at",                       default: -> { "CURRENT_TIMESTAMP" }
     t.boolean  "confirm_privacy"
+    t.datetime "confirm_third_party"
     t.index ["campaign_id"], name: "index_signs_on_campaign_id", using: :btree
     t.index ["user_id", "campaign_id"], name: "index_signs_on_user_id_and_campaign_id", unique: true, using: :btree
     t.index ["user_id"], name: "index_signs_on_user_id", using: :btree
@@ -1104,7 +1105,7 @@ ActiveRecord::Schema.define(version: 20200305221854) do
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string   "email"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                              default: 0,     null: false
+    t.integer  "sign_in_count",                              default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -1113,8 +1114,8 @@ ActiveRecord::Schema.define(version: 20200305221854) do
     t.string   "uid"
     t.string   "nickname"
     t.string   "image"
-    t.datetime "created_at",                                                 null: false
-    t.datetime "updated_at",                                                 null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
     t.string   "encrypted_password"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

@@ -172,6 +172,8 @@ ko:
         signer_address: 주소
         signer_phone: 연락처
         body: 나의 한마디
+        confirm_privacy: 빠띠의 개인정보 처리방침에 동의
+        confirm_third_party: 캠페인 개설자(제 3자)에게 개인정보를 제공하는데 동의
         extra_29_confirm_join: "[행동하기1] 신문광고 제작에 참여합니다 : 후원계좌 농협 356-0516-9884-93 박진"
       poll:
         title: 제목

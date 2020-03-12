@@ -3,7 +3,7 @@ row_definition = [
   [:user_nickname, '닉네임']
 ]
 
-if @campaign.confirm_privacy.present?
+if @campaign.confirm_third_party?
   row_definition << [:user_email, '이메일']
 end
 

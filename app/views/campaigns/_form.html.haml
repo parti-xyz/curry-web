@@ -64,14 +64,7 @@
               %li 제공받는 자: 캠페인 개설자 
               %li 제공받는자의 개인정보 이용목적: 본인확인 및 캠페인 진행에 필요한 연락
               %li 제공하는 개인정보의 항목: 위 서명 상세 설정에서 수집하는 항목
-              %li 개인정보 보유 및 이용기간: 개설한 캠페인 종료(삭제) 후 즉시 삭제를 원칙으로 하되 캠페인 관련 안내 등 연락 목적을 위해 추가 보유가 필요한 경우 캠페인 개설자가 별도 수집∙이용 동의를 받아 처리﻿
-
-        .form-group.js-confirm_third_party-help{:class => ("hidden" unless @campaign.has_confirm_third_party?)}
-          = f.label :confirm_privacy
-          %p.help-block
-            개인보호 정책 동의에 추가할 문구입니다.(선택사항)
-          ~ f.text_area :confirm_privacy, class: 'form-control redactor'
-
+              %li 개인정보 보유 및 이용기간: 개설한 캠페인 종료(삭제) 후 즉시 삭제를 원칙으로 하되 캠페인 관련 안내 등 연락 목적을 위해 추가 보유가 필요한 경우 캠페인 개설자가 별도 수집∙이용 동의를 받아 처리
         - if @campaign.comment_disablable?
           .form-group
             .checkbox

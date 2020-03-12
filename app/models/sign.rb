@@ -6,6 +6,9 @@ class Sign < ApplicationRecord
 
   validates :user, uniqueness: { scope: :campaign }, if: 'user.present?'
   validate :valid_signer
+  validates_acceptance_of :confirm_privacy
+  validates_presence_of :confirm_third_party
+  validate :valid_signer
   validates :signer_email, format: { with: Devise.email_regexp }, uniqueness: { scope: :campaign }, if: 'signer_email.present?'
 
   scope :recent, -> { order(created_at: :desc) }
