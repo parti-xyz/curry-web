@@ -301,6 +301,11 @@ class Campaign < ApplicationRecord
     self.confirm_third_party.present?
   end
 
+  def is_valid_template(template)
+    return false if template.blank?
+    (TEMPLATES + TEMPLATES_SPECIAL).include? template
+  end
+
   private
 
   def default_opened_at

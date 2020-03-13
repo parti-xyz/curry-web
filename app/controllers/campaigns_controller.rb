@@ -42,7 +42,9 @@ class CampaignsController < ApplicationController
   end
 
   def new
-    render 'new_no_template' and return if params[:template].blank?
+    if params[:template].blank? or not @campaign.is_valid_template(params[:template])
+      return render 'new_no_template' 
+    end
 
     @project = Project.find(params[:project_id]) if params[:project_id].present?
     @current_organization = @project.organization if @project.present?
