@@ -159,3 +159,8 @@ Complaint Notifications SNS Topic: arn:aws:sns:***
 ```
 $ bin/rails organizations:seed
 ```
+
+
+### 이미지 파일 업로드
+
+minimagick?
