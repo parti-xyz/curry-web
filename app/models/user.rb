@@ -168,7 +168,7 @@ class User < ApplicationRecord
   end
 
   def has_agreed_terms?
-    return self.read_attribute(:term_privacy).presence && self.read_attribute(:term_service).presence
+    return self.term_privacy.present? && self.term_service.present? && self.term_privacy_must.present?
   end
 
   private

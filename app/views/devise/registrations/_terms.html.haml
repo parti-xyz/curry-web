@@ -27,13 +27,13 @@
         %b [보기]
     %li.checkbox-signup
       = f.label :term_privacy_option do
-        = f.check_box :term_privacy_option, class: "js-checkbox-signup"
+        = f.check_box :term_privacy_option, {class: "js-checkbox-signup"}, Time.now
         개인정보 이용 및 수집 동의 (선택)
       %a.text-primary{href: '/privacy/option', target: '_blank'}
         %b [보기]
     %li.checkbox-signup
       = f.label :term_marketing do
-        = f.check_box :term_marketing, class: "js-checkbox-signup"
+        = f.check_box :term_marketing, {class: "js-checkbox-signup"}, Time.now
         마케팅 정보 수신에 동의합니다. (선택)
       %a.text-primary{href: '/marketing', target: '_blank'}
         %b [보기]
