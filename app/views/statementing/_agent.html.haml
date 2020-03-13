@@ -51,20 +51,5 @@
                     %label{ style: 'font-weight: bold' }
                       = f.check_box :mailing, { checked: true }, 'ready', 'disable'
                       #{agent.name}님에게 메일로도 발송합니다.
-              - if commentable.try(:confirm_privacy).present?
-                .form-group
-                  .campaign-sign-privacy-policy
-                    촉구하기를 누르시면 본 서명의
-                    %a{ "data-target" => "#privacy-modal", "data-toggle" => "modal", :type => "button", style: 'cursor:pointer' }
-                      개인정보처리방침
-                    에 동의하게 됩니다.
-                  #privacy-modal.modal.fade{:role => "dialog", :tabindex => "0"}
-                    .modal-dialog{:role => "document"}
-                      .modal-content
-                        .modal-header
-                          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-                            %span{"aria-hidden" => "true"} &#215;
-                          %h4.modal-title 개인정보처리방침
-                        .modal-body
-                          != commentable.confirm_privacy
+              = render "campaigns/checkbox_term", f: f, campaign: statementable
               = f.submit "#{count+1}번째로 촉구하기", class: 'btn btn-danger btn-block'

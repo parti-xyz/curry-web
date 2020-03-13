@@ -24,7 +24,7 @@ wb.add_worksheet(name: "서명 #{@campaign.signs_count}건") do |sheet|
   @campaign.signs.earlier.each do |sign|
     sheet.add_row row_definition.map { |c|
       if %i(user_email signer_address signer_phone).include?(c[0])
-        unless sign.confirm_privacy?
+        unless sign.confirm_third_party.present?
           next "(개인정보 제공 미동의)"
         end
       end
