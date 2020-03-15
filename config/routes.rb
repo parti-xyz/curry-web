@@ -39,7 +39,11 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#about', as: :about
   get 'components', to: 'pages#components'
   get 'privacy', to: "pages#privacy", as: 'privacy'
+  get 'privacy/must', to: "pages#privacy_must", as: 'privacy_must'
+  get 'privacy/option', to: "pages#privacy_option", as: 'privacy_option'
   get 'terms', to: "pages#terms", as: 'terms'
+  get 'marketing', to: "pages#marketing", as: 'marketing'
+  get 'confirm_terms', to: "users#confirm_terms", as: 'users_confirm_terms'
 
   post 'simple_mail/callback' => 'simple_mail#callback'
 

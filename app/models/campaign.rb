@@ -297,6 +297,10 @@ class Campaign < ApplicationRecord
     opened_at
   end
 
+  def has_confirm_third_party?
+    self.confirm_third_party.present?
+  end
+
   private
 
   def default_opened_at

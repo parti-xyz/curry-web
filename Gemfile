@@ -8,7 +8,7 @@ gem 'bundler', '2.0.1'
 # database
 gem 'sqlite3'
 gem 'mysql2', '>= 0.3.13', '< 0.5'
-gem 'activerecord_any_of', github: 'oelmekki/activerecord_any_of', ref: '22b3bf'
+gem 'activerecord_any_of', git: 'https://github.com/oelmekki/activerecord_any_of.git', ref: '22b3bf'
 gem 'active_record_union', '~> 1.3'
 # model
 gem 'sequenced', '~> 3.1', '>= 3.1.1'
@@ -46,7 +46,7 @@ gem 'bootstrap3-datetimepicker-rails'
 gem 'momentjs-rails'
 
 # tool
-gem 'axlsx', github: 'randym/axlsx', ref: 'd41258e'
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'd41258e'
 gem 'axlsx_rails', '~> 0.5.0'
 gem 'htmlentities', '~> 4.3', '>= 4.3.4'
 gem "recaptcha", require: "recaptcha/rails"
@@ -56,6 +56,7 @@ gem 'rest-client', '~> 2.0', '>= 2.0.2'
 gem 'streamio-ffmpeg'
 gem "nokogiri", ">= 1.10.4"
 gem 'html2text'
+gem 'redcarpet'
 
 # file upload
 gem 'carrierwave', '~> 0.10.0'

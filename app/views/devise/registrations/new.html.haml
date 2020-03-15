@@ -28,18 +28,6 @@
             = f.label :email do
               이메일을 넣어 주세요.
             = f.text_field :email, autofocus: true, class: 'form-control'
-
+        = render partial: "/devise/registrations/terms", locals: { f: f }
         .form-group
-          = f.submit '계속하기', class: 'btn btn-primary btn-block', data: { disable_with: "진행 중..." }
-
-        = form_tag nil, method: :get do
-          = hidden_field_tag(:after_login)
-          %label.remember_me
-            "계속하기"를 클릭하면
-            %a.text-primary{href: '/terms', target: '_blank'}
-              %b 이용약관
-            ,
-            %a.text-primary{href: '/privacy', target: '_blank'}
-              %b 개인정보처리
-            방침 내용을 이해하고
-            동의하게 됩니다.
+          = f.submit '회원 가입하기', class: 'btn btn-primary btn-block', data: { disable_with: "진행 중..." }

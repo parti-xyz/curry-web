@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
   before_action :prepare_meta_tags, if: "request.get?"
+  before_action :check_terms_agreement, if: "request.get?" and "request.format.html?"
   after_action :prepare_flash
   after_action :store_location
 
@@ -61,6 +62,12 @@ class ApplicationController < ActionController::Base
 
   def prepare_meta_tags(options={})
     set_meta_tags build_meta_options(options)
+  end
+
+  def check_terms_agreement
+    return if controller_name == "pages"
+    return if controller_name == "users" && action_name =="confirm_terms"
+    redirect_to "/confirm_terms" if user_signed_in? && !current_user.has_agreed_terms?
   end
 
   def build_meta_options(options)

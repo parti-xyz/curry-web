@@ -67,11 +67,10 @@ $ chmod +x .git/hooks/post-checkout
 #### puma-dev
 
 로컬 개발 환경에 https가 되어야 로그인 테스트가 가능하다.
-* powder (pow) 안쓰는 이유 https://stormconsultancy.co.uk/blog/techtips/switching-pow-puma-rails-development/
 * 퓨마 설치 https://github.com/puma/puma-dev
-* 캠페인즈 서버 설정  `# puma-dev link -n campaigns`
+* 캠페인즈 서버 띄우기  `# puma-dev link -n campaigns`
 
-#### SNS 로그인 연동 (옵션)
+#### SNS 연동
 
 페이스북, 트위터를 연결합니다. 각 키는 프로젝트 최상위 폴더에 .powenv에 등록합니다.
 

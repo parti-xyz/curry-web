@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :rememberable, :trackable, :recoverable,
          :omniauthable,
          :omniauth_providers => [:facebook, :twitter]
+        #  :authentication_keys => {term_privacy: true, term_service: true}
 
   # assiciations
   has_many :following_issues, dependent: :destroy
@@ -56,7 +57,7 @@ class User < ApplicationRecord
 
   # validations
   VALID_NICKNAME_REGEX = /\A[ㄱ-ㅎ가-힣a-z0-9_]+\z/i
-
+  
   validates :nickname,
     presence: true,
     exclusion: { in: %w(app new edit index session login logout users organizer admin all crew issue group project) },
@@ -74,9 +75,10 @@ class User < ApplicationRecord
     confirmation: true,
     length: Devise.password_length,
     if: :password_required?
-
   validates_confirmation_of :password, if: :password_required?
-
+  validates :term_service, :presence => true
+  validates :term_privacy, :presence => true
+  validates :term_privacy_must, :presence => true
   # filters
   before_save :downcase_nickname
   before_validation :strip_whitespace_nickname, only: :nickname
@@ -163,6 +165,10 @@ class User < ApplicationRecord
 
   def has_image?
     self.read_attribute(:image).present?
+  end
+
+  def has_agreed_terms?
+    return self.term_privacy.present? && self.term_service.present? && self.term_privacy_must.present?
   end
 
   private
