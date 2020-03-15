@@ -28,18 +28,9 @@
     %section(style='position: fixed; z-index: 2000; width: 80%; left: 0; margin-left: auto; margin-right: auto; right: 0;')
       .unobtrusive-flash-container
 
-    = render 'application/sidebar'
-    .pusher
-      - if content_for?(:header)
-        = yield :header
-      - else
-        = render 'application/header'
-      = yield
-
-    - if content_for?(:footer)
-      = yield :footer
-    - else
-      = render 'footer'
+    = render 'application/header'
+    = yield
+    = render 'footer'
 
     %script{:src => "https://www.gstatic.com/charts/loader.js"}
     = javascript_include_tag 'application'
