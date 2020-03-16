@@ -80,8 +80,6 @@ class CommentsController < ApplicationController
       end
     end
 
-    @comment.confirm_privacy = true if @comment.commentable.try(:confirm_privacy).present?
-
     unless @comment.is_html_body?
       @comment.body = ApplicationController.helpers.smart_format(@comment.body)
       @comment.is_html_body = true
@@ -172,6 +170,7 @@ class CommentsController < ApplicationController
       :tag_list, :image,
       :target_agent_id, :mailing,
       :toxic,
+      :confirm_privacy, :confirm_third_party,
       :test, :comment_user_id, :is_html_body
     )
   end

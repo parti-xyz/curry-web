@@ -42,7 +42,9 @@ class CampaignsController < ApplicationController
   end
 
   def new
-    render 'new_no_template' and return if params[:template].blank?
+    if params[:template].blank? or not @campaign.is_valid_template(params[:template])
+      return render 'new_no_template' 
+    end
 
     @project = Project.find(params[:project_id]) if params[:project_id].present?
     @current_organization = @project.organization if @project.present?
@@ -209,7 +211,7 @@ class CampaignsController < ApplicationController
 
   def campaign_params
     params.require(:campaign).permit(:title, :body, :project_id, :goal_count, :cover_image, :thanks_mention,
-      :comment_enabled, :sign_title, :sign_placeholder, :social_image, :confirm_privacy, :confirm_third_party, :opened_at,
+      :comment_enabled, :sign_title, :sign_placeholder, :social_image, :confirm_third_party, :opened_at,
       :use_signer_email, :use_signer_address, :use_signer_real_name, :use_signer_phone,
       :signer_email_title, :signer_address_title, :signer_real_name_title, :signer_phone_title,
       :agent_section_title, :agent_section_response_title, :sign_hidden, :area_id, :issue_id,

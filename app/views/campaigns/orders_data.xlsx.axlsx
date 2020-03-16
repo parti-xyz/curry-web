@@ -3,7 +3,7 @@ row_definition = [
   [:user_nickname, '닉네임']
 ]
 
-if @campaign.confirm_privacy.present?
+if @campaign.confirm_third_party?
   row_definition << [:user_email, '이메일']
 end
 
@@ -17,7 +17,7 @@ wb.add_worksheet(name: "촉구 #{comments.count}건") do |sheet|
   comments.earlier.each do |comment|
     sheet.add_row row_definition.map { |c|
       if %i(user_email).include?(c[0])
-        unless comment.confirm_privacy?
+        unless comment.confirm_third_party.present?
           next "(개인정보 제공 미동의)"
         end
       end

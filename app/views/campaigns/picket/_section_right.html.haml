@@ -64,22 +64,6 @@
               %p 팻말 내용
               %br
           = link_to '팻말 작성하기', picket_form_campaign_path(@campaign), remote: true, class: "btn btn-danger btn-lg btn-block campaign-sign-btn"
-          - if @campaign.confirm_privacy.present?
-            .campaign-sign-privacy-policy
-              팻말 작성하기를 누르시면
-              %a{ "data-target" => "#privacy-modal", "data-toggle" => "modal", :type => "button", style: 'cursor:pointer' }
-                개인정보처리방침
-              에 동의하게 됩니다.
-            #privacy-modal.modal.fade{:role => "dialog", :tabindex => "0"}
-              .modal-dialog{:role => "document"}
-                .modal-content
-                  .modal-header
-                    %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-                      %span{"aria-hidden" => "true"} &#215;
-                    %h4.modal-title 개인정보처리방침
-                  .modal-body
-                    != @campaign.confirm_privacy
-
 
       .campaign-share.phone-fold
         .campaign-share-text
