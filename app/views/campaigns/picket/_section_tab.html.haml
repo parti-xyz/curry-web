@@ -32,5 +32,12 @@
           소식
         - else
           = link_to '소식', stories_campaign_path
+    - if can? :edit, @campaign
+      %li
+        .menu-item
+          = link_to edit_campaign_path(@campaign) do
+            %i.fa.fa-gear
+            관리
+
   .container-picket
     = link_to '팻말들기', picket_form_campaign_path(@campaign), class: 'picket-btn medium-fold', remote: true
