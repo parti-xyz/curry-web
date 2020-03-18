@@ -13,7 +13,7 @@
       %li.active{ role: "presentation" }
         %a{ href: "#default", role: "tab", data: { toggle: "tab" }} 기본 설정
 
-      - if @campaign.template.in?(["petition", "order"])
+      - if exist_partial?("campaigns/#{@campaign.template}/partial_form")
         %li{ role: "presentation" }
           %a{ href: "#detail", role: "tab", data: { toggle: "tab" }} 상세 설정
 
@@ -22,13 +22,13 @@
           %i.fa.fa-user
           개인 정보 설정
 
-      - if @campaign.template == "order"
+      - if @campaign.orderable?
         %li{ role: "presentation" }
           = link_to edit_agents_campaign_path(@campaign) do
             %i.fa.fa-envelope
             촉구 대상 설정
 
-      - if @campaign.agents.any?
+      - if @campaign.orderable?
         %li{ role: "presentation" }
           %a{ href: "#agents", role: "tab", data: { toggle: "tab" }} 촉구 관리
 
@@ -51,37 +51,30 @@
 
       #detail.tab-pane
         = form_for @campaign do |f|
-          - if @campaign.comment_disablable?
-            .form-group
-              .checkbox
-                %label
-                  = f.check_box :comment_enabled
-                  = Campaign.human_attribute_name("comment_enabled")
-              %p.help-block
-                체크해 두면 캠페인에서 댓글이 사용됩니다.
-
-          = render_if_exist "campaigns/#{@campaign.template}/partial_form", f: f
+          = render_if_exist_partial "campaigns/#{@campaign.template}/_form_detail", f: f
           .form-group
             = f.submit '저장', class: 'btn btn-primary btn-lg btn-block'
 
       #privacy.tab-pane
         = render 'form_privacy'
 
-      - if @campaign.agents.any?
+      - if @campaign.orderable?
         #agents.tab-pane
           = form_for @campaign do |f|
-            = render_if_exist "campaigns/order/partial_form", f: f
+            = render "campaigns/form_order", f: f
             .form-group
               = f.submit '저장', class: 'btn btn-primary btn-lg btn-block'
 
       #data.tab-pane
-        = link_to data_campaign_path(@campaign, format: :xlsx), class: 'btn btn-primary' do
-          %i.fa.fa-download
-          서명 참여 데이터 내려받기
+        - if @campaign.signs.any?
+          = link_to data_campaign_path(@campaign, format: :xlsx), class: 'btn btn-primary' do
+            %i.fa.fa-download
+            서명 참여 데이터 내려받기
 
-        = link_to comments_data_campaign_path(@campaign, format: :xlsx), class: 'btn btn-primary' do
-          %i.fa.fa-download
-          의견 참여 데이터
+        - if @campaign.comments.any?
+          = link_to comments_data_campaign_path(@campaign, format: :xlsx), class: 'btn btn-primary' do
+            %i.fa.fa-download
+            의견 참여 데이터
 
         - if @campaign.agents.any?
           = link_to orders_data_campaign_path(@campaign, format: :xlsx), class: 'btn btn-primary' do
