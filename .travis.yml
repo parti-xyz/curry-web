@@ -2,11 +2,7 @@ language: ruby
 rvm:
   - 2.4.7
 if: tag =~ /^v[0-9]+\.[0-9]+\.[0-9]+$/
-before_install:
-  - rvm use @global
-  - gem uninstall bundler -x
-  - gem install bundler --version=2.0.1 -f
-  - bundler --version
+install: touch ~/do_not_run_bundle
 script:
   - echo "skipping tests"
 deploy:
