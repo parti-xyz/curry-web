@@ -24,3 +24,9 @@
     %li{ class: [menu == 'story' && "active"] }
       .menu-item
         = link_to '소식', stories_campaign_path
+    - if can? :edit, @campaign
+      %li
+        .menu-item
+          = link_to edit_campaign_path(@campaign) do
+            %i.fa.fa-gear
+            관리

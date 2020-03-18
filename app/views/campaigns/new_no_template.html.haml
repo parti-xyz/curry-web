@@ -5,7 +5,7 @@
         시민의 목소리로 세상을 바꾸는 캠페인,
         %br
         다양한 방식으로 시민이 주도하는 캠페인을 할 수 있어요.
-      %p.lead{ style: 'margin-top: 28px' }
+      %p.lead{ style: "font-size: 1.2em; margin-top: 28px" }
         어떤 캠페인을 시작하실래요?
 
     .well
@@ -15,87 +15,87 @@
           %br
           시작
       %h3.media-heading 서명하기
-      %p.lead 이슈에 관심을 가진 시민들의 지지 서명을 모읍니다. 서명은 시민들의 힘을 하나의 목소리로 모을 수 있어요. 일반적으로 많이 사용하는 캠페인입니다. ✍️
+      %p.lead{ style: "font-size: 1.2em;" } 이슈에 관심을 가진 시민들의 지지 서명을 모읍니다. 서명은 시민들의 힘을 하나의 목소리로 모을 수 있어요. 일반적으로 많이 사용하는 캠페인입니다. ✍️
       %ul
-        %li= link_to "[참여연대] 공수처법 통과에 힘을 모아주세요", "https://campaigns.kr/campaigns/191", target: "_blank"
-        %li= link_to "[카운터어택] #우리에겐_페미니스트_선생님이_필요합니다", "https://campaigns.kr/campaigns/54", target: "_blank"
-        %li= link_to "미세먼지 취약 노동자 보호 대책 마련을 촉구합니다!", "https://campaigns.kr/campaigns/77", target: "_blank"
-        %li= link_to "[한국사이버성폭력대응센터] 불법포르노사이트 처벌을 위한 미국 연방법 통과에 서명해주세요!", "https://campaigns.kr/campaigns/144", target: "_blank"
+        %li= link_to "[참여연대] 공수처법 통과에 힘을 모아주세요", "https://campaigns.kr/campaigns/191", target: "_blank", class: "text-dark"
+        %li= link_to "[카운터어택] #우리에겐_페미니스트_선생님이_필요합니다", "https://campaigns.kr/campaigns/54", target: "_blank", class: "text-dark"
+        %li= link_to "미세먼지 취약 노동자 보호 대책 마련을 촉구합니다!", "https://campaigns.kr/campaigns/77", target: "_blank", class: "text-dark"
+        %li= link_to "[한국사이버성폭력대응센터] 불법포르노사이트 처벌을 위한 미국 연방법 통과에 서명해주세요!", "https://campaigns.kr/campaigns/144", target: "_blank", class: "text-dark"
       .visible-xs
         = link_to "서명하기 시작", new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
 
     .well
       .pull-right.hidden-xs
-        = link_to new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
+        = link_to new_campaign_path(template: 'order', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
           촉구하기
           %br
           시작
       %h3.media-heading 촉구하기
-      %p.lead 촉구 대상에게 답변을 요구하는 메일을 보냅니다. 촉구 대상으로부터 답변을 받을 수 있기에, 캠페인의 효능감이 높고 적극적 참여가 많이 일어 납니다. 촉구할 대상이 분명한 경우에 사용하면 좋습니다. 📣
+      %p.lead{ style: "font-size: 1.2em;" } 촉구 대상에게 답변을 요구하는 메일을 보냅니다. 촉구 대상으로부터 답변을 받을 수 있기에, 캠페인의 효능감이 높고 적극적 참여가 많이 일어 납니다. 촉구할 대상이 분명한 경우에 사용하면 좋습니다. 📣
       %ul
-        %li= link_to "[차제연] 차별금지법, 왜 아직 없죠? #평등을말하라 #정당은응답하라", "https://campaigns.kr/campaigns/192", target: "_blank"
-        %li= link_to "[어쓰] 28개 커피숍에 1회용컵 줄이기 대책 마련을 촉구합니다", "https://campaigns.kr/campaigns/79", target: "_blank"
-        %li= link_to "#피해자를_피해자로 ​아청법 개정을 촉구합니다", "https://campaigns.kr/campaigns/68", target: "_blank"
-        %li= link_to "[참여연대] 선거제개혁, 국회개혁! 국회의원 응답하라 #연동형비례대표제", "https://campaigns.kr/campaigns/150", target: "_blank"
+        %li= link_to "[차제연] 차별금지법, 왜 아직 없죠? #평등을말하라 #정당은응답하라", "https://campaigns.kr/campaigns/192", target: "_blank", class: "text-dark"
+        %li= link_to "[어쓰] 28개 커피숍에 1회용컵 줄이기 대책 마련을 촉구합니다", "https://campaigns.kr/campaigns/79", target: "_blank", class: "text-dark"
+        %li= link_to "#피해자를_피해자로 ​아청법 개정을 촉구합니다", "https://campaigns.kr/campaigns/68", target: "_blank", class: "text-dark"
+        %li= link_to "[참여연대] 선거제개혁, 국회개혁! 국회의원 응답하라 #연동형비례대표제", "https://campaigns.kr/campaigns/150", target: "_blank", class: "text-dark"
       .visible-xs
-        = link_to "촉구하기 시작", new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
+        = link_to "촉구하기 시작", new_campaign_path(template: 'order', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
 
     .well
       .pull-right.hidden-xs
-        = link_to new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
+        = link_to new_campaign_path(template: 'basic', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
           목소리 모으기
           %br
           시작
       %h3.media-heading 목소리 모으기
-      %p.lead 시민들의 다양한 목소리를 모읍니다. 이슈에 대한 여러 시민들이 가진 각자의 생각들을 모아서, 해당 사안을 잘 모르는 시민들에게 알릴 때 사용합니다. 또한 참여자들은 각자의 이야기를 공유함으로써 서로 연결되고 공감하는 경험을 하게 됩니다. 💬
+      %p.lead{ style: "font-size: 1.2em;" } 시민들의 다양한 목소리를 모읍니다. 이슈에 대한 여러 시민들이 가진 각자의 생각들을 모아서, 해당 사안을 잘 모르는 시민들에게 알릴 때 사용합니다. 또한 참여자들은 각자의 이야기를 공유함으로써 서로 연결되고 공감하는 경험을 하게 됩니다. 💬
       %ul
-        %li= link_to "[차별잇수다] 차별을 받았을 때 어떤 기분이 들었나요?", "https://campaigns.kr/campaigns/157/pickets", target: "_blank"
-        %li= link_to "[어린이재단] 미래에서 온 투표", "http://votefuture.kr/", target: "_blank"
-        %li= link_to "이름없는 추모제", "https://campaigns.kr/campaigns/149/contents", target: "_blank"
+        %li= link_to "[차별잇수다] 차별을 받았을 때 어떤 기분이 들었나요?", "https://campaigns.kr/campaigns/157/pickets", target: "_blank", class: "text-dark"
+        %li= link_to "[어린이재단] 미래에서 온 투표", "http://votefuture.kr/", target: "_blank", class: "text-dark"
+        %li= link_to "이름없는 추모제", "https://campaigns.kr/campaigns/149/contents", target: "_blank", class: "text-dark"
       .visible-xs
-        = link_to "목소리 모으기 시작", new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
+        = link_to "목소리 모으기 시작", new_campaign_path(template: 'basic', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
 
 
     .well
       .pull-right.hidden-xs
-        = link_to new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
+        = link_to new_campaign_path(template: 'photo', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
           인증샷 모으기
           %br
           시작
       %h3.media-heading 목소리 모으기 + 인증샷 모으기
-      %p.lead 목소리와 함께 각자의 인증샷들을 모읍니다. 각자의 이야기를 담은 인증샷은 시민들이 더 쉽게 공감한다는 장점이 있습니다. 또한 캠페인에 참여한 시민들의 사진을 모음으로써, 캠페인의 현장을 기록하는 용도로도 사용됩니다. 📸
+      %p.lead{ style: "font-size: 1.2em;" } 목소리와 함께 각자의 인증샷들을 모읍니다. 각자의 이야기를 담은 인증샷은 시민들이 더 쉽게 공감한다는 장점이 있습니다. 또한 캠페인에 참여한 시민들의 사진을 모음으로써, 캠페인의 현장을 기록하는 용도로도 사용됩니다. 📸
       %ul
-        %li= link_to "[우주당] #Votefor 내가 꿈꾸는 새로운 대한민국", "https://campaigns.kr/campaigns/84/pickets", target: "_blank"
-        %li= link_to "[참여연대] 어른의 양심, 나는 #유치원3법에 찬성합니다.🙆‍♀️🙆‍♂️", "https://campaigns.kr/campaigns/201/pickets", target: "_blank"
+        %li= link_to "[우주당] #Votefor 내가 꿈꾸는 새로운 대한민국", "https://campaigns.kr/campaigns/84/pickets", target: "_blank", class: "text-dark"
+        %li= link_to "[참여연대] 어른의 양심, 나는 #유치원3법에 찬성합니다.🙆‍♀️🙆‍♂️", "https://campaigns.kr/campaigns/201/pickets", target: "_blank", class: "text-dark"
       .visible-xs
-        = link_to "서명하기 시작", new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
+        = link_to "서명하기 시작", new_campaign_path(template: 'photo', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
 
     .well
       .pull-right.hidden-xs
-        = link_to new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
+        = link_to new_campaign_path(template: 'map', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
           지도에 모으기
           %br
           시작
       %h3.media-heading 목소리 모으기 + 지도에 모으기
-      %p.lead 오프라인에서 일어나는 캠페인을 기획 중이라면, 미션을 제시하고 사진을 모아 보세요. 사진 속 위치 정보를 해석해 지도를 만들어 드립니다. 마치 게임을 하듯이 많은 시민들이 즐겁게 참여할 수 있어요.📍
+      %p.lead{ style: "font-size: 1.2em;" } 오프라인에서 일어나는 캠페인을 기획 중이라면, 미션을 제시하고 사진을 모아 보세요. 사진 속 위치 정보를 해석해 지도를 만들어 드립니다. 마치 게임을 하듯이 많은 시민들이 즐겁게 참여할 수 있어요.📍
       %ul
-        %li= link_to "[쓰레기덕질] 온라인 플라스틱컵 어택! 1회용컵 사진 맵핑 📸", "https://campaigns.kr/campaigns/160/pickets", target: "_blank"
-        %li= link_to "[박근혜정권 퇴진 비상국민행동] 새누리당이 살 길은 탄핵 뿐", "https://wouldyouparty.campaigns.kr/campaigns/137", target: "_blank"
-        %li= link_to "[우주당] 하야GO", "https://wouldyouparty.campaigns.kr/campaigns/136/pickets", target: "_blank"
+        %li= link_to "[쓰레기덕질] 온라인 플라스틱컵 어택! 1회용컵 사진 맵핑 📸", "https://campaigns.kr/campaigns/160/pickets", target: "_blank", class: "text-dark"
+        %li= link_to "[박근혜정권 퇴진 비상국민행동] 새누리당이 살 길은 탄핵 뿐", "https://wouldyouparty.campaigns.kr/campaigns/137", target: "_blank", class: "text-dark"
+        %li= link_to "[우주당] 하야GO", "https://wouldyouparty.campaigns.kr/campaigns/136/pickets", target: "_blank", class: "text-dark"
       .visible-xs
-        = link_to "지도에 모으기 시작", new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
+        = link_to "지도에 모으기 시작", new_campaign_path(template: 'map', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
 
     .well
       .pull-right.hidden-xs
-        = link_to new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
+        = link_to new_campaign_path(template: 'sympathy', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
           추모하기
           %br
           시작
       %h3.media-heading 추모하기
-      %p.lead 고인을 그리고, 생각하는 마음을 모읍니다. 조문을 하듯이 그리워하는 대상에 대한 이야기를 올리고, 추모의 글을 모아보고 기억해보세요 🙏
+      %p.lead{ style: "font-size: 1.2em;" } 고인을 그리고, 생각하는 마음을 모읍니다. 조문을 하듯이 그리워하는 대상에 대한 이야기를 올리고, 추모의 글을 모아보고 기억해보세요 🙏
       %ul
-        %li= link_to "[참여연대] 기억하겠습니다🎗잊지않겠습니다", "https://campaigns.kr/campaigns/155/pickets", target: "_blank"
-        %li= link_to "故 설리님을 추모합니다", "https://campaigns.kr/campaigns/193", target: "_blank"
-        %li= link_to "농민 故 백남기님을 추모합니다", "https://campaigns.kr/campaigns/145", target: "_blank"
+        %li= link_to "[참여연대] 기억하겠습니다🎗잊지않겠습니다", "https://campaigns.kr/campaigns/155/pickets", target: "_blank", class: "text-dark"
+        %li= link_to "故 설리님을 추모합니다", "https://campaigns.kr/campaigns/193", target: "_blank", class: "text-dark"
+        %li= link_to "농민 故 백남기님을 추모합니다", "https://campaigns.kr/campaigns/145", target: "_blank", class: "text-dark"
       .visible-xs
-        = link_to "추모하기 시작", new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
+        = link_to "추모하기 시작", new_campaign_path(template: 'sympathy', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'

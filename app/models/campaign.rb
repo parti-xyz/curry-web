@@ -248,12 +248,12 @@ class Campaign < ApplicationRecord
     !comment_closed?
   end
 
-  def comment_disablable?
+  def signable?
     self.template == 'petition'
   end
 
-  def signable?
-    self.template == 'petition'
+  def orderable?
+    %(petition order order_assembly).include? self.template
   end
 
   def picketable?

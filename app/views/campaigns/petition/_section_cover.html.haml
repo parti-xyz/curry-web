@@ -1,47 +1,9 @@
 %section.section-cover
   .info-container
     .meta
-      - buttons = capture do
-        - if can? :edit, @campaign
-          = link_to edit_campaign_path(@campaign) do
-            %span{ style: "color:white; font-weight: 200;" }
-              %i.fa.fa-edit
-              캠페인 수정
-          &nbsp;
-        - if can? :edit, @campaign
-          = link_to edit_agents_campaign_path(@campaign) do
-            %span{ style: "color:white; font-weight: 200;" }
-              %i.fa.fa-paper-plane-o
-              촉구 관리
-          &nbsp;
-        - if can? :destroy, @campaign
-          = link_to @campaign, method: :delete, data: { confirm: '삭제하시겠습니까?' } do
-            %span{ style: "color:white; font-weight: 200;" }
-              %i.fa.fa-trash
-              캠페인 삭제
-          &nbsp;
-        - if can? :edit, @campaign
-          = link_to data_campaign_path(@campaign, format: :xlsx) do
-            %span.text-nowrap{ style: "color:white; font-weight: 200;" }
-              %i.fa.fa-download
-              서명 참여 데이터
-          &nbsp;
-          - if @campaign.agents.any?
-            = link_to orders_data_campaign_path(@campaign, format: :xlsx) do
-              %span.text-nowrap{ style: "color:white; font-weight: 200;" }
-                %i.fa.fa-download
-                촉구 참여 데이터
-            &nbsp;
-      - if buttons.present?
-        %p
-          %span.control-buttons{ style: 'background-color: rgba(0,0,0,0.5); padding: 5px 10px 2px;' }
-            = buttons
-
       - if @campaign.success?
         .label
           성공
-      .label
-        서명
       - if @campaign.agents.any?
         .agent-info
           대상: #{@campaign.agents.first.name}

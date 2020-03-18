@@ -63,3 +63,13 @@
   = f.text_field :signer_phone_title, class: 'form-control'
   %p.help-block
     서명 영역의 연락처 입력폼 제목을 정합니다. 비워두면 적절히 표시됩니다.
+
+%legend.m-t 댓글 상세 설정
+
+.form-group
+  .checkbox
+    %label
+      = f.check_box :comment_enabled
+      = Campaign.human_attribute_name("comment_enabled")
+  %p.help-block
+    체크해 두면 캠페인에서 댓글이 사용됩니다.

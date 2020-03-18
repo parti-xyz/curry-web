@@ -1,125 +1,62 @@
-.panel.panel-default
-  .panel-body
-    = form_for @campaign do |f|
+= form_for @campaign do |f|
 
-      = f.hidden_field :template
+  = f.hidden_field :template
 
-      - if @campaign.errors.any?
-        .alert.alert-danger
-          %ul.list-unstyled
-            - @campaign.errors.full_messages.each do |msg|
-              %li= msg
+  - if @campaign.errors.any?
+    .alert.alert-danger
+      %ul.list-unstyled
+        - @campaign.errors.full_messages.each do |msg|
+          %li= msg
 
-      %fieldset
-        %legend 기본정보
+  .form-group
+    = f.label :opened_at
+    = f.text_field :opened_at, value: bot_short_day_f(@campaign.opened_at), class: 'form-control', placeholder: bot_short_day_f(Date.today)
+    %p.help-block
+      캠페인 시작일을 yyyy-mm-dd 형태로 입력해 주세요. 미래의 날짜로 입력하면 그 전에 노출되지 않습니다.
 
-        .form-group
-          = f.label :title
-          = f.text_field :title, class: 'form-control'
+  .form-group
+    = f.label :title
+    = f.text_field :title, class: 'form-control input-lg'
 
-        .form-group
-          = f.label :body
-          ~ f.text_area :body, class: 'form-control redactor'
+  .form-group
+    = f.label :body
+    ~ f.text_area :body, class: 'form-control redactor'
 
-        .form-group
-          = f.label :cover_image
-          = f.file_field :cover_image, class: 'form-control'
-          = f.hidden_field :cover_image_cache, value: f.object.cover_image_cache
-          .help-block
-          - if @campaign.read_attribute(:cover_image).present?
-            = image_tag @campaign.cover_image.xs.url, class: 'img-thumbnail', style: 'max-width: 40px'
-            %label{ style: 'font-weight: normal;' }
-              = f.check_box :remove_cover_image
-              삭제하기
+  - if @campaign.goalable?
+    .form-group
+      = f.label :goal_count
+      = f.number_field :goal_count, class: 'form-control', placeholder: '1000'
+      %p.help-block
+        캠페인의 목표 참여 숫자를 입력하세요.
 
-        .form-group
-          = f.label :opened_at
-          = f.text_field :opened_at, value: bot_short_day_f(@campaign.opened_at), class: 'form-control', placeholder: bot_short_day_f(Date.today)
-          %p.help-block
-            캠페인 시작 날짜를 yyyy-mm-dd 형태로 입력해 주세요. 미래의 날짜로 입력하면 홈과 캠페인 목록에 노출되지 않습니다.
+  .form-group
+    = f.label :cover_image
+    = f.file_field :cover_image, class: 'form-control'
+    = f.hidden_field :cover_image_cache, value: f.object.cover_image_cache
+    .help-block
+    - if @campaign.read_attribute(:cover_image).present?
+      = image_tag @campaign.cover_image.xs.url, class: 'img-thumbnail', style: 'max-width: 40px'
+      %label{ style: 'font-weight: normal;' }
+        = f.check_box :remove_cover_image
+        삭제하기
 
-        - if @campaign.goalable?
-          .form-group
-            = f.label :goal_count
-            = f.number_field :goal_count, class: 'form-control', placeholder: '1000'
-            %p.help-block
-              캠페인의 목표 참여 숫자를 입력하세요.
+  .form-group
+    = f.label :social_image
+    = f.file_field :social_image, class: 'form-control'
+    = f.hidden_field :social_image_cache, value: f.object.social_image_cache
+    .help-block
+    - if @campaign.read_attribute(:social_image).present?
+      = image_tag @campaign.social_image.xs.url, class: 'img-thumbnail', style: 'max-width: 40px'
+      %label{ style: 'font-weight: normal;' }
+        = f.check_box :remove_social_image
+        삭제하기
 
-        = render_if_exist "campaigns/#{@campaign.template}/partial_form", f: f
+  - if current_user.is_admin?
+    .form-group
+      = f.label :css
+      ~ f.text_area :css, rows: 10, class: 'form-control'
+      .help-block
+        커스텀 스타일을 설정합니다.
 
-        - if @campaign.agents.any?
-          = render_if_exist "campaigns/order/partial_form", f: f
-
-        %legend.m-t 추가 기능
-
-        .form-group
-          = f.label :confirm_third_party do
-            = f.check_box :confirm_third_party, {class: "js-confirm_third_party", checked: ("checked" if @campaign.has_confirm_third_party?)}, Time.now
-            제3자로서 개인정보를 제공받고 싶습니다. (선택)
-          .help-block.js-confirm_third_party-help{:class => ("hidden" unless @campaign.has_confirm_third_party?)}
-            %h3 개인정보 보유 및 이용기간에 동의합니다.
-            빠띠는 이용자의 개인정보를 이용자가 동의로 명시한 범위 내에서만 처리하며, 정보주체의 동의, 법률의 특별한 규정 등 개인정보보호법 제17조 및 정보통신망법 제24조의 2에 해당하는 경우에만 개인정보를 제3자에게 제공합니다. 
-            이용자가 사전에 제공에 동의한 경우는 다음과 같습니다.
-            %ul
-              %li 제공받는 자: 캠페인 개설자 
-              %li 제공받는자의 개인정보 이용목적: 본인확인 및 캠페인 진행에 필요한 연락
-              %li 제공하는 개인정보의 항목: 위 서명 상세 설정에서 수집하는 항목
-              %li 개인정보 보유 및 이용기간: 개설한 캠페인 종료(삭제) 후 즉시 삭제를 원칙으로 하되 캠페인 관련 안내 등 연락 목적을 위해 추가 보유가 필요한 경우 캠페인 개설자가 별도 수집∙이용 동의를 받아 처리
-        - if @campaign.comment_disablable?
-          .form-group
-            .checkbox
-              %label
-                = f.check_box :comment_enabled
-                = Campaign.human_attribute_name("comment_enabled")
-            %p.help-block
-              체크해 두면 캠페인에서 댓글이 사용됩니다.
-
-        .form-group
-          = f.label :social_image
-          = f.file_field :social_image, class: 'form-control'
-          = f.hidden_field :social_image_cache, value: f.object.social_image_cache
-          .help-block
-          - if @campaign.read_attribute(:social_image).present?
-            = image_tag @campaign.social_image.xs.url, class: 'img-thumbnail', style: 'max-width: 40px'
-            %label{ style: 'font-weight: normal;' }
-              = f.check_box :remove_social_image
-              삭제하기
-
-        .form-group
-          = f.label :slug
-          = f.text_field :slug, class: 'form-control'
-          %p.help-block
-            웹주소에 사용되는 영문명입니다.
-
-        - if current_user.is_admin?
-          .form-group
-            = f.label :css
-            ~ f.text_area :css, rows: 10, class: 'form-control'
-            .help-block
-              커스텀 스타일을 설정합니다.
-
-        - if @project.present? and @campaign.project.blank?
-          - @campaign.project = @project
-        - if current_user.is_admin?
-          - if fetch_organization_from_request.present?
-            - all_projects = fetch_organization_from_request.try(:projects)
-          - else
-            - all_projects = Project.all
-        - else
-          - all_projects = (@campaign.project.try(:organization).try(:projects) || fetch_organization_from_request.try(:projects) || Project.where(organization: nil)).organize_by(current_user, 'Project')
-
-        - if all_projects.any?
-          .form-group
-            = f.label :project_id, "특정 프로젝트에 관련된 캠페인인가요? 프로젝트와 연결하세요. (#{fetch_organization_from_request.present? ? '필수' : '선택'})"
-            = f.collection_select :project_id, all_projects, :id, :title, {include_blank: (fetch_organization_from_request.present? ? nil : '프로젝트 없음')}, { class: 'js-select2 form-control' }
-
-        .form-group
-          = f.label :area_id, '특정 지역에 관련된 캠페인인가요? 지역과 연결해 보세요. (선택)'
-          = f.select :area_id, Area.all_divisions.map { |area| [area.description, area.id] }, { include_blank: true }, class: 'js-select2 form-control'
-
-        .form-group
-          = f.label :issue_id, '특정 이슈에 관련된 캠페인인가요? 이슈와 연결해 보세요. (선택)'
-          = f.select :issue_id, (@campaign.issue.present? ? [[@campaign.issue.title, @campaign.issue.id]] : []), { include_blank: true }, class: 'js-select2-ajax form-control', data: { 'select2-url': issues_path }
-
-        .form-group
-          = f.submit '저장', class: 'btn btn-primary btn-lg'
+  .form-group
+    = f.submit '저장', class: 'btn btn-primary btn-lg btn-block'

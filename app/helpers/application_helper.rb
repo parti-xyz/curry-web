@@ -113,10 +113,14 @@ module ApplicationHelper
     items.join('/')
   end
 
-  def render_if_exist(path, options = {})
+  def render_if_exist_partial(path, options = {})
     return unless lookup_context.exists?(partial_lookup_path(path))
 
     render path, options
+  end
+
+  def exist_partial?(path)
+    yield if block_given? && lookup_context.exists?(partial_lookup_path(path))
   end
 
   def number_with_limit(number, limit)
