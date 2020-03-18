@@ -11,34 +11,34 @@
   .container
     %ul.nav.nav-tabs.nav-justified{ role: "tablist", style: "margin-bottom: 2em" }
       %li.active{ role: "presentation" }
-        %a{ href: "#default", role: "tab", data: { toggle: "tab" }} 기본 설정
+        %a.text-nowrap{ href: "#default", role: "tab", data: { toggle: "tab" }} 기본 설정
 
-      - if exist_partial?("campaigns/#{@campaign.template}/partial_form")
+      - if exist_partial?("campaigns/#{@campaign.template}/form_detail")
         %li{ role: "presentation" }
-          %a{ href: "#detail", role: "tab", data: { toggle: "tab" }} 상세 설정
+          %a.text-nowrap{ href: "#detail", role: "tab", data: { toggle: "tab" }} 상세 설정
 
       %li{ role: "presentation" }
-        %a{ href: "#privacy", role: "tab", data: { toggle: "tab" }}
+        %a.text-nowrap{ href: "#privacy", role: "tab", data: { toggle: "tab" }}
           %i.fa.fa-user
           개인 정보 설정
 
       - if @campaign.orderable?
-        %li{ role: "presentation" }
+        %li.text-nowrap{ role: "presentation" }
           = link_to edit_agents_campaign_path(@campaign) do
             %i.fa.fa-envelope
             촉구 대상 설정
 
       - if @campaign.orderable?
         %li{ role: "presentation" }
-          %a{ href: "#agents", role: "tab", data: { toggle: "tab" }} 촉구 관리
+          %a.text-nowrap{ href: "#agents", role: "tab", data: { toggle: "tab" }} 촉구 관리
 
       %li{ role: "presentation" }
-        %a{ href: "#data", role: "tab", data: { toggle: "tab" } }
+        %a.text-nowrap{ href: "#data", role: "tab", data: { toggle: "tab" } }
           %i.fa.fa-download
-            데이터 내려받기
+          데이터 내려받기
 
       %li{ role: "presentation" }
-        %a.text-danger{ href: "#finish", role: "tab", data: { toggle: "tab" } }
+        %a.text-nowrap.text-danger{ href: "#finish", role: "tab", data: { toggle: "tab" } }
           - if @campaign.closed?
             캠페인 다시 열기
           - else
@@ -51,7 +51,7 @@
 
       #detail.tab-pane
         = form_for @campaign do |f|
-          = render_if_exist_partial "campaigns/#{@campaign.template}/_form_detail", f: f
+          = render_if_exist_partial "campaigns/#{@campaign.template}/form_detail", f: f
           .form-group
             = f.submit '저장', class: 'btn btn-primary btn-lg btn-block'
 
