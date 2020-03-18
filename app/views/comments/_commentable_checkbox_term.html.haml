@@ -2,9 +2,9 @@
   .form-group
     = f.label :confirm_privacy do
       = f.check_box :confirm_privacy, data: { 'rule-required': true }
-      빠띠의 개인정보 처리방침에 동의합니다
+      빠띠의 개인정보 수집이용에 동의합니다
       %b (필수)
-    %a.text-primary{href: '/privacy', target: '_blank'}
+    %a.text-primary{href: privacy_must_path, target: '_blank'}
       %b [보기]
 - else
   = f.hidden_field :confirm_privacy, value: 1
@@ -15,5 +15,5 @@
       = f.check_box :confirm_third_party, {data: { 'rule-required': true }}, Time.now
       캠페인 개설자(제 3자)에게 개인정보를 제공하는데 동의합니다.
       %b (필수)
-    %a.text-primary{href: '/privacy/must', target: '_blank'}
+    %a.text-primary{href: privacy_third_path, target: '_blank'}
       %b [보기]

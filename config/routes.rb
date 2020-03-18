@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   get 'privacy', to: "pages#privacy", as: 'privacy'
   get 'privacy/must', to: "pages#privacy_must", as: 'privacy_must'
   get 'privacy/option', to: "pages#privacy_option", as: 'privacy_option'
+  get 'privacy/third', to: "pages#privacy_third", as: 'privacy_third'
   get 'terms', to: "pages#terms", as: 'terms'
   get 'marketing', to: "pages#marketing", as: 'marketing'
   get 'confirm_terms', to: "users#confirm_terms", as: 'users_confirm_terms'

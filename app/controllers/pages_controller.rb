@@ -22,6 +22,10 @@ class PagesController < ApplicationController
     render "pages/terms"
   end
 
+  def privacy_third
+    render "pages/terms"
+  end
+
   def marketing
     render "pages/terms"
   end
