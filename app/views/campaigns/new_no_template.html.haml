@@ -26,7 +26,7 @@
 
     .well
       .pull-right.hidden-xs
-        = link_to new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
+        = link_to new_campaign_path(template: 'order', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
           촉구하기
           %br
           시작
@@ -38,11 +38,11 @@
         %li= link_to "#피해자를_피해자로 ​아청법 개정을 촉구합니다", "https://campaigns.kr/campaigns/68", target: "_blank", class: "text-dark"
         %li= link_to "[참여연대] 선거제개혁, 국회개혁! 국회의원 응답하라 #연동형비례대표제", "https://campaigns.kr/campaigns/150", target: "_blank", class: "text-dark"
       .visible-xs
-        = link_to "촉구하기 시작", new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
+        = link_to "촉구하기 시작", new_campaign_path(template: 'order', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
 
     .well
       .pull-right.hidden-xs
-        = link_to new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
+        = link_to new_campaign_path(template: 'basic', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
           목소리 모으기
           %br
           시작
@@ -53,12 +53,12 @@
         %li= link_to "[어린이재단] 미래에서 온 투표", "http://votefuture.kr/", target: "_blank", class: "text-dark"
         %li= link_to "이름없는 추모제", "https://campaigns.kr/campaigns/149/contents", target: "_blank", class: "text-dark"
       .visible-xs
-        = link_to "목소리 모으기 시작", new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
+        = link_to "목소리 모으기 시작", new_campaign_path(template: 'basic', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
 
 
     .well
       .pull-right.hidden-xs
-        = link_to new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
+        = link_to new_campaign_path(template: 'photo', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
           인증샷 모으기
           %br
           시작
@@ -68,11 +68,11 @@
         %li= link_to "[우주당] #Votefor 내가 꿈꾸는 새로운 대한민국", "https://campaigns.kr/campaigns/84/pickets", target: "_blank", class: "text-dark"
         %li= link_to "[참여연대] 어른의 양심, 나는 #유치원3법에 찬성합니다.🙆‍♀️🙆‍♂️", "https://campaigns.kr/campaigns/201/pickets", target: "_blank", class: "text-dark"
       .visible-xs
-        = link_to "서명하기 시작", new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
+        = link_to "서명하기 시작", new_campaign_path(template: 'photo', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
 
     .well
       .pull-right.hidden-xs
-        = link_to new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
+        = link_to new_campaign_path(template: 'map', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
           지도에 모으기
           %br
           시작
@@ -83,11 +83,11 @@
         %li= link_to "[박근혜정권 퇴진 비상국민행동] 새누리당이 살 길은 탄핵 뿐", "https://wouldyouparty.campaigns.kr/campaigns/137", target: "_blank", class: "text-dark"
         %li= link_to "[우주당] 하야GO", "https://wouldyouparty.campaigns.kr/campaigns/136/pickets", target: "_blank", class: "text-dark"
       .visible-xs
-        = link_to "지도에 모으기 시작", new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
+        = link_to "지도에 모으기 시작", new_campaign_path(template: 'map', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
 
     .well
       .pull-right.hidden-xs
-        = link_to new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
+        = link_to new_campaign_path(template: 'sympathy', project_id: params[:project_id]), class: 'btn btn-lg btn-primary', style: "width: 135px; margin-left: 2em; margin-top: 0.5em;" do
           추모하기
           %br
           시작
@@ -98,4 +98,4 @@
         %li= link_to "故 설리님을 추모합니다", "https://campaigns.kr/campaigns/193", target: "_blank", class: "text-dark"
         %li= link_to "농민 故 백남기님을 추모합니다", "https://campaigns.kr/campaigns/145", target: "_blank", class: "text-dark"
       .visible-xs
-        = link_to "추모하기 시작", new_campaign_path(template: 'petition', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
+        = link_to "추모하기 시작", new_campaign_path(template: 'sympathy', project_id: params[:project_id]), class: 'btn btn-lg btn-primary btn-xs-block'
