@@ -1,18 +1,64 @@
 %section.page-block
   .container
-    .page-header
-      %h2 #{Campaign.model_name.human} 수정
-    = render 'form'
+    %h2 '#{@campaign.title}' 캠페인 관리
 
-    - if @campaign.closed?
-      .page-header
-        %h2 #{Campaign.model_name.human} 다시 열기
-        %small 캠페인을 다시 열고 참여를 받습니다.
-      = link_to open_campaign_path(@campaign), method: :put, class: 'btn btn-block btn-danger', data: { disable: '정말 다시 여시겠습니까?' } do
-        다시 열기
-    - else
-      .page-header
-        %h2 #{Campaign.model_name.human} 종료
-        %small 캠페인을 종료하고 더이상 참여를 받지 않습니다.
-      = link_to close_campaign_path(@campaign), method: :put, class: 'btn btn-block btn-danger', data: { disable: '정말 종료하시겠습니까?' } do
-        종료하기
+    %ul.nav.nav-tabs{ role: "tablist", style: "margin-bottom: 2em" }
+      %li.active{ role: "presentation" }
+        %a{ href: "#default", role: "tab", data: { toggle: "tab" }} 기본 정보
+      %li{ role: "presentation" }
+        %a{ href: "#detail", role: "tab", data: { toggle: "tab" }} 추가 정보
+      %li{ role: "presentation" }
+        %a{ href: "#privacy", role: "tab", data: { toggle: "tab" }} 개인 정보
+      - if @campaign.agents.any?
+        %li{ role: "presentation" }
+          %a{ href: "#agents", role: "tab", data: { toggle: "tab" }} 촉구 대상 관리
+      %li{ role: "presentation" }
+        %a.text-danger{ href: "#finish", role: "tab", data: { toggle: "tab" } }
+          - if @campaign.closed?
+            캠페인 다시 열기
+          - else
+            캠페인 종료하기
+
+    .tab-content
+      #default.tab-pane.active{ role: "tabpanel"}
+        = render 'form'
+
+      #detail.tab-pane
+        = form_for @campaign do |f|
+          - if @campaign.comment_disablable?
+            .form-group
+              .checkbox
+                %label
+                  = f.check_box :comment_enabled
+                  = Campaign.human_attribute_name("comment_enabled")
+              %p.help-block
+                체크해 두면 캠페인에서 댓글이 사용됩니다.
+
+
+          = render_if_exist "campaigns/#{@campaign.template}/partial_form", f: f
+          .form-group
+            = f.submit '저장', class: 'btn btn-primary btn-lg btn-block'
+
+      #privacy.tab-pane
+        = render 'form_privacy'
+
+      - if @campaign.agents.any?
+        #agents.tab-pane
+          = form_for @campaign do |f|
+            = render_if_exist "campaigns/order/partial_form", f: f
+            .form-group
+              = f.submit '저장', class: 'btn btn-primary btn-lg btn-block'
+
+      #finish.tab-pane
+        - if @campaign.closed?
+          .page-header
+            %h2 #{Campaign.model_name.human} 다시 열기
+            %small 캠페인을 다시 열고 참여를 받습니다.
+          = link_to open_campaign_path(@campaign), method: :put, class: 'btn btn-block btn-danger', data: { disable: '정말 다시 여시겠습니까?' } do
+            다시 열기
+        - else
+          .page-header
+            %h2 #{Campaign.model_name.human} 종료
+            %small 캠페인을 종료하고 더이상 참여를 받지 않습니다.
+          = link_to close_campaign_path(@campaign), method: :put, class: 'btn btn-block btn-danger', data: { disable: '정말 종료하시겠습니까?' } do
+            종료하기
