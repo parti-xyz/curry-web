@@ -24,6 +24,6 @@
               - unless is_redactorable?
                 - f.object.body = Html2Text.convert(f.object.body)
               ~ f.text_area :body, placeholder: '제 생각은...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), style: 'height: 150px', data: { 'rule-required': true }
-            = render "campaigns/checkbox_term", f: f, campaign: commentable
-           
+            = render "comments/commentable_checkbox_term", f: f, commentable: commentable
+
             = f.submit '작성', class: 'btn btn-primary btn-block'

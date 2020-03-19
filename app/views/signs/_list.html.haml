@@ -65,7 +65,7 @@
                   = f.label :body, campaign.sign_title || Sign.human_attribute_name(:body)
                   ~ f.text_area :body, class: 'form-control', rows: 10
 
-                = render "campaigns/checkbox_term", f: f, campaign: campaign
+                = render "comments/commentable_checkbox_term", f: f, commentable: campaign
                 .form-group
                   = f.submit "#{campaign.signs_count+1}번째로 참여하기", class: 'btn btn-danger btn-lg btn-block', data: { disable_with: "진행 중..." }
 

@@ -34,5 +34,5 @@
                   %label
                     = f.check_box :mailing, { checked: true }, 'ready', 'disable'
                     #{agent.name}님에게 메일로도 발송합니다.
-            = render "campaigns/checkbox_term", f: f, campaign: @campaign
+            = render "comments/commentable_checkbox_term", f: f, commentable: @campaign
             = f.submit '작성', class: 'btn btn-primary btn-block'

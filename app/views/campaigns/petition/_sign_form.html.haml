@@ -70,9 +70,9 @@
                 - if @campaign.sign_placeholder.present?
                   %p.help-text
                     = simple_format(@campaign.sign_placeholder)
-             
-              = render "campaigns/checkbox_term", f: f, campaign: @campaign
-               
+
+              = render "comments/commentable_checkbox_term", f: f, commentable: @campaign
+
               .form-group
                 = f.submit "#{@campaign.signs_count+1}번째로 참여하기", class: 'btn btn-danger btn-lg btn-block', data: { disable_with: "진행 중..." }
   - else

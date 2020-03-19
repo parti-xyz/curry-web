@@ -8,8 +8,8 @@
       %b [보기]
 - else
   = f.hidden_field :confirm_privacy, value: 1
-    
-- if campaign.confirm_third_party.present?
+
+- if commentable.respond_to?(:confirm_third_party) && commentable.confirm_third_party.present?
   .form-group
     = f.label :confirm_third_party do
       = f.check_box :confirm_third_party, {data: { 'rule-required': true }}, Time.now

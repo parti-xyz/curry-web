@@ -35,7 +35,7 @@
             - unless is_redactorable?
               - f.object.body = Html2Text.convert(f.object.body)
             ~ f.text_area :body, placeholder: '촉구합니다...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), style: 'height: 150px', data: { 'rule-required': true }
-          = render "campaigns/checkbox_term", f: f, campaign: commentable
+          = render "comments/commentable_checkbox_term", f: f, commentable: commentable
 
           - if @statementable.agents.count != @statementable.need_to_order_agents.count
             %div.visible-xs-block{ style: 'height: 10px' }
