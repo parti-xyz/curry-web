@@ -30,7 +30,6 @@ class Comment < ApplicationRecord
   validate :commenter_should_be_present_if_user_is_blank
   validate :photo_and_map_campaign_should_check_image_attachment
   validates_acceptance_of :confirm_privacy
-  validates_presence_of :confirm_third_party
 
   before_validation :strip_whitespace
   after_validation :fetch_geocode, if: ->(obj){ obj.full_street_address.present? and obj.full_street_address_changed? }
