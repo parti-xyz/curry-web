@@ -30,6 +30,10 @@ class PagesController < ApplicationController
     render "pages/terms"
   end
 
+  def notice
+    render "pages/terms"
+  end
+
   def polls
     @polls = Poll.recent
   end

@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   get 'terms', to: "pages#terms", as: 'terms'
   get 'marketing', to: "pages#marketing", as: 'marketing'
   get 'confirm_terms', to: "users#confirm_terms", as: 'users_confirm_terms'
+  get 'notice', to: "pages#notice"
 
   post 'simple_mail/callback' => 'simple_mail#callback'
 

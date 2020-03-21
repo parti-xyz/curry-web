@@ -1,4 +1,15 @@
 %section#site-header
+  - if request.env['REQUEST_PATH'] == '/' and cookies[:skip_notice] != 'Y'
+    .alert.alert-info.alert-dismissable{ style: 'margin-bottom: 0' }
+      .container{ role: "alert" }
+        .row
+          .col-12
+            %span
+              %i.fa.fa-flag
+              = link_to '합병에 따른 개인정보 이전 통지 및 약관변경 안내', notice_path
+      .notice
+        %button.close#js-notice-button-close{ type: "button", "data-dismiss" => "alert", "aria-label" => "Close" }
+          %span{ "aria-hidden" => "true" } &times
   %nav.navbar.navbar-default.navbar-static-top{ style: 'margin: 0' }
     #header-container.container-fluid.container-fluid-always
       .navbar-header
