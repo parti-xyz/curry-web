@@ -32,6 +32,7 @@
 //= require sticky
 //= require infinite
 //= require clipboard
+//= require js.cookie
 
 UnobtrusiveFlash.flashOptions['timeout'] = 3000;
 
@@ -608,6 +609,11 @@ $(function(){
   });
 });
 
+$(function() {
+  $("#js-notice-button-close").click(function() {
+    Cookies.set("skip_notice", "Y", { expires: 1 })
+  })
+});
 
 
 $(document).ajaxError(function (e, xhr, settings) {
