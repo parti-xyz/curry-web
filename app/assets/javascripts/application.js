@@ -611,7 +611,7 @@ $(function(){
 
 $(function() {
   $("#js-notice-button-close").click(function() {
-    Cookies.set("skip_notice", "Y", { expires: 1 })
+    Cookies.set("skip_notice", "Y", { expires: 60 })
   })
 });
 
