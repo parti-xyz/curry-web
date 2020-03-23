@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :check_terms_agreement, if: "request.get?" and "request.format.html?"
   after_action :prepare_flash
   after_action :store_location
+  before_action :banned?
 
   before_action do
     if browser.device.mobile?
@@ -200,5 +201,13 @@ class ApplicationController < ActionController::Base
 
   def can_recaptcha?
     (Rails.env.production? or Rails.env.staging?) or ENV['RECAPTCHA']
+  end
+
+  def banned?
+    if current_user.present? && current_user.banned?
+      sign_out current_user
+      flash[:error] = "접속이 차단되었습니다. contact@campaigns.kr으로 연락부탁드립니다."
+      root_path
+    end
   end
 end

@@ -22,7 +22,11 @@ class UsersController < ApplicationController
     end
   end
 
-  private 
+  def confirm_terms
+    redirect_to root_path unless user_signed_in?
+  end
+
+  private
   def user_terms_params
     params.require(:user).permit(:term_service, :term_privacy, :term_marketing, :term_privacy_must, :term_privacy_option)
   end
