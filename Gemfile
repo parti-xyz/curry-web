@@ -90,6 +90,7 @@ gem 'ruby_dig', '~> 0.0.2'
 gem 'identicon', '~> 0.0.5'
 gem 'rails-timeago', '~> 2.15'
 gem 'icalendar', '~> 2.5', '>= 2.5.3'
+gem 'sitemap_generator'
 
 # image
 gem 'exifr', '1.2.6'

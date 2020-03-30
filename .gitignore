@@ -28,3 +28,6 @@ app/assets/.DS_Store
 
 *.sql.gz
 local_env.yml
+
+public/sitemap.xml
+public/sitemap.xml.gz
