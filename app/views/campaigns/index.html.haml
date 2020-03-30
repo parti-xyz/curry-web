@@ -26,6 +26,15 @@
         = link_to 'http://parti.coop/', class: 'btn btn-lg btn-info', target: '_blank' do
           빠띠 소개
 
+
+- if user_signed_in? && current_user.campaigns.any?
+  %section.page-block
+    .container-fluid
+      .alert.alert-warning{ style: 'margin: 0' }
+        %h4{ style: 'letter-spacing: -1px; line-height: 1.5;' } 캠페인을 #{current_user.campaigns.count}건 만드셨네요! #{current_user.nickname}님이 만든 캠페인을 모아서 보여줄 수 있어요.
+        = link_to current_user, class: 'btn btn-warning' do
+          #{current_user.nickname}님의 캠페인 보기
+
 %section#petitions.page-block
   .container-fluid
     %h3

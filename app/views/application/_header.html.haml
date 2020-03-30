@@ -27,6 +27,8 @@
             = link_to '캠페인 시작하기', new_campaign_path
           - if user_signed_in?
             %li
+              = link_to '내 캠페인 보기', current_user
+            %li
               = link_to '로그아웃', sign_out_path, method: :delete
           - else
             %li
