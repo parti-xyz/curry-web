@@ -57,7 +57,7 @@ class User < ApplicationRecord
 
   # validations
   VALID_NICKNAME_REGEX = /\A[ㄱ-ㅎ가-힣a-z0-9_]+\z/i
-  
+
   validates :nickname,
     presence: true,
     exclusion: { in: %w(app new edit index session login logout users organizer admin all crew issue group project) },

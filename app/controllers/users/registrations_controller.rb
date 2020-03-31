@@ -10,11 +10,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-    params.require(:user).permit(:remember_me, :nickname, :image, :email, :password, :password_confirmation, :term_service, :term_privacy, :term_marketing, :term_privacy_must, :term_privacy_option)
+    params.require(:user).permit(:remember_me, :nickname, :image, :email, :password, :password_confirmation, :term_service, :term_privacy, :term_marketing, :term_privacy_must)
   end
 
   def account_update_params
-    params.require(:user).permit(:remember_me, :nickname, :description, :image, :email, :enable_mailing, :site_info, :facebook_info, :twitter_info, :term_privacy_option, :term_marketing)
+    params.require(:user).permit(:remember_me, :nickname, :description, :image, :email, :enable_mailing, :site_info, :facebook_info, :twitter_info, :term_privacy_must, :term_marketing)
   end
 
   def after_inactive_sign_up_path_for(resource)
