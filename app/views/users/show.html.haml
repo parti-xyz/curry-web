@@ -4,7 +4,10 @@
       .media-left
         = image_tag @user.image.md.url, width: '150px', class: 'media-object'
       .media-body
-        %h3= @user.nickname
+        %h3
+          = @user.nickname
+        - if current_user == @user
+          %p= link_to '수정', edit_user_registration_path, style: 'color: white'
         %p.lead= @user.description
 
 %section.page-block

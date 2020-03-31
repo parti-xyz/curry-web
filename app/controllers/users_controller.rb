@@ -28,6 +28,6 @@ class UsersController < ApplicationController
 
   private
   def user_terms_params
-    params.require(:user).permit(:term_service, :term_privacy, :term_marketing, :term_privacy_must, :term_privacy_option)
+    params.require(:user).permit(:term_service, :term_privacy, :term_marketing, :term_privacy_must)
   end
 end

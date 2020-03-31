@@ -21,15 +21,9 @@
     %li.checkbox-signup
       = f.label :term_privacy_must do
         = f.check_box :term_privacy_must, {class: "js-checkbox-signup"}, Time.now
-        개인정보 이용 및 수집 동의 
+        개인정보 이용 및 수집 동의
         %b (필수)
       %a.text-primary{href: privacy_must_path, target: '_blank'}
-        %b [보기]
-    %li.checkbox-signup
-      = f.label :term_privacy_option do
-        = f.check_box :term_privacy_option, {class: "js-checkbox-signup"}, Time.now
-        개인정보 이용 및 수집 동의 (선택)
-      %a.text-primary{href: privacy_option_path, target: '_blank'}
         %b [보기]
     %li.checkbox-signup
       = f.label :term_marketing do
@@ -37,4 +31,3 @@
         마케팅 정보 수신에 동의합니다. (선택)
       %a.text-primary{href: marketing_path, target: '_blank'}
         %b [보기]
-     
