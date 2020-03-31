@@ -1,5 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  skip_before_filter :verify_authenticity_token, :only => :create
+  skip_before_filter :verify_authenticity_token, only: [:create]
+  prepend_before_action :check_captcha, only: [:create]
 
   # Overwrite update_resource to let users to update their user without giving their password
   def update_resource(resource, params)
@@ -19,5 +20,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_inactive_sign_up_path_for(resource)
     root_path
+  end
+
+  def check_captcha
+    resource = resource_class.new sign_up_params
+    resource = resource_class.new_with_session(sign_up_params, session)
+    return if !can_recaptcha? || verify_recaptcha(model: resource)
+
+    self.resource = resource
+    self.resource.validate
+    set_minimum_password_length
+    respond_with_navigational(self.resource) { render :new }
   end
 end
