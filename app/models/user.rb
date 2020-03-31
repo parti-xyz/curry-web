@@ -57,7 +57,7 @@ class User < ApplicationRecord
 
   # validations
   VALID_NICKNAME_REGEX = /\A[ㄱ-ㅎ가-힣a-z0-9_]+\z/i
-  
+
   validates :nickname,
     presence: true,
     exclusion: { in: %w(app new edit index session login logout users organizer admin all crew issue group project) },
@@ -169,6 +169,10 @@ class User < ApplicationRecord
 
   def has_agreed_terms?
     return self.term_privacy.present? && self.term_service.present? && self.term_privacy_must.present?
+  end
+
+  def banned?
+    self.banned_at.present?
   end
 
   private

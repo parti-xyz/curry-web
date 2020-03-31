@@ -1,0 +1,41 @@
+%section.page-block
+%h3
+  = link_to '운영', admin_home_path
+  &gt; 차단
+%section
+  .well
+    .role-form
+      = form_tag admin_users_path, method: :get do |f|
+        .form-group
+          = text_field_tag :user_nickname, '', class: 'form-control'
+        = submit_tag '회원 찾기', class: 'btn btn-default'
+
+  .m-t
+    - if @user.present?
+      %h4 #{@user.nickname} 검색 결과
+      .well.well-sm
+        = image_tag @user.image.sm, class: 'user-thumb-sm'
+        = @user.nickname
+        .pull-right
+          - if @user.banned?
+            = link_to unban_admin_user_path(@user), method: :put, data: { confirm: '정말 해제하시겠습니까?' }, class: 'btn btn-xs btn-default' do
+              %i.fa.fa-check
+              해제
+          - else
+            = link_to ban_admin_user_path(@user), method: :put, data: { confirm: '정말 차단하시겠습니까?' }, class: 'btn btn-xs btn-default' do
+              %i.fa.fa-ban
+              차단
+      = link_to '모든 차단 회원 보기', admin_users_path
+    - else
+      %h4 모든 차단 회원
+      -if @banned_users.empty?
+        차단 회원 없습니다.
+      - @banned_users.each do |banned_user|
+        .well.well-sm
+          = image_tag banned_user.image.sm, class: 'user-thumb-sm'
+          = banned_user.nickname
+          .pull-right
+            - if banned_user.banned?
+              = link_to unban_admin_user_path(banned_user), method: :put, data: { confirm: '정말 해제하시겠습니까?' }, class: 'btn btn-xs btn-default' do
+                %i.fa.fa-check
+                해제

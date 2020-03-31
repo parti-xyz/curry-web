@@ -8,5 +8,24 @@ class Admin::UsersController < Admin::BaseController
       format.xlsx
     end
   end
+
+  def index
+    @banned_users = User.where.not(banned_at: nil)
+    if params[:user_nickname].present?
+      @user = User.find_by(nickname: params[:user_nickname])
+    end
+  end
+
+  def ban
+    @user = User.find(params[:id])
+    @user.touch(:banned_at)
+    redirect_to admin_users_path(user_nickname: @user.nickname)
+  end
+
+  def unban
+    @user = User.find(params[:id])
+    @user.update_columns(banned_at: nil)
+    redirect_to admin_users_path(user_nickname: @user.nickname)
+  end
 end
 
