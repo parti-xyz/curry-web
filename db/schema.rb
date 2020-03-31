@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200313030906) do
+ActiveRecord::Schema.define(version: 20200323230706) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -1137,6 +1137,7 @@ ActiveRecord::Schema.define(version: 20200313030906) do
     t.datetime "term_privacy_must"
     t.datetime "term_privacy_option"
     t.datetime "term_marketing"
+    t.datetime "banned_at"
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true, using: :btree
   end
 

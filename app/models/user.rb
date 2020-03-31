@@ -171,6 +171,10 @@ class User < ApplicationRecord
     return self.term_privacy.present? && self.term_service.present? && self.term_privacy_must.present?
   end
 
+  def banned?
+    self.banned_at.present?
+  end
+
   private
 
   def set_uid

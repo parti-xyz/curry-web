@@ -5,8 +5,9 @@
       %br
       멋진 아이디를 만들어주세요.
     .sign-up-form
-      = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'gov-action-form-validation' }) do |f|
         = render 'devise/shared/error_messages', resource: resource
+        .gov-action-form-grecaptcha
         = f.hidden_field :remember_me
         .form-group
           = f.label :nickname do

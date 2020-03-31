@@ -16,5 +16,6 @@
         %h4 회원
       %li= link_to '일꾼', admin_roles_path, class: 'item'
       %li= link_to '댓글', admin_comments_path, class: 'item'
+      %li= link_to '차단', admin_users_path, class: 'item'
       %li= link_to '회원 이메일 다운로드', admin_download_emails_path(format: :xlsx), method: :post, class: 'item'
       %li= link_to '발언자 "20대_국회의원"의 정보 갱신', admin_refresh_assembly_members_path, class: 'item'

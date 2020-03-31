@@ -27,7 +27,8 @@ Rails.application.routes.draw do
   mount Redactor2Rails::Engine => '/redactor2_rails'
   devise_for :users, controllers: {
     registrations: 'users/registrations',
-    omniauth_callbacks: 'users/omniauth_callbacks' }
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    sessions: 'users/sessions' }
   devise_scope :user do
     delete 'sign_out', to: 'devise/sessions#destroy'
   end
@@ -277,6 +278,12 @@ Rails.application.routes.draw do
     resources :agencies
     resources :agents
     resources :positions
+    resources :users, only: :index do
+      member do
+        put :ban
+        put :unban
+      end
+    end
     resources :opinions do
       collection do
         get :new_or_edit
