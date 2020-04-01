@@ -1,13 +1,14 @@
 .signers.js-infinite-container
   - signs.each do |sign|
-    .signer.infinite-item
-      .signer-header
-        .signer-info
-          .signer-image{ style: "background-image:url(#{asset_url(sign.user_image_url)});" }
-          .nickname= sign.user_name
-          .date= date_f sign.created_at
-        .count
-          #{@campaign.signs.where("id <= ?", sign).count}번째 서명자
-      .signer-word= sign.body
+    .my-2.infinite-item
+      .bg-light.p-3
+        .d-flex.justify-content-between
+          .text-muted.font-weight-bold
+            = sign.user_name
+            = date_f sign.created_at
+          %small.text-muted
+            #{@campaign.signs.where("id <= ?", sign).count}번째 서명자
+        .text-muted= sign.body
+
 - if local_assigns[:finite] != true and !signs.try(:last_page?)
   = link_to '', signers_campaign_path(@campaign, page: signs.next_page), class: 'infinite-more-link'

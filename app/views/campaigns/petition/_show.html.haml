@@ -1,141 +1,60 @@
 = render 'campaigns/petition/section_cover'
 = render 'campaigns/petition/section_tab', menu: 'content'
 
-%section.section-panel
-  = render 'campaigns/petition/section_right'
+%section
+  .container
+    .row
+      .col-sm-4.order-sm-2
+        %section.mt-5
+          = render 'campaigns/petition/section_right'
 
-  %section.section-left
-    %section.section-body
-      .section-title
-        캠페인 소개
-      .campaign-body
-        = raw @campaign.body
+      .col-sm-8.order-sm-1
+        %section.my-5
+          .campaign-body
+            = raw @campaign.body
 
-      - if @campaign.opened?
-        .campaign-body-info
-          이 캠페인은 #{static_day_f(@campaign.opened_at)}에 시작되었습니다.
-          - if @campaign.issue.present?
-            %br
-            이슈
-            %span.issue= @campaign.issue.title
+          - if true || @campaign.opened?
+            .alert.alert-warning
+              이 캠페인은 #{static_day_f(@campaign.opened_at)}에 시작되었습니다.
 
-    %hr
-      %section.section-info{ style: 'margin-bottom: 70px;' }
-        .section-title
-          서명
-        .campaign-progress
-          .campaign-label
-            .current-message
-              - if @campaign.opened?
-                현재 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}명이 서명하였습니다.
-                - if !@campaign.signed?(current_user)
-                  - if @campaign.has_goal?
-                    #{number_with_delimiter(@campaign.goal_count, delimiter:",")}명
-                  서명에 동참해주세요.
-              - else
-                총 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}명이 서명하였습니다.
-          - if @campaign.has_goal?
-            .campaign-progress-bar
-              .current-percent
-                #{@campaign.percentage}%
-              - if @campaign.success?
-                .success-badge
-                  성공
-                .signs-bar{ style: "width: 100%" }
-              - else
-                .signs-bar{ style: "width: #{@campaign.percentage}%" }
-            .campaign-progress-meta.clearfix
-              .signs-count
-                서명 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}
-              .goal-count
-                목표 #{number_with_delimiter(@campaign.goal_count, delimiter:",")}
-          .campaign-signs
-            %section.section-signer
-              = render 'campaigns/petition/signers', signs: @campaign.signs.recent.limit(20), finite: true
-          .more.text-center{ style: 'margin: 1em 0 0;' }
-            = link_to '더 보기', signers_campaign_path(@campaign), style: 'color: gray'
+        %section.my-5
+          %h3.font-weight-bold 서명
+          .card.mb-2.bg-warning
+            .card-body
+              - if true || @campaign.opened?
+                %p
+                  현재 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}명이 서명하였습니다.
+                  - if !@campaign.signed?(current_user)
+                    - if true || @campaign.has_goal?
+                      #{number_with_delimiter(@campaign.goal_count, delimiter:",")}명
+                    서명에 동참해주세요.
+              - if @campaign.has_goal?
+                .progress.campaign-progress-bar
+                  .progress-bar.progress-bar-striped.bg-danger{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{@campaign.percentage}", :role => "progressbar", :style => "width: #{@campaign.percentage}%;"}
+                    #{@campaign.percentage}%
+                  - if @campaign.success?
+                    .success-badge
+                      성공
+                    .signs-bar{ style: "width: 100%" }
+                  - else
+                    .signs-bar{ style: "width: #{@campaign.percentage}%" }
+              .d-flex.justify-content-between
+                %small
+                  서명 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}
+                %small
+                  목표 #{number_with_delimiter(@campaign.goal_count, delimiter:",")}
 
+          %section.mb-3
+            = render 'campaigns/petition/signers', signs: @campaign.signs.recent.limit(20), finite: true
+            .p-3= link_to '더 보기 >', signers_campaign_path(@campaign)
 
           - if @campaign.opened?
-            .campaign-sign-form{ style: 'padding: 0; border-top: none;' }
+            .d-none.d-sm-block.campaign-sign-form{ style: 'padding: 0; border-top: none;' }
               - if @campaign.signed?(current_user)
                 .btn.btn-danger.btn-lg.btn-block.campaign-sign-btn.cursor-default{ style: 'background: white; color: #000; opacity: 1  ; border: 1px solid  #1779f3;' }
-                  .campaign-sign
-                    .signer-image{ style: "background-image:url(#{asset_url(user_signed_in? ? current_user.image.xs.url : 'default-user.png')});" }
                   #{current_user.nickname}님은
                   서명하셨습니다.
               - else
-                .campaign-sign
-                  - if user_signed_in?
-                    .signer-image{ style: "background-image:url(#{asset_url(user_signed_in? ? current_user.image.xs.url : 'default-user.png')});" }
-                    .signer-nickname
-                      = current_user.nickname
-                = link_to sign_form_campaign_path(@campaign), remote: true do
-                  .campaign-sign-input.word
-                    %p 나도 한마디
-                    %br
-                / %button.btn.btn-danger.btn-lg.btn-block.campaign-sign-btn{"data-target" => "#sign-form-modal", "data-toggle" => "modal", :type => "button"}
                 = link_to '서명하기', sign_form_campaign_path(@campaign), remote: true, class: "btn btn-danger btn-lg btn-block campaign-sign-btn"
 
-    - if @campaign.agents.any?
-      %hr
-      %section.section-orders.section-orders-tab
-        .section-title
-          캠페인 촉구
-        - if @campaign.opened?
-          .order-title
-            지금
-            %span.underline
-              #{@campaign.agents.first.name}
-              - if @campaign.agents.count > 1
-                외 #{@campaign.agents.count - 1}
-            에 촉구해 주세요
-          .order-info
-            - order_users_with_name = @campaign.comments.joins(:orders).where.not(commenter_name: nil).order("comment_id desc").limit(3)
-            - if order_users_with_name.any?
-              #{order_users_with_name.first.commenter_name}님
-              - if @campaign.order_users_count >=1
-                외 #{@campaign.order_users_count - 1}분이
-              촉구에 참여중입니다.
-            - elsif @campaign.order_users_count >= 1
-              시민 #{@campaign.order_users_count}분이 참여하고 있습니다.
-            - else
-              지금 바로 촉구하여 참여해보세요.
-          .order-users
-            - order_users_with_image = User.where(id: @campaign.comments.where.not(user_id: nil).uniq.pluck(:user_id)).limit(3)
-            - if order_users_with_image.any?
-              .user-images
-                - order_users_with_image.reverse.each do |user|
-                  .user-image-sm.overlapped{ style: "background-image:url(#{asset_url(user.image.md.url)});" }
-            -if @campaign.order_users_count > 3
-              .more +
-              .count= @campaign.order_users_count - 3
-        - else
-          = render 'campaigns/order_dashboard', campaign: @campaign
-
-        - if @campaign.responded_agents.any? or @campaign.closed?
-          .orders-tab-title-h5.title-wrap
-            .title-left 촉구 응답 현황
-          = render 'campaigns/agents_with_statement', campaign: @campaign
-
-        - if @campaign.opened?
-          .orders-tab-title-h5.title-wrap
-            .title-left 촉구하기
-
-          - agents_shuffled = @campaign.need_to_order_agents_shuffled
-          - if agents_shuffled.any?
-            .agents
-              - agents_shuffled.first(3).each do |agent|
-                = render 'campaigns/agent', campaign: @campaign, agent: agent, statement: @campaign.statement_of(agent)
-          .more
-            = link_to '더 보기', orders_campaign_path(@campaign)
-    %hr
-    %section.section-comments
-      .section-title
-        의견
-      = render 'comments/form_line', commentable: @campaign
-      = render 'comments/page_formal', commentable: @campaign, comments: @campaign.comments.recent.page(1), finite: true
-      .more
-        = link_to '더 보기', comments_campaign_path(@campaign)
-
-= render 'campaigns/petition/sign_button'
+    = render 'campaigns/petition/sign_button'

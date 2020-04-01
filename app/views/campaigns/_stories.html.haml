@@ -1,33 +1,34 @@
 = render "campaigns/#{campaign.template}/section_cover"
 = render "campaigns/#{campaign.template}/section_tab", menu: 'story'
 
-%section.section-panel
-  = render "campaigns/#{campaign.template}/section_right"
+%section
+  .container
+    .row
+      .col-sm-4.order-sm-2
+        %section.mt-5
+          = render 'campaigns/petition/section_right'
 
-  %section.section-left
-    %section.section-story
-      .section-title.clearfix
-        %span.title-text 캠페인 소식을 만나 보세요!
-        - if can?(:create_story, campaign)
-          = link_to '작성', new_story_path(story: { storiable_id: campaign.id, storiable_type: 'Campaign' }), class: 'btn btn-primary', style: 'float: right'
-      .stories
-        - campaign.stories.recent.each do |story|
-          .story
-            .story-header
-              .user-image-sm{ style: "background-image:url(#{asset_url(campaign.user.image.md.url)});" }
-              .user-nickname= campaign.user.nickname
-              .date= date_f story.published_at
-            = link_to story_campaign_path(story_id: story.id) do
-              .story-title= story.title
-              .story-body
-                = excerpt(story.body, length: 200)
-            .story-footer
-              = render 'likes/button', likable: story
-              - if story.comment_enabled
-                &nbsp;
-                / = link_to story, class: 'comments-count' do
-                /   %i.fa.fa-comment-o
-                /   댓글
-                /   = story.comments_count
+      .col-sm-8.order-sm-1
+        %section.my-5
+          %h3.font-weight-bold 소식
 
-= local_assigns[:bottom_section]
+          .stories
+            - campaign.stories.recent.each do |story|
+              .bg-light.p-3
+                .mb-3.text-muted
+                  .d-flex.justify-content-between
+                    %span
+                      = campaign.user.nickname
+                      = date_f story.published_at
+                    = render 'likes/button', likable: story
+                .my-3
+                  = link_to story_campaign_path(story_id: story.id), class: "text-dark" do
+                    %h5= story.title
+                    .story-body
+                      = excerpt(story.body, length: 200)
+
+          .my-3
+            - if can?(:create_story, campaign)
+              = link_to '작성', new_story_path(story: { storiable_id: campaign.id, storiable_type: 'Campaign' }), class: 'btn btn-primary'
+
+  = local_assigns[:bottom_section]

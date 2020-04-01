@@ -1,4 +1,3 @@
-
 - if user_signed_in? and @campaign.signed?(current_user)
   - sign_form_block = capture do
     .sign-panel__form
@@ -7,7 +6,7 @@
           이미 참여하였습니다
 
       %p.text-basic-wrap
-        이 캠페인을 친구들에게 알려 주세요
+        이 캠페인을 친구들에게 알려 보세요
         - share_image_url = @campaign.read_attribute(:cover_image).present? ? @campaign.cover_image.lg.url : asset_url("default-image.png")
         .share-box{ 'data-share-image': share_image_url }
       - if @campaign.agents.any?
@@ -17,13 +16,6 @@
             = link_to orders_campaign_path(@campaign), class: "js-close-modal btn btn-xs btn-primary" do
               촉구하기
               %i.fa.fa-arrow-right
-      - elsif @campaign.comment_enabled
-        %p.text-basic-wrap
-          의견을 남겨 보세요.
-          %div
-            = link_to comments_campaign_path(@campaign), class: "js-close-modal btn btn-xs btn-primary" do
-              의견 남기기
-              %i.fa.fa-arrow-right
 
 - else
   - if @campaign.opened?
@@ -31,50 +23,49 @@
       - if @campaign.sign_form_intro.present?
         %p= @campaign.sign_form_intro
       .sign-panel__form
-        .alert.alert-danger
-          - if user_signed_in? and @campaign.signed?(current_user)
-          - else
-            = form_for Sign.new(campaign: @campaign), html: { class: 'gov-action-form-validation' } do |f|
-              = f.hidden_field :campaign_id
-              .gov-action-form-grecaptcha
-              - if @campaign.use_signer_real_name?
-                .form-group
-                  = f.label :signer_real_name, @campaign.signer_real_name_title.presence || t('activerecord.attributes.sign.signer_real_name')
-                  = f.text_field :signer_real_name, placeholder: '실명..', class: 'form-control', data: { 'rule-required': true }
-              - else
-                - unless user_signed_in?
-                  .form-group
-                    = f.label :signer_name
-                    = f.text_field :signer_name, placeholder: '이름 혹은 별명..', class: 'form-control', data: { 'rule-required': true }
-              - if @campaign.use_signer_email?
-                - f.object.signer_email = current_user.try(:email)
-                .form-group
-                  = f.label :signer_email, @campaign.signer_email_title.presence || t('activerecord.attributes.sign.signer_email')
-                  = f.text_field :signer_email, placeholder: '이메일', class: 'form-control', data: { 'rule-required': true }
-              - unless @campaign.use_signer_address.unused?
-                .form-group
-                  = f.label :signer_address, raw("#{@campaign.signer_address_title.presence || t('activerecord.attributes.sign.signer_address')} #{'&middot; 선택입력' if @campaign.use_signer_address.optional?}")
-                  = f.text_field :signer_address, placeholder: '주소', class: 'form-control', data: { 'rule-required': @campaign.use_signer_address.required? }
-
-              - unless @campaign.use_signer_phone.unused?
-                .form-group
-                  = f.label :signer_phone, raw("#{@campaign.signer_phone_title.presence || t('activerecord.attributes.sign.signer_phone')} #{'&middot; 선택입력' if @campaign.use_signer_phone.optional?}")
-                  = f.text_field :signer_phone, placeholder: '연락처', class: 'form-control', data: { 'rule-required': @campaign.use_signer_phone.required? }
-
-              - if @campaign.id == 29
-                = f.hidden_field :extra_29_confirm_join, value: 1
-
+        - if user_signed_in? and @campaign.signed?(current_user)
+        - else
+          = form_for Sign.new(campaign: @campaign), html: { class: 'gov-action-form-validation' } do |f|
+            = f.hidden_field :campaign_id
+            .gov-action-form-grecaptcha
+            - if @campaign.use_signer_real_name?
               .form-group
-                = f.label :body, @campaign.sign_title || Sign.human_attribute_name(:body)
-                ~ f.text_area :body, class: 'form-control', rows: 5
-                - if @campaign.sign_placeholder.present?
-                  %p.help-text
-                    = simple_format(@campaign.sign_placeholder)
-
-              = render "comments/commentable_checkbox_term", f: f, commentable: @campaign
-
+                = f.label :signer_real_name, @campaign.signer_real_name_title.presence || t('activerecord.attributes.sign.signer_real_name')
+                = f.text_field :signer_real_name, placeholder: '실명..', class: 'form-control', data: { 'rule-required': true }
+            - else
+              - unless user_signed_in?
+                .form-group
+                  = f.label :signer_name
+                  = f.text_field :signer_name, placeholder: '이름 혹은 별명..', class: 'form-control', data: { 'rule-required': true }
+            - if @campaign.use_signer_email?
+              - f.object.signer_email = current_user.try(:email)
               .form-group
-                = f.submit "#{@campaign.signs_count+1}번째로 참여하기", class: 'btn btn-danger btn-lg btn-block', data: { disable_with: "진행 중..." }
+                = f.label :signer_email, @campaign.signer_email_title.presence || t('activerecord.attributes.sign.signer_email')
+                = f.text_field :signer_email, placeholder: '이메일', class: 'form-control', data: { 'rule-required': true }
+            - unless @campaign.use_signer_address.unused?
+              .form-group
+                = f.label :signer_address, raw("#{@campaign.signer_address_title.presence || t('activerecord.attributes.sign.signer_address')} #{'&middot; 선택입력' if @campaign.use_signer_address.optional?}")
+                = f.text_field :signer_address, placeholder: '주소', class: 'form-control', data: { 'rule-required': @campaign.use_signer_address.required? }
+
+            - unless @campaign.use_signer_phone.unused?
+              .form-group
+                = f.label :signer_phone, raw("#{@campaign.signer_phone_title.presence || t('activerecord.attributes.sign.signer_phone')} #{'&middot; 선택입력' if @campaign.use_signer_phone.optional?}")
+                = f.text_field :signer_phone, placeholder: '연락처', class: 'form-control', data: { 'rule-required': @campaign.use_signer_phone.required? }
+
+            - if @campaign.id == 29
+              = f.hidden_field :extra_29_confirm_join, value: 1
+
+            .form-group
+              = f.label :body, @campaign.sign_title || Sign.human_attribute_name(:body)
+              ~ f.text_area :body, class: 'form-control', rows: 5
+              - if @campaign.sign_placeholder.present?
+                %p.help-text
+                  = simple_format(@campaign.sign_placeholder)
+
+            = render "comments/commentable_checkbox_term", f: f, commentable: @campaign
+
+            .form-group
+              = f.submit "#{@campaign.signs_count+1}번째로 참여하기", class: 'btn btn-danger btn-lg btn-block', data: { disable_with: "진행 중..." }
   - else
     - sign_form_block = capture do
       .sign-panel__form
@@ -86,8 +77,8 @@
   .modal-dialog{:role => "document"}
     .modal-content
       .modal-header
+        %h5.modal-title 참여하기
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-          %span{"aria-hidden" => "true"} &#215;
-        %h4.modal-title 참여하기
+          %span{"aria-hidden" => "true"} &times;
       .modal-body
         = sign_form_block
