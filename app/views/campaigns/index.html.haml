@@ -1,75 +1,72 @@
-%section.p-0.jumbotron.jumbotron-fluid.bg-transparent.position-relative.d-flex.align-items-center{ style: "width: 100vw; min-height: 50vh;" }
-  - if Campaign.published.popular.any?
-    - campaign = Campaign.published.popular.limit(5).shuffle.first
-    = image_tag campaign.cover_image, class: "img-fluid position-absolute", style: "object-fit: cover; object-position: top; height: 100%; width: 100%;"
-    .bg-dark.position-absolute{ style: "width: 100%; height: 100%; opacity: 0.4" }
-    .container.position-relative
-      %h1.text-white
-        %small
-          캠페인
-        %br
-        %strong{ style: "text-shadow: 2px 2px #000;" }
-          = campaign.title
-      %div
-        = link_to campaign, class: 'btn btn-lg btn-danger', target: '_blank' do
-          참여하기
-  - else
-    .container
-      %h2
-        %small
-          세상을 바꾸는 시민들
-        %br
-        %strong{style:"font-size:61px;line-height:80px;"}
-          빠띠 캠페인즈
-      %div
-        = link_to 'https://parti.coop/solutions/campaign', class: 'btn btn-lg btn-danger', target: '_blank' do
-          빠띠 캠페인즈 소개
-        = link_to 'http://parti.coop/', class: 'btn btn-lg btn-info', target: '_blank' do
-          빠띠 소개
-
+- if current_page?(root_url) && params[:page].nil?
+  %section.p-0.jumbotron.jumbotron-fluid.bg-transparent.position-relative.d-flex.align-items-center{ style: "width: 100vw; min-height: 50vh;" }
+    - if Campaign.published.popular.any?
+      - campaign = Campaign.published.popular.limit(5).shuffle.first
+      = image_tag campaign.cover_image, class: "img-fluid position-absolute", style: "object-fit: cover; object-position: top; height: 100%; width: 100%;"
+      .bg-dark.position-absolute{ style: "width: 100%; height: 100%; opacity: 0.4" }
+      .container.position-relative
+        %h1.text-white
+          %small
+            캠페인
+          %br
+          %strong{ style: "text-shadow: 2px 2px #000;" }
+            = campaign.title
+        %div
+          = link_to campaign, class: 'btn btn-lg btn-danger', target: '_blank' do
+            참여하기
 
 - if user_signed_in? && current_user.campaigns.any?
-  %section.page-block
-    .container-fluid
+  %section.mb-5
+    .container
       .alert.alert-warning{ style: 'margin: 0' }
         %h4{ style: 'letter-spacing: -1px; line-height: 1.5;' } 캠페인을 #{current_user.campaigns.count}건 만드셨네요! #{current_user.nickname}님이 만든 캠페인을 모아서 보여줄 수 있어요.
         = link_to current_user, class: 'btn btn-warning' do
           #{current_user.nickname}님의 캠페인 보기
 
-%section#petitions.page-block
-  .container-fluid
-    %h3
-      인기
-      = Campaign.model_name.human
-    .row
-      - cache "home-campaigns", race_condition_ttl: 30.seconds, expires_in: 1.hours do
-        = render Campaign.published.popular.limit(4)
+- if current_page?(root_url) && params[:page].nil?
+  %section.py-5
+    .container
+      %h4
+        인기
+        = Campaign.model_name.human
+      .card-columns
+        - cache "home-campaigns", race_condition_ttl: 30.seconds, expires_in: 1.hours do
+          = render Campaign.published.popular.limit(6)
 
-    %div{ style: 'padding:14px; background: #def; border-radius: 0px; text-align: center;'}
-      %h3{ style: 'letter-spacing: -1px; line-height: 1.5;' }
-        %strong 세상을 멋지게 할 아이디어!
-        %br
-        캠페인으로 실현해 보세요.
-      %p.lead{ style: 'margin-top: 28px' }
-        = link_to '새 캠페인 만들기', new_campaign_path, class: 'btn btn-lg btn-primary'
-        = link_to 'https://parti.coop/contacts/new', class: 'btn btn-lg' do
-          %i.fa.fa-comment-o
-          빠띠에 캠페인 협업 문의하기
+      .my-4.p-5.bg-warning
+        %h2
+          %strong 세상을 멋지게 할 아이디어!
+          %br
+          캠페인으로 실현해 보세요.
+        %p.lead{ style: 'margin-top: 28px' }
+          = link_to '새 캠페인 만들기', new_campaign_path, class: 'btn btn-lg btn-primary'
+          = link_to 'https://parti.coop/contacts/new', class: 'btn btn-lg' do
+            %i.fa.fa-comment-o
+            빠띠에 캠페인 협업 문의하기
 
-%section#campaigns.page-block
+%section.py-5
   %a{ id: 'anchor-campaigns-list' }
   = render 'campaigns/list', campaigns: @campaigns, title_label: raw("모든 캠페인 <small>총 #{Campaign.count}건 중 #{@campaigns.current_page} 페이지</small>")
-  .text-center
-    = paginate @campaigns, theme: 'twitter-bootstrap-3', params: { :anchor => 'anchor-campaigns-list' }
+  .d-flex.justify-content-center
+    = paginate @campaigns, params: { :anchor => 'anchor-campaigns-list' }
 
-%section#players.page-block
+%section.mb-5
   .container
-    %h3
-      국회의원
-      .pull-right
-        = link_to Agency.assembly_20th do
-          %small 더 보기
-    .row
+    .d-flex.justify-content-between
+      %h4
+        국회의원
+        %small= link_to "더 보기", Agency.assembly_20th
+
+
+    .row.row-cols-3.row-cols-sm-4.row-cols-md-6
       - cache "home-assembly_20th", race_condition_ttl: 30.seconds, expires_in: 1.hours do
         - Agency.assembly_20th.agents.popular_limit(24).each do |agent|
-          .col-sm-2.col-xs-4= render agent
+          .col.mb-4
+            .card.text-white.bg-dark
+              = link_to agent do
+                = image_tag agent.image.md, class: "card-img-top", style: "width: 100%; height: 15vw; object-fit: cover;"
+              .card-body
+                %h5.card-title.mb-0
+                  = agent.name
+                .card-text
+                  %small= agent.positions.map{ |p| p.name }.join(', ')
