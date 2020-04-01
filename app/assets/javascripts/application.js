@@ -62,6 +62,10 @@ $(document).imagesLoaded( { }, function() {
 Kakao.init('6a30dead1bff1ef43b7e537f49d2f655');
 
 $(function(){
+  $('[data-toggle="offcanvas"]').on('click', function () {
+    $('.offcanvas-collapse').toggleClass('open');
+  });
+
   $(".slick").slick();
 
   $(".js-published_at").datetimepicker({

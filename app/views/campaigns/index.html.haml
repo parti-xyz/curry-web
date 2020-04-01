@@ -1,18 +1,19 @@
-- if Campaign.published.popular.any?
-  - campaign = Campaign.published.popular.limit(5).shuffle.first
-  %section#about-section.featured-campaign{style:"background-image: url(#{asset_url(campaign.cover_image)});"}
-    .container
-      %h2
+%section.p-0.jumbotron.jumbotron-fluid.bg-transparent.position-relative.d-flex.align-items-center{ style: "width: 100vw; min-height: 50vh;" }
+  - if Campaign.published.popular.any?
+    - campaign = Campaign.published.popular.limit(5).shuffle.first
+    = image_tag campaign.cover_image, class: "img-fluid position-absolute", style: "object-fit: cover; object-position: top; height: 100%; width: 100%;"
+    .bg-dark.position-absolute{ style: "width: 100%; height: 100%; opacity: 0.4" }
+    .container.position-relative
+      %h1.text-white
         %small
           캠페인
         %br
-        %strong
+        %strong{ style: "text-shadow: 2px 2px #000;" }
           = campaign.title
       %div
         = link_to campaign, class: 'btn btn-lg btn-danger', target: '_blank' do
           참여하기
-- else
-  %section#about-section.featured-campaign{style:"background-image: url(#{asset_url('gov_bg3.png')});"}
+  - else
     .container
       %h2
         %small

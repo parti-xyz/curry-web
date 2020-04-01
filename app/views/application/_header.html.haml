@@ -1,6 +1,34 @@
-%section#site-header
-  - if request.env['REQUEST_PATH'] == '/' and cookies[:skip_notice] != 'Y'
-    .alert.alert-info.alert-dismissable{ style: 'margin-bottom: 0' }
+%header
+  %nav.navbar.fixed-top.navbar-dark.bg-dark.justify-content-start
+    %button.navbar-toggler.p-0.border-0.mr-2{"data-toggle" => "offcanvas", :type => "button"}
+      %span.navbar-toggler-icon
+
+    .navbar-collapse.offcanvas-collapse
+      %ul.navbar-nav
+
+        %li.nav-item.mt-4
+          %small.text-light
+            %i.fas.fa-flag
+        %li.nav-item= link_to '캠페인 목록', campaigns_path, class: "nav-link"
+        - if user_signed_in?
+          %li.nav-item= link_to '캠페인 시작하기', new_campaign_path, class: "nav-link"
+          %li.nav-item= link_to '내 캠페인 보기', current_user, class: "nav-link"
+
+        %li.nav-item.mt-4
+          %small.text-light
+            %i.far.fa-user
+        - if user_signed_in?
+          %li.nav-item
+            .nav-link= current_user.email
+          %li.nav-item= link_to t("link.sign_out"), destroy_user_session_path, method: :delete, class: "nav-link"
+        - else
+          %li.nav-item= link_to t("link.sign_in"), new_user_session_path, class: "nav-link"
+
+    = link_to "빠띠 캠페인즈", root_path, class: "navbar-brand"
+
+- if request.env['REQUEST_PATH'] == '/' and cookies[:skip_notice] != 'Y'
+  %section
+    .alert.alert-info.alert-dismissable{ style: 'margin: 0' }
       .container{ role: "alert" }
         .row
           .col-12
@@ -10,26 +38,3 @@
       .notice
         %button.close#js-notice-button-close{ type: "button", "data-dismiss" => "alert", "aria-label" => "Close" }
           %span{ "aria-hidden" => "true" } &times
-  %nav.navbar.navbar-default.navbar-static-top{ style: 'margin: 0' }
-    #header-container.container-fluid.container-fluid-always
-      .navbar-header
-        %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
-          %span.sr-only Toggle navigation
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
-        = link_to '빠띠 캠페인즈', root_path, class: 'navbar-brand', style: ""
-      #navbar.navbar-collapse.collapse
-        %ul.nav.navbar-nav.navbar-right
-          %li
-            = link_to '캠페인 목록', campaigns_path
-          %li
-            = link_to '캠페인 시작하기', new_campaign_path
-          - if user_signed_in?
-            %li
-              = link_to '내 캠페인 보기', current_user
-            %li
-              = link_to '로그아웃', sign_out_path, method: :delete
-          - else
-            %li
-              = link_to '로그인', new_user_session_path
