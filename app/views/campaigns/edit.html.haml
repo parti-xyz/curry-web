@@ -4,8 +4,7 @@
 - elsif @campaign.template == "sympathy"
   = render "campaigns/header", campaign: @campaign
 - else
-  = render "campaigns/#{@campaign.template}/section_cover"
-  = render "campaigns/#{@campaign.template}/section_tab", menu: 'edit'
+  = render "cover", menu: 'edit'
 
 %section
   .container

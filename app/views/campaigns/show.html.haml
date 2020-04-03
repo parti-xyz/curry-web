@@ -1,3 +1,5 @@
+= render 'cover', menu: 'content'
+
 - if params[:test] != 'picket' and @campaign.picketable?
   = render "campaigns/picket/show"
 - else

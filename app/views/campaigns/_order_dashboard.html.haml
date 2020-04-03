@@ -1,23 +1,19 @@
-.response-present
-  .response-counts
+.response-present.border.bg-dark.p-4
+  .d-flex.justify-content-center
     - if campaign.stancable?
-      .response-count
-        .response-tag.agree 찬성
-        .count= campaign.agree_agents.count || 0
-      .response-count
-        .response-tag.disagree 반대
-        .count= campaign.disagree_agents.count || 0
-      .response-count
-        .response-tag.noresponse 무응답
-        .count= campaign.unsure_agents.count || 0
+      .text-center.mx-auto.text-success
+        %h3 찬성
+        .display-4.font-weight-bolder= campaign.agree_agents.count || 0
+      .text-center.mx-auto.text-danger
+        %h3 반대
+        .display-4.font-weight-bolder= campaign.disagree_agents.count || 0
+      .text-center.mx-auto.text-white
+        %h3 무응답
+        .display-4.font-weight-bolder= campaign.unsure_agents.count || 0
     - else
-      .response-count
-        .response-tag.agree 응답
-        .count= campaign.any_body_agents.count || 0
-      .response-count
-        .response-tag.noresponse 무응답
-        .count= campaign.blank_body_agents.count || 0
-  - if campaign.opened?
-    .response-text
-    = link_to [:new_comment_agent, campaign], class: 'response-btn' do
-      촉구하기
+      .text-center.mx-auto.text-success
+        %h3 응답
+        .display-4.font-weight-bolder= campaign.any_body_agents.count || 0
+      .text-center.mx-auto.text-white
+        %h3 무응답
+        .display-4.font-weight-bolder= campaign.blank_body_agents.count || 0

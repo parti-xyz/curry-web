@@ -1,6 +1,3 @@
-= render 'campaigns/petition/section_cover'
-= render 'campaigns/petition/section_tab', menu: 'content'
-
 %section
   .container
     .row
@@ -47,14 +44,5 @@
           %section.mb-3
             = render 'campaigns/petition/signers', signs: @campaign.signs.recent.limit(20), finite: true
             .p-3= link_to '더 보기 >', signers_campaign_path(@campaign)
-
-          - if @campaign.opened?
-            .d-none.d-sm-block.campaign-sign-form{ style: 'padding: 0; border-top: none;' }
-              - if @campaign.signed?(current_user)
-                .btn.btn-danger.btn-lg.btn-block.campaign-sign-btn.cursor-default{ style: 'background: white; color: #000; opacity: 1  ; border: 1px solid  #1779f3;' }
-                  #{current_user.nickname}님은
-                  서명하셨습니다.
-              - else
-                = link_to '서명하기', sign_form_campaign_path(@campaign), remote: true, class: "btn btn-danger btn-lg btn-block campaign-sign-btn"
 
     = render 'campaigns/petition/sign_button'

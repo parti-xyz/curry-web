@@ -8,7 +8,7 @@
             = date_f sign.created_at
           %small.text-muted
             #{@campaign.signs.where("id <= ?", sign).count}번째 서명자
-        .text-muted= sign.body
+        .mt-2.text-muted= sign.body
 
 - if local_assigns[:finite] != true and !signs.try(:last_page?)
   = link_to '', signers_campaign_path(@campaign, page: signs.next_page), class: 'infinite-more-link'

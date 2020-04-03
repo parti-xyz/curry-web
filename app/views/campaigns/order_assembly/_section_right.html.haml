@@ -55,20 +55,3 @@
 
       .more{ style: 'text-align: center; margin: 1em 0 0;' }
         = link_to '자세히 보기...', orders_campaign_path(@campaign), style: 'color: gray'
-
-      .campaign-share.phone-fold
-        .campaign-share-text
-          - if @campaign.opened?
-            많은 분들이 캠페인에 참여할 수 있도록 공유해주세요.
-          - else
-            많은 분들에게 이 캠페인을 공유해주세요.
-        .campaign-share-buttons
-          = link_to "https://www.facebook.com/sharer/sharer.php?u=#{campaign_url(@campaign)}", class: 'campaign-share-button', target: '_blank' do
-            %i.fa.fa-facebook-f
-          = link_to "http://twitter.com/share?url=#{campaign_url(@campaign)}", class: 'campaign-share-button', target: '_blank' do
-            %i.fa.fa-twitter
-          = hidden_field_tag "share-url", "#{campaign_url(@campaign)}"
-          .js-clipboard.campaign-share-button{ 'data-clipboard-text': campaign_url(@campaign), 'data-toggle': 'tooltip', 'data-trigger': 'manual', 'data-title': '캠페인 공유 주소를 복사하였습니다.', style: "margin-left: 6px" }
-            %i.fa.fa-clipboard
-
-
