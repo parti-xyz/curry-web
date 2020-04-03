@@ -1,10 +1,4 @@
-- if @campaign.picketable?
-  = render 'campaigns/picket/section_cover'
-  = render 'campaigns/picket/section_tab', menu: 'edit'
-- elsif @campaign.template == "sympathy"
-  = render "campaigns/header", campaign: @campaign
-- else
-  = render "cover", menu: 'edit'
+= render "cover", menu: 'edit'
 
 %section
   .container

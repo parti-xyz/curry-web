@@ -49,4 +49,4 @@
                           - else
                             %span 무응답
                         - if statement.try(:body).present?
-                          %i.fa.fa-comment-dots{ data: { toggle: "tooltip" }, title: strip_tags(statement.body) }
+                          %i.fa.fa-comment-dots.js-popover{ "data-placement": "top", "data-trigger": "hover", "data-content": statement.body }
