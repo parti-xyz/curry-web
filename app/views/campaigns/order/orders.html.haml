@@ -1,41 +1,21 @@
-= render 'campaigns/order/section_cover'
+= render "cover", menu: "order"
 
-= render 'campaigns/order/section_tab', menu: 'order'
+%section
+  .container
+    .row
+      .col-sm-4.order-sm-2
+        %section.mt-5
+          = render "campaigns/#{@campaign.template}/section_right"
 
-%section.section-panel
-  = render 'campaigns/order/section_right'
+      .col-sm-8.order-sm-1
+        %section.my-5
+          %h3.font-weight-bold
+            - if @campaign.closed?
+              "#{@campaign.title}"의 국회의원 응답 현황입니다.
+            - else
+              국회의원에게 촉구해 보세요.
 
-  %section.section-left
-    %section.section-orders.section-orders-tab.section-orders-tab-special-agenda
-      - agents_count = @campaign.agents.count
-      - if agents_count > 0
-        .orders-tab-title
-          - if @campaign.opened?
-            지금 #{@campaign.agents_shuffled.first.name}
-            - if agents_count > 1
-              외 #{agents_count - 1}
-            대상에게 촉구해 주세요
-          - else
-            캠페인 촉구
+          = render 'campaigns/order_dashboard', campaign: @campaign
+          = render 'campaigns/agents_with_statement', campaign: @campaign
 
-        .orders-tab-title-h5 촉구 응답 현황
-        = render 'campaigns/order_dashboard', campaign: @campaign
-        = render 'campaigns/agents_with_statement', campaign: @campaign
-
-        - if @campaign.opened?
-          .orders-tab-title-h5.title-wrap
-            .title-left 촉구하기
-            .title-right
-              .response-header-text
-                촉구 대상 중 한 분인가요?
-              = link_to [:edit_statements, @campaign], class: 'response-header-btn' do
-                답변하기
-
-          - agents = @campaign.agents.order(name: :asc).page(1).per(10)
-          - if agents.any?
-            = render 'campaigns/agents_page', campaign: @campaign, agents: agents, next_path: agents_campaign_path(@campaign, page: agents.next_page)
-      - else
-        .orders-tab-title
-          촉구 대상을 등록하겠습니다. 잠시 기다려주세요
-
-= render 'campaigns/order_button_sticky', campaign: @campaign
+    = render 'campaigns/order_button_sticky', campaign: @campaign

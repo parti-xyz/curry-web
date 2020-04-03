@@ -6,7 +6,7 @@
           = render "campaigns/#{@campaign.template}/section_right"
 
       .col-sm-8.order-sm-1
-        %section.my-5
+        .campaign-body.my-5
           = raw @campaign.body
 
           - if true || @campaign.opened?

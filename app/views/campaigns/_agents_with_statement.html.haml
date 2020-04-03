@@ -6,7 +6,7 @@
   .mb-3
     .row.row-cols-2.row-cols-md-4.no-gutters
       - campaign.total_action_assignables.each do |action_assignable|
-        - agents = ( (campaign.opened? or local_assigns[:responded_agents_only]) ? campaign.responded_agents(action_assignable) : campaign.agents(action_assignable))
+        - agents = local_assigns[:responded_agents_only] ? campaign.responded_agents(action_assignable) : campaign.agents(action_assignable)
         - agents.each do |agent|
           - statement = campaign.cached_statement_of(agent)
           - if statement.try(:respond_status?, :agree, :any_body)
@@ -40,13 +40,13 @@
                             %strong= statement.try(:stance).try(:text)
                           - else
                             - if statement.try(:body).present?
-                              %span.text-muted 응답
+                              %span 응답
                             - else
-                              %span.text-muted 무응답
+                              %span 무응답
                         - else
                           - if statement.try(:body).present?
-                            %span.text-muted 응답
+                            %span 응답
                           - else
-                            %span.text-muted 무응답
+                            %span 무응답
                         - if statement.try(:body).present?
                           %i.fa.fa-comment-dots{ data: { toggle: "tooltip" }, title: strip_tags(statement.body) }

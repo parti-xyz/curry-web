@@ -28,7 +28,7 @@
     %li.nav-item
       = link_to '내용', campaign_path, class: class_string("mx-2 nav-link" => true, "active" => menu == 'content')
 
-    - if @campaign.template == "petition"
+    - if @campaign.signable?
       %li.nav-item
         = link_to signers_campaign_path, class: class_string("mx-2 nav-link" => true, "active" => menu == 'signer') do
           서명
@@ -36,7 +36,7 @@
             %small
               = number_with_limit(@campaign.signs.size, 1000)
 
-    - if @campaign.template == "order_assembly"
+    - if @campaign.orderable?
       %li.nav-item
         = link_to '촉구', orders_campaign_path, class: class_string("mx-2 nav-link" => true, "active" => menu == 'order')
 

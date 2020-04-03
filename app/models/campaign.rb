@@ -253,7 +253,7 @@ class Campaign < ApplicationRecord
   end
 
   def orderable?
-    %(petition order order_assembly).include? self.template
+    %(order order_assembly).include? self.template
   end
 
   def picketable?
