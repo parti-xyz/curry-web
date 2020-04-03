@@ -6,27 +6,25 @@
           .card.bg-dark.text-white
             = image_tag picket.image.md, class: "card-img"
             .card-body
-              .user.font-weight-bold
-                .user-name
+              %div
+                %span.user.font-weight-bold
                   - if picket.user_nickname.length > 10
                     = "#{picket.user_nickname[0..14]}..."
                   - else
                     = picket.user_nickname
+                %small.picket-date
+                  = date_f picket.created_at
 
               .picket-message.my-2
                 = excerpt picket.body
 
               .d-flex.justify-content-between
-                %small.picket-date
-                  = date_f picket.created_at
+                %small= render 'likes/button', likable: picket
                 %small.control-btn
                   - if picket.user.present? and picket.user == current_user
                     = link_to "삭제", comment_path(picket), method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
                   - else
                     = render 'reports/button', reportable: picket
-            .card-footer
-              .d-flex.justify-content-between
-                %small= render 'likes/button', likable: picket
         - else
           - themes = ["", "", "", "bg-dark text-white", "bg-light text-dark"]
           .card{ class: themes[rand(themes.count)] }
