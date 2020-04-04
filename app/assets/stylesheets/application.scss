@@ -7,7 +7,7 @@
 @import 'jquery.webui-popover';
 @import 'slick';
 @import 'slick-theme';
-@import "offcanvas";
+@import 'parti';
 
 /* components */
 @import 'redactor';
@@ -16,12 +16,4 @@
 
 .campaign-body {
   img { max-width: 100%; }
-}
-
-.js-sticky-sign-button.stuck {
-  display: block;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  left: 0;
 }

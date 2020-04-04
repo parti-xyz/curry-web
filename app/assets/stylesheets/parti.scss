@@ -10,6 +10,9 @@ body {
   /* font-family: "Noto Sans", "Noto Sans KR", sans-serif; */
 }
 
+/*           */
+/* offcanvas */
+/*           */
 header nav.navbar.fixed-top {
   line-height: 1.0;
 }
@@ -92,3 +95,13 @@ header nav.navbar.fixed-top {
 .lh-100 { line-height: 1; }
 .lh-125 { line-height: 1.25; }
 .lh-150 { line-height: 1.5; }
+
+
+/* stick button */
+.js-sticky-sign-button.stuck {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+}

@@ -10,7 +10,7 @@
           .campaign-body
             = raw @campaign.body
 
-          - if true || @campaign.opened?
+          - if @campaign.opened?
             .alert.alert-warning
               이 캠페인은 #{static_day_f(@campaign.opened_at)}에 시작되었습니다.
 
@@ -18,11 +18,11 @@
           %h3.font-weight-bold 서명
           .card.mb-2.bg-warning
             .card-body
-              - if true || @campaign.opened?
+              - if @campaign.opened?
                 %p
                   현재 #{number_with_delimiter(@campaign.signs.size, delimiter:",")}명이 서명하였습니다.
                   - if !@campaign.signed?(current_user)
-                    - if true || @campaign.has_goal?
+                    - if @campaign.has_goal?
                       #{number_with_delimiter(@campaign.goal_count, delimiter:",")}명
                     서명에 동참해주세요.
               - if @campaign.has_goal?

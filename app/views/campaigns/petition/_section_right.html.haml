@@ -12,8 +12,7 @@
         %span.digit-to-left.seconds __
     - else
       %h4.font-weight-bold.campaign-time-to-left.hidden-xs
-        종료일
-        %br
+        .font-weight-normal 종료일
         .digit-to-left.days= static_day_f(@campaign.closed_at)
   .my-3
     %p

@@ -8,8 +8,6 @@
 //= require bootstrap-autocomplete-input-init
 //= require unobtrusive_flash
 //= require unobtrusive_flash_bootstrap
-//= require imagesloaded.pkgd
-//= require masonry.pkgd
 //= require redactor2_rails/config
 //= require redactor
 //= require redactor2_rails/langs/ko
@@ -33,10 +31,10 @@
 //= require perfect-scrollbar
 //= require jquery.waypoints
 //= require waypoints.debug.js
-//= require sticky
 //= require infinite
 //= require clipboard
 //= require js.cookie
+//= require parti
 
 UnobtrusiveFlash.flashOptions['timeout'] = 3000;
 
@@ -54,13 +52,6 @@ $.is_blank = function (obj) {
 $.is_present = function(obj) {
   return ! $.is_blank(obj);
 }
-
-$(document).imagesLoaded( { }, function() {
-  $('.masonry-container').masonry({
-    // itemSelector: '.masonry-item'
-  });
-  $('select.dropdown').dropdown();
-});
 
 // Kakao Key
 Kakao.init('6a30dead1bff1ef43b7e537f49d2f655');
@@ -318,15 +309,6 @@ $(function(){
 
   $('.js-close-modal').click(function(){
     $($(this).closest('.modal')).modal('hide');
-  });
-
-  // 내 홈 탭
-  $('.js-sticky-sign-button').each(function() {
-    var sticky = new Waypoint.Sticky({
-      element: $('.js-sticky-sign-button')[0],
-      direction: 'up',
-      offset: 'bottom-in-view'
-    })
   });
 
   (function() {
