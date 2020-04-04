@@ -7,95 +7,106 @@
         %section.mt-5
           %h3.font-weight-bold 캠페인 관리
 
-          %ul.nav.nav-tabs.my-4{ role: "tablist" }
-            %li.nav-item{ role: "presentation" }
-              %a.nav-link.active{ href: "#default", role: "tab", data: { toggle: "tab" }} 기본 설정
-
-            - if exist_partial?("campaigns/#{@campaign.template}/form_detail")
+          .py-3
+            %ul.nav.nav-tabs{ role: "tablist" }
               %li.nav-item{ role: "presentation" }
-                %a.nav-link{ href: "#detail", role: "tab", data: { toggle: "tab" }} 상세 설정
+                %a.nav-link.active{ href: "#default", role: "tab", data: { toggle: "tab" }} 기본 설정
 
-            %li.nav-item{ role: "presentation" }
-              %a.nav-link{ href: "#privacy", role: "tab", data: { toggle: "tab" }}
-                %i.fa.fa-user
-                개인 정보 설정
-
-            - if @campaign.orderable?
-              %li.nav-item{ role: "presentation" }
-                = link_to edit_agents_campaign_path(@campaign), class: "nav-link" do
-                  %i.fa.fa-envelope
-                  촉구 대상 설정
+              - if exist_partial?("campaigns/#{@campaign.template}/form_detail")
+                %li.nav-item{ role: "presentation" }
+                  %a.nav-link{ href: "#detail", role: "tab", data: { toggle: "tab" }} 상세 설정
 
               %li.nav-item{ role: "presentation" }
-                %a.nav-link{ href: "#agents", role: "tab", data: { toggle: "tab" }} 촉구 관리
+                %a.nav-link{ href: "#privacy", role: "tab", data: { toggle: "tab" }}
+                  %i.fa.fa-user
+                  개인 정보 설정
 
-            %li.nav-item{ role: "presentation" }
-              %a.nav-link{ href: "#data", role: "tab", data: { toggle: "tab" } }
-                %i.fa.fa-download
-                데이터 내려받기
+              - if @campaign.orderable?
+                %li.nav-item{ role: "presentation" }
+                  = link_to edit_agents_campaign_path(@campaign), class: "nav-link" do
+                    %i.fa.fa-envelope
+                    촉구 대상 설정
 
-            %li.nav-item{ role: "presentation" }
-              %a.nav-link.text-danger{ href: "#finish", role: "tab", data: { toggle: "tab" } }
-                - if @campaign.closed?
-                  캠페인 다시 열기
-                - else
-                  %i.fa.fa-ban
-                  캠페인 종료하기
+                %li.nav-item{ role: "presentation" }
+                  %a.nav-link{ href: "#agents", role: "tab", data: { toggle: "tab" }} 촉구 관리
+
+              %li.nav-item{ role: "presentation" }
+                %a.nav-link{ href: "#data", role: "tab", data: { toggle: "tab" } }
+                  %i.fa.fa-download
+                  데이터 내려받기
+
+              %li.nav-item{ role: "presentation" }
+                %a.nav-link.text-danger{ href: "#finish", role: "tab", data: { toggle: "tab" } }
+                  - if @campaign.closed?
+                    캠페인 다시 열기
+                  - else
+                    %i.fa.fa-ban
+                    캠페인 종료하기
 
           .tab-content
             #default.tab-pane.active{ role: "tabpanel"}
-              = render 'form'
+              .py-3
+                = render 'form'
 
             #detail.tab-pane
-              = form_for @campaign do |f|
-                = render_if_exist_partial "campaigns/#{@campaign.template}/form_detail", f: f
-                .form-group
-                  = f.submit '저장', class: 'btn btn-primary btn-lg btn-block'
+              .py-3
+                = form_for @campaign do |f|
+                  = render_if_exist_partial "campaigns/#{@campaign.template}/form_detail", f: f
+                  .form-group
+                    = f.submit '저장', class: 'btn btn-outline-primary btn-lg btn-block'
 
             #privacy.tab-pane
-              = render 'form_privacy'
+              .py-3
+                = render 'form_privacy'
 
             - if @campaign.orderable?
               #agents.tab-pane
                 = form_for @campaign do |f|
                   = render "campaigns/form_order", f: f
                   .form-group
-                    = f.submit '저장', class: 'btn btn-primary btn-lg btn-block'
+                    = f.submit '저장', class: 'btn btn-outline-primary btn-lg btn-block'
 
             #data.tab-pane
               - if @campaign.signs.any?
-                = link_to data_campaign_path(@campaign, format: :xlsx), class: 'btn btn-primary' do
-                  %i.fa.fa-download
-                  서명 참여 데이터 내려받기
+                .py-3
+                  %h4 서명 데이터
+                  = link_to data_campaign_path(@campaign, format: :xlsx), class: 'btn btn-outline-primary' do
+                    %i.fa.fa-download
+                    서명 참여 데이터 내려받기
 
               - if @campaign.comments.any?
-                = link_to comments_data_campaign_path(@campaign, format: :xlsx), class: 'btn btn-primary' do
-                  %i.fa.fa-download
-                  의견 참여 데이터
+                .py-3
+                  %h4 의견 데이터
+                  = link_to comments_data_campaign_path(@campaign, format: :xlsx), class: 'btn btn-outline-primary' do
+                    %i.fa.fa-download
+                    의견 참여 데이터
 
               - if @campaign.agents.any?
-                = link_to orders_data_campaign_path(@campaign, format: :xlsx), class: 'btn btn-primary' do
+                = link_to orders_data_campaign_path(@campaign, format: :xlsx), class: 'btn btn-outline-primary' do
                   %i.fa.fa-download
                   촉구 참여 데이터
 
             #finish.tab-pane
-              .mb-4
-                %h2 캠페인 삭제
-                %small 캠페인을 완전히 삭제합니다. 이 작업을 되돌릴 수 없습니다.
-              = link_to @campaign, method: :delete, data: { confirm: '삭제하시겠습니까?' }, class: "btn btn-danger" do
-                %i.fa.fa-trash
-                캠페인 삭제
-
               - if @campaign.closed?
-                .mb-4
-                  %h2 #{Campaign.model_name.human} 다시 열기
-                  %small 캠페인을 다시 열고 참여를 받습니다.
-                = link_to open_campaign_path(@campaign), method: :put, class: 'btn btn-danger', data: { disable: '정말 다시 여시겠습니까?' } do
-                  다시 열기
+                .py-3
+                  %h4
+                    #{Campaign.model_name.human} 다시 열기
+                  %p 캠페인을 다시 열고 참여를 받습니다.
+                  = link_to open_campaign_path(@campaign), method: :put, class: 'btn btn-outline-danger', data: { disable: '정말 다시 여시겠습니까?' } do
+                    다시 열기
 
               - else
-                .mb-4
-                  %h2 #{Campaign.model_name.human} 종료
-                  %small 캠페인을 종료하고 더이상 참여를 받지 않습니다.
-                = link_to close_campaign_path(@campaign), method: :put, class: 'btn btn-danger', data: { disable: '정말 종료하시겠습니까?' } do
-                  종료하기
+                .py-3
+                  %h4
+                    #{Campaign.model_name.human} 종료
+                  %p  캠페인을 종료하고 더이상 참여를 받지 않습니다.
+                  = link_to close_campaign_path(@campaign), method: :put, class: 'btn btn-outline-danger', data: { disable: '정말 종료하시겠습니까?' } do
+                    종료하기
+
+              .py-3
+                %h4
+                  캠페인 삭제
+                %p  캠페인을 완전히 삭제합니다. 이 작업을 되돌릴 수 없습니다.
+                = link_to @campaign, method: :delete, data: { confirm: '삭제하시겠습니까?' }, class: "btn btn-outline-danger" do
+                  %i.fa.fa-trash
+                  캠페인 삭제
