@@ -1,5 +1,3 @@
-@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-
 html,
 body {
   overflow-x: hidden; /* Prevent scroll on narrow devices */
@@ -7,7 +5,7 @@ body {
 
 body {
   padding-top: 40px;
-  /* font-family: "Noto Sans", "Noto Sans KR", sans-serif; */
+  font-family: system, -apple-system, BlinkMacSystemFont, Helvetica, "Helvetica Neue", Hiragino Sans, "Apple SD Gothic Neo", "애플 SD 산돌고딕 Neo", Apple SD Gothic Neo, '맑은 고딕', 'Malgun Gothic', '돋움', dotum, Arial, sans-serif;
 }
 
 /*           */
@@ -25,7 +23,7 @@ header nav.navbar.fixed-top {
   padding-right: 1rem;
   padding-left: 1rem;
   overflow-y: auto;
-  background-color: var(--gray-dark);
+  background-color: var(--dark);
   transition: -webkit-transform .05s ease-in-out;
   transition: transform .05s ease-in-out;
   transition: transform .05s ease-in-out, -webkit-transform .05s ease-in-out;

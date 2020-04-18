@@ -49,26 +49,3 @@
   = render 'campaigns/list', campaigns: @campaigns, title_label: raw("모든 캠페인 <small>총 #{Campaign.count}건 중 #{@campaigns.current_page} 페이지</small>")
   .d-flex.justify-content-center
     = paginate @campaigns, params: { :anchor => 'anchor-campaigns-list' }
-
-
-- if current_page?(root_url) && params[:page].nil?
-  %section.mb-5
-    .container
-      .d-flex.justify-content-between
-        %h4
-          국회의원
-          %small= link_to "더 보기", Agency.assembly_20th
-
-
-      .row.row-cols-3.row-cols-sm-4.row-cols-md-6
-        - cache "home-assembly_20th", race_condition_ttl: 30.seconds, expires_in: 1.hours do
-          - Agency.assembly_20th.agents.popular_limit(24).each do |agent|
-            .col.mb-4
-              .card.text-white.bg-dark
-                = link_to agent do
-                  = image_tag agent.image.md, class: "card-img-top", style: "width: 100%; height: 15vw; object-fit: cover;"
-                .card-body
-                  %h5.card-title.mb-0
-                    = agent.name
-                  .card-text
-                    %small= agent.positions.map{ |p| p.name }.join(', ')
