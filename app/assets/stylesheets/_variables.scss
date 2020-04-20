@@ -275,8 +275,8 @@ $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberati
 $font-family-base:            $font-family-sans-serif !default;
 // stylelint-enable value-keyword-case
 
-$font-size-base:              0.875rem !default; // 1rem !default; // Assumes the browser default, typically `16px`
-$font-size-lg:                1rem !default;
+$font-size-base:              1rem !default; // Assumes the browser default, typically `16px`
+$font-size-lg:                1.25rem !default;
 $font-size-sm:                0.75rem !default;
 
 $font-weight-lighter:         lighter !default;
@@ -288,11 +288,11 @@ $font-weight-bolder:          bolder !default;
 $font-weight-base:            $font-weight-normal !default;
 $line-height-base:            1.5 !default;
 
-$h1-font-size:                $font-size-base * 2.5 !default;
-$h2-font-size:                $font-size-base * 2 !default;
-$h3-font-size:                $font-size-base * 1.75 !default;
-$h4-font-size:                $font-size-base * 1.5 !default;
-$h5-font-size:                $font-size-base * 1.25 !default;
+$h1-font-size:                $font-size-base * 2.06 !default;
+$h2-font-size:                $font-size-base * 1.68 !default;
+$h3-font-size:                $font-size-base * 1.32 !default;
+$h4-font-size:                $font-size-base * 1.20 !default;
+$h5-font-size:                $font-size-base !default;
 $h6-font-size:                $font-size-base !default;
 
 $headings-margin-bottom:      $spacer / 2 !default;
@@ -315,7 +315,7 @@ $display-line-height:         $headings-line-height !default;
 $lead-font-size:              $font-size-base * 1.25 !default;
 $lead-font-weight:            300 !default;
 
-$small-font-size:             86% !default;
+$small-font-size:             87.5% !default;
 
 $text-muted:                  $gray-600 !default;
 
