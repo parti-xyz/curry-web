@@ -1,4 +1,5 @@
 # 빠띠 캠페인즈 Campaigns
+![logo](public/favicons/apple-icon-180x180.png)
 
 ## 실환경 구축 방법 (추후 추가)
 
@@ -98,7 +99,7 @@ export GOOGLE_CLIENT_SECRET="xx"
 export FILENAME_ENCODING="ISO-8859-1"
 ```
 
-### 사이드킥을 로컬에서 테스트하려면
+### 사이드킥 로컬 테스트
 
 .powenv에 아래를 추가합니다.
 
@@ -159,7 +160,6 @@ Complaint Notifications SNS Topic: arn:aws:sns:***
 ```
 $ bin/rails organizations:seed
 ```
-
 
 ### 이미지 파일 업로드
 
