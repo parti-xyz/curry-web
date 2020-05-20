@@ -1,16 +1,17 @@
-= render 'campaigns/order_assembly/section_cover'
+= render "cover", menu: "comment"
 
-= render 'campaigns/order_assembly/section_tab', menu: 'comment'
+%section
+  .container
+    .row
+      .col-sm-4.order-sm-2
+        %section.mt-5
+          = render "campaigns/#{@campaign.template}/section_right"
 
-%section.section-panel
-  = render 'campaigns/order_assembly/section_right'
+      .col-sm-8.order-sm-1
+        %section.my-5
+          %h3.font-weight-bold 의견
+          - page_dom_id = build_uid
+          = render 'comments/form_line', commentable: @campaign
+          = render 'comments/page_formal', commentable: @campaign, comments: @campaign.comments.recent.page(1), dom_id: page_dom_id
 
-  %section.section-left
-    %section.section-comments
-      .section-title
-        의견을 공유해 보세요
-      - page_dom_id = build_uid
-      = render 'comments/form_line', commentable: @campaign
-      = render 'comments/page_formal', commentable: @campaign, comments: @campaign.comments.recent.page(1), dom_id: page_dom_id
-
-= render 'campaigns/order_button_sticky', campaign: @campaign
+    = render 'campaigns/order_button_sticky', campaign: @campaign

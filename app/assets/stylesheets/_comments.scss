@@ -7,18 +7,18 @@
     padding-top: $font-size-base*2;
   }
   .comments-form {
-    background: $gray-lightest;
+    background: $gray-100;
     font-size: $font-size-base;
     padding: $font-size-base;
   }
   .comment {
     .comment__user {
-      padding-top: $font-size-small;
+      padding-top: $font-size-sm;
     }
     .comment__meta {
-      color: $gray;
+      color: $dark;
       display:table;
-      font-size: $font-size-small;
+      font-size: $font-size-sm;
       font-weight: normal;
       line-height:20px;
       padding-left: $font-size-base;
@@ -27,22 +27,19 @@
     }
     .comment__action{
       float: right;
-      @media (max-width: $screen-xs-max) {
-        float: left;
-      }
       a{
         margin-right:5px;
         font-size:12px;
-        color:$gray;
+        color:$dark;
         &:hover{
-          color:$gray-darker;
+          color:$gray-800;
         }
       }
     }
     .comment__body {
-      background: $gray-lightest;
-      border-radius: $font-size-small;
-      color: $gray-darker;
+      background: $gray-100;
+      border-radius: $font-size-sm;
+      color: $gray-800;
       font-size: $font-size-base;
       font-weight: normal;
       line-height: $line-height-base;
@@ -50,7 +47,7 @@
       padding: $font-size-base*0.5 $font-size-base;
 
       &.has_target {
-        background: $gray-light;
+        background: $gray-200;
       }
 
       h1, h2, h3, h4, h5 {
@@ -67,50 +64,46 @@
     .comment__choice {
       margin-bottom: 6px;
       display: inline-block;
-      border: 1px solid $gray;
-      border-radius: $font-size-small;
-      font-size: $font-size-small;
+      border: 1px solid $dark;
+      border-radius: $font-size-sm;
+      font-size: $font-size-sm;
       padding: 2px 4px;
       &.agree {
-        color: $brand-success;
-        border-color: $brand-success;
+        color: $success;
+        border-color: $success;
       }
       &.disagree {
-        color: $brand-danger;
-        border-color: $brand-danger;
+        color: $danger;
+        border-color: $danger;
       }
     }
     .comment__user-nm{
       margin-right: $font-size-base;
-      @media (max-width: $screen-sm-min) {
-        margin:0px 2px 0px 0px !important;
-        color:$brand-primary;
-      }
     }
     .comment__date {
       margin-right: $font-size-base;
     }
     .comment__to-agent{
-      color: $brand-primary;
-      font-size: $font-size-small;
+      color: $primary;
+      font-size: $font-size-sm;
       font-weight: bold;
     }
   }
 }
 .btn-comment{
-  background-color:$brand-primary-dark;
+  background-color:$primary;
   color:white;
   font-size: $font-size-base;
   width:100%;
   &:hover{
-    background-color:$brand-primary;
+    background-color:$primary;
     color:white;
   }
 }
 .comment.comment-toxic {
   .comment__body::before {
-    color: $gray-base;
-    background-color: $brand-danger;
+    color: $dark;
+    background-color: $danger;
     content: '의견 감사합니다. 면밀히 검토하겠습니다.';
     padding: 2px 4px;
   }
@@ -148,14 +141,14 @@
     }
     .comment-box {
       margin-bottom: 8px;
-      border: 1px solid $gray-lighter;
+      border: 1px solid $gray-200;
       background-color: #fafafa;
       height: 68px;
     }
     .comment-submit-btn {
       font-size: 12px;
       padding: 8px 16px;
-      background-color: $gray-caption;
+      background-color: $gray-200;
       border-radius: 2px;
       width: 55px;
       height: 32px;
@@ -165,9 +158,9 @@
     }
   }
   .comment {
-    border-top: 1px dashed $gray-lighter;
+    border-top: 1px dashed $gray-200;
     &:last-child {
-      border-bottom: 1px dashed $gray-lighter;
+      border-bottom: 1px dashed $gray-200;
       margin-bottom: 8px;
     }
     padding: 16px 0;
@@ -180,15 +173,13 @@
       position: absolute;
       right: 0;
       a {
-        @extend .typo-mini;
-        color: $gray-caption;
+        color: $gray-200;
       }
       a:hover {
         cursor: pointer;
       }
       .reported {
-        color: $gray-menu;
-        @extend .typo-mini;
+        color: $dark;
       }
     }
     .comment-line {
@@ -207,27 +198,25 @@
               margin-left: 8px;
               font-weight: normal;
               padding: 0 4px;
-              @extend .typo-mini;
               line-height: 16px;
               color: white;
-              background-color: $brand-primary-less-right;
+              background-color: $primary;
             }
           }
           .sign-info {
-            @extend .typo-mini;
-            color: $color-brand-primary;
+            color: $primary;
             .date {
               display: inline;
               margin-left: 4px;
-              color: $gray-menu;
+              color: $dark;
               vertical-align: middle;
             }
           }
           .comment-readers {
             margin-left: 6px;
-            color: $gray-caption;
+            color: $gray-200;
             &.any_read {
-              color: $brand-primary;
+              color: $primary;
             }
           }
         }
@@ -235,7 +224,7 @@
           font-size: 14px;
           margin-top: 8px;
           letter-spacing: -0.4px;
-          color: $gray-title;
+          color: $dark;
           p {
             word-break: break-all;
           }
@@ -248,11 +237,11 @@
           }
           .liked {
             display: inline;
-            color: $color-brand-primary;
+            color: $primary;
           }
           .not-yet-liked {
             display: inline;
-            color: $gray-caption;
+            color: $gray-200;
           }
         }
       }
@@ -263,10 +252,9 @@
     padding: 16px 0;
     $filter-height: 34px;
     .filter-select-agent {
-      @extend .typo-body3;
-      color: $gray-caption;
+      color: $gray-200;
       background-color: white;
-      border: 1px solid $gray-lighter;
+      border: 1px solid $gray-200;
       height: $filter-height;
       width: 140px;
       border-radius: 2px;
@@ -281,16 +269,15 @@
       margin-top: 4px;
       display: flex;
       justify-content: space-between;
-      color: $gray-caption;
-      @extend .typo-body3;
+      color: $gray-200;
       line-height: $filter-height;
       .filters-right {
         display: flex;
         a {
-          color: $gray-caption;
+          color: $gray-200;
         }
         .active {
-          color:  $gray-title;
+          color:  $dark;
           font-weight: 500;
         }
         .filter {
@@ -300,8 +287,7 @@
       }
       a.my-comment,
       a.all-comment {
-        color: $gray-caption;
-        @extend .typo-body3;
+        color: $gray-200;
         text-decoration: underline;
       }
       a.all-comment {

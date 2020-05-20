@@ -1,9 +1,10 @@
-.comment.comment-form
+.comment.comment-form.mb-3
   .comment-line
-    .commenter-image{ style: "background-image:url(#{asset_url(user_signed_in? ? current_user.image.xs.url : 'default-user.png')});" }
-    .comment-right
-      = link_to '', new_comment_path(commentable_type: 'Campaign', commentable_id: commentable.id), remote: true, class: 'comment-box'
-      .comment-control
-        .comment-extra
-          = local_assigns[:extra]
-      = link_to '등록', new_comment_path(commentable_type: 'Campaign', commentable_id: commentable.id), remote: true, class: 'comment-submit-btn'
+    = link_to new_comment_path(commentable_type: 'Campaign', commentable_id: commentable.id), remote: true do
+      .border.bg-white{ style: "height: 4rem;" }
+
+    .comment-control
+      .comment-extra
+        = local_assigns[:extra]
+    .text-right
+      = link_to '등록', new_comment_path(commentable_type: 'Campaign', commentable_id: commentable.id), remote: true, class: 'mt-2 btn btn-sm btn-outline-primary'

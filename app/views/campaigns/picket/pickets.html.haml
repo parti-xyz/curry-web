@@ -1,42 +1,32 @@
 - if params[:page].present? and params[:page].to_i > 1
   = render 'campaigns/picket/pickets', template: @campaign.template, pickets: @pickets
 - else
-  = render 'campaigns/picket/section_cover'
-
-  = render 'campaigns/picket/section_tab', menu: 'picket'
+  = render 'cover', menu: "content"
 
   - if @campaign.template == 'map'
     = render 'campaigns/picket/section_map'
 
-  - if @campaign.comments.tag_counts_on(:tags).any?
-    %section.section-picket-tags
-      .container
-        .picket-tags.clearfix.js-tags-read-more{ style: 'height: 38px; overflow: hidden' }
-          .more.cursor-pointer.collapse.js-tags-read-more-button{ style: 'float: right; line-height: 34px; margin-left: 28px;' }
-            더 보기
-          .origin.js-tags-read-more-origin
+  %section.mt-5
+    - if @campaign.comments.tag_counts_on(:tags).any?
+      %section.section-picket-tags.my-5
+        .container
+          .text-center
             - @campaign.comments.tag_counts_on(:tags).order("count desc, name").each do |tag|
-              = link_to pickets_campaign_path(@campaign, {tag: tag.name}) do
-                .picket-tag{ class: ( params[:tag] == tag.name ? "selected" : "" ) }
-                  = tag.name
-                  %small
-                    = tag.count
+              = link_to pickets_campaign_path(@campaign, {tag: tag.name}), class: ( params[:tag] == tag.name ? "mb-2 btn btn-sm btn-primary" : "mb-2 btn btn-sm btn-outline-secondary" ) do
+                = tag.name
+                %small
+                  = tag.count
 
-  %section.section-pickets
-    - if @pickets.count == 0
-      .waiting-pickets
-        = image_tag('no-comment.png')
-        %p.lead 등록된 팻말이 없습니다. 첫번 째로 팻말을 들어주세요.
-        = link_to '팻말들기', picket_form_campaign_path(@campaign), class: 'btn btn-warning btn-large', remote: true
 
-    - else
-      .container-picket
-        .campaign-pickets-info
-          = link_to pickets_campaign_path(@campaign), class: 'packet-count-all' do
-            전체 팻말(#{@campaign.comments.count})
-          - if user_signed_in?
-            = link_to pickets_campaign_path(@campaign, pickets_user_id: current_user), class: 'packet-count-user' do
-              내 팻말(#{@campaign.comments.where(user: current_user).count})
-        = render 'campaigns/picket/pickets', template: @campaign.template, pickets: @pickets
+    %section.section-pickets.my-5
+      - if @pickets.count == 0
+        .container
+          .waiting-pickets.text-center
+            = image_tag('no-comment.png')
+            %p.lead 등록된 팻말이 없습니다. 첫번 째로 팻말을 들어주세요.
 
-= render 'campaigns/picket/picket_button'
+      - else
+        .container-picket
+          = render 'campaigns/picket/pickets', template: @campaign.template, pickets: @pickets
+
+  = render 'campaigns/picket/picket_button'

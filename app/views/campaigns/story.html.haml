@@ -1,66 +1,26 @@
 - campaign = @story.storiable
-= render "campaigns/#{campaign.template}/section_cover"
-= render "campaigns/#{campaign.template}/section_tab", menu: 'story'
+= render "cover", menu: 'story'
 
-%section.section-panel
-  = render "campaigns/#{campaign.template}/section_right"
+%section
+  .container
+    .row
+      .col-sm-4.order-sm-2
+        %section.mt-5
+          = render "campaigns/#{campaign.template}/section_right"
 
+      .col-sm-8.order-sm-1
+        %section.my-5
+          %h3.font-weight-bold 소식
 
-  %section.section-left
-    %section.section-story
-      .section-title-back
-        = link_to stories_campaign_path do
-          %span.title-text
-            %i.fa.fa-angle-left
-            &nbsp;
-            캠페인 소식을 만나 보세요!
-
-      .stories
-        .story
-          .story-header
-            .user-image-sm{ style: "background-image:url(#{asset_url(campaign.user.image.md.url)});" }
-            .user-nickname= campaign.user.nickname
-            .date= date_f @story.published_at
-          = link_to story_campaign_path(story_id: @story.id) do
-            .story-title= @story.title
-            .story-body
-              != @story.body
-          .story-footer
-            = render 'likes/button', likable: @story
-            / - if @story.comment_enabled
-            /   &nbsp;
-            /   = link_to @story, class: 'comments-count' do
-            /     %i.fa.fa-comment-o
-            /     댓글
-            /     = @story.comments_count
-    / .panel.panel-default.panel-post
-    /   .panel-heading
-    /     %h2= @story.title
-    /     %p
-    /       %span.panel-post__user
-    /         = link_to @story.user.nickname
-    /       %span.panel-post__date
-    /         = date_f @story.published_at
-    /       - if can? :edit, @story
-    /         = link_to '수정', edit_story_path(@story)
-    /       - if can? :destroy, @story
-    /         = link_to '삭제', @story, method: :delete, data: { confirm: '삭제하시겠습니까?' }
-    /       %span 조회 #{@story.views_count}
-
-    /     .text-center
-    /       .share-box{ 'data-share-image': image_url('seo.png') }
-
-    /   .panel-body
-    /     .panel-post__body
-    /       = raw @story.body
-
-    /     .panel-post__like.text-center
-    /       = render 'likes/button', likable: @story
-
-    /   - if @story.comment_enabled?
-    /     .panel-body
-    /       .panel-post__comments
-    /         = render 'comments/list', commentable: @story
-
-- if @project
-  = render 'projects/post_footer', project: @project
+          .stories
+            .bg-light.p-3
+              .mb-3.text-muted
+                .d-flex.justify-content-between
+                  %span
+                    = campaign.user.nickname
+                    = date_f @story.published_at
+                  = render 'likes/button', likable: @story
+              .my-3
+                %h5= @story.title
+                .story-body
+                  = raw @story.body

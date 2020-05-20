@@ -1,83 +1,21 @@
-= render 'campaigns/order_assembly/section_cover'
+= render "cover", menu: "order"
 
-= render 'campaigns/order_assembly/section_tab', menu: 'order'
+%section
+  .container
+    .row
+      .col-sm-4.order-sm-2
+        %section.mt-5
+          = render "campaigns/#{@campaign.template}/section_right"
 
-%section.section-panel
-  = render 'campaigns/order_assembly/section_right'
+      .col-sm-8.order-sm-1
+        %section.my-5
+          %h3.font-weight-bold
+            - if @campaign.closed?
+              "#{@campaign.title}"의 국회의원 응답 현황입니다.
+            - else
+              국회의원에게 촉구해 보세요.
 
-  %section.section-left
-    %section.section-orders.section-orders-tab.section-orders-tab-special-agenda
-      .orders-tab-title
-        - if @campaign.closed?
-          국회의원에게 보낸 "#{@campaign.title}"의 응답 현황입니다.
-        - else
-          국회의원에게 "#{@campaign.title}"을(를) 촉구해주세요.
+          = render 'campaigns/order_dashboard', campaign: @campaign
+          = render 'campaigns/agents_with_statement', campaign: @campaign
 
-      .orders-tab-title-h5 촉구 응답 현황
-      = render 'campaigns/order_dashboard', campaign: @campaign
-
-      .orders-tab-title-h5 정당별 촉구 응답 현황
-      - agency = Agency.assembly_20th
-      - party_slug_map = { '자유한국당': 'jayu', '더불어민주당': 'minju', '무소속': 'mu', '바른미래당': 'bareun', '민주평화당': 'minjupeace', '정의당': 'jeongeu', '민중당': 'minjung', '우리공화당': 'our' }
-      - party_slug_map.keys.shuffle.each do |party_name|
-        - cache "campaign-orders-#{party_slug_map[party_name]}-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 1.hours do
-          - party_all_agent_count = agency.agents.where(organization: party_name).count
-          .orders-party
-            .order-parti-header
-              = image_tag "assembly/#{party_slug_map[party_name]}.png", class: 'order-party-logo'
-              %span.order-party-all-agent-count
-                %small 의석수
-                %span.number= party_all_agent_count
-            .order-party-vs
-              - if @campaign.stancable?
-
-                - party_agree_agents_count = @campaign.agree_agents.where(organization: party_name).count
-                - party_disagree_agents_count = @campaign.disagree_agents.where(organization: party_name).count
-                - party_unsure_agents_count = party_all_agent_count - party_agree_agents_count - party_disagree_agents_count
-
-                .order-party-cell.assembly-party.agree{ class: ('order-party-cell-zero' if party_agree_agents_count <= 0)}
-                  .cell-header
-                    .title 찬성
-                    .count= party_agree_agents_count
-                  .cell-body
-                    - @campaign.agree_agents.where(organization: party_name).order(name: :asc).each do |agent|
-                      = render 'campaigns/order_assembly/agent_with_statement', agent: agent, campaign: @campaign
-
-                .order-party-cell.assembly-party.disagree{ class: ('order-party-cell-zero' if party_disagree_agents_count <= 0)}
-                  .cell-header
-                    .title 반대
-                    .count= party_disagree_agents_count
-                  .cell-body
-                    - @campaign.disagree_agents.where(organization: party_name).order(name: :asc).each do |agent|
-                      = render 'campaigns/order_assembly/agent_with_statement', agent: agent, campaign: @campaign
-
-                .order-party-cell.assembly-party.unsure{ class: ('order-party-cell-zero' if party_unsure_agents_count <= 0)}
-                  .cell-header
-                    .title 무응답
-                    .count= party_unsure_agents_count
-                  .cell-body
-                    - @campaign.unsure_agents.where(organization: party_name).order(name: :asc).each do |agent|
-                      = render 'campaigns/order_assembly/agent_with_statement', agent: agent, campaign: @campaign
-
-              - else
-
-                - party_any_body_agents_count = @campaign.any_body_agents.where(organization: party_name).count
-                - party_blank_body_agents_count = party_all_agent_count - party_any_body_agents_count
-
-                .order-party-cell.assembly-party.any-body{ class: ('order-party-cell-zero' if party_any_body_agents_count <= 0)}
-                  .cell-header
-                    .title 응답
-                    .count= party_any_body_agents_count
-                  .cell-body
-                    - @campaign.any_body_agents.where(organization: party_name).order(name: :asc).each do |agent|
-                      = render 'campaigns/order_assembly/agent_with_statement', agent: agent, campaign: @campaign
-
-                .order-party-cell.assembly-party.blank-body{ class: ('order-party-cell-zero' if party_blank_body_agents_count <= 0)}
-                  .cell-header
-                    .title 무응답
-                    .count= party_blank_body_agents_count
-                  .cell-body
-                    - @campaign.blank_body_agents.where(organization: party_name).order(name: :asc).each do |agent|
-                      = render 'campaigns/order_assembly/agent_with_statement', agent: agent, campaign: @campaign
-
-= render 'campaigns/order_button_sticky', campaign: @campaign
+    = render 'campaigns/order_button_sticky', campaign: @campaign

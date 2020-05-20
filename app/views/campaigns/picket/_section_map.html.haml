@@ -3,10 +3,9 @@
   / %section.section-right
   /   .picket-map-more
 
-  %section.picket-map
+  %section.picket-map.vw-100.vh-100
     #map{ style: 'width: 100%; height: 100%' }
     %script{:src => "https://maps.googleapis.com/maps/api/js?key=#{google_map_apikey}"}
-
 
 = content_for :script do
   :javascript

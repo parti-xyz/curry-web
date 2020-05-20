@@ -23,23 +23,23 @@
 
 .sign-panel {
   .progress {
-    background-color: $gray-light;
+    background-color: $dark;
   }
   .progress-bar {
-    background-color: $brand-sub;
+    background-color: $primary;
     color: white;
     font-weight: bold;
     max-width: 100%;
   }
   .sign-panel__users {
-    font-size: $font-size-small;
+    font-size: $font-size-sm;
     line-height: 1.5;
   }
   .sign-panel__status__count {
-    color: $gray-base;
+    color: $dark;
     font-size: $font-size-base;
     span {
-      color: $brand-sub;
+      color: $primary;
       font-weight: bold;
     }
   }
@@ -69,16 +69,16 @@
   text-align: center;
   .petition-users-count-label {
     padding: $font-size-base;
-    color: $brand-primary-dark;
-    background-color: $gray-light;
+    color: $primary;
+    background-color: $dark;
     display: inline-block;
     font-size: 16px;
-    margin: 15px;
+    margin: $primary;
     font-weight: 500;
   }
   .petition-join-btn {
     display: inline-block;
-    background-color: $brand-sub;
+    background-color: $primary;
     color: white;
     padding: $font-size-base;
     font-size: 16px;
@@ -91,11 +91,11 @@ section#petitions-in-project {
   h4 {
     font-size: 18px;
     font-weight: 600;
-    color: $gray-dark;
+    color: $dark;
     small {
       a {
         font-size: 12px;
-        color: $gray;
+        color: $dark;
       }
     }
   }
@@ -105,24 +105,18 @@ section#petitions-in-project {
     background-repeat: no-repeat;
     background-color: #f5f5f5;
     padding: $font-size-base 0;
-    &.petition--cover-image {
-      @include texture-darken;
-    }
     .content {
       position: relative;
     }
     .petition-title {
       margin-top: 0;
       margin-bottom: 20px;
-      @media (max-width: $screen-xs-max) {
-        text-align: center;
-      }
     }
     .petition-body {
       max-height: 4em;
     }
     >a {
-      color: $text-color;
+      color: $dark;
     }
     &.petition--cover-image>a {
       color: #fff;

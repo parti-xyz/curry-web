@@ -1,83 +1,19 @@
-@import 'variables';
-@import 'bootstrap-sprockets';
-@import 'bootstrap';
+@import 'bootstrap/functions';
+@import "variables";
+@import "bootstrap";
 @import 'select2';
 @import 'select2-bootstrap';
 @import 'magnific-popup';
 @import 'jquery.webui-popover';
 @import 'slick';
 @import 'slick-theme';
-
-@import 'base';
-@import 'govcraft-fontawsome';
+@import 'parti';
 
 /* components */
 @import 'redactor';
 @import 'alignment'; // redactor plugin
 @import 'jssocials';
-@import 'components';
 
-/* panels */
-@import 'home';
-@import 'about';
-@import 'projects';
-@import 'users';
-@import 'posts';
-@import 'actions';
-@import 'petitions';
-@import 'sympathies';
-@import 'polls';
-@import 'surveys';
-@import 'discussions';
-@import 'wikis';
-@import 'timelines';
-@import 'archives';
-@import 'memorials';
-@import 'events';
-@import 'comments';
-@import 'articles';
-@import 'agendas';
-@import 'player';
-@import 'votes';
-@import 'notes';
-@import 'form';
-@import 'agent';
-@import 'townhalls';
-@import 'issues';
-@import 'stories';
-@import 'campaigns';
-@import 'header';
-
-/* projects */
-@import 'projects/rebootkorea';
-
-body {
-  background: #f8f8fa;
-}
-
-// Bootstrap Container Fluid for xs, sm
-@media (min-width: $screen-sm-min) {
-  .container-fluid:not(.container-fluid-always) {
-    width: $container-sm;
-  }
-}
-@media (min-width: $screen-md-min) {
-  .container-fluid:not(.container-fluid-always) {
-    width: $container-md;
-  }
-}
-@media (min-width: $screen-lg-min) {
-  .container-fluid:not(.container-fluid-always) {
-    width: $container-lg;
-  }
-}
-
-.webui-popover {
-  border-radius: 2px;
-}
-
-.js-infinite-container.infinite-loading:after {
-  content: '로딩 중...';
-  text-align: center;
-  display: block;
+.campaign-body {
+  img { max-width: 100%; }
 }

@@ -10,7 +10,7 @@ class CampaignsController < ApplicationController
     @campaigns = Campaign.published.recent
     @current_organization = fetch_organization_from_request
     @campaigns = @campaigns.by_organization(@current_organization) if @current_organization.present?
-    @campaigns = @campaigns.page(params[:page]).per(20)
+    @campaigns = @campaigns.page(params[:page]).per(21)
   end
 
   def show
@@ -43,7 +43,7 @@ class CampaignsController < ApplicationController
 
   def new
     if params[:template].blank? or not @campaign.is_valid_template(params[:template])
-      return render 'new_no_template' 
+      return render 'new_no_template'
     end
 
     @project = Project.find(params[:project_id]) if params[:project_id].present?
@@ -56,7 +56,7 @@ class CampaignsController < ApplicationController
     if @campaign.special_slug.present?
       Special.build_campaign @campaign
     end
-    
+
     if params[:action_assignable_id].present? and params[:action_assignable_type].present?
       action_assignable_model = params[:action_assignable_type].classify.safe_constantize
       render_404 and return if action_assignable_model.blank?

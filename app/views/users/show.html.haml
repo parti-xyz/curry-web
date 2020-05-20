@@ -1,18 +1,14 @@
-%section.page-block.profile-header
-  .container-fluid
-    .media
-      .media-left
-        = image_tag @user.image.md.url, width: '150px', class: 'media-object'
-      .media-body
-        %h3
+%section.py-5.m-0.bg-primary.text-white
+  .container
+    .d-flex.align-items-center
+      = image_tag @user.image.lg.url, class: 'rounded-circle mr-4', style: "width: 120px";
+      %div
+        %h2
           = @user.nickname
         - if current_user == @user
           %p= link_to '수정', edit_user_registration_path, style: 'color: white'
         %p.lead= @user.description
 
-%section.page-block
-  .container-fluid
-    %h3
-      #{Campaign.model_name.human}
-    .row
-      = render @user.campaigns.order("id desc")
+%section.py-5
+  .container
+    = render 'campaigns/list', campaigns: @user.campaigns.order("id desc"), title_label: Campaign.model_name.human

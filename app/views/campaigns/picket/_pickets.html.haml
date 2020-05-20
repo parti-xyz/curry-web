@@ -1,97 +1,60 @@
-- if template == "basic"
-  .campaign-pickets
-    .masonry-container.js-infinite-container
-      - pickets.each do |picket|
-        .campaign-picket.campaign-picket-basic.masonry-item.infinite-item[picket]
-          .control-btn
-            - if picket.user.present? and picket.user == current_user
-              = link_to "삭제", comment_path(picket), method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
-            - else
-              = render 'reports/button', reportable: picket
-          .user
-            .user-image-sm{ style: "background-image:url(#{asset_url(picket.user_image)});" }
-            .user-name.js-popover{ "data-placement": "top", "data-trigger": "hover", "data-content": "#{picket.user_nickname}" }
-              - if picket.user_nickname.length > 10
-                = "#{picket.user_nickname[0..14]}..."
-              - else
-                = picket.user_nickname
-            .picket-date
-              = date_f picket.created_at
-          .picket-message
-            = excerpt picket.body
-          = link_to '더보기', picket_campaign_path(@campaign, picket_id: picket), class: 'more phone-unfold'
-          = link_to '더보기', picket_campaign_path(@campaign, picket_id: picket), remote: true, class: 'more phone-fold'
-          %ul.picket-footer
-            %li= render 'likes/button', likable: picket
-            %li
-              %i.fa.fa-comment
-              = picket.comments.count
-  - unless pickets.per(9).last_page?
-    = link_to '', pickets_campaign_path(@campaign, page: pickets.next_page), class: 'infinite-more-link'
+.campaign-pickets.container
+  .row.js-infinite-container.masonry-container
+    - pickets.each do |picket|
+      .col-6.col-md-3.mb-4.masonry-item.infinite-item[picket]
+        - unless picket.image.file.nil?
+          .card.bg-dark.text-white
+            = image_tag picket.image.md, class: "card-img"
+            .card-body
+              %div
+                %span.user.font-weight-bold
+                  - if picket.user_nickname.length > 10
+                    = "#{picket.user_nickname[0..14]}..."
+                  - else
+                    = picket.user_nickname
+                %small.picket-date
+                  = date_f picket.created_at
 
-- elsif template == "photo" or template == "map"
-  .campaign-pickets
-    .masonry-container.js-infinite-container
-      - pickets.each do |picket|
-        .masonry-item.campaign-picket-photo.infinite-item[picket]
-          = link_to picket_campaign_path(@campaign, picket_id: picket), remote: true, style: 'display: inline-block; width: 100%' do
-            %section.section-campaign-picket-photo
-              .picket-info
-                .user
-                  .user-image-sm{ style: "background-image:url(#{asset_url(picket.user_image)});" }
-                  .user-name.js-popover{ "data-placement": "top", "data-trigger": "hover", "data-content": "#{picket.user_nickname}" }
-                    - if picket.user_nickname.length > 10
-                      = "#{picket.user_nickname[0..14]}..."
-                    - else
-                      = picket.user_nickname
-                  .picket-date
-                    = date_f picket.created_at
-                .picket-message
-                  = excerpt picket.body
-              .cover-image{ style: "background-color: #777;" }
-                - uid_header_bg = build_uid
-                - uid_alpha_linear = build_uid
-                - uid_mask = build_uid
-                .overlay{ style: 'position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.1);' }
-                %svg{height: "100%", width: "100%", preserveAspectRatio: "xMidYMid slice", version: "1.1", xmlns: "http://www.w3.org/2000/svg"}
-                  %defs
-                    %lineargradient{ id: uid_alpha_linear, x0: "10%", x1: "90%", y1: "0%", y2: "100%" }
-                      %stop{:offset => "0%", "stop-color" => "#ffffff", "stop-opacity" => "1"}
-                      %stop{:offset => "70%", "stop-color" => "#aaaaaa", "stop-opacity" => "0.7"}
-                    %mask{ id: uid_mask }
-                      %rect{:fill => "url(##{uid_alpha_linear})", :height => "100%", :width => "100%", :x => "0", :y => "0"}
-                  %filter{ id: uid_header_bg }
-                    %fegaussianblur{in: "SourceGraphic", stdDeviation: "0.5"}
-                  %image{externalResourcesRequired: "true", height: "100%", width: "100%", preserveAspectRatio: "xMidYMid slice", style: "filter:url(##{uid_header_bg})", mask: "url(##{uid_mask})", x: "0", y: "0", "xlink:href": (picket.image.md.url.present? ? picket.image.md.url : asset_url("default-image.png")), "xmlns:xlink": "http://www.w3.org/1999/xlink"}
-            %ul.picket-footer
-              %li
-                = render 'likes/button', likable: picket, no_link: true
-              %li
-                %i.fa.fa-comment
-                = picket.comments.count
-  - unless pickets.last_page?
-    = link_to '', pickets_campaign_path(@campaign, page: pickets.next_page), class: 'infinite-more-link'
+              .picket-message.my-2
+                = excerpt picket.body
 
-- else
-  .campaign-pickets
-    .masonry-container.js-infinite-container
-      - pickets.each do |picket|
-        .campaign-picket.masonry-item.infinite-item[picket]
-          .control-btn
-            = render 'reports/button', reportable: picket
-          .user
-            .user-image-sm{ style: "background-image:url(#{asset_url(picket.user_image)});" }
-            .user-name
-              = picket.user_nickname
-            .picket-date
-              = date_f picket.created_at
-          .picket-message
-            = excerpt picket.body
-          .more 더보기
-          %ul.picket-footer
-            = render 'likes/button', likable: picket
-            %li
-              %i.fa.fa-comment
-              = picket.comments.count
-  - unless pickets.per(9).last_page?
-    = link_to '', pickets_campaign_path(@campaign, page: pickets.next_page), class: 'infinite-more-link'
+              .d-flex.justify-content-between
+                %small= render 'likes/button', likable: picket
+                %small.control-btn
+                  - if picket.user.present? and picket.user == current_user
+                    = link_to "삭제", comment_path(picket), method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
+                  - else
+                    = render 'reports/button', reportable: picket
+        - else
+          - themes = ["", "", "", "bg-dark text-white", "bg-light text-dark"]
+          .card{ class: themes[rand(themes.count)] }
+            .card-body
+              .user.font-weight-bold
+                .user-name
+                  - if picket.user_nickname.length > 10
+                    = "#{picket.user_nickname[0..14]}..."
+                  - else
+                    = picket.user_nickname
+
+              .picket-message.my-2
+                = excerpt picket.body
+                %div
+                  %small= link_to '더 보기 >', picket_campaign_path(@campaign, picket_id: picket), remote: true, class: 'more'
+
+              .d-flex.justify-content-between
+                %small.picket-date
+                  = date_f picket.created_at
+                %small.control-btn
+                  - if picket.user.present? and picket.user == current_user
+                    = link_to "삭제", comment_path(picket), method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
+                  - else
+                    = render 'reports/button', reportable: picket
+            .card-footer
+              .d-flex.justify-content-between
+                %small= render 'likes/button', likable: picket
+
+- unless pickets.last_page?
+  = link_to '', pickets_campaign_path(@campaign, page: pickets.next_page), class: 'infinite-more-link'
+
+:css
+  #{@campaign.css}

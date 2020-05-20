@@ -34,8 +34,8 @@
   .modal-dialog{ role: 'document' }
     .modal-content
       .modal-header
+        %h5.modal-title 팻말 등록하기
         %button.close{ 'aria-label' => 'Close', 'data-dismiss' => 'modal', type: 'button' }
           %span{ 'aria-hidden' => 'true'} &#215;
-        %h4.modal-title 팻말 등록하기
       .modal-body
         = picket_form_block

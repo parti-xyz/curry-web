@@ -1,87 +1,51 @@
-= render 'campaigns/order/section_cover'
-= render 'campaigns/order/section_tab', menu: 'content'
+%section
+  .container
+    .row
+      .col-sm-4.order-sm-2
+        %section.mt-5
+          = render "campaigns/#{@campaign.template}/section_right"
 
-%section.section-panel
-  = render 'campaigns/order/section_right'
+      .col-sm-8.order-sm-1
+        .campaign-body.my-5
+          = raw @campaign.body
 
-  %section.section-left
-    %section.section-body
-      .section-title
-        캠페인 소개
-      .campaign-body
-        = raw @campaign.body
+          - if true || @campaign.opened?
+            .alert.alert-warning
+              이 캠페인은 #{static_day_f(@campaign.opened_at)}에 시작되었습니다.
 
-      - if @campaign.opened?
-        .campaign-body-info
-          이 캠페인은 #{static_day_f(@campaign.opened_at)}에 시작되었습니다.
-          - if @campaign.issue.present?
-            %br
-            이슈
-            %span.issue= @campaign.issue.title
+        - if @campaign.agents.any?
+          %section.my-5
+            %h3.font-weight-bold 촉구하기
 
-    - if @campaign.agents.any?
-      %hr
-      %section.section-orders.section-orders-tab
-        .section-title
-          캠페인 촉구
+            - if @campaign.opened?
+              - cache "campaign-orders-show-dashbord-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 1.hours do
+                .alert.alert-primary.mb-1
+                  지금
+                  = link_to [:new_comment_agent, @campaign], class: 'underline' do
+                    #{@campaign.agents.first.name}
+                    - if @campaign.agents.count > 1
+                      외 #{@campaign.agents.count - 1}
+                  에게 촉구해 보세요.
 
-        - if @campaign.opened?
-          .order-title
-            지금
-            = link_to [:new_comment_agent, @campaign], class: 'underline' do
-              #{@campaign.agents.first.name}
-              - if @campaign.agents.count > 1
-                외 #{@campaign.agents.count - 1}
-            에 촉구해 주세요
+                  - order_users_with_name = @campaign.comments.joins(:orders).where.not(commenter_name: nil).order("comment_id desc").limit(3)
+                  - if order_users_with_name.any?
+                    #{order_users_with_name.first.commenter_name}님
+                    - if @campaign.order_users_count >=1
+                      외 #{@campaign.order_users_count - 1}분이
+                    참여하였습니다.
+                  - elsif @campaign.order_users_count >= 1
+                    시민 #{@campaign.order_users_count}분이 참여하였습니다.
+                  - else
+                    지금 바로 촉구에 참여해 보세요.
 
-          .order-info
-            - order_users_with_name = @campaign.comments.joins(:orders).where.not(commenter_name: nil).order("comment_id desc").limit(3)
-            - if order_users_with_name.any?
-              #{order_users_with_name.first.commenter_name}님
-              - if @campaign.order_users_count >=1
-                외 #{@campaign.order_users_count - 1}분이
-              촉구에 참여중입니다.
-            - elsif @campaign.order_users_count >= 1
-              시민 #{@campaign.order_users_count}분이 참여하고 있습니다.
-            - else
-              지금 바로 촉구하여 참여해보세요.
+            - cache "campaign-orders-show-status-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 1.hours do
+              = render 'campaigns/order_dashboard', campaign: @campaign
+              = render 'campaigns/agents_with_statement', campaign: @campaign
 
-          .order-users
-            - order_users_with_image = User.where(id: @campaign.comments.where.not(user_id: nil).uniq.pluck(:user_id)).limit(3)
-            - if order_users_with_image.any?
-              .user-images
-                - order_users_with_image.reverse.each do |user|
-                  .user-image-sm.overlapped{ style: "background-image:url(#{asset_url(user.image.md.url)});" }
-            -if @campaign.order_users_count > 3
-              .more +
-              .count= @campaign.order_users_count - 3
+        %section.my-5
+          %h3.font-weight-bold 의견
+          = render 'comments/form_line', commentable: @campaign
+          = render 'comments/page_formal', commentable: @campaign, comments: @campaign.comments.recent.page(1), finite: true
+          .p-3= link_to '더 보기 > ', comments_campaign_path(@campaign)
 
-
-        .orders-tab-title-h5 촉구 응답 현황
-        = render 'campaigns/order_dashboard', campaign: @campaign
-
-        = render 'campaigns/agents_with_statement', campaign: @campaign, responded_agents_only: true
-        - if @campaign.closed?
-          .more.more-left
-            = link_to '자세히 보기...', orders_campaign_path(@campaign)
-
-        - if @campaign.opened?
-          .orders-tab-title-h5.title-wrap
-            .title-left 촉구하기
-          - agents_shuffled = @campaign.need_to_order_agents_shuffled
-          - if agents_shuffled.any?
-            .agents
-              - agents_shuffled.first(5).each do |agent|
-                = render 'campaigns/agent', campaign: @campaign, agent: agent, statement: @campaign.statement_of(agent)
-          .more
-            = link_to '더 보기', orders_campaign_path(@campaign)
-    %hr
-    %section.section-comments
-      .section-title
-        의견!
-      = render 'comments/form_line', commentable: @campaign
-      = render 'comments/page_formal', commentable: @campaign, comments: @campaign.comments.recent.page(1), finite: true
-      .more
-        = link_to '더 보기', comments_campaign_path(@campaign)
-
-= render 'campaigns/order_button_sticky', campaign: @campaign
+    = render 'campaigns/order_button_sticky', campaign: @campaign

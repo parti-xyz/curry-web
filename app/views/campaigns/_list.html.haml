@@ -1,5 +1,5 @@
-.container-fluid
-  %h3
+.container
+  %h4
     - if @project.present? or local_assigns[:title_label].present?
       = local_assigns[:title_label] || @project.try(:component_title, 'campaign')
     - else
@@ -11,5 +11,5 @@
             %small 새 캠페인 만들기
 
   - if campaigns.any?
-    .row.masonry-container
+    .card-columns
       = render campaigns

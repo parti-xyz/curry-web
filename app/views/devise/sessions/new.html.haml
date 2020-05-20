@@ -1,36 +1,34 @@
-%section.m-b
+%section.py-5
   .container
-    .row
-      .col-sm-6.col-sm-offset-3
-        .page-header
-          %h3
-            로그인
+    .row.justify-content-md-center
+      .col-sm-4
+        %h3.font-weight-bold 로그인
 
-        = link_to user_facebook_omniauth_authorize_url(subdomain: root_subdomain, organization_slug: fetch_organization_from_request.try(:slug), provider: :facebook), class: 'btn btn-join btn-join-facebook btn-block btn-lg' do
-          %i.fa.fa-facebook.fa-fw
-          페이스북으로 가입 혹은 로그인
-        = link_to user_twitter_omniauth_authorize_url(subdomain: root_subdomain, organization_slug: fetch_organization_from_request.try(:slug), provider: :twitter), class: 'btn btn-join btn-join-twitter btn-block btn-lg' do
-          %i.fa.fa-twitter.fa-fw
-          트위터로 가입 혹은 로그인
+        .py-3
+          = link_to user_facebook_omniauth_authorize_url(subdomain: root_subdomain, organization_slug: fetch_organization_from_request.try(:slug), provider: :facebook), class: 'btn btn-dark btn-block btn-lg border-0', style: "background-color: #3b5998" do
+            %i.fa.fa-facebook.fa-fw
+            페이스북으로 가입 혹은 로그인
+          = link_to user_twitter_omniauth_authorize_url(subdomain: root_subdomain, organization_slug: fetch_organization_from_request.try(:slug), provider: :twitter), class: 'btn btn-dark btn-block btn-lg border-0', style: "background-color: #00ACEE" do
+            %i.fa.fa-twitter.fa-fw
+            트위터로 가입 혹은 로그인
 
-        .panel.panel-default
-          .panel-body
-            %h4.email-login-box-title 이메일로 로그인
+        .py-3
+          %h5.mb-3 이메일로 로그인
 
-            = form_for User.new, url: session_path(:user, subdomain: root_subdomain) do |f|
-              = f.hidden_field :provider, value: 'email'
-              .form-group
-                = f.email_field :email, placeholder: '이메일을 입력하세요', class: 'form-control input-lg'
-              .form-group
-                = f.password_field :password, placeholder: '비밀번호를 입력하세요', autocomplete: "off", class: 'form-control input-lg'
-              .form-group
-                = f.submit '로그인', class: 'btn btn-default btn-lg btn-block', data: { disable_with: "로그인 중..." }
+          = form_for User.new, url: session_path(:user, subdomain: root_subdomain) do |f|
+            = f.hidden_field :provider, value: 'email'
+            .form-group
+              = f.email_field :email, placeholder: '이메일을 입력하세요', class: 'form-control input-lg'
+            .form-group
+              = f.password_field :password, placeholder: '비밀번호를 입력하세요', autocomplete: "off", class: 'form-control input-lg'
+            .form-group
+              = f.submit '로그인', class: 'btn btn-outline-primary btn-lg btn-block', data: { disable_with: "로그인 중..." }
 
         .text-center
           .links
             .text-muted.text-left
               처음이세요?
-              = link_to '이메일로 가입', new_user_registration_path
+              = link_to '이메일로 가입하세요', new_user_registration_path
             .text-muted.text-left
               비밀번호가 기억나지 않으세요?
-              = link_to '비밀번호 분실', new_password_path(resource_name)
+              = link_to '비밀번호 찾기', new_password_path(resource_name)

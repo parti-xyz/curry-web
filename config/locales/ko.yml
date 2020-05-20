@@ -57,6 +57,12 @@ ko:
         content_recipients: "기록물에 나타난 수신처의 명칭을 입력함 수신처가 여러개일 경우 콤마(,)로 구분함. (기록물에 입력되어있는 그대로 등록함. 주로 공문서 등을 등록할 때 필요함)"
         remote_content_url: "자료 다운로드 주소할 주소를 적습니다."
         category_slug: "[필수] 분류코드는 동일 파일의 '분류코드' 시트를 참조합니다."
+  link:
+    edit: 수정
+    destroy: 삭제
+    sign_in: 로그인
+    sign_out: 로그아웃
+
   activerecord:
     models:
       organization: 조직

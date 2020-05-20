@@ -1,34 +1,39 @@
-%section#sign-up
+%section.py-5
   .container
-    %h3.sign-up-header
-      당신의 이름이 될
-      %br
-      멋진 아이디를 만들어주세요.
-    .sign-up-form
-      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'gov-action-form-validation' }) do |f|
-        = render 'devise/shared/error_messages', resource: resource
-        .gov-action-form-grecaptcha
-        = f.hidden_field :remember_me
-        .form-group
-          = f.label :nickname do
-            사용할 아이디를 넣어 주세요.
-          = f.text_field :nickname, autofocus: true, class: 'form-control'
-          .text-primary
-            * 한글, 알파벳, 숫자, _ 만 가능합니다.
+    .row.justify-content-md-center
+      .col-sm-4
+        %h3.font-weight-bold
+          당신의 이름이 될
+          %br
+          멋진 아이디를 만들어주세요.
 
-        - if 'email' == resource.try(:provider)
-          .form-group
-            = f.label :password
-            = f.password_field :password, autofocus: true, class: 'form-control'
-            .help-block 최소 #{Devise.password_length.min}자 이상 적어 주세요.
-          .form-group
-            = f.label :password_confirmation
-            = f.password_field :password_confirmation, autofocus: true, class: 'form-control'
-        - if 'email' == resource.try(:provider) or resource.email.blank? or resource.errors.include?(:email)
-          .form-group
-            = f.label :email do
-              이메일을 넣어 주세요.
-            = f.text_field :email, autofocus: true, class: 'form-control'
-        = render partial: "/devise/registrations/terms", locals: { f: f }
-        .form-group
-          = f.submit '회원 가입하기', class: 'btn btn-primary btn-block', data: { disable_with: "진행 중..." }
+        .py-3.sign-up-form
+          = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'gov-action-form-validation' }) do |f|
+            = render 'devise/shared/error_messages', resource: resource
+            .gov-action-form-grecaptcha
+            = f.hidden_field :remember_me
+            .form-group
+              = f.label :nickname do
+                사용할 아이디를 넣어 주세요.
+              = f.text_field :nickname, autofocus: true, class: 'form-control'
+              .form-text.text-primary
+                * 한글, 알파벳, 숫자, _ 만 가능합니다.
+
+            - if 'email' == resource.try(:provider)
+              .form-group
+                = f.label :password
+                = f.password_field :password, autofocus: true, class: 'form-control'
+                .form-text 최소 #{Devise.password_length.min}자 이상 적어 주세요.
+              .form-group
+                = f.label :password_confirmation
+                = f.password_field :password_confirmation, autofocus: true, class: 'form-control'
+            - if 'email' == resource.try(:provider) or resource.email.blank? or resource.errors.include?(:email)
+              .form-group
+                = f.label :email do
+                  이메일을 넣어 주세요.
+                = f.text_field :email, autofocus: true, class: 'form-control'
+
+            = render partial: "/devise/registrations/terms", locals: { f: f }
+
+            .form-group
+              = f.submit '회원 가입하기', class: 'btn btn-outline-primary btn-block', data: { disable_with: "진행 중..." }

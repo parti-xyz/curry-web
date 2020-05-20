@@ -1,8 +1,7 @@
 - if campaign.present? and !campaign.closed? and @campaign.agents.any?
   %section.section-sign-btn.js-sticky-sign-button.stuck.hidden-sm.visible-xs-block
-    = link_to [:new_comment_agent, campaign], class: "btn btn-danger btn-lg btn-block stuck sign-btn" do
-      .sign-btn-text
-        #{campaign.agents.count}명에게
-        %br
-        %strong 지금 촉구하기
-        %i.fa.fa-arrow-right
+    = link_to [:new_comment_agent, campaign], class: "btn btn-danger btn-lg btn-block stuck sign-btn", style: "Border-radius: 0" do
+      #{campaign.agents.count}명에게
+      %br
+      %strong 지금 촉구하기
+      %i.fa.fa-arrow-right

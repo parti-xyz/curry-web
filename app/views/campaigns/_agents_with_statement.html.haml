@@ -1,61 +1,52 @@
-- campaign.total_action_assignables.each do |action_assignable|
-  - agents = ( (campaign.opened? or local_assigns[:responded_agents_only]) ? campaign.responded_agents(action_assignable) : campaign.agents(action_assignable))
-  - if agents.any?
-    %div{ style: 'margin: 14px 0' }
-      - agents.each do |agent|
-        - statement = campaign.cached_statement_of(agent)
-        - if statement.try(:respond_status?, :agree, :any_body)
-          - stance_class = 'success'
-          - action_style = 'color: white'
-          - stance_icon = capture do
-            %i.fa.fa-check
-        - elsif statement.try(:respond_status?, :disagree)
-          - stance_class = 'danger'
-          - action_style = 'color: white'
-          - stance_icon = capture do
-            %i.fa.fa-ban
-        - else
-          - stance_class = 'default'
-          - action_style = 'color: black'
-          - stance_icon = capture do
-            %i.fa.fa-minus{ style: 'color: lightgray'}
+.orders.my-3
+  .text-muted
+    %i.fa.fa-info-circle
+    촉구하면 발송되는 이메일에 촉구 대상이 응답한 내용입니다.
 
-        .media.text-basic-wrap{ class: "text-#{stance_class}", style: 'margin: 16px 0; padding-left: 0; list-style-type: none;' }
-          .media-left= stance_icon
-          .media-body
-            - line_body = capture do
-              = link_to agent, style: 'color: #111' do
-                = image_tag agent.image.md.url, style: "height: 24px;"
-                %strong= agent.name
-              - if agent.category == '개인'
-                %small.text-muted= agent.organization
-              - if statement.try(:stancable?)
-                - if statement.try(:sure?)
-                  %strong= statement.try(:stance).try(:text)
-                  %span.text-muted 입장을 밝혔습니다.
-                - else
-                  - if statement.try(:body).present?
-                    %span.text-muted 답변했습니다.
-                  - else
-                    %span.text-muted 답변하지 않았습니다.
-              - else
-                - if statement.try(:body).present?
-                  %span.text-muted 답변했습니다.
-                - else
-                  %span.text-muted 답변하지 않았습니다.
+  .mb-3
+    .row.row-cols-2.row-cols-md-4.no-gutters
+      - campaign.total_action_assignables.each do |action_assignable|
+        - agents = local_assigns[:responded_agents_only] ? campaign.responded_agents(action_assignable) : campaign.agents(action_assignable)
+        - agents.each do |agent|
+          - statement = campaign.cached_statement_of(agent)
+          - if statement.try(:respond_status?, :agree, :any_body)
+            - stance_class = 'success'
+            - stance_icon = capture do
+              %i.fa.fa-check.text-success
+          - elsif statement.try(:respond_status?, :disagree)
+            - stance_class = 'danger'
+            - stance_icon = capture do
+              %i.fa.fa-ban.text-danger
+          - else
+            - stance_class = 'dark'
+            - stance_icon = capture do
+              %i.fa.fa-minus.text-muted
 
-
-            = line_body
-            - if statement.try(:individually_orderable?)
-              &nbsp;
-              = link_to order_form_campaign_path(campaign_id: campaign.id, agent_id: agent.id), remote: true, class: 'agent-order-btn' do
-                %i.fa.fa-send-o
-                #{Order.where(agent_id: agent).where(comment_id: campaign.comments).count + 1}번째로 촉구하기
-            - if statement.try(:body).present?
-              .bubble-body.bubble-body-default
-                != statement.body
-
-      .media
-        .media-body.text-muted{ style: 'padding-left: 24px; word-break: keep-all' }
-          %i.fa.fa-info-circle
-          촉구하면 발송되는 이메일에 촉구 대상이 응답한 내용입니다.
+          .col.mb-1.border-0
+            .card.text-white{ class: "bg-#{stance_class}"}
+              .row.no-gutters
+                .col-5
+                  = image_tag agent.image.md.url, class: "card-img", style: "height: 6.5rem; object-fit: cover"
+                .col-7
+                  .card-body.p-3
+                    %h6.mb-1.card-title
+                      %strong= agent.name
+                      %br
+                      %small= agent.organization
+                    .card-text
+                      %small
+                        - if statement.try(:stancable?)
+                          - if statement.try(:sure?)
+                            %strong= statement.try(:stance).try(:text)
+                          - else
+                            - if statement.try(:body).present?
+                              %span 응답
+                            - else
+                              %span 무응답
+                        - else
+                          - if statement.try(:body).present?
+                            %span 응답
+                          - else
+                            %span 무응답
+                        - if statement.try(:body).present?
+                          %i.fa.fa-comment-dots.js-popover{ "data-placement": "top", "data-trigger": "hover", "data-content": statement.body }
