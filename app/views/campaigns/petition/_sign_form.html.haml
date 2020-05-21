@@ -41,7 +41,7 @@
               - f.object.signer_email = current_user.try(:email)
               .form-group
                 = f.label :signer_email, @campaign.signer_email_title.presence || t('activerecord.attributes.sign.signer_email')
-                = f.text_field :signer_email, placeholder: '이메일', class: 'form-control', data: { 'rule-required': true }
+                = f.email_field :signer_email, placeholder: '이메일', class: 'form-control', data: { 'rule-required': true }
             - unless @campaign.use_signer_address.unused?
               .form-group
                 = f.label :signer_address, raw("#{@campaign.signer_address_title.presence || t('activerecord.attributes.sign.signer_address')} #{'&middot; 선택입력' if @campaign.use_signer_address.optional?}")
