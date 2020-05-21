@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200323230706) do
+ActiveRecord::Schema.define(version: 20200521044328) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -342,6 +342,7 @@ ActiveRecord::Schema.define(version: 20200323230706) do
     t.string   "sign_placeholder"
     t.boolean  "need_stance",                                default: true
     t.datetime "opened_at"
+    t.string   "ga_id"
     t.index ["area_id"], name: "index_campaigns_on_area_id", using: :btree
     t.index ["issue_id"], name: "index_campaigns_on_issue_id", using: :btree
     t.index ["project_id"], name: "index_campaigns_on_project_id", using: :btree

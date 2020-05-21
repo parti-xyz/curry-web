@@ -2,3 +2,7 @@
 = render "campaigns/#{@campaign.template}/show"
 :css
   #{@campaign.css}
+- if Rails.env.production?
+  :javascript
+    ga('create', "#{@campaign.ga_id}", 'auto', "userTracker");
+    ga('userTracker.send', 'pageview');

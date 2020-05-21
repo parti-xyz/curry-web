@@ -1,0 +1,9 @@
+%legend.m-t 구글 애널리틱스 설정
+= form_for @campaign do |f|
+  .form-group
+    = f.label :ga_id
+    = f.text_field :ga_id, class: 'form-control'
+    %p.help-block
+      구글 애널리틱스를 먼저 설정하신 다음에, 거기서 받은 추적 ID를 여기에 입력하세요. 예: (UA-93481585-1)
+  .form-group
+    = f.submit '저장', class: 'btn btn-primary btn-lg btn-block'
