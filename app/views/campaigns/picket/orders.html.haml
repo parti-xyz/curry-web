@@ -34,3 +34,4 @@
         - agents = @campaign.agents.order(name: :asc).page(1).per(10)
         - if agents.any?
           = render 'campaigns/agents_page', campaign: @campaign, agents: agents, next_path: agents_campaign_path(@campaign, page: agents.next_page)
+= render "campaigns/analytics"
