@@ -28,3 +28,27 @@ development:
 test:
   <<: *default
   database:  govcraft_test_<%= branch %>
+
+
+<%
+def determine_adapter
+  if Gem.loaded_specs.key?("mysql2")
+    "mysql2"
+  else
+    "mysql"
+  end
+rescue
+  "mysql"
+end
+%>
+
+production:
+  adapter:    <%= determine_adapter %>
+  database:   '<%= ENV.fetch("DATABASE_NAME") { "DEFAULT_DATABASE_NAME" } %>'
+  username:   '<%= ENV.fetch("DATABASE_USERNAME") { "DEFAULT_DATABASE_USERNAME" } %>'
+  password:   '<%= ENV.fetch("DATABASE_PASSWORD") { "DEFAULT_DATABASE_PASSWORD" } %>'
+  host:       '<%= ENV.fetch("DATABASE_HOST") { "DEFAULT_DATABASE_HOST" } %>'
+  pool:       <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  encoding:   utf8mb4
+  collation:  utf8mb4_unicode_ci
+  reconnect:  true
