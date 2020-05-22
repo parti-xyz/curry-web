@@ -113,7 +113,6 @@ GEM
       rails (>= 3.1)
     bootstrap3-datetimepicker-rails (4.17.47)
       momentjs-rails (>= 2.8.1)
-    bootstrap_autocomplete_input (0.2.5)
     browser (2.6.1)
     buftok (0.2.0)
     builder (3.2.3)
@@ -813,7 +812,6 @@ DEPENDENCIES
   bootstrap (~> 4.4.1)
   bootstrap-kaminari-views
   bootstrap3-datetimepicker-rails
-  bootstrap_autocomplete_input
   browser (~> 2.0, >= 2.0.2)
   bulk_insert
   bundler (= 2.0.1)

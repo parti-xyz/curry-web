@@ -3,9 +3,6 @@
 //= require jquery_ujs
 //= require popper
 //= require bootstrap
-//= require bootstrap3-typeahead.min
-//= require bootstrap-autocomplete-input
-//= require bootstrap-autocomplete-input-init
 //= require unobtrusive_flash
 //= require unobtrusive_flash_bootstrap
 //= require redactor2_rails/config

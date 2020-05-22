@@ -1,10 +1,13 @@
 <%
-  branch = `git rev-parse --abbrev-ref HEAD`.strip rescue nil
-  branch = branch.gsub('/', '_')
-  local_env = YAML.load_file("#{Rails.root}/local_env.yml").dig(Rails.env) || {}
+  local_env = {}
+  if Rails.env.development? || Rails.env.test?
+    branch = `git rev-parse --abbrev-ref HEAD`.strip rescue nil
+    branch = branch.gsub('/', '_')
+    local_env = YAML.load_file("#{Rails.root}/local_env.yml").dig(Rails.env) || {}
 
-  if(local_env.dig('devdb') != nil)
-    branch = local_env.dig('devdb')
+    if(local_env.dig('devdb') != nil)
+      branch = local_env.dig('devdb')
+    end
   end
 %>
 
