@@ -1,7 +1,7 @@
 .card.mb-4
-  .card-image-top
+  .card-image
     = link_to campaign do
-      = image_tag campaign.cover_image.md.url, style: "width: 100%; height: 15vw; object-fit: cover;"
+      = image_tag campaign.cover_image.md.url
   .card-body
     = link_to campaign do
       %h5.card-title.overflow-hidden.text-dark{ style: "height: 3rem" }

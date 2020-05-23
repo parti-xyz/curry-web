@@ -25,16 +25,3 @@
           %li.nav-item= link_to t("link.sign_in"), new_user_session_path, class: "nav-link"
 
     = link_to "빠띠 캠페인즈", root_path, class: "navbar-brand"
-
-- if request.env['REQUEST_PATH'] == '/' and cookies[:skip_notice] != 'Y'
-  %section
-    .alert.alert-info.alert-dismissable{ style: 'margin: 0' }
-      .container{ role: "alert" }
-        .row
-          .col-12
-            %span
-              %i.fa.fa-flag
-              = link_to '합병에 따른 개인정보 이전 통지 및 약관변경 안내', notice_path
-      .notice
-        %button.close#js-notice-button-close{ type: "button", "data-dismiss" => "alert", "aria-label" => "Close" }
-          %span{ "aria-hidden" => "true" } &times

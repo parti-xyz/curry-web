@@ -94,6 +94,16 @@ header nav.navbar.fixed-top {
 .lh-125 { line-height: 1.25; }
 .lh-150 { line-height: 1.5; }
 
+.card .card-image {
+  position: relative;
+  padding-bottom: 56.2%;
+  img {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
 
 /* stick button */
 .js-sticky-sign-button.stuck {
