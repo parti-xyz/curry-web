@@ -61,11 +61,14 @@ Rails.application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
+
+  config.action_mailer.delivery_method = (ENV['MAIL_TEST'] == 'true' ? :letter_opener_web : :aws_sdk)
+
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.logger = nil
   config.action_mailer.default_url_options = { :host => 'campaigns.kr' }
   config.action_mailer.asset_host =  'http://campaigns.kr'
-  config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.delivery_method = :aws_sdk
-  config.action_mailer.logger = nil
+
   # config.action_mailer.postmark_settings = {
   #   :api_token => ENV['POSTMARKER_API_KEY']
   # }

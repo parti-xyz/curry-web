@@ -133,9 +133,7 @@ group :development do
   gem 'puma'
 end
 
-group :development, :staging, :test do
-  gem 'letter_opener_web'
-end
+gem 'letter_opener_web'
 
 group :development, :test do
   gem 'byebug'
