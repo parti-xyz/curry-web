@@ -31,3 +31,7 @@ local_env.yml
 
 public/sitemap.xml
 public/sitemap.xml.gz
+
+
+node_modules/
+public/assets/
