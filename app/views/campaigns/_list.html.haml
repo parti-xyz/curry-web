@@ -1,5 +1,5 @@
 .container
-  %h4
+  %h2
     - if @project.present? or local_assigns[:title_label].present?
       = local_assigns[:title_label] || @project.try(:component_title, 'campaign')
     - else

@@ -5,12 +5,13 @@
     %h1.text-white
       %strong{ style: "text-shadow: 2px 2px #000;" }
         = @campaign.title
-      - if @campaign.success?
-        .badge.badge-pill.badge-danger
-          성공
-      - else
-        .badge.badge-pill.badge-primary
-          진행중
+      %small
+        - if @campaign.success?
+          .badge.badge-pill.badge-danger
+            성공
+        - elsif @campaign.opened?
+          .badge.badge-pill.badge-primary
+            진행중
     %h2.text-white
       - if @campaign.agents.any?
         %span.mr-5

@@ -26,23 +26,27 @@
 - if current_page?(root_url) && params[:page].nil?
   %section.py-5
     .container
-      %h4
+      %h2
         인기
         = Campaign.model_name.human
       .card-columns
         - cache "home-campaigns", race_condition_ttl: 30.seconds, expires_in: 1.hours do
           = render Campaign.published.popular.limit(6)
 
-      .my-4.p-5.bg-warning
+  %section.py-5
+    .container
+      .p-3.p-sm-5.bg-warning
         %h2
           %strong 세상을 멋지게 할 아이디어!
           %br
           캠페인으로 실현해 보세요.
         %p.lead{ style: 'margin-top: 28px' }
-          = link_to '새 캠페인 만들기', new_campaign_path, class: 'btn btn-lg btn-primary'
-          = link_to 'https://parti.coop/contacts/new', class: 'btn btn-lg' do
-            %i.fa.fa-comment-o
-            빠띠에 캠페인 협업 문의하기
+          = link_to '새 캠페인 만들기', new_campaign_path, class: 'btn btn-lg btn-primary mr-3'
+          %br.d-block.d-sm-none
+          = link_to 'https://parti.coop/contacts/new', class: 'text-dark' do
+            %strong
+              %i.fa.fa-comment-o
+              빠띠와 캠페인 협업하기
 
 %section.py-5
   %a{ id: 'anchor-campaigns-list' }
