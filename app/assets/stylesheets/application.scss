@@ -14,6 +14,6 @@
 @import 'alignment'; // redactor plugin
 @import 'jssocials';
 
-.campaign-body {
+.campaign-body, .story-body {
   img { max-width: 100%; }
 }
