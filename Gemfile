@@ -12,7 +12,7 @@ gem 'activerecord_any_of', git: 'https://github.com/oelmekki/activerecord_any_of
 gem 'active_record_union', '~> 1.3'
 # model
 gem 'sequenced', '~> 3.1', '>= 3.1.1'
-gem 'kaminari', '~> 0.17.0'
+gem 'kaminari', '~> 1.2.1'
 gem 'bootstrap-kaminari-views'
 gem 'scoped_search', '~> 3.2', '>= 3.2.2'
 gem 'counter_culture', '~> 1.5'
