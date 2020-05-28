@@ -124,6 +124,10 @@ Rails.application.routes.draw do
         post 'mail'
       end
     end
+    collection do
+      get 'widget/v1', to: 'campaigns#widget_v1'
+      get 'widget/v1/content', to: 'campaigns#widget_v1_content'
+    end
     member do
       get 'data'
       get 'orders_data'

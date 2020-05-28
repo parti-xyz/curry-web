@@ -1,4 +1,6 @@
 class CampaignsController < ApplicationController
+  protect_from_forgery except: :widget_v1
+
   include OrganizationHelper
   include Statementing
 
@@ -205,6 +207,16 @@ class CampaignsController < ApplicationController
     @picket = Comment.find_by(id: params[:picket_id])
     render_404 and return if @picket.blank?
     render template: "campaigns/picket/picket"
+  end
+
+  def widget_v1
+    @campaign = Campaign.find(params[:campaign_id])
+    render template: "campaigns/widget/v1", layout: 'strip_without_footer'
+  end
+
+  def widget_v1_content
+    @campaign = Campaign.find(params[:campaign_id])
+    render template: "campaigns/widget/v1_content", layout: 'strip_without_footer'
   end
 
   private
