@@ -1,5 +1,5 @@
 # 빠띠 캠페인즈 Campaigns
-![logo](public/favicons/apple-icon-180x180.png)
+![logo](public/assets/favicons/apple-icon-180x180.png)
 
 ## 실환경 구축 방법 (추후 추가)
 
