@@ -28,7 +28,7 @@
               .col-xs-12.col-md-6
                 .form-group
                   = f.label :commenter_email, "보내는 사람 이메일(반드시 넣어주세요)"
-                  = f.text_field :commenter_email, class: 'form-control'
+                  = f.email_field :commenter_email, class: 'form-control'
           .form-group
             = f.label :body, "보내는 내용"
             = f.hidden_field :is_html_body, value: is_redactorable?

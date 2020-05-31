@@ -18,7 +18,7 @@
                 = f.text_field :commenter_name, class: 'form-control', data: { 'rule-required': true }
               .form-group
                 = f.label :commenter_email
-                = f.text_field :commenter_email, class: 'form-control'
+                = f.email_field :commenter_email, class: 'form-control'
             .form-group
               = f.hidden_field :is_html_body, value: is_redactorable?
               - unless is_redactorable?

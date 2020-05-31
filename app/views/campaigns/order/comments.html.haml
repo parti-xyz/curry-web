@@ -15,3 +15,4 @@
           = render 'comments/page_formal', commentable: @campaign, comments: @campaign.comments.recent.page(1), dom_id: page_dom_id
 
     = render 'campaigns/order_button_sticky', campaign: @campaign
+= render "campaigns/analytics"

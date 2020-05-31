@@ -36,6 +36,11 @@
                   데이터 내려받기
 
               %li.nav-item{ role: "presentation" }
+                %a.nav-link{ href: "#analytics", role: "tab", data: { toggle: "tab" } }
+                  %i.fa.fa-line-chart
+                  구글 애널리틱스 설정
+
+              %li.nav-item{ role: "presentation" }
                 %a.nav-link.text-danger{ href: "#finish", role: "tab", data: { toggle: "tab" } }
                   - if @campaign.closed?
                     캠페인 다시 열기
@@ -53,7 +58,7 @@
                 = form_for @campaign do |f|
                   = render_if_exist_partial "campaigns/#{@campaign.template}/form_detail", f: f
                   .form-group
-                    = f.submit '저장', class: 'btn btn-outline-primary btn-lg btn-block'
+                    = f.submit '저장', class: 'btn btn-primary btn-lg btn-block'
 
             #privacy.tab-pane
               .py-3
@@ -85,6 +90,10 @@
                 = link_to orders_data_campaign_path(@campaign, format: :xlsx), class: 'btn btn-outline-primary' do
                   %i.fa.fa-download
                   촉구 참여 데이터
+            #analytics.tab-pane
+              .py-3
+                = render 'form_analytics'
+                
 
             #finish.tab-pane
               - if @campaign.closed?
@@ -110,3 +119,4 @@
                 = link_to @campaign, method: :delete, data: { confirm: '삭제하시겠습니까?' }, class: "btn btn-outline-danger" do
                   %i.fa.fa-trash
                   캠페인 삭제
+= render "campaigns/analytics"

@@ -1,0 +1,32 @@
+- if Rails.env.production? and @campaign.ga_id.present?
+  :javascript
+    ga('create', "#{@campaign.ga_id}", 'auto', "userTracker");
+    ga('userTracker.send', 'pageview');
+
+- if flash[:sign_notice].present?
+  #sign-success-modal.modal.fade{:role => "dialog", :tabindex => "0"}
+    .modal-dialog{:role => "document"}
+      .modal-content
+        .modal-header
+          %h5.modal-title
+            참여해주셔서 감사합니다.
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} &times;
+        .modal-body
+          %p
+            != flash[:sign_notice]
+
+          %p.text-basic-wrap
+            이 캠페인을 친구들에게 알려보세요.
+            - share_image_url = @campaign.read_attribute(:cover_image).present? ? @campaign.cover_image.lg.url : asset_url("default-image.png")
+            .share-box{ 'data-share-image': share_image_url }
+
+  = content_for :script do
+    :javascript
+      $(function(){
+        $('#sign-success-modal').modal('show');
+      });
+  - flash.delete(:sign_notice)
+  - if Rails.env.production? and @campaign.ga_id.present?
+    :javascript
+      ga('userTracker.send', 'event', "sign_up", {'event_category': '온라인액션', 'event_label':'#{@campaign.title}'});

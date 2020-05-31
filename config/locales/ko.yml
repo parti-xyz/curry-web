@@ -171,6 +171,7 @@ ko:
         use_signer_phone: 연락처 입력 여부
         need_stance: 촉구 대상에게 요구하는 답변 방식
         opened_at: 시작일
+        ga_id: 구글 애널리틱스 추적 아이디
       sign:
         signer_name: 이름
         signer_email: 이메일

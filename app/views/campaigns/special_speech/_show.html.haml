@@ -87,7 +87,7 @@
                     .col-xs-12.col-md-6
                       .form-group
                         = f.label :commenter_email
-                        = f.text_field :commenter_email, class: 'form-control'
+                        = f.email_field :commenter_email, class: 'form-control'
                 .form-group
                   = f.hidden_field :is_html_body, value: is_redactorable?
                   - unless is_redactorable?

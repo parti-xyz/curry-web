@@ -92,6 +92,8 @@ class CommentsController < ApplicationController
         I18n.t('messages.commented')
       end
 
+      flash[:sign_notice] = I18n.t('messages.signed')
+
       if @comment.commentable.try(:statementable?)
         @comment.orders.each do |order|
           agent = order.agent
