@@ -1,11 +1,9 @@
 %header
-  %nav.navbar.fixed-top.navbar-dark.bg-dark.justify-content-start
+  %nav.navbar.fixed-top.navbar-dark.justify-content-start{ style: "background-color: #576dff;" }
     %button.navbar-toggler.p-0.border-0.mr-2{"data-toggle" => "offcanvas", :type => "button"}
       %span.navbar-toggler-icon
-
     .navbar-collapse.offcanvas-collapse
       %ul.navbar-nav
-
         %li.nav-item.mt-4
           %small.text-light
             %i.fas.fa-flag
@@ -13,7 +11,6 @@
         - if user_signed_in?
           %li.nav-item= link_to '캠페인 시작하기', new_campaign_path, class: "nav-link"
           %li.nav-item= link_to '내 캠페인 보기', current_user, class: "nav-link"
-
         %li.nav-item.mt-4
           %small.text-light
             %i.far.fa-user
@@ -23,5 +20,7 @@
           %li.nav-item= link_to t("link.sign_out"), destroy_user_session_path, method: :delete, class: "nav-link"
         - else
           %li.nav-item= link_to t("link.sign_in"), new_user_session_path, class: "nav-link"
-
-    = link_to "빠띠 캠페인즈", root_path, class: "navbar-brand"
+    .mr-auto
+      = link_to "빠띠 캠페인즈", root_path, class: "navbar-brand"
+    = form_tag campaigns_path, method: :get, local: true, class: "form-inline" do |f|
+      = text_field_tag :q, params[:q], class: "form-control form-control-sm", placeholder: "검색"
