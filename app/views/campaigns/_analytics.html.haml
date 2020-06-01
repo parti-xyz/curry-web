@@ -1,8 +1,10 @@
 - if Rails.env.production? and @campaign.ga_id.present?
   :javascript
-    ga('create', "#{@campaign.ga_id}", 'auto', "userTracker");
-    ga('userTracker.send', 'pageview');
-
+    gtag('config', "#{@campaign.ga_id}", {
+      'linker': {
+        'accept_incoming': true
+      }
+    });
 - if flash[:sign_notice].present?
   #sign-success-modal.modal.fade{:role => "dialog", :tabindex => "0"}
     .modal-dialog{:role => "document"}
@@ -29,4 +31,4 @@
   - flash.delete(:sign_notice)
   - if Rails.env.production? and @campaign.ga_id.present?
     :javascript
-      ga('userTracker.send', 'event', "sign_up", {'event_category': '온라인액션', 'event_label':'#{@campaign.title}'});
+      gtag('event', '참여하기', {'event_category': 'parti_campaigns','event_label': '#{@campaign.title}'});
