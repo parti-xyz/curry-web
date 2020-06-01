@@ -3,7 +3,8 @@
     gtag('config', "#{@campaign.ga_id}", {
       'linker': {
         'accept_incoming': true
-      }
+      },
+      'groups': 'all'
     });
 - if flash[:sign_notice].present?
   #sign-success-modal.modal.fade{:role => "dialog", :tabindex => "0"}
@@ -31,4 +32,11 @@
   - flash.delete(:sign_notice)
   - if Rails.env.production? and @campaign.ga_id.present?
     :javascript
-      gtag('event', '참여하기', {'event_category': 'parti_campaigns','event_label': '#{@campaign.title}'});
+      gtag('event', '참여하기', {
+        'event_category': 'parti_campaigns',
+        'event_label': '#{@campaign.title}',
+        'send_to': 'all',
+        'event_callback': function(e) {
+          console.log(e, "event_sent");
+        }
+      });

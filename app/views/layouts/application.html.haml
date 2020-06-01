@@ -6,14 +6,19 @@
     %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no", :name => "viewport"}
     = display_meta_tags
     = render 'favicons'
-
     %title 빠띠 캠페인즈
     = stylesheet_link_tag 'application', media: 'all'
     %link{:href => "https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css", :rel => "stylesheet", :type => "text/css"}/
     %script{crossorigin: "anonymous", src: "https://kit.fontawesome.com/d1995cff7d.js"}
     %link{:href => "https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css", :rel => "stylesheet", :type => "text/css"}
-
     = csrf_meta_tags
+    - if Rails.env.production?
+      %script{async: "", src: "https://www.googletagmanager.com/gtag/js?id=UA-93481585-1"}
+      :javascript
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-93481585-1', { 'groups': 'all' });
 
   %body{class: "app-#{params[:controller]} app-#{params[:controller]}-#{params[:action]}"}
     %section(style='position: fixed; z-index: 2000; width: 80%; left: 0; margin-left: auto; margin-right: auto; right: 0;')
@@ -63,11 +68,3 @@
         $grecaptcha_on_load(partial);
       });
     = yield :script if content_for?(:script)
-
-    - if Rails.env.production?
-      %script{async: "", src: "https://www.googletagmanager.com/gtag/js?id=UA-93481585-1"}
-      :javascript
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-93481585-1');
