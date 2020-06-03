@@ -33,7 +33,7 @@
   - if Rails.env.production? and @campaign.ga_id.present?
     :javascript
       gtag('event', '참여하기', {
-        'event_category': 'parti_campaigns',
+        'event_category': '빠띠캠페인즈',
         'event_label': '#{@campaign.title}',
         'send_to': 'all',
         'event_callback': function(e) {
