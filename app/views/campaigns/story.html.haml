@@ -19,6 +19,11 @@
                   %span
                     = campaign.user.nickname
                     = date_f @story.published_at
+                    - if can? :edit, @story
+                      = link_to '수정', edit_story_path(@story)
+                    - if can? :destroy, @story
+                      = link_to '삭제', @story, method: :delete, data: { confirm: '삭제하시겠습니까?' }
+
                   = render 'likes/button', likable: @story
               .my-3
                 %h5= @story.title
