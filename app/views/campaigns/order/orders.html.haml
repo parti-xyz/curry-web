@@ -11,9 +11,9 @@
         %section.my-5
           %h3.font-weight-bold
             - if @campaign.closed?
-              "#{@campaign.title}"의 국회의원 응답 현황입니다.
+              "#{@campaign.title}"의 응답 현황입니다.
             - else
-              국회의원에게 촉구해 보세요.
+              지금 촉구해 보세요.
 
           = render 'campaigns/order_dashboard', campaign: @campaign
           = render 'campaigns/agents_with_statement', campaign: @campaign
