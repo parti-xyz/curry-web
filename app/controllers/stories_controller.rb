@@ -35,6 +35,7 @@ class StoriesController < ApplicationController
     authorize!(:create_story, @story.storiable) if @story.storiable.present?
     @story.user = current_user
     if @story.save
+      StoriesMailingJob.perform_async(@story.id)
       redirect_to @story
     else
       errors_to_flash @story

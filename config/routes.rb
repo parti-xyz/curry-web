@@ -176,7 +176,7 @@ Rails.application.routes.draw do
   end
 
   get 'unsubscribe', to: 'email_subscription#unsubscribe'
-  patch 'update_subscription', to: 'email_subscription#update'
+  post 'update_unsubscribe/:id', to: 'email_subscription#update', as: 'update_unsubscribe'
 
   get 'specials/voteaward2018'
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200521044328) do
+ActiveRecord::Schema.define(version: 20200707044502) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -523,6 +523,7 @@ ActiveRecord::Schema.define(version: 20200521044328) do
     t.integer  "mailerable_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "name"
     t.index ["mailerable_type", "mailerable_id"], name: "index_email_subscriptions_on_mailerable_type_and_mailerable_id", using: :btree
   end
 
@@ -980,6 +981,7 @@ ActiveRecord::Schema.define(version: 20200521044328) do
     t.datetime "published_at",                                       null: false
     t.string   "storiable_type",                                     null: false
     t.integer  "comments_count",                      default: 0
+    t.datetime "mailed_at"
     t.index ["storiable_id", "storiable_type"], name: "index_stories_on_storiable_id_and_storiable_type", using: :btree
     t.index ["storiable_id"], name: "index_stories_on_storiable_id", using: :btree
     t.index ["user_id"], name: "index_stories_on_user_id", using: :btree
