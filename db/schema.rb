@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200707044502) do
+ActiveRecord::Schema.define(version: 20200713081239) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -108,6 +108,8 @@ ActiveRecord::Schema.define(version: 20200707044502) do
     t.datetime "refresh_access_token_at"
     t.boolean  "bounced_email",           default: false
     t.string   "facebook"
+    t.string   "phone"
+    t.string   "fax"
   end
 
   create_table "agents_campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|

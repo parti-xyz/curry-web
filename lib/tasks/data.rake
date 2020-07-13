@@ -206,6 +206,125 @@ namespace :data do
   end
 
   desc '국회의원의 정보를 변경합니다'
+  task 'update_assembly_20200713' => :environment do
+    xlsx = Roo::Spreadsheet.open(Rails.root.join('lib', 'tasks', 'assembly_20200713_photo.xlsx').to_s)
+    ActiveRecord::Base.transaction do
+      position = Position.find_by(name: '21대_국회의원')
+
+      images = xlsx.images
+      remain_agent_datas = []
+      new_agents_datas = []
+      xlsx.sheet(0).each_row_streaming(offset: 1, pad_cells: true) do |row|
+        if empty_row?(row)
+          break
+        end
+
+        attributes = %i(번호 이름 사진 정당	선수	지역	선거구	의원회관	전화	팩스	이메일	상임위)
+        data = {}
+        attributes.each do |name|
+          value = fetch_data(row, attributes, name).try(:strip)
+          data[name] = value
+        end
+
+        # agents = Agent.joins(:appointments)
+        #   .where('agents.name': data[:이름])
+        #   .where('appointments.position': position)
+        # if agents.count > 1
+        #   agents = agents.where('agents.election_region': (data[:지역] == "비례대표" ? "비례대표" : "#{data[:지역]} #{data[:선거구]}"))
+        # end
+
+        # if agents.count > 1
+        #   puts "multiple found : " + data.inspect
+        #   puts "multiple found from db: " + agents.to_a.inspect
+        #   abort
+        # elsif agents.count == 0
+        #   puts "not found : " + data.inspect
+          new_agents_datas << data
+        # else
+        #   data[:agent] = agents.first
+        #   remain_agent_datas << data
+        # end
+      end
+      # remain_agent_datas.uniq!
+
+      # old_agents = Agent.joins(:appointments).where('appointments.position': position)
+      # puts "old count : #{old_agents.count}"
+
+      # remove_agents = old_agents.where.not(id: remain_agent_datas.map{ |remain_agent_data| remain_agent_data[:agent].id })
+      # puts "remove count : #{remove_agents.count}"
+      # remove_agents.each do |agent|
+      #   agent.appointments.where(position: position).destroy_all
+      #   puts "remove: #{agent.name} #{agent.organization}"
+      # end
+
+      # puts "remain count : #{remain_agent_datas.size}"
+      # remain_agent_datas.each do |data|
+      #   agent = data[:agent]
+
+      #   if "#{data[:지역]} #{data[:선거구]}".strip != agent.election_region
+      #     new_election_region = "#{data[:지역]} #{data[:선거구]}"
+      #     if data[:지역] != "비례대표" and data[:선거구] != "통영시고성군" and data[:지역] != '세종'
+      #       puts "election_region error: db => [#{agent.election_region}] vs data => [#{new_election_region}]"
+      #       agent.update_attributes!(election_region: new_election_region)
+      #     end
+      #   end
+
+      #   agent.twitter = data[:트위터].presence
+      #   agent.facebook = data[:페이스북].presence
+      #   agent.organization = data[:정당]
+      #   agent.email = data[:이메일].presence
+      #   agent.save!
+      # end
+
+      puts "new count : #{new_agents_datas.size}"
+      new_agents_datas.each_with_index do |data, index|
+        puts data[:사진]
+        agent = Agent.find_by(name: data[:이름])
+        if agent.present? && data[:선수] != '1선'
+          puts "#{data[:이름]} #{data[:선수]}: #{agent.image_url}"
+
+          agent.appointments.build(position: position)
+          agent.organization = data[:정당]
+          agent.email = strip_tags(data[:이메일].presence)
+          agent.phone = strip_tags(data[:전화].presence)
+          agent.fax = strip_tags(data[:팩스].presence)
+          agent.election_region = (data[:지역] == "비례대표" ? "비례대표" : "#{data[:지역]} #{data[:선거구]}")
+          agent.save!
+        else
+          puts "#{data[:이름]} #{data[:선수]} : not found"
+
+          agent = Agent.new(
+            name: data[:이름],
+            email: strip_tags(data[:이메일].presence),
+            phone: strip_tags(data[:전화].presence),
+            fax: strip_tags(data[:팩스].presence),
+            organization: data[:정당],
+            category: '개인',
+            election_region: (data[:지역] == "비례대표" ? "비례대표" : "#{data[:지역]} #{data[:선거구]}")
+          )
+          agent.image = File.open(images[index+1])
+          agent.appointments.build(position: position)
+          agent.save!
+        end
+
+        # if data[:이름] == "정은혜"
+        #   agent = Agent.new(name: data[:이름],
+        #     remote_image_url: 'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAFyRUt.img?h=660&w=540&m=6&q=60&o=f&l=f&x=244&y=271', category: '개인')
+        # end
+
+        # agent.appointments.build(position: position)
+        # agent.twitter = data[:트위터].presence
+        # agent.facebook = data[:페이스북].presence
+        # agent.organization = data[:정당]
+        # agent.email = data[:이메일].presence
+        # agent.save!
+      end
+
+      #raise ActiveRecord::Rollback, "Test!!!"
+    end
+  end
+
+  desc '국회의원의 정보를 변경합니다'
   task 'update_assembly' => :environment do
     ActiveRecord::Base.transaction do
       position = Position.find_by(name: '20대_국회의원')
