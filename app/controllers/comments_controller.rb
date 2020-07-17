@@ -95,16 +95,6 @@ class CommentsController < ApplicationController
       flash[:sign_notice] = I18n.t('messages.signed')
 
       if @comment.commentable.try(:statementable?)
-        # @comment.orders.each do |order|
-        #   agent = order.agent
-        #   statement = @comment.commentable.statements.find_or_create_by(agent: agent)
-        #   statement_key = statement.statement_keys.build(key: SecureRandom.hex(50))
-        #   statement_key.save!
-        #   if @comment.mailing.ready? and agent.email.present?
-        #     CommentToAgentJob.perform_async({ comment_id: @comment.id, order_id: order.id, statement_key_id: statement_key.id })
-        #   end
-        # end
-
         CommentOrderJob.perform_async(@comment.id)
       end
 

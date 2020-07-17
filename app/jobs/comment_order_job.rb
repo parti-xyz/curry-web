@@ -45,6 +45,8 @@ class CommentOrderJob
         end
         CommentMailer.target_agent(commentable.class.name, commentable.id, agent_id, params).deliver_now
       end
+
+      Comment.where(id: comments).update_all(mailing: :sent)
     end
   end
 end

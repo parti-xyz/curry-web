@@ -50,7 +50,6 @@
 
 %section.py-5
   %a{ id: 'anchor-campaigns-list' }
-  - cache "home-campaigns-list", race_condition_ttl: 30.seconds, expires_in: 1.hours do
-    = render 'campaigns/list', campaigns: @campaigns, title_label: raw("모든 캠페인 <small>총 #{Campaign.count}건 중 #{@campaigns.current_page} 페이지</small>")
-    .d-flex.justify-content-center
-      = paginate @campaigns, params: { :anchor => 'anchor-campaigns-list' }
+  = render 'campaigns/list', campaigns: @campaigns, title_label: raw("모든 캠페인 <small>총 #{Campaign.count}건 중 #{@campaigns.current_page} 페이지</small>")
+  .d-flex.justify-content-center
+    = paginate @campaigns, params: { :anchor => 'anchor-campaigns-list' }

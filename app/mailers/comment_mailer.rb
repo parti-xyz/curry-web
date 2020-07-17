@@ -23,13 +23,6 @@ class CommentMailer < ApplicationMailer
     @agent = Agent.find_by(id: agent_id)
     return if @agent.blank?
 
-    all_comments = Comment.where(id: @comments)
-    unless @agent.email.present?
-      all_comments.update_all(mailing: :fails)
-      return
-    end
-    all_comments.update_all(mailing: :sent)
-
     template_name = "target_agent_#{@commentable.class.name.underscore}"
     if @commentable.respond_to? :template
       special_template_name = "target_agent_#{@commentable.class.name.underscore}_#{@commentable.template}"
