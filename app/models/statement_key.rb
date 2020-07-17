@@ -10,6 +10,10 @@ class StatementKey < ApplicationRecord
     expired_at == nil or expired_at < DateTime.now
   end
 
+  def reusable?
+    expired_at >= (24 * 7 - 2).hours.since
+  end
+
   private
 
   def init_expired_at

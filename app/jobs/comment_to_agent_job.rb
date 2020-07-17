@@ -2,15 +2,14 @@ class CommentToAgentJob
   include Sidekiq::Worker
 
   if Rails.env.production? or Rails.env.staging?
-    sidekiq_options lock: :until_executed,
-      batch_flush_size: 300 * 20,
+    sidekiq_options batch_flush_size: 300 * 20,
       batch_flush_interval: 60 * 5,
       retry: 5
   end
 
   def perform(grouping_params)
-    payload_map = {}
-    Rails.logger.info("grouping_params.inspect: #{grouping_params.inspect}")
+    Sidekiq.logger.error("grouping_params.inspect: #{grouping_params.inspect}")
+
     (grouping_params.is_a?(Hash) ? [grouping_params] : grouping_params.flatten).group_by do |params|
       comment = Comment.find_by(id: params["comment_id"])
       comment.try(:commentable)
