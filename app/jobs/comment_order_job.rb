@@ -33,6 +33,7 @@ class CommentOrderJob
         statement_key = statement.statement_keys.last
         unless statement_key.reusable?
           statement_key = statement.statement_keys.build(key: SecureRandom.hex(50))
+          statement_key.save
         end
 
         params = orders.map do |order|
