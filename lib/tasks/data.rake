@@ -302,7 +302,7 @@ namespace :data do
             category: '개인',
             election_region: (data[:지역] == "비례대표" ? "비례대표" : "#{data[:지역]} #{data[:선거구]}")
           )
-          agent.image = File.open(images[index+1])
+          agent.image = File.open(images[index])
           agent.appointments.build(position: position)
           agent.save!
         end
