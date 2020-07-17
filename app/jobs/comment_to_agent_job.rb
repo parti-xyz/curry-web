@@ -10,6 +10,7 @@ class CommentToAgentJob
 
   def perform(grouping_params)
     payload_map = {}
+    Rails.logger.info("grouping_params.inspect: #{grouping_params.inspect}")
     (grouping_params.is_a?(Hash) ? [grouping_params] : grouping_params.flatten).group_by do |params|
       comment = Comment.find_by(id: params["comment_id"])
       comment.try(:commentable)
