@@ -33,9 +33,9 @@
                 외 #{@campaign.agents.count - 1}
             에 촉구해 주세요
           .order-info
-            - order_users_with_name = @campaign.comments.joins(:orders).where.not(commenter_name: nil).order("comment_id desc").limit(3)
-            - if order_users_with_name.any?
-              #{order_users_with_name.first.commenter_name}님
+            - order_users_with_name = @campaign.orders.order("comment_id desc").first
+            - if order_users_with_name.present? && order_users_with_name.comment.user_nickname.present?
+              #{order_users_with_name.comment.user_nickname}님
               - if @campaign.order_users_count >=1
                 외 #{@campaign.order_users_count - 1}분이
               촉구에 참여중입니다.

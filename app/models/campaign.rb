@@ -146,6 +146,7 @@ class Campaign < ApplicationRecord
   belongs_to :user
   belongs_to :project
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :orders, through: :comments
   has_many :signs, dependent: :destroy
   has_many :signed_users, through: :signs, source: :campaign
   belongs_to :area, optional: true

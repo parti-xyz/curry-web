@@ -20,7 +20,7 @@
             %h3.font-weight-bold 촉구하기
 
             - if @campaign.opened?
-              - cache "campaign-orders-show-dashbord-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 1.hours do
+              - cache "campaign-orders-show-dashbordx-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 1.hours do
                 .alert.alert-primary.mb-1
                   지금
                   = link_to [:new_comment_agent, @campaign], class: 'underline' do
@@ -29,9 +29,9 @@
                       외 #{@campaign.agents.count - 1}
                   에게 촉구해 보세요.
 
-                  - order_users_with_name = @campaign.comments.joins(:orders).where.not(commenter_name: nil).order("comment_id desc").limit(3)
-                  - if order_users_with_name.any?
-                    #{order_users_with_name.first.commenter_name}님
+                  - order_users_with_name = @campaign.orders.order("comment_id desc").first
+                  - if order_users_with_name.present? && order_users_with_name.comment.user_nickname.present?
+                    #{order_users_with_name.comment.user_nickname}님
                     - if @campaign.order_users_count >=1
                       외 #{@campaign.order_users_count - 1}분이
                     참여하였습니다.
