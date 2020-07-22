@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200722071642) do
+ActiveRecord::Schema.define(version: 20200722133621) do
 
   create_table "action_targets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string  "action_assignable_id",   null: false
@@ -907,10 +907,10 @@ ActiveRecord::Schema.define(version: 20200722071642) do
 
   create_table "signs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.integer  "user_id"
-    t.integer  "campaign_id",                                                              null: false
+    t.integer  "campaign_id",                                         null: false
     t.text     "body",                  limit: 65535
-    t.datetime "created_at",                                                               null: false
-    t.datetime "updated_at",                                                               null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.string   "signer_name"
     t.string   "signer_email"
     t.integer  "reports_count",                       default: 0
@@ -918,8 +918,6 @@ ActiveRecord::Schema.define(version: 20200722071642) do
     t.string   "signer_real_name"
     t.string   "signer_address"
     t.string   "signer_phone"
-    t.boolean  "subscribed",                          default: true
-    t.datetime "subscribed_at",                       default: -> { "CURRENT_TIMESTAMP" }
     t.boolean  "confirm_privacy"
     t.datetime "confirm_third_party"
     t.index ["campaign_id"], name: "index_signs_on_campaign_id", using: :btree
