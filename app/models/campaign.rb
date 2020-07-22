@@ -170,6 +170,7 @@ class Campaign < ApplicationRecord
   scope :published, -> { where('opened_at <= ?', DateTime.now) }
 
   before_save :default_opened_at
+  before_save :setup_api_secure_key
   after_save :mailing_issue,  if: :issue_id_changed?
 
   def signed? someone
@@ -313,5 +314,9 @@ class Campaign < ApplicationRecord
     if self.opened_at.blank?
       self.opened_at = Date.today
     end
+  end
+
+  def setup_api_secure_key
+    self.api_secure_key ||= SecureRandom.base64(30)
   end
 end

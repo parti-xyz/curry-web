@@ -9,6 +9,7 @@ class Sign < ApplicationRecord
   validates_acceptance_of :confirm_privacy
   validate :valid_signer
   validates :signer_email, format: { with: Devise.email_regexp }, uniqueness: { scope: :campaign }, if: 'signer_email.present?'
+  validate :open_campaign
 
   scope :recent, -> { order(created_at: :desc) }
   scope :earlier, -> { order(created_at: :asc) }
@@ -48,6 +49,12 @@ class Sign < ApplicationRecord
 
     if campaign.use_signer_address.required? and signer_address.blank?
       errors.add(:signer_address, I18n.t('errors.messages.blank'))
+    end
+  end
+
+  def open_campaign
+    if self.campaign.closed?
+      errors.add(:campaign, :closed, message: I18n.t('messages.campaigns.closed'))
     end
   end
 end

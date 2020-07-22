@@ -58,5 +58,11 @@
       .help-block
         커스텀 스타일을 설정합니다.
 
+  - if current_user.is_admin?
+    .form-group
+      = f.label :api_secure_key
+      .help-block
+        = f.object.api_secure_key
+
   .form-group
     = f.submit '저장', class: 'btn btn-primary btn-lg btn-block'

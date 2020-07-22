@@ -311,4 +311,6 @@ Rails.application.routes.draw do
   end
 
   mount LetterOpenerWeb::Engine, at: "/dev/emails"
+
+  post 'api/v1/signs', to: 'api/v1/signs#create'
 end
