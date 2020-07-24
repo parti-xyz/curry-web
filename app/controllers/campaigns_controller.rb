@@ -220,11 +220,17 @@ class CampaignsController < ApplicationController
     render template: "campaigns/widget/v1_content", layout: 'strip_without_footer'
   end
 
+  def stealthily
+    @campaign.update_attributes(stealthily: params[:value])
+    flash[:success] = t('messages.saved')
+    redirect_to @campaign
+  end
+
   private
 
   def campaign_params
     params.require(:campaign).permit(:title, :body, :project_id, :goal_count, :cover_image, :thanks_mention,
-      :comment_enabled, :sign_title, :sign_placeholder, :social_image, :confirm_third_party, :opened_at,
+      :comment_enabled, :sign_title, :sign_placeholder, :social_image, :confirm_third_party, :opened_at, :stealthily,
       :use_signer_email, :use_signer_address, :use_signer_real_name, :use_signer_phone,
       :signer_email_title, :signer_address_title, :signer_real_name_title, :signer_phone_title,
       :agent_section_title, :agent_section_response_title, :sign_hidden, :area_id, :issue_id,

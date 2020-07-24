@@ -167,7 +167,7 @@ class Campaign < ApplicationRecord
   scope :recent, -> { order('created_at DESC') }
   scope :by_organization, ->(organization) { where(project: organization.projects) }
   scoped_search on: [:title]
-  scope :published, -> { where('opened_at <= ?', DateTime.now) }
+  scope :published, -> { where('opened_at <= ?', DateTime.now).where.not(stealthily: true) }
 
   before_save :default_opened_at
   before_save :setup_api_secure_key

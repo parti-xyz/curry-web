@@ -148,6 +148,7 @@ Rails.application.routes.draw do
       get 'pickets'
       get 'stories/:story_id', action: 'story', as: :story
       get 'picket'
+      put 'stealthily'
     end
   end
   resources :polls do

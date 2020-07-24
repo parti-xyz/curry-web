@@ -93,7 +93,7 @@
             #analytics.tab-pane
               .py-3
                 = render 'form_analytics'
-                
+
 
             #finish.tab-pane
               - if @campaign.closed?
@@ -119,4 +119,19 @@
                 = link_to @campaign, method: :delete, data: { confirm: '삭제하시겠습니까?' }, class: "btn btn-outline-danger" do
                   %i.fa.fa-trash
                   캠페인 삭제
+
+              - if @campaign.stealthily?
+                .py-3
+                  %h4
+                    #{Campaign.model_name.human} 목록에 다시 노출하기
+                  %p 캠페인을 목록에 다시 노출합니다.
+                  = link_to stealthily_campaign_path(@campaign, value: 'false'), method: :put, class: 'btn btn-outline-danger' do
+                    노출하기
+              - else
+                .py-3
+                  %h4
+                    #{Campaign.model_name.human} 목록에서 숨기기
+                  %p 캠페인을 목록에서 숨깁니다.
+                  = link_to stealthily_campaign_path(@campaign, value: 'true'), method: :put, class: 'btn btn-outline-danger' do
+                    숨기기
 = render "campaigns/analytics"
