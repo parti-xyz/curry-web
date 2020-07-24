@@ -49,7 +49,7 @@ class Api::V1::SignsController < ApplicationController
 
   def sign_params
     params.require(:sign).permit(:body, :campaign_id,
-      :signer_name, :signer_email, :signer_address, :signer_real_name, :signer_phone,
+      :signer_name, :signer_email, :signer_country, :signer_city, :signer_address, :signer_real_name, :signer_phone,
       :confirm_privacy)
   end
 end
