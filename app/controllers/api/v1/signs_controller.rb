@@ -23,6 +23,9 @@ class Api::V1::SignsController < ApplicationController
       # 서명 이메일 중복
       elsif sign.errors.added? :signer_email, :taken
         render_json_error(:bad_request, :signer_email_taken, sign)
+      # 서명 이메일 포맷 에러
+      elsif sign.errors.added? :signer_email, :invalid
+        render_json_error(:bad_request, :signer_email_invalid, sign)
       # 이외 오류
       else
         render_json_error(:internal_server_error, :unknown, sign)
