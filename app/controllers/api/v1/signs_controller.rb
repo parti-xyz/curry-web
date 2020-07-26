@@ -15,7 +15,10 @@ class Api::V1::SignsController < ApplicationController
     end
 
     if sign.save
-      render json: sign
+      render json: {
+        sign: sign,
+        signs_count: sign.campaign.signs_count
+      }
     else
       # 캠페인이 닫긴 경우
       if sign.errors.added? :campaign, :closed, message: I18n.t('messages.campaigns.closed')
