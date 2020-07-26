@@ -8,7 +8,8 @@ class Sign < ApplicationRecord
   validate :valid_signer
   validates_acceptance_of :confirm_privacy
   validate :valid_signer
-  validates :signer_email, format: { with: Devise.email_regexp }, uniqueness: { scope: :campaign }, if: 'signer_email.present?'
+  validates :signer_email, format: { with: Devise.email_regexp }, if: 'signer_email.present?'
+  validates :signer_email, uniqueness: { scope: :campaign }, if: :need_email_uniqueness? # 'signer_email.present?'
   validate :open_campaign
 
   scope :recent, -> { order(created_at: :desc) }
@@ -52,5 +53,9 @@ class Sign < ApplicationRecord
     if self.campaign.closed?
       errors.add(:campaign, :closed, message: I18n.t('messages.campaigns.closed'))
     end
+  end
+
+  def need_email_uniqueness?
+    self.signer_email.present? && self.campaign.slug != 'endthekoreanwar'
   end
 end
