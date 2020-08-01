@@ -4,10 +4,11 @@ class Sign < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :campaign, counter_cache: true
 
+  before_validation :trim_signer_email
+
   validates :user, uniqueness: { scope: :campaign }, if: 'user.present?'
   validate :valid_signer
   validates_acceptance_of :confirm_privacy
-  validate :valid_signer
   validates :signer_email, format: { with: Devise.email_regexp }, if: 'signer_email.present?'
   validates :signer_email, uniqueness: { scope: :campaign }, if: :need_email_uniqueness? # 'signer_email.present?'
   validate :open_campaign
@@ -65,5 +66,9 @@ class Sign < ApplicationRecord
 
   def need_email_uniqueness?
     self.signer_email.present? && self.campaign.slug != 'endthekoreanwar'
+  end
+
+  def trim_signer_email
+    self.signer_email&.strip
   end
 end
