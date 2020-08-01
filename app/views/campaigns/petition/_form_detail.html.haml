@@ -53,6 +53,31 @@
     서명 영역의 주소 입력폼 제목을 정합니다. 비워두면 적절히 표시됩니다.
 
 .form-group
+  = f.label :use_signer_country
+  = f.select :use_signer_country, Campaign.use_signer_country.options, class: 'form-control'
+  %p.help-block
+    국가를 받지 않거나(사용하지 않음) 반드시 받거나(필수 입력), 입력란은 보여주되 입력하지 않아도 됩니다.(옵션 입력)
+
+.form-group
+  = f.label :signer_country_title
+  = f.text_field :signer_country_title, class: 'form-control'
+  %p.help-block
+    서명 영역의 국가 입력폼 제목을 정합니다. 비워두면 적절히 표시됩니다.
+
+.form-group
+  = f.label :use_signer_city
+  = f.select :use_signer_city, Campaign.use_signer_city.options, class: 'form-control'
+  %p.help-block
+    지역을 받지 않거나(사용하지 않음) 반드시 받거나(필수 입력), 입력란은 보여주되 입력하지 않아도 됩니다.(옵션 입력)
+
+.form-group
+  = f.label :signer_city_title
+  = f.text_field :signer_city_title, class: 'form-control'
+  %p.help-block
+    서명 영역의 지역 입력폼 제목을 정합니다. 비워두면 적절히 표시됩니다.
+
+
+.form-group
   = f.label :use_signer_phone
   = f.select :use_signer_phone, Campaign.use_signer_phone.options, class: 'form-control'
   %p.help-block

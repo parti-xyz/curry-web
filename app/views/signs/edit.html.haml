@@ -17,6 +17,14 @@
         .form-group
           = f.label :signer_address
           = f.text_field :signer_address, class: 'form-control'
+      - unless @sign.campaign.use_signer_country.unused?
+        .form-group
+          = f.label :signer_country
+          = f.text_field :signer_country, class: 'form-control'
+      - unless @sign.campaign.use_signer_city.unused?
+        .form-group
+          = f.label :signer_city
+          = f.text_field :signer_city, class: 'form-control'
 
       .form-group
         = f.label :body

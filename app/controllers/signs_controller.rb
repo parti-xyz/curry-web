@@ -106,6 +106,7 @@ class SignsController < ApplicationController
     params.require(:sign).permit(:body, :campaign_id,
       :signer_name, :signer_email,
       :signer_address, :signer_real_name, :signer_phone,
+      :signer_country, :signer_city,
       :confirm_privacy, :confirm_third_party,
       :extra_29_confirm_join)
   end

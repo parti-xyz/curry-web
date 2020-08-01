@@ -140,6 +140,8 @@ class Campaign < ApplicationRecord
 
   enumerize :use_signer_address, in: [:unused, :required, :optional], default: :unused
   enumerize :use_signer_phone, in: [:unused, :required, :optional], default: :unused
+  enumerize :use_signer_country, in: [:unused, :required, :optional], default: :unused
+  enumerize :use_signer_city, in: [:unused, :required, :optional], default: :unused
 
   acts_as_tagger
 

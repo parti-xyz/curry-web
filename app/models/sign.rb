@@ -47,6 +47,14 @@ class Sign < ApplicationRecord
     if campaign.use_signer_address.required? and signer_address.blank?
       errors.add(:signer_address, I18n.t('errors.messages.blank'))
     end
+
+    if campaign.use_signer_country.required? and signer_country.blank?
+      errors.add(:signer_country, I18n.t('errors.messages.blank'))
+    end
+
+    if campaign.use_signer_city.required? and signer_city.blank?
+      errors.add(:signer_city, I18n.t('errors.messages.blank'))
+    end
   end
 
   def open_campaign

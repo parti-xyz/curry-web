@@ -7,6 +7,12 @@ if @campaign.confirm_third_party?
   if @campaign.use_signer_email?
     row_definition << [:user_email, '이메일']
   end
+  unless @campaign.use_signer_country.unused?
+    row_definition << [:signer_country, '국가']
+  end
+  unless @campaign.use_signer_city.unused?
+    row_definition << [:signer_city, '지역']
+  end
   unless @campaign.use_signer_address.unused?
     row_definition << [:signer_address, '주소']
   end

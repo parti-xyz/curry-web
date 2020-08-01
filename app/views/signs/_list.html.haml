@@ -52,6 +52,14 @@
                   .form-group
                     = f.label :signer_address, raw("#{campaign.signer_address_title.presence || t('activerecord.attributes.sign.signer_address')} #{'&middot; 선택입력' if campaign.use_signer_address.optional?}")
                     = f.text_field :signer_address, placeholder: '주소', class: 'form-control', data: { 'rule-required': campaign.use_signer_address.required? }
+                - unless campaign.use_signer_country.unused?
+                  .form-group
+                    = f.label :signer_country, raw("#{campaign.signer_country_title.presence || t('activerecord.attributes.sign.signer_country')} #{'&middot; 선택입력' if campaign.use_signer_country.optional?}")
+                    = f.text_field :signer_country, placeholder: '국가', class: 'form-control', data: { 'rule-required': campaign.use_signer_country.required? }
+                - unless campaign.use_signer_city.unused?
+                  .form-group
+                    = f.label :signer_city, raw("#{campaign.signer_city_title.presence || t('activerecord.attributes.sign.signer_city')} #{'&middot; 선택입력' if campaign.use_signer_city.optional?}")
+                    = f.text_field :signer_city, placeholder: '지역', class: 'form-control', data: { 'rule-required': campaign.use_signer_city.required? }
 
                 - unless campaign.use_signer_phone.unused?
                   .form-group
