@@ -41,7 +41,7 @@ class Sign < ApplicationRecord
       end
     end
 
-    if campaign.use_signer_email? and signer_email.blank?
+    if campaign.use_signer_email.required? and signer_email.blank?
       errors.add(:signer_email, I18n.t('errors.messages.blank'))
     end
 

@@ -4,7 +4,7 @@ row_definition = [
 ]
 
 if @campaign.confirm_third_party?
-  if @campaign.use_signer_email?
+  unless @campaign.use_signer_email.unused?
     row_definition << [:user_email, '이메일']
   end
   unless @campaign.use_signer_country.unused?

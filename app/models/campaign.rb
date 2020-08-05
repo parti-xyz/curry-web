@@ -138,6 +138,7 @@ class Campaign < ApplicationRecord
     ['황영철', '강원', '홍천군철원군화천군양구군인제군', '강원도 홍천군 홍천읍 진삼거리길 13 한샘빌딩 3층 후원회사무실']
   ]
 
+  enumerize :use_signer_email, in: [:unused, :required, :optional], default: :unused
   enumerize :use_signer_address, in: [:unused, :required, :optional], default: :unused
   enumerize :use_signer_phone, in: [:unused, :required, :optional], default: :unused
   enumerize :use_signer_country, in: [:unused, :required, :optional], default: :unused

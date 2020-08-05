@@ -400,6 +400,10 @@ ko:
           unsure: 의견을 확인 중입니다
           partially: 일부 찬성합니다
           any_body: 답변했습니다
+      use_signer_email:
+        unused: 사용하지 않음
+        required: 필수 입력
+        optional: 옵션 입력
       use_signer_address:
         unused: 사용하지 않음
         required: 필수 입력

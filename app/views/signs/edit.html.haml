@@ -9,7 +9,7 @@
         .form-group
           = f.label :signer_name
           = f.text_field :signer_name, class: 'form-control'
-      - if @sign.campaign.use_signer_email?
+      - unless @sign.campaign.use_signer_email.unused?
         .form-group
           = f.label :signer_email
           = f.email_field :signer_email, class: 'form-control'

@@ -27,12 +27,10 @@
     서명 영역의 실명 입력폼 제목을 정합니다. 비워두면 적절히 표시됩니다.
 
 .form-group
-  .checkbox
-    %label
-      = f.check_box :use_signer_email
-      %strong= Campaign.human_attribute_name("use_signer_email")
+  = f.label :use_signer_email
+  = f.select :use_signer_email, Campaign.use_signer_email.options, class: 'form-control'
   %p.help-block
-    체크해 두면 이메일 주소를 받습니다.(선택사항)
+    이메일을 받지 않거나(사용하지 않음) 반드시 받거나(필수 입력), 입력란은 보여주되 입력하지 않아도 됩니다.(옵션 입력)
 
 .form-group
   = f.label :signer_email_title

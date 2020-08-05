@@ -37,11 +37,11 @@
                 .form-group
                   = f.label :signer_name
                   = f.text_field :signer_name, placeholder: '이름 혹은 별명..', class: 'form-control', data: { 'rule-required': true }
-            - if @campaign.use_signer_email?
+            - unless @campaign.use_signer_email.unused?
               - f.object.signer_email = current_user.try(:email)
               .form-group
-                = f.label :signer_email, @campaign.signer_email_title.presence || t('activerecord.attributes.sign.signer_email')
-                = f.email_field :signer_email, placeholder: '이메일', class: 'form-control', data: { 'rule-required': true }
+                = f.label :signer_email, raw("#{@campaign.signer_email_title.presence || t('activerecord.attributes.sign.signer_email')} #{'&middot; 선택입력' if @campaign.use_signer_email.optional?}")
+                = f.email_field :signer_email, placeholder: '이메일', class: 'form-control', data: { 'rule-required': @campaign.use_signer_email.required? }
             - unless @campaign.use_signer_address.unused?
               .form-group
                 = f.label :signer_address, raw("#{@campaign.signer_address_title.presence || t('activerecord.attributes.sign.signer_address')} #{'&middot; 선택입력' if @campaign.use_signer_address.optional?}")
