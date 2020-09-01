@@ -1,4 +1,3 @@
-//= require imagesloaded.pkgd
 //= require masonry.pkgd
 //= require sticky
 

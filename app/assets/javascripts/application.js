@@ -31,6 +31,7 @@
 //= require infinite
 //= require clipboard
 //= require js.cookie
+//= require imagesloaded.pkgd
 //= require parti
 
 UnobtrusiveFlash.flashOptions['timeout'] = 3000;
@@ -372,20 +373,21 @@ function parti_partial$($partial) {
   $partial.find('.js-infinite-container').each(function() {
     if ($(this).hasClass('masonry-container')) {
       var container = $('.masonry-container');
-      console.log('container');
-      console.log(container);
       new Waypoint.Infinite( {
         element: this,
         items: '.masonry-item',
         loadingClass: 'infinite-loading',
         onAfterPageLoad: function($items) {
+          container.imagesLoaded({}, function () {
+            container.masonry('reloadItems');
+            container.masonry('layout');
+          });
           // parti_partial$($items);
-          console.log('reload');
-          console.log(container);
-          container.masonry('reloadItems');
-          container.masonry('layout');
         }
       });
+      container.on('layoutComplete', function (event, laidOutItems) {
+
+      })
     } else {
       new Waypoint.Infinite( {
         element: this,
