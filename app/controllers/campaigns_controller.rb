@@ -17,27 +17,33 @@ class CampaignsController < ApplicationController
   end
 
   def show
-    @project = @campaign.project
-    @campaign.increment!(:views_count)
-    @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
-    @signs = params[:mode] == 'widget' ? @signs.limit(10) : @signs.page(params[:page])
+    respond_to do |format|
+      format.html do
+        @project = @campaign.project
+        @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
+        @signs = params[:mode] == 'widget' ? @signs.limit(10) : @signs.page(params[:page])
 
-    if @campaign.template != 'petition'
-      @comments = params[:tag].present? ? @campaign.comments.tagged_with(params[:tag]) : @campaign.comments
-      @comments = params[:toxic].present? ? @comments.where(toxic: true) : @comments.where(toxic: false)
-      @comments = @comments.order('id DESC')
-      @comments = @comments.page(params[:page]).per 50
-    end
+        @campaign.increment!(:views_count)
 
-    if @campaign.template == 'special_speech'
-      @speeches = @campaign.speeches.recent.limit(browser.device.mobile? ? 4 : 8)
-      @hero_speech = @campaign.speeches.sample
-    elsif %w(basic photo map).include? @campaign.template
-      redirect_to pickets_campaign_path(@campaign)
-    end
+        if @campaign.template != 'petition'
+          @comments = params[:tag].present? ? @campaign.comments.tagged_with(params[:tag]) : @campaign.comments
+          @comments = params[:toxic].present? ? @comments.where(toxic: true) : @comments.where(toxic: false)
+          @comments = @comments.order('id DESC')
+          @comments = @comments.page(params[:page]).per 50
+        end
 
-    if params[:mode] == 'widget'
-      render '_widget', layout: 'strip'
+        if @campaign.template == 'special_speech'
+          @speeches = @campaign.speeches.recent.limit(browser.device.mobile? ? 4 : 8)
+          @hero_speech = @campaign.speeches.sample
+        elsif %w(basic photo map).include? @campaign.template
+          redirect_to pickets_campaign_path(@campaign)
+        end
+
+        if params[:mode] == 'widget'
+          render '_widget', layout: 'strip'
+        end
+      end
+      format.json
     end
   end
 
