@@ -124,7 +124,6 @@ gem 'fastimage', '~> 1.9'
 # monitor
 gem 'newrelic_rpm'
 gem 'ey_config'
-gem 'skylight'
 
 gem 'rack-mini-profiler', require: false
 
