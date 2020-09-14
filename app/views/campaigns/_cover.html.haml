@@ -25,7 +25,7 @@
         = link_to @campaign.user.nickname, @campaign.user, class: 'text-white'
 
     - if @campaign.picketable?
-      .my-4.p-3.bg-light.text-dark
+      .cover-picket-body.my-4.p-3.bg-light.text-dark
         = raw @campaign.body
 
 %section.border-bottom.border-primary.p-2

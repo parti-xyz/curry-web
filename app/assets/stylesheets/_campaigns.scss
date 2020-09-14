@@ -1445,6 +1445,11 @@
       }
     }
   }
+  .cover-picket-body {
+    img {
+      max-width: 100%;
+    }
+  }
   .section-picket-tags {
     color: #2575ef;
     background-color: #f0f0f0;
