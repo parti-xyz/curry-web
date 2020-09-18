@@ -21,7 +21,7 @@
               .d-flex.justify-content-between
                 %small= render 'likes/button', likable: picket
                 %small.control-btn
-                  - if picket.user.present? and picket.user == current_user
+                  - if can? :destroy, picket
                     = link_to "삭제", comment_path(picket), method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
                   - else
                     = render 'reports/button', reportable: picket
@@ -45,7 +45,7 @@
                 %small.picket-date
                   = date_f picket.created_at
                 %small.control-btn
-                  - if picket.user.present? and picket.user == current_user
+                  - if can? :destroy, picket
                     = link_to "삭제", comment_path(picket), method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
                   - else
                     = render 'reports/button', reportable: picket

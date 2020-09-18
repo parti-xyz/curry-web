@@ -270,6 +270,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'base#home', as: :home
+    get :become, to: 'base#become'
     get :refresh_assembly_members, to: 'base#refresh_assembly_members'
     resources :agendas
     resources :issues do

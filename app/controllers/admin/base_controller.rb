@@ -10,6 +10,16 @@ class Admin::BaseController < ApplicationController
     redirect_to admin_home_path
   end
 
+  def become
+    return render_404 && return if Rails.env.production?
+
+    user = User.find_by(nickname: params[:nickname])
+    return render_404 && return if user.blank?
+
+    sign_in(:user, user)
+    redirect_to root_url
+  end
+
   private
 
   def admin_only
