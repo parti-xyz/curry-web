@@ -6,15 +6,20 @@ class Sign < ApplicationRecord
 
   before_validation :trim_signer_email
 
-  validates :user, uniqueness: { scope: :campaign }, if: 'user.present?'
+  validates :user, uniqueness: { scope: :campaign }, if: proc { user.present? }
   validate :valid_signer
   validates_acceptance_of :confirm_privacy
-  validates :signer_email, format: { with: Devise.email_regexp }, if: 'signer_email.present?'
-  validates :signer_email, uniqueness: { scope: :campaign }, if: :need_email_uniqueness? # 'signer_email.present?'
+  validates :signer_email, format: { with: Devise.email_regexp }, if: proc { signer_email.present? }
+  validates :signer_email, uniqueness: { scope: :campaign }, if: proc { need_email_uniqueness? } # 'signer_email.present?'
   validate :open_campaign
 
   scope :recent, -> { order(created_at: :desc) }
   scope :earlier, -> { order(created_at: :asc) }
+  scope :signs_featured, -> (current_user) {
+    result = where.not(body: nil).where.not(body: '')
+    result = result.or(Sign.where(user: current_user)) if current_user.present?
+    result
+  }
 
   def user_image_url
     user.present? ? user.image.sm.url : ActionController::Base.helpers.asset_path('default-user.png')

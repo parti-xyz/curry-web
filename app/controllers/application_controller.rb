@@ -2,8 +2,8 @@ class ApplicationController < ActionController::Base
   include OrganizationHelper
 
   protect_from_forgery with: :exception
-  before_action :prepare_meta_tags, if: "request.get?"
-  before_action :check_terms_agreement, if: "request.get?" and "request.format.html?"
+  before_action :prepare_meta_tags, if: proc { request.get? }
+  before_action :check_terms_agreement, if: proc { request.get? && request.format.html? }
   after_action :prepare_flash
   after_action :store_location
   before_action :banned?

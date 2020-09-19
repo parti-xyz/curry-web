@@ -13,9 +13,9 @@ class Comment < ApplicationRecord
 
   belongs_to :commentable, polymorphic: true, counter_cache: true
   belongs_to :user
-  belongs_to :target_agent, optional: true, class_name: Agent
-  has_many :target_agents, through: :orders, source: :agent
+  belongs_to :target_agent, optional: true, class_name: 'Agent'
   has_many :orders, dependent: :destroy
+  has_many :target_agents, through: :orders, source: :agent
   has_many :comments, as: :commentable, dependent: :destroy
 
   mount_uploader :image, ImageUploader
@@ -26,7 +26,7 @@ class Comment < ApplicationRecord
 
 
   validates :body, presence: true
-  validates :commenter_email, format: { with: Devise.email_regexp, message: :need_to_valid_email }, if: 'commenter_email.present?'
+  validates :commenter_email, format: { with: Devise.email_regexp, message: :need_to_valid_email }, if: proc { commenter_email.present? }
   validate :commenter_should_be_present_if_user_is_blank
   validate :photo_and_map_campaign_should_check_image_attachment
   validates_acceptance_of :confirm_privacy

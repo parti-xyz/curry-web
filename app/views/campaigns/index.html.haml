@@ -2,7 +2,7 @@
   %section.p-0.jumbotron.jumbotron-fluid.bg-transparent.position-relative.d-flex.align-items-center{ style: "width: 100vw; min-height: 50vh;" }
     - if Campaign.published.popular.any?
       - campaign = Campaign.published.popular.limit(5).shuffle.first
-      = image_tag campaign.cover_image, class: "img-fluid position-absolute", style: "object-fit: cover; object-position: top; height: 100%; width: 100%;"
+      = image_tag campaign.cover_image.md.url, class: "img-fluid position-absolute", style: "object-fit: cover; object-position: top; height: 100%; width: 100%;"
       .bg-dark.position-absolute{ style: "width: 100%; height: 100%; opacity: 0.4" }
       .container.position-relative
         %h1.text-white

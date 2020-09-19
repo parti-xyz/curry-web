@@ -20,7 +20,9 @@ class CampaignsController < ApplicationController
     respond_to do |format|
       format.html do
         @project = @campaign.project
-        @signs = @campaign.signs.where.any_of(*([Sign.where.not(body: nil).where.not(body: ''), (Sign.where(user: current_user) if current_user.present?)].compact)).recent
+        @signs = @campaign.signs.recent
+        @signs = @signs.signs_featured(current_user)
+
         @signs = params[:mode] == 'widget' ? @signs.limit(10) : @signs.page(params[:page])
 
         @campaign.increment!(:views_count)

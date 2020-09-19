@@ -1,5 +1,5 @@
 %section.py-5.m-0.jumbotron.jumbotron-fluid.bg-transparent.position-relative.d-flex.align-items-center{ style: "width: 100vw; min-height: 40vh; overflow: hidden;" }
-  = image_tag @campaign.cover_image, class: "img-fluid position-absolute", style: "object-fit: cover; object-position: top; height: 100%; width: 100%; -webkit-filter: blur(5px); filter: blur(5px);"
+  = image_tag @campaign.cover_image.md.url, class: "img-fluid position-absolute", style: "object-fit: cover; object-position: top; height: 100%; width: 100%; -webkit-filter: blur(5px); filter: blur(5px);"
   .bg-dark.position-absolute{ style: "width: 100%; height: 100%; opacity: 0.4" }
   .container.position-relative
     %h1.text-white

@@ -10,7 +10,7 @@ class Note < ApplicationRecord
   scope :earlier, -> { order(created_at: :asc) }
 
   validates :body, presence: true
-  validates :writer_email, format: { with: Devise.email_regexp }, if: 'writer_email.present?'
+  validates :writer_email, format: { with: Devise.email_regexp }, if: proc { writer_email.present? }
   validate :writer_should_be_present_if_user_is_blank
 
   def user_nickname

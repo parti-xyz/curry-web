@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  skip_before_filter :verify_authenticity_token, only: [:create]
+  skip_before_action :verify_authenticity_token, only: [:create]
   prepend_before_action :check_captcha, only: [:create]
 
   # Overwrite update_resource to let users to update their user without giving their password

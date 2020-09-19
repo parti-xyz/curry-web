@@ -174,7 +174,7 @@ class Campaign < ApplicationRecord
 
   before_save :default_opened_at
   before_save :setup_api_secure_key
-  after_save :mailing_issue,  if: :issue_id_changed?
+  after_save :mailing_issue,  if: proc { issue_id_changed? }
 
   def signed? someone
     someone.present? and signs.exists?(user: someone)

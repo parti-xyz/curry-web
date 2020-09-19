@@ -25,10 +25,11 @@ module Statementable
       if action_targets.blank?
         dedicated_agents
       else
-        conditions = action_targets.map { |action_target|
-          Agent.where(id: action_target.action_assignable.statementable_agents) }
-        conditions << Agent.where(id: dedicated_agents)
-        Agent.where.any_of(*conditions)
+        agents = Agent.where(id: dedicated_agents)
+        action_targets.each do |action_target|
+          agents = agents.or(Agent.where(id: action_target.action_assignable.statementable_agents))
+        end
+        agents
       end
     else
       action_assignable.statementable_agents

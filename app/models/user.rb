@@ -74,8 +74,8 @@ class User < ApplicationRecord
     presence: true,
     confirmation: true,
     length: Devise.password_length,
-    if: :password_required?
-  validates_confirmation_of :password, if: :password_required?
+    if: proc { password_required? }
+  validates_confirmation_of :password, if: proc { password_required? }
   validates :term_service, :presence => true
   validates :term_privacy, :presence => true
   validates :term_privacy_must, :presence => true

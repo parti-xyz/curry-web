@@ -6,9 +6,9 @@
       - Opinion.available_stance_values_by_theme(issue.agenda_theme).each do |stance|
         - if stance == 'unsure'
           - if issue.agenda_theme.try(:slug) == 'votefuture'
-            - opinions = issue.opinions.any_of(Opinion.where(stance: nil), Opinion.where(stance: 'unsure'), Opinion.where(stance: 'disagree'))
+            - opinions = issue.opinions.where(stance: nil).or(Opinion.where(stance: 'unsure')).or(Opinion.where(stance: 'disagree'))
           - else
-            - opinions = issue.opinions.any_of(Opinion.where(stance: nil), Opinion.where(stance: 'unsure'))
+            - opinions = issue.opinions.where(stance: nil).or(Opinion.where(stance: 'unsure'))
         - else
           - opinions = issue.opinions.where(stance: stance)
         - stance_agents = Agent.where(id: opinions.pluck(:agent_id)).distinct

@@ -1,5 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  prepend_before_filter :require_no_authentication, only: [:facebook, :twitter, :naver]
+  prepend_before_action :require_no_authentication, only: [:facebook, :twitter, :naver]
 
   def facebook
     run_omniauth

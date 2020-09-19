@@ -1,7 +1,7 @@
 class Statement < ApplicationRecord
   belongs_to :agent
   belongs_to :statementable, polymorphic: true, optional: true
-  belongs_to :last_updated_user, optional: true, class_name: User
+  belongs_to :last_updated_user, optional: true, class_name: 'User'
   has_many :statement_keys
 
   extend Enumerize
