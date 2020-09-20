@@ -4,7 +4,7 @@
       .col-6.col-md-3.mb-4.masonry-item.infinite-item[picket]
         - unless picket.image.file.nil?
           .card.bg-dark.text-white
-            = image_tag picket.image.md, class: "card-img"
+            = image_tag picket.image.md.url, class: "card-img"
             .card-body
               %div
                 %span.user.font-weight-bold
