@@ -1,0 +1,8 @@
+(function() {
+  <%= render 'campaigns/widget/v1/component' %>
+  setTimeout(function() {
+    window[componentName]().render("<%= j params['target_query'] %>")
+  }, 1000);
+})()
+
+

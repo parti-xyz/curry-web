@@ -1,0 +1,24 @@
+!!!
+%html.has-footer{:lang => I18n.locale}
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no", :name => "viewport"}
+    = display_meta_tags
+    = render 'favicons'
+    %title 빠띠 캠페인즈
+    = stylesheet_link_tag 'application', media: 'all'
+    = stylesheet_link_tag 'widget-section', media: 'all'
+    %link{:href => "https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css", :rel => "stylesheet", :type => "text/css"}/
+    %script{crossorigin: "anonymous", src: "https://kit.fontawesome.com/d1995cff7d.js"}
+    = csrf_meta_tags
+    - if Rails.env.production?
+      %script{async: "", src: "https://www.googletagmanager.com/gtag/js?id=UA-93481585-1"}
+      :javascript
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-93481585-1', { 'groups': 'all' });
+
+  %body{class: "app-#{params[:controller]} app-#{params[:controller]}-#{params[:action]}"}
+    = yield

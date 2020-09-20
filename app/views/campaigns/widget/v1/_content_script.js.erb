@@ -1,0 +1,49 @@
+<script defer>
+  (function() {
+    <%= render 'campaigns/widget/v1/component.js' %>
+
+    if (window.NodeList && !NodeList.prototype.forEach) {
+      NodeList.prototype.forEach = Array.prototype.forEach;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var agentsFilters = document.querySelectorAll('.js-widget-agents-filter');
+
+      agentsFilters.forEach(function(agentsFilter) {
+        agentsFilter.addEventListener('click', function(event) {
+          var currentAgentsFilter = event.currentTarget;
+          var currentStance = currentAgentsFilter.dataset.widgetAgentsFilterStance;
+
+          var anyItems = false
+          document.querySelectorAll('.js-widget-agents-filter-item').forEach(function (item) {
+            if (currentStance) {
+              if (item.classList.contains('js-widget-agents-filter-item-' + currentStance)) {
+                anyItems = true
+                item.classList.remove('-hide');
+              } else {
+                item.classList.add('-hide');
+              }
+            } else {
+              anyItems = true
+              item.classList.remove('-hide');
+            }
+          });
+
+          var agentList = document.querySelector('.js-widget-agents-filter-list');
+
+          if (!agentList) { return; }
+          if (anyItems) {
+            agentList.classList.remove('-no-item')
+          } else {
+            agentList.classList.add('-no-item')
+          }
+
+          agentsFilters.forEach(function (aAgentsFilter) {
+            aAgentsFilter.classList.remove('-active')
+          })
+          currentAgentsFilter.classList.add('-active')
+        })
+      });
+    });
+  })()
+</script>

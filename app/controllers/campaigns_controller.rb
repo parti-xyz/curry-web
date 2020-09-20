@@ -1,5 +1,5 @@
 class CampaignsController < ApplicationController
-  protect_from_forgery except: :widget_v1
+  protect_from_forgery except: :widget_v1_sdk
 
   include OrganizationHelper
   include Statementing
@@ -218,14 +218,14 @@ class CampaignsController < ApplicationController
     render template: "campaigns/picket/picket"
   end
 
-  def widget_v1
+  def widget_v1_sdk
     @campaign = Campaign.find(params[:campaign_id])
-    render template: "campaigns/widget/v1", layout: 'strip_without_footer'
+    render template: "campaigns/widget/v1/sdk", layout: nil
   end
 
   def widget_v1_content
     @campaign = Campaign.find(params[:campaign_id])
-    render template: "campaigns/widget/v1_content", layout: 'strip_without_footer'
+    render template: "campaigns/widget/v1/content", layout: 'widget'
   end
 
   def stealthily

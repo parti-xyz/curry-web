@@ -121,6 +121,7 @@ gem 'video_info', '~> 2.6'
 gem 'fastimage', '~> 1.9'
 
 gem 'rack-mini-profiler', require: false
+gem 'health_check'
 
 group :development do
   gem 'web-console', '~> 2.0'

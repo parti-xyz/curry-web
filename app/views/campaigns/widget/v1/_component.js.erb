@@ -1,0 +1,54 @@
+<% lib_js = Rails.cache.fetch("campaigns_widget_v1_base", race_condition_ttl: 600.seconds, expires_in: 8400.hours) do
+  libs = %w(zoid.js).map do |file_name|
+      File.read(File.join(Rails.root, 'vendor', 'assets', 'javascripts', file_name))
+  end.join("\n")
+  if true || Rails.env.production?
+    result = Uglifier.new(output: { comments: :none }, mangle: { reserved: ['zoid'] }).compile(libs)
+  end
+  result
+end %>
+<%= raw lib_js %>
+
+var campaignId = "<%= j params['campaign_id'] %>"
+if (!campaignId) {
+  return;
+}
+
+var componentName = "<%= j params['component_name'] %>"
+if (!componentName) {
+  componentName = '__parti__campaign__' + campaignId
+}
+
+var componentTag = "<%= j params['component_tag'] %>"
+if (!componentTag) {
+  componentTag = 'div'
+}
+
+var dimensions = {}
+var componentWidth = "<%= j params['component_width'] %>"
+if (componentWidth) {
+  dimensions['width'] = componentWidth
+}
+var componentHeight = "<%= j params['component_width'] %>"
+if (componentHeight) {
+  dimensions['height'] = componentHeight
+}
+
+var url = '<%= widget_v1_content_campaigns_url %>'
++ '?component_tag=' + componentTag
++ '&component_name=' + componentName
++ '&campaign_id=' + campaignId
+
+var componentOptions = {
+  // The html tag used to render a component
+  tag: componentTag,
+  // The url that will be loaded in the iframe or popup, when someone includes my component on their page
+  url: url,
+  dimensions: dimensions,
+  autoResize: {
+    width: false,
+    height: true
+  },
+  scrolling: false,
+}
+window[componentName] = zoid.create(componentOptions)

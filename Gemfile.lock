@@ -396,6 +396,8 @@ GEM
       html2haml (>= 1.0.1)
       railties (>= 5.1)
     hashie (4.1.0)
+    health_check (3.0.0)
+      railties (>= 5.0)
     html2haml (2.2.0)
       erubis (~> 2.7.0)
       haml (>= 4.0, < 6)
@@ -838,6 +840,7 @@ DEPENDENCIES
   guard (~> 2.13.0)
   guard-minitest (~> 2.4, >= 2.4.6)
   haml-rails (~> 2.0, >= 2.0.1)
+  health_check
   html2text
   html_truncator
   htmlentities (~> 4.3, >= 4.3.4)

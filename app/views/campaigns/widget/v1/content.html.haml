@@ -1,0 +1,93 @@
+- cache "campaign-orders-show-status-widget2-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 10.minutes do
+  %section.widget-section
+    .yell
+      총
+      %span
+        %span.count<> #{number_with_delimiter(@campaign.order_users_count, delimiter:",")}
+        명이
+      촉구하였습니다.
+    .graph
+      .base
+        .gage{ style: 'width: 6%' }
+          &nbsp;25%&nbsp;
+      .desc
+        .column.-left
+          참여 #{number_with_delimiter(@campaign.order_users_count, delimiter:",")}
+        .column.-right
+          목표 #{number_with_delimiter(@campaign.goal_count, delimiter:",")}
+    .score
+      .head
+        .title 응답 현황
+        = link_to '자세히 보기', campaign_path(@campaign), target: '_blank', class: 'more'
+      .boards
+        - if @campaign.stancable?
+          .board
+            .label 찬성
+            .count.-agree #{@campaign.agree_agents.count || 0}
+          .board
+            .label 반대
+            .count.-disagree #{@campaign.disagree_agents.count || 0}
+          .board
+            .label 무응답
+            .count.-unsure #{@campaign.unsure_agents.count || 0}
+        - else
+          .board
+            .label 응답
+            .count.-agree #{@campaign.any_body_agents.count || 0}
+          .board
+            .label 무응답
+            .count.-unsure #{@campaign.blank_body_agents.count || 0}
+    .agents
+      .filters
+        - if @campaign.stancable?
+          .filter.-active.js-widget-agents-filter{ data: { 'widget-agents-filter-stance': '' } } 전체
+          .filter.js-widget-agents-filter{ data: { 'widget-agents-filter-stance': 'agree' } } 찬성
+          .filter.js-widget-agents-filter{ data: { 'widget-agents-filter-stance': 'disagree' } } 반대
+          .filter.js-widget-agents-filter{ data: { 'widget-agents-filter-stance': 'unsure' } } 무응답
+        - else
+          .filter.-active.js-widget-agents-filter{ data: { 'widget-agents-filter-stance': '' } } 전체
+          .filter.js-widget-agents-filter{ data: { 'widget-agents-filter-stance': 'sure' } } 응답
+          .filter.js-widget-agents-filter{ data: { 'widget-agents-filter-stance': 'unsure' } } 무응답
+      .list.row.js-widget-agents-filter-list
+        - @campaign.total_action_assignables.each do |action_assignable|
+          - @campaign.agents(action_assignable).each do |agent|
+            - statement = @campaign.cached_statement_of(agent)
+            - stance_code = if statement.try(:stancable?)
+              - if statement.try(:sure?)
+                - statement.stance
+              - else
+                - 'unsure'
+            - else
+              - if statement.try(:body).present?
+                - 'suer'
+              - else
+                - 'unsure'
+
+            .agent.col-sm-4.col-12{ class: "js-widget-agents-filter-item js-widget-agents-filter-item-#{stance_code}" }
+              .image{ style: "background-image:url(#{asset_url(agent.image.md.url)});" }
+              .name
+                = agent.name
+                .organization= agent.organization
+              - if statement.try(:stancable?)
+                - if stance_code == 'unsure'
+                  .stance.-unsure
+                    - if statement.try(:body).present?
+                      보류
+                    - else
+                      %span 무응답
+                - else
+                  .stance{ class: "-#{stance_code}" }
+                    = statement.stance.text
+              - else
+                - if stance_code == 'sure'
+                  .stance.-agree
+                    응답
+                - else
+                  .stance.-unsure
+                    무응답
+        .empty
+          해당 촉구대상이 없습니다.
+    .poweredby
+      = link_to 'POWERD BY 빠띠 캠페인즈', 'https://campaigns.kr', class: 'link'
+
+  = render 'campaigns/widget/v1/content_script.js'
