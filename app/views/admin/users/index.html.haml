@@ -14,7 +14,7 @@
     - if @user.present?
       %h4 #{@user.nickname} 검색 결과
       .well.well-sm
-        = image_tag @user.image.sm, class: 'user-thumb-sm'
+        = image_tag @user.image.sm.url, class: 'user-thumb-sm'
         = @user.nickname
         .pull-right
           - if @user.banned?
@@ -32,7 +32,7 @@
         차단 회원 없습니다.
       - @banned_users.each do |banned_user|
         .well.well-sm
-          = image_tag banned_user.image.sm, class: 'user-thumb-sm'
+          = image_tag banned_user.image.sm.url, class: 'user-thumb-sm'
           = banned_user.nickname
           .pull-right
             - if banned_user.banned?

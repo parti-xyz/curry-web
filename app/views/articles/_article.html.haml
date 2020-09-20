@@ -10,7 +10,7 @@
         - if article.user.present?
           = link_to article.user do
             %span
-              = image_tag article.user.image.sm, class: 'user-thumb-sm'
+              = image_tag article.user.image.sm.url, class: 'user-thumb-sm'
               = article.user.nickname
         %span
           - if can? :update, article

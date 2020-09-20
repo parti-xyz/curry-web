@@ -18,7 +18,7 @@
         - user = organizer.user
         .col-sm-3
           .well.well-sm
-            = image_tag user.image.sm, class: 'user-thumb-sm'
+            = image_tag user.image.sm.url, class: 'user-thumb-sm'
             = user.nickname
             - if can? :manage, organizer
               .pull-right

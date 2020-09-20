@@ -31,7 +31,7 @@
           %span.choice__label 반대
           %span.choice__count= votable.disagrees_count
   - reactions =  votable.try(:comments) || votable.try(:notes)
-  - if local_assigns[:reactions_count_link] and
+  - if local_assigns[:reactions_count_link]
     %span.votable-comments-count
       = link_to reactions_count_link do
         %i.fa.fa-commenting

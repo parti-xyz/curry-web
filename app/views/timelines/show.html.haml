@@ -57,7 +57,7 @@
     %section.page-block
       .container
         = link_to @timeline.banner_url, target: '_blank' do
-          = image_tag @timeline.banner_image, width: '100%'
+          = image_tag @timeline.banner_image.url, width: '100%'
 
   %section.page-block
     .container

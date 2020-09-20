@@ -16,7 +16,7 @@
         - @agencies.each do |agency|
           %tr
             %td
-              = image_tag agency.image.xs, style: 'max-width: 40px'
+              = image_tag agency.image.xs.url, style: 'max-width: 40px'
             %td
               %h5
                 = link_to agency.title, agency_path(agency)

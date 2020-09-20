@@ -14,7 +14,7 @@
       - User.with_role(:admin).each do |user|
         .col-sm-3
           .well.well-sm
-            = image_tag user.image.sm, class: 'user-thumb-sm'
+            = image_tag user.image.sm.url, class: 'user-thumb-sm'
             = user.nickname
             .pull-right
               = link_to remove_admin_roles_path(user_nickname: user.nickname), method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'btn btn-xs btn-default' do
