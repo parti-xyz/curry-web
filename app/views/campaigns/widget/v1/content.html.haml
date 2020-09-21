@@ -1,4 +1,4 @@
-- cache "campaign-orders-show-status-widget2-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 10.minutes do
+- cache "campaign-orders-show-status-widget3-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 10.minutes do
   %section.widget-section
     .yell
       총
@@ -8,8 +8,8 @@
       촉구하였습니다.
     .graph
       .base
-        .gage{ style: 'width: 6%' }
-          &nbsp;25%&nbsp;
+        .gage{ style: "width: #{@campaign.percentage_order}%" }
+          &nbsp;#{@campaign.percentage_order}%&nbsp;
       .desc
         .column.-left
           참여 #{number_with_delimiter(@campaign.order_users_count, delimiter:",")}
