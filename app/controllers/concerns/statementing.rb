@@ -26,6 +26,26 @@ module Statementing
     render 'statementing/edit_agents'
   end
 
+  def add_agents
+    @statementable = fetch_statementable
+
+    if params[:action_targets].present?
+      params[:action_targets].each do |x_id|
+        type, id = x_id.split(':')
+        if type == 'agent'
+          agent = Agent.find(id)
+          @statementable.dedicated_agents << agent unless @statementable.dedicated_agents.include?(agent)
+        elsif type == 'agency'
+          agency = Agency.find(id)
+          @statementable.action_targets.create(action_assignable: agency) unless @statementable.action_targets.exists?(action_assignable: agency)
+        end
+        @statementable.save
+      end
+    end
+
+    redirect_to polymorphic_path([:edit, @statementable], anchor: 'tab_agents')
+  end
+
   def add_agent
     @agent = Agent.find_by(id: params[:agent_id])
     render_404 and return if @agent.blank?
@@ -99,7 +119,8 @@ module Statementing
 
     @statementable = fetch_statementable
     @statementable.dedicated_agents.delete(@agent) if @statementable.dedicated_agents.include?(@agent)
-    redirect_to polymorphic_path([:edit_agents, @statementable], q: params[:q])
+
+    redirect_to polymorphic_path([:edit, @statementable], anchor: 'tab_agents')
   end
 
   def remove_action_target
@@ -109,7 +130,8 @@ module Statementing
 
     @statementable = fetch_statementable
     @statementable.action_targets.where(action_assignable: @action_assignable).destroy_all
-    redirect_to polymorphic_path([:edit_agents, @statementable], q: params[:q])
+
+    redirect_to polymorphic_path([:edit, @statementable], anchor: 'tab_agents')
   end
 
   def update_message_to_agent

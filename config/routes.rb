@@ -95,6 +95,7 @@ Rails.application.routes.draw do
       get 'edit_message_to_agent'
       put 'update_message_to_agent'
       get 'edit_agents'
+      post 'add_agents'
       put 'add_agent'
       delete 'remove_agent'
       put 'add_action_target'

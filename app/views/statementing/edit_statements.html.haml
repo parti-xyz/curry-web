@@ -1,63 +1,17 @@
 %section.page-block
-  .container
-    = render 'statementing/agents_header', active: :edit_statements
-
-    .panel.panel-default
-      .panel-heading
-        찾기
-      .panel-body
-        %p 답변을 관리할 촉구대상을 찾아 보세요.
-        = form_tag nil, method: :get do
-          = text_field_tag :statement_q, params[:statement_q], class: 'form-control', style: 'display: inline; width: auto'
-          = submit_tag '검색', class: 'btn btn-default'
-        - if @searched_agents.try(:any?) and @target_agent.blank?
-          %hr
-          - if @searched_agents.count > 50
-            - if params[:statement_q].try(:any?)
-              .help 검색 결과가 너무 많습니다. 좀더 정확한 이름을 넣어 주세요.
-          - else
-            - if params[:statement_q].present?
-              %h4 #{params[:statement_q]}으로 검색하신 결과입니다.
-            - else
-              %h4 전체 촉구대상의 목록입니다.
-
-            %br
-            .row
-              - @searched_agents.each do |agent|
-                .col-xs-12.col-md-4
-                  .media
-                    .media-left
-                      = link_to agent_path(agent) do
-                        .image.agent-image.agent-image--mini{style: "background-image: url(#{agent.image.xs.url});"}
-                    .media-body
-                      %strong= agent.name
-                      = agent.organization
-                    .media-right
-                      - if @statementable.assigned?(agent)
-                        - statement = @statementable.statement_of(agent)
-                        - if statement.try(:respond_status).blank?
-                          - btn_stance_class = 'btn-default'
-                        - elsif statement.try(:respond_status?, :agree, :any_body)
-                          - btn_stance_class = 'btn-success'
-                        - elsif statement.try(:respond_status?, :disagree)
-                          - btn_stance_class = 'btn-danger'
-                        - else
-                          - btn_stance_class = 'btn-default'
-                        = link_to polymorphic_path([:edit_statements, @statementable], agent_id: agent.id), class: "btn btn-xs text-nowrap #{btn_stance_class}" do
-                          = t("enumerize.defaults.repond.#{statement.try(:respond_status)}", default: '검토 중')
-                          - if statement.try(:body).try(:present?)
-                            %i.fa.fa-commenting-o
-                      - else
-                        = link_to '연결하기', polymorphic_path([:add_agent, @statementable], agent_id: agent.id, q: params[:q]), method: :put, class: 'btn btn-default text-nowrap'
+  .container.mt-4
+    .page-header.page-header-nav-tabs
+    %h2
+      = link_to (@statementable.try(:title) || "현재 글의"), @statementable
 
     - if @target_agent.present?
-      .panel.panel-default
-        .panel-heading
+      .card
+        .card-header
           .media
             .media-left
               .image.agent-image.agent-image--mini{style: "background-image: url(#{@target_agent.image.xs.url});"}
             .media-body{ style: 'vertical-align: middle;' } #{@target_agent.name} 답변 관리
-        .panel-body
+        .card-body
           .comments-form
             - statement = @statementable.statement_of(@target_agent)
             - statement = @statementable.statements.build(agent: @target_agent) if statement.blank?
@@ -87,7 +41,7 @@
                       비밀번호 재설정하기
 
 
-              = f.submit '작성', class: 'btn btn-default btn-sm'
+              = f.submit '작성', class: 'btn btn-primary'
             - if statement.last_updated_user.present?
               %hr
               %p.help-text

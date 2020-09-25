@@ -55,6 +55,20 @@ $.is_present = function(obj) {
 Kakao.init('6a30dead1bff1ef43b7e537f49d2f655');
 
 $(function(){
+  (function() {
+    // Javascript to enable link to tab
+    var hash = document.location.hash;
+    var prefix = "tab_";
+    if (hash) {
+      $('.nav-tabs a[href="' + hash.replace(prefix, "") + '"]').tab('show');
+    }
+
+    // Change hash for page-reload
+    $('.nav-tabs a').on('shown.bs.tab', function (e) {
+      window.location.hash = e.target.hash.replace("#", "#" + prefix);
+    });
+  })()
+
   $(".slick").slick();
 
   $(".js-published_at").datetimepicker({

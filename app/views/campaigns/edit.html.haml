@@ -23,12 +23,13 @@
 
               - if @campaign.orderable?
                 %li.nav-item{ role: "presentation" }
-                  = link_to edit_agents_campaign_path(@campaign), class: "nav-link" do
-                    %i.fa.fa-envelope
-                    촉구 대상 설정
+                  -# = link_to edit_agents_campaign_path(@campaign), class: "nav-link" do
+                  -#   %i.fa.fa-envelope
+                  -#   촉구 대상 관리
+                  %a.nav-link{ href: "#agents", role: "tab", data: { toggle: "tab" }} 촉구 대상 관리
 
                 %li.nav-item{ role: "presentation" }
-                  %a.nav-link{ href: "#agents", role: "tab", data: { toggle: "tab" }} 촉구 관리
+                  %a.nav-link{ href: "#orders", role: "tab", data: { toggle: "tab" }} 촉구 관리
 
               %li.nav-item{ role: "presentation" }
                 %a.nav-link{ href: "#data", role: "tab", data: { toggle: "tab" } }
@@ -66,6 +67,9 @@
 
             - if @campaign.orderable?
               #agents.tab-pane
+                = render 'statementing/form_agents', statementable: @campaign
+
+              #orders.tab-pane
                 = form_for @campaign do |f|
                   = render "campaigns/form_order", f: f
                   .form-group
