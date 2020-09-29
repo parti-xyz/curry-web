@@ -1,9 +1,11 @@
 module StatementDecorator
+  UNSURE_STANCE_TEXT_HUMAN = '무응답'
+
   def stance_code
     if self.stancable?
       self.sure? ? self.stance : 'unsure'
     else
-      self.body.present? ? 'suer' : 'unsure'
+      self.body.present? ? 'sure' : 'unsure'
     end
   end
 
