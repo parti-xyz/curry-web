@@ -1,4 +1,4 @@
-- cache "campaign-orders-show-status-widget3-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 10.minutes do
+- view = proc do
   %section.widget-section
     .yell
       총
@@ -8,13 +8,31 @@
       촉구하였습니다.
     .graph
       .base
-        .gage{ style: "width: #{@campaign.percentage_order}%" }
+        .gage{ style: "width: #{@campaign.percentage_order(100)}%" }
           &nbsp;#{@campaign.percentage_order}%&nbsp;
       .desc
         .column.-left
           참여 #{number_with_delimiter(@campaign.order_users_count, delimiter:",")}
         .column.-right
           목표 #{number_with_delimiter(@campaign.goal_count, delimiter:",")}
+    .statements
+      .head
+        .title 답변
+      .list
+        - @campaign.any_body_agents.each do |agent|
+          - statement = @campaign.cached_statement_of(agent)
+          .statement
+            .image{ style: "background-image: url(https://catan-file.s3.ap-northeast-1.amazonaws.com/uploads/user/0/sm_9ab473fa2c.JPG);" }
+            .main
+              .header
+                .label{ class: "-#{statement.stance_code}" }
+                  = statement.stance_text_human
+                .agent
+                  .name= agent.name
+                  .organization= agent.organization
+              .body.js-read-more
+                != statement.body
+
     .score
       .head
         .title 응답 현황
@@ -52,42 +70,21 @@
         - @campaign.total_action_assignables.each do |action_assignable|
           - @campaign.agents(action_assignable).each do |agent|
             - statement = @campaign.cached_statement_of(agent)
-            - stance_code = if statement.try(:stancable?)
-              - if statement.try(:sure?)
-                - statement.stance
-              - else
-                - 'unsure'
-            - else
-              - if statement.try(:body).present?
-                - 'suer'
-              - else
-                - 'unsure'
-
-            .agent.col-sm-4.col-12{ class: "js-widget-agents-filter-item js-widget-agents-filter-item-#{stance_code}" }
+            .agent.col-sm-4.col-12{ class: "js-widget-agents-filter-item js-widget-agents-filter-item-#{statement.stance_code}" }
               .image{ style: "background-image:url(#{asset_url(agent.image.md.url)});" }
               .name
                 = agent.name
                 .organization= agent.organization
-              - if statement.try(:stancable?)
-                - if stance_code == 'unsure'
-                  .stance.-unsure
-                    - if statement.try(:body).present?
-                      보류
-                    - else
-                      %span 무응답
-                - else
-                  .stance{ class: "-#{stance_code}" }
-                    = statement.stance.text
-              - else
-                - if stance_code == 'sure'
-                  .stance.-agree
-                    응답
-                - else
-                  .stance.-unsure
-                    무응답
+              .stance{ class: "-#{statement.stance_code}" }
+                = statement.stance_text_human
         .empty
           해당 촉구대상이 없습니다.
     .poweredby
       = link_to 'POWERD BY 빠띠 캠페인즈', 'https://campaigns.kr', class: 'link'
 
   = render 'campaigns/widget/v1/content_script.js'
+
+- if Rails.env.production?
+  - cache "campaign-orders-show-status-widget3-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 10.minutes, &view
+- else
+  - view.call

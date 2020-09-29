@@ -228,6 +228,10 @@ class CampaignsController < ApplicationController
     render template: "campaigns/widget/v1/content", layout: 'widget'
   end
 
+  def widget_v1_preview
+    render template: "campaigns/widget/v1/preview"
+  end
+
   def stealthily
     @campaign.update_attributes(stealthily: params[:value])
     flash[:success] = t('messages.saved')

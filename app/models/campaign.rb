@@ -210,8 +210,11 @@ class Campaign < ApplicationRecord
     percentage_order >= 100
   end
 
-  def percentage_order
-    has_goal? ? ( order_users_count.to_f / goal_count * 100 ).to_i : 100
+  def percentage_order(max = nil)
+    result = has_goal? ? ( order_users_count.to_f / goal_count * 100 ).to_i : 100
+    result = max if max.present? && result >= max
+
+    result
   end
 
   def has_cover_image?

@@ -25,7 +25,7 @@
     - elsif campaign.orderable?
       - if campaign.has_goal?
         .progress.my-2
-          .progress-bar{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{campaign.percentage_order}", :role => "progressbar", :style => "width: #{campaign.percentage_order}%;"}
+          .progress-bar{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{campaign.percentage_order}", :role => "progressbar", :style => "width: #{campaign.percentage_order(100)}%;"}
         .d-flex.justify-content-between
           %small.text-muted
             #{number_with_delimiter(campaign.order_users_count)}명 참여

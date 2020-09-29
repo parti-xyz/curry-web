@@ -128,6 +128,7 @@ Rails.application.routes.draw do
     collection do
       get 'widget/v1/sdk', to: 'campaigns#widget_v1_sdk'
       get 'widget/v1/content', to: 'campaigns#widget_v1_content'
+      get 'widget/v1/preview', to: 'campaigns#widget_v1_preview'
     end
     member do
       get 'data'

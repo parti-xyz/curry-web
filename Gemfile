@@ -24,6 +24,7 @@ gem 'chartkick', '~> 3.4'
 gem 'friendly_id', '~> 5.3'
 gem 'bulk_insert'
 gem 'merit'
+gem 'active_decorator'
 
 # geo
 gem 'geocoder', '~> 1.6', '>= 1.6.3'

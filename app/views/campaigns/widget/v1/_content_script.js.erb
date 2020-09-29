@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'widget-content' %>
 <script defer>
   (function() {
     <%= render 'campaigns/widget/v1/component.js' %>
@@ -43,6 +44,14 @@
           })
           currentAgentsFilter.classList.add('-active')
         })
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      new Readmore('.js-read-more', {
+        collapsedHeight: '210px',
+        moreLink: '<a href="#" class="more">더 보기</a>',
+        lessLink: '<a href="#" class="more">닫기</a>',
       });
     });
   })()
