@@ -169,7 +169,7 @@ class ApplicationController < ActionController::Base
 
     unless fetch_organization_from_request == @current_organization
       if request.get?
-        redirect_to params.to_hash.merge(subdomain: valid_subdomain)
+        redirect_to subdomain: valid_subdomain, params: request.query_parameters
       else
         flash['error'] = '앗! 뭔가 잘못되었습니다.'
         ExceptionNotifier.notify_exception("verify_organization에 오류가 있습니다")
