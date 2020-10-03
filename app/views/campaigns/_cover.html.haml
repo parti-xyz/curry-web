@@ -61,7 +61,7 @@
             %small
               = number_with_limit(@campaign.comments.size, 1000)
 
-    - if !@campaign.picketable? && @campaign.template != "sympathy"
+    - if @campaign.picketable? && @campaign.template != "sympathy"
       %li.nav-item
         = link_to '소식', stories_campaign_path, class: class_string("mx-2 nav-link" => true, "active" => menu == 'story')
 

@@ -172,11 +172,12 @@ class CampaignsController < ApplicationController
   end
 
   def stories
-    render_404 and return unless %(petition order order_assembly basic photo map).include?(@campaign.template)
     if %(basic photo map).include?(@campaign.template)
       render template: "campaigns/picket/stories"
-    else
+    elsif %(petition order order_assembly).include?(@campaign.template)
       render template: "campaigns/#{@campaign.template}/stories"
+    else
+      render_404
     end
   end
 
