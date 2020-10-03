@@ -168,8 +168,6 @@ class CampaignsController < ApplicationController
   def orders_data
     respond_to do |format|
       format.xlsx
-    end
-  end
 
   def stories
     if %(basic photo map).include?(@campaign.template)
