@@ -1,4 +1,4 @@
-- if @campaign.opened? && !@campaign.signed?(current_user)
+- if campaign.opened? && !campaign.signed?(current_user)
   %section.section-sign-btn.js-sticky-sign-button.stuck
-    = link_to sign_form_campaign_path(@campaign), remote: true, class: "btn btn-danger btn-lg btn-block stuck sign-btn", style: "border-radius: 0" do
+    = link_to sign_form_campaign_path(campaign), remote: true, class: "btn btn-danger btn-lg btn-block stuck sign-btn", style: "border-radius: 0" do
       서명하기

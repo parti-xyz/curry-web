@@ -47,4 +47,4 @@
             = render 'campaigns/petition/signers', signs: @campaign.signs.recent.limit(20), finite: true
             .p-3= link_to '더 보기 >', signers_campaign_path(@campaign)
 
-    = render 'campaigns/petition/sign_button'
+    = render 'campaigns/petition/sign_button', campaign: @campaign

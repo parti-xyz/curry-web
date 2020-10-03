@@ -1,0 +1,20 @@
+- right_section_partial_path = "campaigns/#{campaign.template}/"
+- right_section_partial_name = 'section_right'
+%section
+  .container
+    .row
+      - if lookup_context.exists?(right_section_partial_name, right_section_partial_path, true)
+        .col-sm-4.order-sm-2
+          %section.mt-5
+            = render "#{right_section_partial_path}/#{right_section_partial_name}"
+        .col-sm-8.order-sm-1
+          = left_section
+      - else
+        .col.order-sm-1
+          = left_section
+  - if campaign.orderable?
+    = render 'campaigns/order_button_sticky', campaign: campaign
+  - elsif campaign.signable?
+    = render 'campaigns/petition/sign_button', campaign: campaign
+
+= render "campaigns/analytics"

@@ -152,8 +152,8 @@ class CampaignsController < ApplicationController
   end
 
   def comments
-    render_404 and return unless %(petition order order_assembly photo map).include?(@campaign.template)
-    render template: "campaigns/#{@campaign.template}/comments"
+    render_404 and return unless @campaign.orderable?
+    render template: "campaigns/comments"
   end
 
   def comments_data
@@ -169,16 +169,12 @@ class CampaignsController < ApplicationController
   end
 
   def stories
-    if %(basic photo map).include?(@campaign.template)
-      render template: "campaigns/picket/stories"
-    elsif %(petition order order_assembly).include?(@campaign.template)
-      render template: "campaigns/#{@campaign.template}/stories"
-    else
-      render_404
-    end
+    render_404 and return unless @campaign.storiable?
+    render template: "campaigns/stories"
   end
 
   def signers
+    render_404 and return unless @campaign.signable?
     @signs = @campaign.signs.order('id desc').page(params[:page])
     render template: "campaigns/#{@campaign.template}/signers"
   end

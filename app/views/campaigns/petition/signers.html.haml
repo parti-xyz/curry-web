@@ -39,5 +39,5 @@
                     목표 #{number_with_delimiter(@campaign.goal_count, delimiter:",")}
             %section.mb-2
               = render 'campaigns/petition/signers', signs: @signs
-              = render 'campaigns/petition/sign_button'
+              = render 'campaigns/petition/sign_button', campaign: @campaign
 = render "campaigns/analytics"

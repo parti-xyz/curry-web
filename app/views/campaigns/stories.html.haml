@@ -1,0 +1,26 @@
+= render "cover", menu: 'story'
+
+- left_section = capture do
+  %section.my-5
+    %h3.font-weight-bold 소식
+
+    .stories
+      - @campaign.stories.recent.each do |story|
+        .bg-light.p-3.mb-3
+          .mb-3.text-muted
+            .d-flex.justify-content-between
+              %span
+                = @campaign.user.nickname
+                = date_f story.published_at
+              = render 'likes/button', likable: story
+          .my-3
+            = link_to story_campaign_path(story_id: story.id), class: "text-dark" do
+              %h5= story.title
+              .story-body
+                = excerpt(story.body, length: 200)
+
+    .my-3
+      - if can?(:create_story, @campaign)
+        = link_to '작성', new_story_path(story: { storiable_id: @campaign.id, storiable_type: 'Campaign' }), class: 'btn btn-primary'
+
+= render 'campaigns/outline', local_assigns.merge(campaign: @campaign, left_section: left_section)

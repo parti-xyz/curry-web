@@ -268,6 +268,10 @@ class Campaign < ApplicationRecord
     %(basic photo map).include? self.template
   end
 
+  def storiable?
+    %(basic photo map petition order order_assembly).include? self.template
+  end
+
   def mailing_issue
     self.issue_mailings.where(action: 'add').where(deleted_at: nil).update_all(deleted_at: DateTime.now)
     self.issue_mailings.find_or_create_by(issue: self.issue, action: 'add')

@@ -1,0 +1,10 @@
+= render "cover", menu: "comment"
+
+- left_section = capture do
+  %section.my-5
+    %h3.font-weight-bold 의견
+    - page_dom_id = build_uid
+    = render 'comments/form_line', commentable: @campaign
+    = render 'comments/page_formal', commentable: @campaign, comments: @campaign.comments.recent.page(1), dom_id: page_dom_id
+
+= render 'campaigns/outline', local_assigns.merge(campaign: @campaign, left_section: left_section)
