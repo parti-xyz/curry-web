@@ -146,7 +146,6 @@ Rails.application.routes.draw do
       get 'comments_data'
       get 'stories'
       get 'signers'
-      get 'contents'
       get 'pickets'
       get 'stories/:story_id', action: 'story', as: :story
       get 'picket'
@@ -246,8 +245,8 @@ Rails.application.routes.draw do
       get '/themes/widget/:theme_slug', action: :theme_widget, as: :theme_widget
     end
   end
-  resources :issues
-  resources :following_issues
+  # resources :issues
+  # resources :following_issues
   resources :opinions, only: [:show] do
     member do
       get :vote_widget
