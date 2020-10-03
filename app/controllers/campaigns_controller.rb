@@ -137,11 +137,8 @@ class CampaignsController < ApplicationController
   end
 
   def orders
-    if %(basic photo map).include?(@campaign.template)
-      render template: "campaigns/picket/orders"
-    else
-      render template: "campaigns/#{@campaign.template}/orders"
-    end
+    render_404 and return unless 'order' == @campaign.template
+    render template: "campaigns/#{@campaign.template}/orders"
   end
 
   def need_to_order_agents
@@ -168,6 +165,8 @@ class CampaignsController < ApplicationController
   def orders_data
     respond_to do |format|
       format.xlsx
+    end
+  end
 
   def stories
     if %(basic photo map).include?(@campaign.template)
