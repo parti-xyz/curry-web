@@ -5,6 +5,7 @@ gem 'unicorn'
 gem 'puma', '4.3.5'
 gem 'rb-readline'
 gem 'bundler', '2.1.4'
+gem 'font-awesome-sass'
 
 # database
 gem 'sqlite3'
