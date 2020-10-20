@@ -531,18 +531,25 @@ function parti_partial$($partial) {
             var image_width = '300';
             var image_height = '155';
 
-            Kakao.Link.createTalkLinkButton({
+            Kakao.Link.createDefaultButton({
               container: $result[0],
-              label: text,
-              image: {
-                src: image_url,
-                width: image_width,
-                height: image_height
+              objectType: 'feed',
+              content: {
+                title: '빠띠 캠페인즈에서 보기',
+                imageUrl:
+                  image_url,
+                link: {
+                  mobileWebUrl: url,
+                },
               },
-              webLink: {
-                text: '빠띠 캠페인즈에서 보기',
-                url: url
-              }
+              buttons: [
+                {
+                  title: '자세히 보기',
+                  link: {
+                    mobileWebUrl: url,
+                  },
+                },
+              ]
             });
 
             return $result;
