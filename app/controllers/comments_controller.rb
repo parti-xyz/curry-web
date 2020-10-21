@@ -93,11 +93,6 @@ class CommentsController < ApplicationController
       end
 
       flash[:sign_notice] = I18n.t('messages.signed')
-
-      if @comment.commentable.try(:statementable?)
-        CommentOrderJob.perform_async(@comment.id)
-      end
-
       if @comment.mailing.ready?
         if @comment.target_agents.empty? { |agent| agent.email.present? }
           @comment.update_attributes(mailing: :fail)
@@ -140,6 +135,10 @@ class CommentsController < ApplicationController
 
   def show
     respond_to do |format|
+      format.html {
+        @commentable_model = @comment.commentable.class
+        @commentable = @comment.commentable
+      }
       format.json {
         render json: {
             id: @comment.id,

@@ -1,0 +1,11 @@
+%section.post-block.mt-5
+  .container
+    .card
+      .card-body
+        %h2.card-title
+          = link_to @commentable do
+            %small.label.label-danger
+              = @commentable_model.model_name.human
+            = @commentable.try(:title)
+        .comment
+          = render 'comments/comment', comment: @comment

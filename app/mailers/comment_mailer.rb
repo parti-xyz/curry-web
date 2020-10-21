@@ -21,7 +21,7 @@ class CommentMailer < ApplicationMailer
     end
 
     @agent = Agent.find_by(id: agent_id)
-    return if @agent.blank?
+    return if @agent.blank? || @agent.email.blank?
 
     template_name = "target_agent_#{@commentable.class.name.underscore}"
     if @commentable.respond_to? :template

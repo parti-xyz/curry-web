@@ -231,8 +231,15 @@ class Campaign < ApplicationRecord
     end
   end
 
-  def formatted_title_to_agent(user_nickname = nil)
-    "캠페인 \"#{self.title_to_agent.presence || self.title}\"에 대해 #{"#{user_nickname}님 등이 " if user_nickname.present?}행동을 촉구합니다"
+  def formatted_title_to_agent(comments = nil)
+    who = ""
+    who = "#{comments.first.user_nickname}님" if comments&.first&.user_nickname.present?
+    who += if comments.present? && comments.count > 1
+      "과 #{comments.count - 1}명의 시민이 "
+    else
+      "이 "
+    end
+    "#{who}캠페인 \"#{self.title_to_agent.presence || self.title}\"에 대해 행동을 촉구합니다"
   end
 
   def closed?

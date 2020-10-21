@@ -1,5 +1,5 @@
 - campaign = @commentable
-- message.subject = campaign.formatted_title_to_agent(@comments.first.try(:user_nickname))
+- message.subject = campaign.formatted_title_to_agent(@comments)
 %p
   #{@agent.name}님 안녕하세요? 세상을 바꾸는 시민들, 빠띠 캠페인즈입니다.
 
@@ -11,6 +11,12 @@
   = link_to polymorphic_url(campaign) do
     "#{campaign.title}" #{polymorphic_url(campaign)}
   이 진행 중입니다.
+
+  %br
+  %br
+
+  최근 #{@comments.count}명의 시민이 추가로 촉구하였습니다. 현재까지 총 #{campaign.order_users_count}명의 시민이 #{@agent.name}님에게 촉구하였습니다.
+
 .container{ style: 'border: 1px solid #ddd; padding: 1rem; border-radius: 1rem;' }
   %h4= link_to campaign.title, polymorphic_url(campaign), target: "_blank"
   %p= excerpt(campaign.body, length: 200)
@@ -34,7 +40,7 @@
   %p
     이 캠페인에 대해 #{comment.user_nickname}님이 #{@agent.name}님에게 행동을 촉구합니다.
   .container{ style: 'border: 1px solid #ddd; padding: 1rem; border-radius: 1rem;' }
-    != comment.smart_body
+    != smart_truncate_html comment.smart_body, length: 200, ellipsis: "... <a href='#{comment_url(comment)}'>더 보기</a>"
 
   %p
     &nbsp;
