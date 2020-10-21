@@ -1,6 +1,6 @@
 .comments
   - comments.recent.each do |comment|
-    = render 'comments/comment', local_assigns
+    = render 'comments/comment', comment: comment
 
 - if comments.first.try(:commentable).present?
   - commentable = comments.first.commentable
