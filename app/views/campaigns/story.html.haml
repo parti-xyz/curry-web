@@ -1,31 +1,26 @@
 - campaign = @story.storiable
 = render "cover", menu: 'story'
 
-%section
-  .container
-    .row
-      .col-sm-4.order-sm-2
-        %section.mt-5
-          = render "campaigns/#{campaign.template}/section_right"
+- left_section = capture do
+  %section.my-5
+    %h3.font-weight-bold 소식
 
-      .col-sm-8.order-sm-1
-        %section.my-5
-          %h3.font-weight-bold 소식
+    .stories
+      .bg-light.p-3
+        .mb-3.text-muted
+          .d-flex.justify-content-between
+            %span
+              = campaign.user.nickname
+              = date_f @story.published_at
+              - if can? :edit, @story
+                = link_to '수정', edit_story_path(@story)
+              - if can? :destroy, @story
+                = link_to '삭제', @story, method: :delete, data: { confirm: '삭제하시겠습니까?' }
 
-          .stories
-            .bg-light.p-3
-              .mb-3.text-muted
-                .d-flex.justify-content-between
-                  %span
-                    = campaign.user.nickname
-                    = date_f @story.published_at
-                    - if can? :edit, @story
-                      = link_to '수정', edit_story_path(@story)
-                    - if can? :destroy, @story
-                      = link_to '삭제', @story, method: :delete, data: { confirm: '삭제하시겠습니까?' }
+            = render 'likes/button', likable: @story
+        .my-3
+          %h5= @story.title
+          .story-body
+            = raw @story.body
 
-                  = render 'likes/button', likable: @story
-              .my-3
-                %h5= @story.title
-                .story-body
-                  = raw @story.body
+= render 'campaigns/outline', local_assigns.merge(campaign: @campaign, left_section: left_section)

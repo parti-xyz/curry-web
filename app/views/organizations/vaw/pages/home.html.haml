@@ -32,7 +32,7 @@
         프로젝트
         %small #{@current_organization.projects.count}개 프로젝트 모두 보기
     .row
-      .col-md-12.col-xs-12
+      .col-md-12.col-12
     .row
       = render @current_organization.projects.recent.limit(9)
 

@@ -9,11 +9,11 @@
       .gov-action-form-grecaptcha
       - unless user_signed_in?
         .row
-          .col-xs-8.col-md-4
+          .col-8.col-md-4
             .form-group
               = f.label :commenter_name
               = f.text_field :commenter_name, class: 'form-control', data: { 'rule-required': true }
-          .col-xs-8.col-md-4
+          .col-8.col-md-4
             .form-group
               = f.label :commenter_email
               = f.email_field :commenter_email, class: 'form-control'

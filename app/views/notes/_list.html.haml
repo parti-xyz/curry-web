@@ -19,11 +19,11 @@
         .gov-action-form-grecaptcha
         - unless user_signed_in?
           .row
-            .col-xs-12.col-md-6
+            .col-12.col-md-6
               .form-group
                 = f.label :writer_name
                 = f.text_field :writer_name, class: 'form-control', data: { 'rule-required': true }
-            .col-xs-12.col-md-6
+            .col-12.col-md-6
               .form-group
                 = f.label :writer_email
                 = f.text_field :writer_email, class: 'form-control'

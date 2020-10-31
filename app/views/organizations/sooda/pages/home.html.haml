@@ -154,7 +154,7 @@
               - area = geo_result.try(:state_code) || ''
               - event_modal_dom_id = "event-modal-#{SecureRandom.uuid}"
 
-              .col-xs-12.col-sm-6{ class: ('col-sm-offset-3' if calendar.events.length <= 1) }
+              .col-12.col-sm-6{ class: ('col-sm-offset-3' if calendar.events.length <= 1) }
                 .meeting.panel.panel-default
                   .panel-body
                     - if area.present?

@@ -36,6 +36,6 @@
             %td.text-nowrap
               = issue.agenda_theme.try(:title)
             %td.text-right.text-nowrap
-              = link_to '수정', edit_admin_issue_path(issue), class: 'btn btn-xs btn-default'
-              = link_to '삭제', admin_issue_path(issue), method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'btn btn-xs btn-danger'
-              = link_to '캠페인', edit_campaigns_admin_issue_path(issue), class: 'btn btn-xs btn-default'
+              = link_to '수정', edit_admin_issue_path(issue), class: 'btn btn-sm btn-default'
+              = link_to '삭제', admin_issue_path(issue), method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'btn btn-sm btn-danger'
+              = link_to '캠페인', edit_campaigns_admin_issue_path(issue), class: 'btn btn-sm btn-default'

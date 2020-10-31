@@ -1,20 +1,20 @@
 .nested-fields
   %label.text-muted
     \##{f.object.try(:slug) || '신규'}
-    = link_to_remove_association f, { class: 'btn btn-default btn-xs' } do
+    = link_to_remove_association f, { class: 'btn btn-default btn-sm' } do
       &times; 삭제
 
   = f.hidden_field :archive_id, value: archive.id
   .row
-    .form-group.col-xs-12.col-sm-5
+    .form-group.col-12.col-sm-5
       = f.label :slug
       = f.text_field :slug, { class: 'form-control' }
 
-    .form-group.col-xs-12.col-sm-5
+    .form-group.col-12.col-sm-5
       = f.label :name
       = f.text_field :name, { class: 'form-control' }
 
-    .form-group.col-xs-12.col-sm-10
+    .form-group.col-12.col-sm-10
       = f.label :desc
       ~ f.text_area :desc, { class: 'form-control' }
 

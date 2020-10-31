@@ -22,5 +22,5 @@
             = user.nickname
             - if can? :manage, organizer
               .pull-right
-                = link_to organizer, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'btn btn-xs btn-default' do
+                = link_to organizer, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'btn btn-sm btn-default' do
                   %i.fa.fa-trash

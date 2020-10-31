@@ -6,7 +6,7 @@
           .form-group.has-feedback
             = search_field_tag :q, params[:q], placeholder: '아카이브 내 검색', class: 'form-control'
             %span.form-control-feedback{ style: 'pointer-events: initial;' }
-              = button_tag class: 'btn btn-link btn-xs' do
+              = button_tag class: 'btn btn-link btn-sm' do
                 %i.fa.fa-search.text-muted
     .row
       .hidden-xs.col-sm-3
@@ -21,7 +21,7 @@
                 - category.children.each do |subcategory|
                   .item{ class: ('active' if subcategory == @category) }
                     = link_to subcategory.name, category_archive_path(@archive, category_slug: subcategory.slug)
-      .col-sm-9.col-xs-12
+      .col-sm-9.col-12
         - if @category.try(:desc).present?
           .sub.header= @category.desc
         - if @documents.empty?

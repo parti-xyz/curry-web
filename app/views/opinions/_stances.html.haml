@@ -6,17 +6,17 @@
       - Opinion.available_stance_values_by_theme(issue.agenda_theme).each do |stance|
         - if stance == 'unsure'
           - if issue.agenda_theme.try(:slug) == 'votefuture'
-            - opinions = issue.opinions.where(stance: nil).or(Opinion.where(stance: 'unsure')).or(Opinion.where(stance: 'disagree'))
+            - opinions = issue.opinions.where(stance: [nil, 'unsure', 'disagree'])
           - else
-            - opinions = issue.opinions.where(stance: nil).or(Opinion.where(stance: 'unsure'))
+            - opinions = issue.opinions.where(stance: [nil, 'unsure'])
         - else
           - opinions = issue.opinions.where(stance: stance)
         - stance_agents = Agent.where(id: opinions.pluck(:agent_id)).distinct
         - available_stances = Opinion.available_stance_values_by_theme(issue.agenda_theme)
-        %div{ class: "#{('hidden-xs' if stance_agents.empty?)} #{(issue.agenda_theme.try(:slug) == 'votefuture' ? "col-sm-4" : "col-sm-3")}" }
+        %div{ class: "#{('d-none d-block-sm' if stance_agents.empty?)} #{(issue.agenda_theme.try(:slug) == 'votefuture' ? "col-12 col-sm-4" : "col-12 col-sm-3")}" }
           .position
-            = Opinion.stance_text_by_theme(issue.agenda_theme, stance)
-            %span{ style: 'font-weight: normal' } #{stance_agents.count}명
+            %span.font-weight-bold= Opinion.stance_text_by_theme(issue.agenda_theme, stance)
+            #{stance_agents.count}명
 
           .answer-agents
             .ui.list.grid

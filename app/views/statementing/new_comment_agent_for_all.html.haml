@@ -21,11 +21,11 @@
           .gov-action-form-grecaptcha
           - unless user_signed_in?
             .row
-              .col-xs-12.col-md-6
+              .col-12.col-md-6
                 .form-group
                   = f.label :commenter_name
                   = f.text_field :commenter_name, class: 'form-control', data: { 'rule-required': true }
-              .col-xs-12.col-md-6
+              .col-12.col-md-6
                 .form-group
                   = f.label :commenter_email, "보내는 사람 이메일(반드시 넣어주세요)"
                   = f.email_field :commenter_email, class: 'form-control'
@@ -39,11 +39,11 @@
 
           - if @statementable.agents.count != @statementable.need_to_order_agents.count
             %div.visible-xs-block{ style: 'height: 10px' }
-            = f.button name: :order_filter, value: :no_reaction, class: 'btn btn-primary btn-sm btn-xs-block' do
+            = f.button name: :order_filter, value: :no_reaction, class: 'btn btn-primary btn-sm btn-sm-block' do
               반대&middot무응답 촉구 대상에게만 촉구하기
-            = f.submit '모두에게 촉구하기', class: 'btn btn-link btn-sm btn-xs-block'
+            = f.submit '모두에게 촉구하기', class: 'btn btn-link btn-sm btn-sm-block'
           - else
-            = f.submit '모두에게 촉구하기', class: 'btn btn-primary btn-sm btn-xs-block'
+            = f.submit '모두에게 촉구하기', class: 'btn btn-primary btn-sm btn-sm-block'
 
 
 %hr

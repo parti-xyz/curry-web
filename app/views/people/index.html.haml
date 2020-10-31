@@ -26,5 +26,5 @@
       - if Person.any?
         .row.masonry-container
           - Person.recent.each do |person|
-            .col-sm-4.col-xs-6
+            .col-sm-4.col-6
               = render person, show_control_btns: true

@@ -5,11 +5,11 @@
 
     .post__meta
       .row
-        .col-xs-6
+        .col-6
           %span.nickname
             = race.user.nickname
           %span.created_at
             = date_f race.created_at
-        .col-xs-6.text-right
+        .col-6.text-right
           %span
             투표 #{race.thumbs_updown_count}

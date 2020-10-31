@@ -18,11 +18,11 @@
         = @user.nickname
         .pull-right
           - if @user.banned?
-            = link_to unban_admin_user_path(@user), method: :put, data: { confirm: '정말 해제하시겠습니까?' }, class: 'btn btn-xs btn-default' do
+            = link_to unban_admin_user_path(@user), method: :put, data: { confirm: '정말 해제하시겠습니까?' }, class: 'btn btn-sm btn-default' do
               %i.fa.fa-check
               해제
           - else
-            = link_to ban_admin_user_path(@user), method: :put, data: { confirm: '정말 차단하시겠습니까?' }, class: 'btn btn-xs btn-default' do
+            = link_to ban_admin_user_path(@user), method: :put, data: { confirm: '정말 차단하시겠습니까?' }, class: 'btn btn-sm btn-default' do
               %i.fa.fa-ban
               차단
       = link_to '모든 차단 회원 보기', admin_users_path
@@ -36,6 +36,6 @@
           = banned_user.nickname
           .pull-right
             - if banned_user.banned?
-              = link_to unban_admin_user_path(banned_user), method: :put, data: { confirm: '정말 해제하시겠습니까?' }, class: 'btn btn-xs btn-default' do
+              = link_to unban_admin_user_path(banned_user), method: :put, data: { confirm: '정말 해제하시겠습니까?' }, class: 'btn btn-sm btn-default' do
                 %i.fa.fa-check
                 해제

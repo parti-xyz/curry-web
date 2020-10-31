@@ -7,7 +7,7 @@
           .media-object.image.agent-image.agent-image--mini{style: "background-image: url(#{agent.image.xs.url});"}
       .media-body
         .row
-          .col-sm-9.col-xs-12
+          .col-sm-9.col-12
             - link_to_opinion = opinion_path(opinion)
             - lead = capture do
               - if opinion.quote.present?
@@ -27,5 +27,5 @@
                 - else
                   != smart_truncate_html opinion.body, length: 130, ellipsis: "... <a href='#{link_to_opinion}'>이전 발언 모두 보기</a>"
 
-          .col-sm-3.col-xs-12.text-right-sm.margin-xs-12
+          .col-sm-3.col-12.text-right-sm.margin-xs-12
             = render 'votes/panel', votable: opinion, show_voters: false, reactions_count_link: link_to_opinion

@@ -7,26 +7,27 @@
 .answer-agents
   .row
     - agents.each do |agent|
-      .col-xs-12{ style: 'padding: 6px 0;' }
+      .col-12{ style: 'padding: 6px 0;' }
         .agent
-          .media
-            .media-left
-              = link_to agent_path(agent) do
-                .media-object.image.agent-image.agent-image--mini{style: "background-image: url(#{agent.image.xs.url});"}
-            .media-body
-              - if local_assigns[:link_to_opinon]
-                - agent_link = opinion_path(agent.opinions.find_by(issue: issue), theme_slug: issue.agenda_theme.try(:slug))
-              - else
-                - agent_link = agent_path(agent, agenda_id: agenda_id)
-              = link_to agent.name, agent_link, target: ('_wyp' if local_assigns[:widget]), class: 'header'
-              %span.description.text-keep-all{ style: 'font-size: 10px' }= agent.organization
-            .media-right.hidden-sm
-              - if !hide_request and @agenda.present?
-                = link_to new_email_agenda_path(@agenda, agent_id: agent.id), target: ('_wyp' if local_assigns[:widget]), class: "btn btn-xs #{agent.requested_by?(current_user) ? 'btn-default' : 'btn-primary'}", style: 'width: 110px' do
-                  != button_label
-                  - if agent.sent_requests_count > 0
-                    %span.badge= agent.sent_requests_count
+          .bg-dark.card.m-1.text-white
+            .row.no-gutters
+              .col-6
+                %img.card-img{ style: "height: 6.5rem; object-fit: cover; object-position: 0 -10px;", src: agent.image.lg.url }
+              .col-6
+                .card-body.p-2
+                  .mb-1.card-title
+                    = link_to agent_path(agent), class: 'text-white' do
+                      %strong= agent.name
+                      %small= agent.organization
+                .card-text.p-2
+                  %small
+                    - if !hide_request and @agenda.present?
+                      = link_to new_email_agenda_path(@agenda, agent_id: agent.id), target: ('_wyp' if local_assigns[:widget]), class: "btn btn-sm #{agent.requested_by?(current_user) ? 'btn-default' : 'btn-primary'}", style: 'width: 110px' do
+                        != button_label
+                        - if agent.sent_requests_count > 0
+                          %span.badge= agent.sent_requests_count
+
     - if local_assigns[:max_count].present? and all_count > local_assigns[:max_count]
-      .col-xs-12
+      .col-12
         .agent
           = link_to "#{all_count}명 모두 보기", issue, target: ('_wyp' if local_assigns[:widget]), class: 'ui button'

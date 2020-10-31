@@ -24,7 +24,7 @@
               = link_to polymorphic_url(comment.commentable), html: { target: '_blank' } do
                 = comment.commentable.try(:title) || '바로가기'
           %td.text-right
-            = link_to [:admin, comment], method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'btn btn-default btn-xs' do
+            = link_to [:admin, comment], method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'btn btn-default btn-sm' do
               %i.fa.fa-trash
     .text-center
       = paginate @comments, theme: 'twitter-bootstrap-3'

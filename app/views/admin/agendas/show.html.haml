@@ -1,9 +1,9 @@
 %section.page-block
   .container
     .row
-      .col-xs-6
+      .col-6
         = link_to "#{Agenda.model_name.human} 쓰기", new_agenda_path, class: 'btn btn-default btn-sm'
-      .col-xs-6.text-right
+      .col-6.text-right
         = link_to '목록', agendas_path, class: 'btn btn-default btn-sm'
 
 %section#agenda-block.page-block.post-block

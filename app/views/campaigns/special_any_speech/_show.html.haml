@@ -36,7 +36,7 @@
   #bloc-3.bloc.bgc-outer-space.d-bloc
     .container.bloc-sm
       .row.bgc-outer-space.row-no-gutters
-        .col-xs-12.col-md-8.col-md-offset-2
+        .col-12.col-md-8.col-md-offset-2
           %h3.statement-bloc-text.tc-deep-carrot-orange
             %span
               %strong 온라인 발언 통계
@@ -80,11 +80,11 @@
                 .gov-action-form-grecaptcha
                 - unless user_signed_in?
                   .row
-                    .col-xs-12.col-md-6
+                    .col-12.col-md-6
                       .form-group
                         = f.label :commenter_name
                         = f.text_field :commenter_name, class: 'form-control', data: { 'rule-required': true }
-                    .col-xs-12.col-md-6
+                    .col-12.col-md-6
                       .form-group
                         = f.label :commenter_email
                         = f.email_field :commenter_email, class: 'form-control'

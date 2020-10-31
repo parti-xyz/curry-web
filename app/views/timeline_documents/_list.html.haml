@@ -26,10 +26,10 @@
                 = strip_tags document.body
             .post__meta
               .row
-                .col-xs-6
+                .col-6
                   = document.date
                   = document.time
                   - if document.tags.any?
                     %i.fa.fa-tag
                     = document.tags.join(', ')
-                .col-xs-6.text-right
+                .col-6.text-right

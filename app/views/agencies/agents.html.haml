@@ -27,7 +27,7 @@
 
     .row
       - @agents.each do |agent|
-        .col-xs-6.col-sm-3
+        .col-6.col-sm-3
           = render agent
     .text-center
       = paginate @agents, theme: 'twitter-bootstrap-3'

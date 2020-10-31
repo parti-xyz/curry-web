@@ -21,7 +21,7 @@
           %li{ class: ('active' if discussion_category.id.to_s == params[:discussion_category_id]) }
             = link_to "#{discussion_category.title}#{"(#{discussion_category.discussions_count})" if discussion_category.discussions_count > 0}", discussions_path(project_id: @project, discussion_category_id: discussion_category.id)
             - if can? :edit, @project
-              = link_to discussion_category_path(discussion_category), method: :delete, class: 'btn btn-default btn-xs', data: { confirm: '삭제하시겠습니까?' } do
+              = link_to discussion_category_path(discussion_category), method: :delete, class: 'btn btn-default btn-sm', data: { confirm: '삭제하시겠습니까?' } do
                 %i.fa.fa-trash
 
     - if discussions.any?

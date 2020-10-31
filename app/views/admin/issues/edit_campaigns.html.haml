@@ -26,4 +26,4 @@
             %td
               = excerpt(campaign.body, length: 200)
             %td.text-right.text-nowrap
-              = link_to '연결끊기', remove_campaign_admin_issue_path(@issue, campaign_id: campaign.id), method: :delete, data: { confirm: '정말 연결을 끊으시겠습니까?' }, class: 'btn btn-xs btn-danger'
+              = link_to '연결끊기', remove_campaign_admin_issue_path(@issue, campaign_id: campaign.id), method: :delete, data: { confirm: '정말 연결을 끊으시겠습니까?' }, class: 'btn btn-sm btn-danger'

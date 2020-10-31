@@ -7,8 +7,8 @@
         = render 'devise/shared/error_messages', resource: current_user
         = render partial: "/devise/registrations/terms", locals: { f: f }
         .form-group
-          = f.submit '동의 확인', class: 'btn btn-primary col-xs-6', data: { disable_with: "진행 중..." }
-         
+          = f.submit '동의 확인', class: 'btn btn-primary col-6', data: { disable_with: "진행 중..." }
+
   .container
     %h3 회원 탈퇴
     %p 개정된 약관에 동의 하지 않으시면 서비스를 이용 할 수 없습니다.

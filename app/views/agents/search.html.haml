@@ -13,7 +13,7 @@
           - else
             .row
               - @searched_agents.each do |agent|
-                .col-xs-12.col-sm-4
+                .col-12.col-sm-4
                   .media
                     .media-left
                       = link_to agent_path(agent) do
@@ -28,7 +28,7 @@
           %h3 조직&middot;기관
           .row
             - @searched_agencies.each do |agency|
-              .col-xs-12.col-sm-4
+              .col-12.col-sm-4
                 .media
                   .media-left
                     = link_to agency_path(agency) do

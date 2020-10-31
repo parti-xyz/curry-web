@@ -1,5 +1,5 @@
 - url = agenda_path(agenda, agent_id: local_assigns[:agent].try(:id))
-.col-lg-2.col-md-3.col-sm-4.col-xs-6
+.col-lg-2.col-md-3.col-sm-4.col-6
   .agenda-card.panel-floating.component-card[agenda]
     = link_to url do
       .card-image{ style: "height: 140px; background-image: url(#{agenda.image.md.url}); background-size: cover; background-position: center center;" }
