@@ -77,11 +77,9 @@ module Statementing
     if params[:agent_id].present?
       @agent = Agent.find_by(id: params[:agent_id])
       render_404 and return if @agent.blank?
-
-      render 'statementing/new_comment_agent'
-    else
-      render 'statementing/new_comment_agent_for_all'
     end
+
+    render 'statementing/new_comment_agent'
   end
 
   def edit_statements

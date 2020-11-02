@@ -1,57 +1,64 @@
 - commentable = @statementable
 
-- if commentable.class == Campaign
-  = render 'campaigns/header', campaign: commentable
-- else
-  %section#petition-block.page-block.component-header.component-header-auto-height
-    .container
-      %span.gov-label= @statementable.class.model_name.human
-      %br
-      = link_to @statementable, style: 'color: #fff' do
-        = @statementable.title
+%section.mt-4
+  .container
+    .card
+      .card-text.p-3
+        %span= @statementable.class.model_name.human
+        %br
+        = link_to @statementable do
+          = @statementable.title
 
-%section
-  .container-fluid
+%section.mt-4
+  .container
     .page-header.page-header-narrow
       %h3.sub-title
-        %span.image.agent-image.agent-image--mini{style: "background-image: url(#{@agent.image.xs.url}); display: inline-block; width: 1.2em; height: 1.2em;"}
-        = @statementable.formatted_title_to_agent
+        #{@agent&.name} 행동을 촉구합니다.
     .panel-body.component-box
       .comments-form
         = form_for @comment, html: { class: 'gov-action-form-validation' } do |f|
           = hidden_field_tag :back_commentable, '1'
           = f.hidden_field :commentable_type, value: commentable.class.name
           = f.hidden_field :commentable_id, value: commentable.id
-          = f.hidden_field :target_agent_id, value: @agent.id
+          = f.hidden_field :mailing, value: :ready
+          - if @agent.present?
+            = f.hidden_field :target_agent_id, value: @agent.id
           .gov-action-form-grecaptcha
           - unless user_signed_in?
-            .form-group
-              = f.label :commenter_name
-              = f.text_field :commenter_name, class: 'form-control', data: { 'rule-required': true }
-            .form-group
-              = f.label :commenter_email, @agent.email.present? ? "보내는 사람 이메일(#{@agent.name}님에게 메일을 발송하려면 반드시 넣어주세요)" : nil
-              = f.email_field :commenter_email, class: 'form-control'
+            .row
+              .col-12.col-md-6
+                .form-group
+                  = f.label :commenter_name
+                  = f.text_field :commenter_name, class: 'form-control', data: { 'rule-required': true }
+              .col-12.col-md-6
+                .form-group
+                  = f.label :commenter_email, "보내는 사람 이메일(반드시 넣어주세요)"
+                  = f.email_field :commenter_email, class: 'form-control'
           .form-group
             = f.label :body, "보내는 내용"
             = f.hidden_field :is_html_body, value: is_redactorable?
             - unless is_redactorable?
               - f.object.body = Html2Text.convert(f.object.body)
-            ~ f.text_area :body, placeholder: '제 생각에는...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), style: 'height: 150px', data: { 'rule-required': true }
-          - if @agent.email.present?
-            .form-group
-              .checkbox
-                %label
-                  = f.check_box :mailing, { checked: true }, 'ready', 'disable'
-                  #{@agent.name}님에게 메일로도 발송합니다.
+            ~ f.text_area :body, placeholder: '촉구합니다...', class: 'form-control validate ' + ( is_redactorable? ? 'redactor' : ''), style: 'height: 150px', data: { 'rule-required': true }
           = render "comments/commentable_checkbox_term", f: f, commentable: commentable
 
-          = f.submit '촉구하기', class: 'btn btn-default btn-sm btn-inverted'
+          - if @agent.present?
+            = f.submit '촉구하기', class: 'btn btn-primary btn-sm-block'
+          - else
+            - if @statementable.agents.count != @statementable.need_to_order_agents.count
+              = f.button name: :order_filter, value: :no_reaction, class: 'btn btn-primary btn-sm-block' do
+                반대&middot무응답 촉구 대상에게만 촉구하기
+              %span.d-block.d-sm-none{ style: 'height: 10px' }
+              = f.submit '모두에게 촉구하기', class: 'btn btn-outline-primary btn-sm btn-sm-block'
+            - else
+              = f.submit '모두에게 촉구하기', class: 'btn btn-primary btn-sm-block'
+
 
 %hr
 
 - if @statementable.project
   %section.page-block
-    .container-fluid
+    .container
       %h3 프로젝트
       .row
         = render @statementable.project

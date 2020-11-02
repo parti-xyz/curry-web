@@ -26,7 +26,7 @@
             .card.text-white.m-1{ class: "bg-#{stance_class}"}
               .row.no-gutters
                 .col-6
-                  = image_tag agent.image.md.url, class: "card-img", style: "height: 6.5rem; object-fit: cover"
+                  = image_tag agent.image.md.url, class: "card-img", style: "height: 100%; min-height: 6.5rem;object-fit: cover"
                 .col-6
                   .card-body.p-2
                     %h6.mb-1.card-title
@@ -49,3 +49,8 @@
                             %span 무응답
                         - if statement.try(:body).present?
                           %i.fa.fa-comment-dots.js-popover{ "data-placement": "top", "data-trigger": "hover", "data-content": statement.body }
+                    - if campaign.opened? and statement.try(:individually_orderable?)
+                      .card-text
+                        %small
+                          = link_to [ :new_comment_agent, @campaign, { agent_id: agent.id } ], class: 'btn btn-sm btn-primary' do
+                            촉구하기
