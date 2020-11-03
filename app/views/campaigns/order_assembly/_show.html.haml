@@ -29,8 +29,8 @@
                       외 #{@campaign.agents.count - 1}
                   에게 촉구해 보세요.
 
-                  - if @campaign.order_users_count >= 1
-                    시민 #{@campaign.order_users_count}분이 참여하였습니다.
+                  - if @campaign.order_count >= 1
+                    시민 #{@campaign.order_count}분이 참여하였습니다.
                   - else
                     지금 바로 촉구에 참여해 보세요.
 

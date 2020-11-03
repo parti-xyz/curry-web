@@ -17,9 +17,9 @@
     .my-3
       %p
         - if @campaign.opened?
-          현재 #{number_with_delimiter(@campaign.order_users_count)}명이 촉구하였습니다.
+          현재 #{number_with_delimiter(@campaign.order_count)}명이 촉구하였습니다.
         - else
-          총 #{number_with_delimiter(@campaign.order_users_count)}명이 촉구하였습니다.
+          총 #{number_with_delimiter(@campaign.order_count)}명이 촉구하였습니다.
 
     - if @campaign.has_goal?
       .progress.campaign-progress-bar
@@ -27,7 +27,7 @@
           #{@campaign.percentage_order}%
       .d-flex.justify-content-between
         %small
-          촉구 #{number_with_delimiter(@campaign.order_users_count, delimiter:",")}
+          촉구 #{number_with_delimiter(@campaign.order_count, delimiter:",")}
         %small
           목표 #{number_with_delimiter(@campaign.goal_count, delimiter:",")}
 

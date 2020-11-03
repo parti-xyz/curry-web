@@ -15,7 +15,7 @@
   %br
   %br
 
-  최근 #{@comments.count}명의 시민이 추가로 촉구하였습니다. 현재까지 총 #{campaign.order_users_count}명의 시민이 #{@agent.name}님에게 촉구하였습니다.
+  최근 #{@comments.count}명의 시민이 추가로 촉구하였습니다. 현재까지 총 #{campaign.order_count}명의 시민이 #{@agent.name}님에게 촉구하였습니다.
 
 .container{ style: 'border: 1px solid #ddd; padding: 1rem; border-radius: 1rem;' }
   %h4= link_to campaign.title, polymorphic_url(campaign), target: "_blank"

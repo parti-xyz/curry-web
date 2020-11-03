@@ -211,7 +211,7 @@ class Campaign < ApplicationRecord
   end
 
   def percentage_order(max = nil)
-    result = has_goal? ? ( order_users_count.to_f / goal_count * 100 ).to_i : 100
+    result = has_goal? ? ( order_count.to_f / goal_count * 100 ).to_i : 100
     result = max if max.present? && result >= max
 
     result
@@ -284,10 +284,10 @@ class Campaign < ApplicationRecord
     self.issue_mailings.find_or_create_by(issue: self.issue, action: 'add')
   end
 
-  def order_users_count
-    return @__order_users_count if @__order_users_count.present?
-    @__order_users_count = self.comments.joins(:orders).select(:commenter_name, :commenter_email).distinct.size
-    @__order_users_count
+  def order_count
+    return @__order_count if @__order_count.present?
+    @__order_count = self.comments.joins(:orders).distinct(:comment_id).count
+    @__order_count
   end
 
   def pickets_count

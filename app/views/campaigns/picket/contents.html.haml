@@ -33,8 +33,8 @@
                 외 #{@campaign.agents.count - 1}
             에 촉구해 주세요
           .order-info
-            - if @campaign.order_users_count >= 1
-              시민 #{@campaign.order_users_count}분이 참여하고 있습니다.
+            - if @campaign.order_count >= 1
+              시민 #{@campaign.order_count}분이 참여하고 있습니다.
             - else
               지금 바로 촉구하여 참여해보세요.
           .order-users
@@ -43,9 +43,9 @@
               .user-images
                 - order_users_with_image.reverse.each do |user|
                   .user-image-sm.overlapped{ style: "background-image:url(#{asset_url(user.image.md.url)});" }
-            -if @campaign.order_users_count > 3
+            -if @campaign.order_count > 3
               .more +
-              .count= @campaign.order_users_count - 3
+              .count= @campaign.order_count - 3
         - else
           = render 'campaigns/order_dashboard', campaign: @campaign
 

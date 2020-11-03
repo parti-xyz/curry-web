@@ -3,7 +3,7 @@
     .yell
       총
       %span
-        %span.count<> #{number_with_delimiter(@campaign.order_users_count, delimiter:",")}
+        %span.count<> #{number_with_delimiter(@campaign.order_count, delimiter:",")}
         명이
       촉구하였습니다.
     .graph
@@ -12,7 +12,7 @@
           &nbsp;#{@campaign.percentage_order}%&nbsp;
       .desc
         .column.-left
-          참여 #{number_with_delimiter(@campaign.order_users_count, delimiter:",")}
+          참여 #{number_with_delimiter(@campaign.order_count, delimiter:",")}
         .column.-right
           목표 #{number_with_delimiter(@campaign.goal_count, delimiter:",")}
     .statements
