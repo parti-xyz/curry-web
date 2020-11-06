@@ -126,7 +126,7 @@ gem 'rack-mini-profiler', require: false
 gem 'health_check'
 
 group :development do
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '~> 3.0'
 end
 
 gem 'letter_opener_web', '~> 1.4'
