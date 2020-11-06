@@ -4,7 +4,7 @@
     촉구하면 발송되는 이메일에 촉구 대상이 응답한 내용입니다.
 
   .mb-3
-    .row.row-cols-2.row-cols-md-3.no-gutters
+    .row.row-cols-2.row-cols-lg-3.no-gutters
       - campaign.total_action_assignables.each do |action_assignable|
         - agents = local_assigns[:responded_agents_only] ? campaign.responded_agents(action_assignable) : campaign.agents(action_assignable)
         - agents.each do |agent|
@@ -22,15 +22,16 @@
             - stance_icon = capture do
               %i.fa.fa-minus.text-muted
 
-          .col.border-0
-            .card.text-white.m-1{ class: "bg-#{stance_class}"}
-              .row.no-gutters
+          .col.border-0.p-1
+            .card.text-white.h-100{ class: "bg-#{stance_class}"}
+              .row.no-gutters.h-100
                 .col-6
                   = image_tag agent.image.md.url, class: "card-img", style: "height: 100%; min-height: 6.5rem;object-fit: cover"
                 .col-6
                   .card-body.p-2
                     %h6.mb-1.card-title
                       %strong= agent.name
+                      %br
                       %small= agent.organization
                     .card-text
                       %small
