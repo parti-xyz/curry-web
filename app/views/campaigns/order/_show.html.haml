@@ -34,7 +34,7 @@
                   - else
                     지금 바로 촉구에 참여해 보세요.
 
-            - cache "campaign-orders-show-status-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 1.hours do
+            - cache ["campaigns/order/show/order_dashboard", @campaign], race_condition_ttl: 30.seconds, expires_in: 1.hours do
               = render 'campaigns/order_dashboard', campaign: @campaign
               = render 'campaigns/agents_with_statement', campaign: @campaign
 
