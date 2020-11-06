@@ -49,7 +49,7 @@
                             %span 무응답
                         - if statement.try(:body).present?
                           %i.fa.fa-comment-dots.js-popover{ "data-placement": "top", "data-trigger": "hover", "data-content": statement.body }
-                    - if campaign.opened? and statement.try(:individually_orderable?)
+                    - if campaign.opened? and (statement.blank? || statement.try(:individually_orderable?))
                       .card-text
                         %small
                           = link_to [ :new_comment_agent, @campaign, { agent_id: agent.id } ], class: 'btn btn-sm btn-primary' do
