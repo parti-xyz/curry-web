@@ -18,30 +18,35 @@ class CommentOrderJob
 
       current_ready_comments.update_all(mailing: :sent)
 
-      Order.where(comment_id: current_ready_comments).to_a.group_by do |order|
-        order&.agent_id
-      end.each do |agent_id, orders|
-        next if agent_id.blank?
-        agent = Agent.find_by(id: agent_id)
-        next if agent.blank? || agent.email.blank?
+      current_ready_comments.find_in_batches do |comments_group|
 
-        sleep(1)
+        Order.where(comment_id: comments_group).to_a.group_by do |order|
+          order&.agent_id
+        end.each do |agent_id, orders|
+          next if agent_id.blank?
+          agent = Agent.find_by(id: agent_id)
+          next if agent.blank? || agent.email.blank?
 
-        statement = commentable.statements.find_or_create_by(agent_id: agent_id)
-        statement_key = statement.statement_keys.last
-        unless statement_key.reusable?
-          statement_key = statement.statement_keys.build(key: SecureRandom.hex(50))
-          statement_key.save
+          sleep(1)
+
+          statement = commentable.statements.find_or_create_by(agent_id: agent_id)
+          statement_key = statement.statement_keys.last
+          unless statement_key.reusable?
+            statement_key = statement.statement_keys.build(key: SecureRandom.hex(50))
+            statement_key.save
+          end
+
+          params = orders.map do |order|
+            {
+              'comment_id' => order.comment_id,
+              'order_id' => order.id,
+              'statement_key_id' => statement_key.id
+            }
+          end
+          CommentMailer.target_agent(commentable.class.name, commentable.id, agent_id, params).deliver_now
         end
 
-        params = orders.map do |order|
-          {
-            'comment_id' => order.comment_id,
-            'order_id' => order.id,
-            'statement_key_id' => statement_key.id
-          }
-        end
-        CommentMailer.target_agent(commentable.class.name, commentable.id, agent_id, params).deliver_now
+        Comment.where(id: comments_group).update_all(mailing: :sent)
       end
     end
   end
