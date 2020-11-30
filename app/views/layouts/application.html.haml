@@ -40,30 +40,32 @@
     %script{:src => "https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"}
     %script{:src => "https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"}
     %script{ src: "https://www.google.com/recaptcha/api.js?onload=$grecaptcha_on_load&render=explicit", async: true, defer: true }
-    :javascript
-      var $grecaptcha_on_load = function(partial) {
-        var $target = $(document);
-        if(partial) {
-          $target = $(partial);
-        }
-        $target.find('.gov-action-form-grecaptcha').each(function(index, elm) {
-          widget_id = grecaptcha.render(elm, {
-            'sitekey': '#{ENV['RECAPTCHA_SITE_KEY']}',
-            'size': 'invisible',
-            'callback': function(token) {
-              var $form = $(elm).closest('form');
-              $form.submit();
-            }
+
+    - if ENV['RECAPTCHA']
+      :javascript
+        var $grecaptcha_on_load = function(partial) {
+          var $target = $(document);
+          if(partial) {
+            $target = $(partial);
+          }
+          $target.find('.gov-action-form-grecaptcha').each(function(index, elm) {
+            widget_id = grecaptcha.render(elm, {
+              'sitekey': '#{ENV['RECAPTCHA_SITE_KEY']}',
+              'size': 'invisible',
+              'callback': function(token) {
+                var $form = $(elm).closest('form');
+                $form.submit();
+              }
+            });
+            $(elm).data('grecaptcha_widget_id', widget_id);
           });
-          $(elm).data('grecaptcha_widget_id', widget_id);
-        });
-      }
-
-      $(document).on('govcraft-grecaptcha-for-partial', function(e, partial) {
-        if(document == partial) {
-          return;
         }
 
-        $grecaptcha_on_load(partial);
-      });
+        $(document).on('govcraft-grecaptcha-for-partial', function(e, partial) {
+          if(document == partial) {
+            return;
+          }
+
+          $grecaptcha_on_load(partial);
+        });
     = yield :script if content_for?(:script)
