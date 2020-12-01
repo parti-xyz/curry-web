@@ -16,8 +16,6 @@ class CommentOrderJob
       first_ready_comment = current_ready_comments.order(:created_at).first
       next if first_ready_comment.created_at > 2.hours.ago && current_ready_comments.count < 100
 
-      current_ready_comments.update_all(mailing: :sent)
-
       current_ready_comments.find_in_batches do |comments_group|
 
         Order.where(comment_id: comments_group).to_a.group_by do |order|
