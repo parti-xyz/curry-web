@@ -23,7 +23,7 @@
           = f.hidden_field :mailing, value: :ready
           - if @agent.present?
             = f.hidden_field :target_agent_id, value: @agent.id
-          .gov-action-form-grecaptcha
+          = smart_recaptcha_action('comment')
           - unless user_signed_in?
             .row
               .col-12.col-md-6

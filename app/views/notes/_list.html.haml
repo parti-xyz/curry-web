@@ -16,7 +16,7 @@
     .panel-body
       = form_for Note.new, html: { class: 'gov-action-form-validation' } do |f|
         = f.hidden_field :opinion_id, value: opinion.id
-        .gov-action-form-grecaptcha
+        = smart_recaptcha_action('note')
         - unless user_signed_in?
           .row
             .col-12.col-md-6

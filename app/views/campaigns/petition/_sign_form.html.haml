@@ -27,7 +27,7 @@
         - else
           = form_for Sign.new(campaign: @campaign), html: { class: 'gov-action-form-validation' } do |f|
             = f.hidden_field :campaign_id
-            .gov-action-form-grecaptcha
+            = smart_recaptcha_action('sign')
             - if @campaign.use_signer_real_name?
               .form-group
                 = f.label :signer_real_name, @campaign.signer_real_name_title.presence || t('activerecord.attributes.sign.signer_real_name')

@@ -8,7 +8,7 @@ class SignsController < ApplicationController
   end
 
   def create
-    if can_recaptcha? and !verify_recaptcha(model: @sign)
+    if can_recaptcha? && !verify_recaptcha(model: @sign, action: 'sign')
       errors_to_flash(@sign)
       redirect_back(fallback_location: root_path)
       return

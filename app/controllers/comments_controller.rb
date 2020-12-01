@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    if can_recaptcha? and !verify_recaptcha(model: @comment)
+    if can_recaptcha? && !verify_recaptcha(model: @comment, action: 'comment')
       errors_to_flash(@comment)
       redirect_back(fallback_location: root_path)
       return

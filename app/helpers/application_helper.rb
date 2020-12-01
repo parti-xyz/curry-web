@@ -150,4 +150,8 @@ module ApplicationHelper
   def class_string(css_map)
     css_map.find_all(&:last).map(&:first).join(" ")
   end
+
+  def smart_recaptcha_action(action)
+    recaptcha_action(action) if ENV['RECAPTCHA']
+  end
 end

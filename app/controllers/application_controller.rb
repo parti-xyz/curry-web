@@ -128,6 +128,15 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def verify_recaptcha(model:, action:)
+    NewGoogleRecaptcha.human?(
+      params[:new_google_recaptcha_token],
+      action,
+      NewGoogleRecaptcha.minimum_score,
+      model
+    )
+  end
+
   def redirect_new_domain_if_old
     if ['govcraft.org', 'govcraft.test'].include? request.domain
       return unless request.get? or request.xhr?
@@ -195,12 +204,12 @@ class ApplicationController < ActionController::Base
       else
         all_projects = Project.where(organization: nil)
       end
-      all_projects = all_projects.organize_by(current_user, 'Project')
+      all_projects.organize_by(current_user, 'Project')
     end
   end
 
   def can_recaptcha?
-    (Rails.env.production? or Rails.env.staging?) or ENV['RECAPTCHA']
+    ENV['RECAPTCHA'].present?
   end
 
   def banned?
