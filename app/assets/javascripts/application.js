@@ -454,26 +454,6 @@ function parti_partial$($partial) {
         $('.masonry-container').masonry();
       }
     };
-    var $grecaptcha_control = $form.find('.gov-action-form-grecaptcha');
-    if($grecaptcha_control.length > 0) {
-      options['submitHandler'] = function (form) {
-        var str_widget_id = $grecaptcha_control.data('grecaptcha_widget_id');
-        if(typeof str_widget_id != 'undefined') {
-          var widget_id = parseInt(str_widget_id, 10);
-          if (grecaptcha.getResponse(widget_id)) {
-            // 2) finally sending form data
-            form.submit();
-          }else{
-            // 1) Before sending we must validate captcha
-            grecaptcha.reset(widget_id);
-            grecaptcha.execute(widget_id);
-          }
-        } else {
-          form.submit();
-        }
-      }
-    }
-
     $form.validate(options);
   });
 
@@ -558,10 +538,6 @@ function parti_partial$($partial) {
       ]
     });
   });
-
-  if(!$(document).is($partial)) {
-    $(document).trigger('govcraft-grecaptcha-for-partial', $partial);
-  }
 }
 
 $(function(){

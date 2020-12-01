@@ -16,7 +16,7 @@
             = f.hidden_field :commentable_type, value: 'Campaign'
             = f.hidden_field :commentable_id, value: @campaign.id
             = f.hidden_field :target_agent_id, value: agent.id
-            .gov-action-form-grecaptcha
+            = smart_recaptcha_action('comment')
             - unless user_signed_in?
               .form-group
                 = f.label :commenter_name

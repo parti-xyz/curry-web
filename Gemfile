@@ -51,7 +51,7 @@ gem 'momentjs-rails'
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'd41258e'
 gem 'axlsx_rails', '~> 0.5.0'
 gem 'htmlentities', '~> 4.3', '>= 4.3.4'
-gem "recaptcha", require: "recaptcha/rails"
+gem 'new_google_recaptcha'
 gem 'roo', '~> 2.7', '>= 2.7.1'
 gem 'google_drive'
 gem 'rest-client', '~> 2.0', '>= 2.0.2'

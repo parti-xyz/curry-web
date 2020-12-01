@@ -77,7 +77,7 @@
               = form_for Comment.new, html: { class: 'gov-action-form-validation' } do |f|
                 = f.hidden_field :commentable_type, value: 'Campaign'
                 = f.hidden_field :commentable_id, value: @campaign.id
-                .gov-action-form-grecaptcha
+                = smart_recaptcha_action('comment')
                 - unless user_signed_in?
                   .row
                     .col-12.col-md-6

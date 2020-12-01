@@ -23,9 +23,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def check_captcha
-    resource = resource_class.new sign_up_params
     resource = resource_class.new_with_session(sign_up_params, session)
-    return if !can_recaptcha? || verify_recaptcha(model: resource)
+    return if !can_recaptcha? || verify_recaptcha(model: resource, action: 'sign_up')
 
     self.resource = resource
     self.resource.validate
