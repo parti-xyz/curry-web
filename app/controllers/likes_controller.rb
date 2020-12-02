@@ -45,7 +45,7 @@ class LikesController < ApplicationController
 
   def merge_likes_counts
     if @likable.has_attribute?(:merged_likes_count)
-      @likable.update_attributes!(merged_likes_count: @likable.anonymous_likes_count + @likable.likes_count)
+      @likable.update_columns(merged_likes_count: @likable.anonymous_likes_count + @likable.likes_count)
     end
   end
 end
