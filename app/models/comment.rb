@@ -52,21 +52,6 @@ class Comment < ApplicationRecord
     self.target_agents.map{ |agent| "#{agent.organization} #{agent.name}" }.join(", ")
   end
 
-  def user_order_seq
-    return if self.orders.empty?
-
-    first_comment = commentable.comments
-      .where('orders_count > 0')
-      .where(user_id: user_id)
-      .where(commenter_name: commenter_name)
-      .where(commenter_email: commenter_email).first
-    commentable.comments
-      .where("id <= ?", first_comment.id)
-      .where('orders_count > 0')
-      .select(:user_id, :commenter_name, :commenter_email)
-      .distinct.size
-  end
-
   def init_gps_by_image(gps)
     return if gps.blank?
     self.latitude = gps.latitude
