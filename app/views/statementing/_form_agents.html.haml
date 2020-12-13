@@ -4,7 +4,15 @@
   .card-body
     %p 촉구할 대상을 찾아 보세요.
     = form_tag [:add_agents, statementable] do
-      = select_tag :action_targets, nil, multiple: true, class: 'form-control gov-action-targets-select w-100', style: 'display: inline; width: 100%;'
+      = select_tag :action_targets, nil, multiple: true, class: 'form-control gov-action-targets-select w-100', style: 'display: inline;'
+      = submit_tag '추가', class: 'btn btn-primary mt-2'
+
+    %hr
+
+    %p 혹은 촉구할 조직을 선택하세요. 관련된 사람이 모두 선택됩니다.
+
+    = form_tag [:add_agents, statementable] do
+      = select_tag :"action_targets[]", options_from_collection_for_select(Agency.order(id: :desc), lambda { |agency| "agency:#{agency.id}" }, lambda { |agency| "#{agency.title} (#{agency.agents.count}명) - 최종 업데이트 #{l agency.updated_at.to_date}" }), class: 'form-control w-100', style: 'display: inline;'
       = submit_tag '추가', class: 'btn btn-primary mt-2'
 
 .card.mt-4
