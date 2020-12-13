@@ -199,12 +199,26 @@ $(function(){
         };
       },
       processResults: function (data, params) {
-        a = _.map(data.agents, function(el) {
-            return { id: 'agent:' + el.id, name: el.name }
-          })
-        b = _.map(data.agencies, function(el) {
-            return { id: 'agency:' + el.id, name: el.name }
-          })
+        var a = _.map(data.agents, function(el) {
+          var name = el.name
+          if (el.organization) {
+            name += ' ' + el.organization
+          }
+          if (el.election_region) {
+            name += ' ' + el.election_region
+          }
+          if (el.agencies && el.agencies.length > 0) {
+            var agency_titles = []
+            $.each(el.agencies, function(index, agency) {
+              agency_titles.push(agency.title)
+            })
+            name += ' (' + agency_titles.join(', ') + ')'
+          }
+          return { id: 'agent:' + el.id, name: name }
+        })
+        var b = _.map(data.agencies, function(el) {
+          return { id: 'agency:' + el.id, name: el.name }
+        })
         return {
           results: a.concat(b)
         };
