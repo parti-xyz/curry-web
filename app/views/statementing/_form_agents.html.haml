@@ -40,6 +40,8 @@
                       = link_to agent_path(agent), class: 'text-white' do
                         %strong= agent.name
                         %small= agent.organization
+                        %br
+                        %small{ style: 'font-size: 8px'}= agent.email
                     .card-text
                       %small
                         - if statement.try(:stancable?)
@@ -90,6 +92,8 @@
                           = link_to agent_path(agent), class: 'text-white' do
                             %strong= agent.name
                             %small= agent.organization
+                            %br
+                            %small{ style: 'font-size: 8px'}= agent.email
                         .card-text
                           %small
                             - if statement.try(:stancable?)
