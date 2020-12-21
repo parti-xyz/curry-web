@@ -31,6 +31,8 @@ class Api::V1::SignsController < ApplicationController
         render_json_error(:bad_request, :signer_email_invalid, sign)
       # 이외 오류
       else
+        Rails.logger.error("Error: ")
+        Rails.logger.error(sign.errors.inspect)
         render_json_error(:internal_server_error, :unknown, sign)
       end
     end
