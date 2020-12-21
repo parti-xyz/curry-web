@@ -21,13 +21,13 @@ class Api::V1::SignsController < ApplicationController
       }
     else
       # 캠페인이 닫긴 경우
-      if sign.errors.added? :campaign, :closed, message: I18n.t('messages.campaigns.closed')
+      if has_error?(sign, :campaign, :closed)
         render_json_error(:bad_request, :campaign_closed, sign)
       # 서명 이메일 중복
-      elsif sign.errors.added? :signer_email, :taken
+      elsif has_error?(sign, :signer_email, :taken)
         render_json_error(:bad_request, :signer_email_taken, sign)
       # 서명 이메일 포맷 에러
-      elsif sign.errors.added? :signer_email, :invalid
+      elsif has_error?(sign, :signer_email, :invalid)
         render_json_error(:bad_request, :signer_email_invalid, sign)
       # 이외 오류
       else
@@ -39,6 +39,13 @@ class Api::V1::SignsController < ApplicationController
   end
 
   private
+
+  def has_error?(sign, attribute, type)
+    details = sign.errors.details[attribute]
+    return false if details.blank?
+
+    details.any?{ |detail| detail[:error] == type }
+  end
 
   def render_json_error(status, error_code, model = nil)
     status = Rack::Utils::SYMBOL_TO_STATUS_CODE[status] if status.is_a? Symbol
