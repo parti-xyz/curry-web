@@ -54,5 +54,31 @@
         lessLink: '<a href="#" class="more">닫기</a>',
       });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var className = '.js-campaign-time-to-left';
+
+      if (document.querySelectorAll(className).length >= 0) {
+        setInterval(update_campaign_time_laps, 1000);
+      }
+
+      function padding_zero(n) { if (n < 10) { return "0" + n } else return "" + n }
+
+      function update_campaign_time_laps() {
+        document.querySelectorAll(className).forEach(function (item) {
+          var fromValue = item.dataset.campaignTimeToLeftDueDate;
+          if (!fromValue) {
+            return;
+          }
+
+          from = new Date(fromValue.replace(/\s/, 'T') + "+09:00")
+          var diff = Math.floor(Math.abs(from - (new Date())) / 1000)
+          item.querySelector('.days').innerHTML = Math.floor(diff / (24 * 3600))
+          item.querySelector('.hours').innerHTML = padding_zero(Math.floor((diff % (24 * 3600)) / 3600))
+          item.querySelector('.minutes').innerHTML = padding_zero(Math.floor((diff % 3600) / 60))
+          item.querySelector('.seconds').innerHTML = padding_zero(Math.floor(diff % 60))
+        })
+      }
+    });
   })()
 </script>

@@ -1,0 +1,27 @@
+- view = proc do
+  %section.widget-section
+    .yell
+      총
+      %span
+        %span.count<> #{number_with_delimiter(@campaign.signs_count, delimiter:",")}
+        명이
+      서명하였습니다.
+    .graph
+      .base
+        .gage{ style: "width: #{@campaign.percentage}%" }
+          &nbsp;#{@campaign.percentage}%&nbsp;
+      .desc
+        .column.-left
+          참여 #{number_with_delimiter(@campaign.signs_count, delimiter:",")}
+        .column.-right
+          목표 #{number_with_delimiter(@campaign.goal_count, delimiter:",")}
+
+    .poweredby
+      = link_to 'POWERD BY 빠띠 캠페인즈', 'https://campaigns.kr', class: 'link'
+
+  = render 'campaigns/widget/v1/content_script.js'
+
+- if Rails.env.production?
+  - cache "campaign-orders-show-status-widget3-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 10.minutes, &view
+- else
+  - view.call

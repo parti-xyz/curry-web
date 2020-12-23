@@ -34,10 +34,18 @@ if (componentHeight) {
   dimensions['height'] = componentHeight
 }
 
+var componentTemplate = "<%= j params['component_template'] %>"
+if (!componentTemplate) {
+  componentTemplate = 'lg'
+}
+
 var url = '<%= widget_v1_content_campaigns_url %>'
 + '?component_tag=' + componentTag
 + '&component_name=' + componentName
 + '&campaign_id=' + campaignId
++ '&component_template=' + componentTemplate
+
+console.log(url)
 
 var componentOptions = {
   // The html tag used to render a component

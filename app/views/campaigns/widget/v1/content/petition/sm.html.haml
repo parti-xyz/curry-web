@@ -1,0 +1,57 @@
+- view = proc do
+  %section.widget-section.-sm
+    - if @campaign.opened?
+      .timer 진행 시간
+      %h4.font-weight-bold.js-campaign-time-to-left.hidden-xs{ 'data-campaign-time-to-left-due-date': bot_day_f(@campaign.opened_at)}
+        %span.digit-to-left.days ___
+        %span.div 일
+        %span.digit-to-left.hours __
+        %span.div :
+        %span.digit-to-left.minutes __
+        %span.div :
+        %span.digit-to-left.seconds __
+    - else
+      %h4.font-weight-bold.campaign-time-to-left.hidden-xs
+        .font-weight-normal 종료일
+        .digit-to-left.days= static_day_f(@campaign.closed_at)
+
+    .current
+      - if @campaign.opened?
+        %span.main
+          현재
+          %span
+            %span.count<> #{number_with_delimiter(@campaign.signs_count, delimiter:",")}
+            명이
+          서명하였습니다.
+        %span.sub
+          #{number_with_delimiter(@campaign.goal_count)} 서명에 동참해 주세요.
+      - else
+        %span.main
+          총
+          %span
+            %span.count<> #{number_with_delimiter(@campaign.signs_count, delimiter:",")}
+            명이
+          서명하였습니다.
+    .graph
+      .base
+        .gage{ style: "width: #{@campaign.percentage}%" }
+          &nbsp;#{@campaign.percentage}%&nbsp;
+      - if @campaign.success?
+        .success 성공
+      .desc
+        .column.-left
+          참여 #{number_with_delimiter(@campaign.signs_count, delimiter:",")}
+        .column.-right
+          목표 #{number_with_delimiter(@campaign.goal_count, delimiter:",")}
+
+    = link_to (@campaign.opened? ? '서명하기' : '서명 결과보기'), @campaign, class: ' btn btn-block btn-widget', target: '_blank'
+
+    .poweredby
+      = link_to 'POWERD BY 빠띠 캠페인즈', 'https://campaigns.kr', class: 'link'
+
+  = render 'campaigns/widget/v1/content_script.js'
+
+- if Rails.env.production?
+  - cache "campaign-orders-show-status-widget3-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 10.minutes, &view
+- else
+  - view.call

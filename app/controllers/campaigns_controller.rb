@@ -219,7 +219,7 @@ class CampaignsController < ApplicationController
 
   def widget_v1_content
     @campaign = Campaign.find(params[:campaign_id])
-    render template: "campaigns/widget/v1/content", layout: 'widget'
+    render template: "campaigns/widget/v1/content/#{@campaign.template}/#{params[:component_template] || 'lg'}", layout: 'widget'
   end
 
   def widget_v1_preview
