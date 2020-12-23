@@ -20,5 +20,5 @@
         gtag('js', new Date());
         gtag('config', 'UA-93481585-1', { 'groups': 'all' });
 
-  %body{class: "app-#{params[:controller]} app-#{params[:controller]}-#{params[:action]}"}
+  %body{class: "app-#{params[:controller]} app-#{params[:controller]}-#{params[:action]} app-#{params[:component_template]}"}
     = yield
