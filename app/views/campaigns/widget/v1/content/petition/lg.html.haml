@@ -17,7 +17,7 @@
           목표 #{number_with_delimiter(@campaign.goal_count, delimiter:",")}
 
     .poweredby
-      = link_to 'POWERD BY 빠띠 캠페인즈', 'https://campaigns.kr', class: 'link'
+      = render 'campaigns/widget/v1/content/powered_by'
 
   = render 'campaigns/widget/v1/content_script.js'
 
