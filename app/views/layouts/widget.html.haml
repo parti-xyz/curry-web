@@ -10,7 +10,6 @@
     = stylesheet_link_tag 'application', media: 'all'
     = stylesheet_link_tag 'widget-section', media: 'all'
     %link{:href => "https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css", :rel => "stylesheet", :type => "text/css"}/
-    %script{crossorigin: "anonymous", src: "https://kit.fontawesome.com/d1995cff7d.js"}
     = csrf_meta_tags
     - if Rails.env.production?
       %script{async: "", src: "https://www.googletagmanager.com/gtag/js?id=UA-93481585-1"}

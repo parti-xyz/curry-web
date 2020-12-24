@@ -1,7 +1,11 @@
 (function() {
   <%= render 'campaigns/widget/v1/component' %>
   setTimeout(function() {
-    window[componentName]().render("<%= j params['target_query'] %>")
+    document.querySelectorAll("<%= j params['target_query'] %>").forEach(function (item) {
+      if (item.dataset.rendered) { return; }
+      zoidInstance().render(item);
+      item.dataset.rendered = 'true';
+    })
   }, 1000);
 })()
 

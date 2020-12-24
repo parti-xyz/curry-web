@@ -1,6 +1,7 @@
 body {
   background-color: #f5f5f5;
   &.app-sm {
+    padding-top: 0;
     background-color: transparent;
   }
 }

@@ -45,8 +45,6 @@ var url = '<%= widget_v1_content_campaigns_url %>'
 + '&campaign_id=' + campaignId
 + '&component_template=' + componentTemplate
 
-console.log(url)
-
 var componentOptions = {
   // The html tag used to render a component
   tag: componentTag,
@@ -59,4 +57,11 @@ var componentOptions = {
   },
   scrolling: false,
 }
-window[componentName] = zoid.create(componentOptions)
+
+var zoidInstance = window[componentName]
+
+if (!zoidInstance) {
+  zoidInstance = zoid.create(componentOptions)
+  window[componentName] = zoidInstance
+}
+
