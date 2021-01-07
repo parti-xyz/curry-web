@@ -6,7 +6,7 @@ class Api::V1::SignsController < ApplicationController
 
     api_secure_key = request.headers[:HTTP_X_API_KEY]
     if sign.campaign.api_secure_key != api_secure_key
-      head :unauthorized
+      render_json_error(:unauthorized, :invalid_secure_key, sign)
       return
     end
 
