@@ -29,7 +29,7 @@ class CommentOrderJob
 
           statement = commentable.statements.find_or_create_by(agent_id: agent_id)
           statement_key = statement.statement_keys.last
-          unless statement_key.reusable?
+          if statement_key.blank? || !statement_key.reusable?
             statement_key = statement.statement_keys.build(key: SecureRandom.hex(50))
             statement_key.save
           end
