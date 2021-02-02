@@ -18,7 +18,6 @@
         .modal-body
           %p
             != flash[:sign_notice]
-
           %p.text-basic-wrap
             이 캠페인을 친구들에게 알려보세요.
             - share_image_url = @campaign.read_attribute(:cover_image).present? ? @campaign.cover_image.lg.url : asset_url("default-image.png")
