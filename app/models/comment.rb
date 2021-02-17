@@ -62,7 +62,12 @@ class Comment < ApplicationRecord
     self.latitude = nil
     self.longitude = nil
     begin
-      response = RestClient.get "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=#{CGI.escape(self.full_street_address)}", 'X-NCP-APIGW-API-KEY-ID': ENV["NAVER_CLIENT_ID"], 'X-NCP-APIGW-API-KEY': ENV["NAVER_CLIENT_SECRET"]
+      response = RestClient.get("https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=#{
+          CGI.escape(full_street_address)
+        }",
+        'X-NCP-APIGW-API-KEY-ID': ENV["NAVER_CLIENT_ID"],
+        'X-NCP-APIGW-API-KEY': ENV["NAVER_CLIENT_SECRET"])
+
       return unless response.code == 200
 
       data = JSON.parse(response.body)
@@ -72,7 +77,12 @@ class Comment < ApplicationRecord
 
       self.longitude = address["x"]
       self.latitude = address["y"]
-    rescue
+
+      self.longitude = nil if longitude.nan?
+      self.latitude = nil if latitude.nan?
+    rescue e
+      logger.error(e.message)
+      e.backtrace.each { |line| logger.error(line) }
     end
   end
 
