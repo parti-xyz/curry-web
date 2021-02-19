@@ -92,7 +92,7 @@ class CommentsController < ApplicationController
         I18n.t('messages.commented')
       end
       
-      flash[:sign_notice] = view_context.fill_in(@comment.commentable.thanks_mention, number: @comment.commentable.signs_count) || I18n.t('messages.signed')
+      flash[:sign_notice] = helpers.fill_in(@comment.commentable.thanks_mention, number: @comment.commentable.signs_count) || I18n.t('messages.signed')
       if @comment.mailing.ready?
         if @comment.target_agents.empty? { |agent| agent.email.present? }
           @comment.update_attributes(mailing: :fail)
