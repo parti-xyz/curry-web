@@ -30,6 +30,10 @@
         캠페인의 목표 참여 숫자를 입력하세요.
 
   .form-group
+    = f.label :thanks_mention
+    ~ f.text_area :thanks_mention, class: 'form-control redactor'
+
+  .form-group
     = f.label :cover_image
     = f.file_field :cover_image, class: 'form-control'
     = f.hidden_field :cover_image_cache, value: f.object.cover_image_cache
