@@ -36,7 +36,7 @@
         strokeWeight: 1
     };
 
-    var pickets = #{@campaign.comments.where.not(latitude: nil).where.not(longitude: nil).pluck(:id, :latitude, :longitude).map{ |x| { id: x[0], latitude: x[1], longitude: x[2] } }.to_json}
+    var pickets = #{ raw @campaign.comments.where.not(latitude: nil).where.not(longitude: nil).pluck(:id, :latitude, :longitude).map{ |x| { id: x[0], latitude: x[1], longitude: x[2] } }.to_json }
     var bounds = new google.maps.LatLngBounds();
     var infowindow = new google.maps.InfoWindow();
 
