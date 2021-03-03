@@ -154,4 +154,8 @@ module ApplicationHelper
   def smart_recaptcha_action(action)
     recaptcha_action(action) if ENV['RECAPTCHA']
   end
+
+  def to_more(number)
+    number.digits.last * (10 ** (number.digits.size - 1))
+  end
 end
