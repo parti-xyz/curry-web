@@ -7,7 +7,7 @@
 
 #### mysql 설정
 
-mysql을 구동해야합니다. mysql의 encoding은 utf8mb4를 사용합니다. mysql은 버전 5.6 이상을 사용합니다.
+mysql을 구동해야합니다. mysql의 encoding은 utf8mb4를 사용합니다. mysql은 5.7 버전을 사용합니다.(8 버전 사용시 에러 발생)
 
 encoding세팅은 my.cnf에 아래 설정을 넣고 반드시 재구동합니다. 참고로 맥에선 /usr/local/Cellar/mysql/(설치하신 mysql버전 번호)/my.cnf입니다.
 
