@@ -76,7 +76,7 @@ class Comment < ApplicationRecord
       return if address.blank?
 
       self.longitude = to_safe_float(address["x"])
-      self.latitude =to_safe_float(address["y"])
+      self.latitude = to_safe_float(address["y"])
     rescue e
       logger.error(e.message)
       e.backtrace.each { |line| logger.error(line) }
