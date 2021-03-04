@@ -75,11 +75,8 @@ class Comment < ApplicationRecord
       address = data["addresses"].try(:first)
       return if address.blank?
 
-      self.longitude = address["x"]
-      self.latitude = address["y"]
-
-      self.longitude = nil if longitude.nan?
-      self.latitude = nil if latitude.nan?
+      self.longitude = to_safe_float(address["x"])
+      self.latitude =to_safe_float(address["y"])
     rescue e
       logger.error(e.message)
       e.backtrace.each { |line| logger.error(line) }
@@ -111,5 +108,13 @@ class Comment < ApplicationRecord
 
   def strip_whitespace
     self.commenter_email = self.commenter_email.strip unless self.commenter_email.blank?
+  end
+
+  def to_safe_float(maybe_a_number)
+    result = Float(maybe_a_number)
+    return nil if result.nan?
+    result
+  rescue
+    nil
   end
 end
