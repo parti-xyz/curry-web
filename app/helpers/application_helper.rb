@@ -156,6 +156,10 @@ module ApplicationHelper
   end
 
   def to_more(number)
-    number.digits.last * (10 ** (number.digits.size - 1))
+    if number.digits.size < 4
+      number.digits.last * (10 ** (number.digits.size - 1))
+    else
+      number.digits(1000)[1..-1].reverse.join.to_i * 1000
+    end
   end
 end
