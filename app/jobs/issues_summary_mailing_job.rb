@@ -1,6 +1,6 @@
 class IssuesSummaryMailingJob
   include Sidekiq::Worker
-  sidekiq_options lock: :until_executed
+  sidekiq_options lock: :until_executed, lock_expiration: 2.hours.to_i, on_conflict: :raise, retry: 3
 
   def perform
     User.need_to_delivery_issues_summary_mailing.limit(300).each do |user|

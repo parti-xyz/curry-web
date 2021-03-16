@@ -10,10 +10,6 @@ clypit_job:
   class: ClypitJob
   cron: "*/5 * * * * Asia/Seoul"
   queue: default
-parti_hightlight_posts_job:
-  class: PartiHightlightPostsJob
-  cron: "*/30 * * * * Asia/Seoul"
-  queue: default
 comment_order_job:
   class: CommentOrderJob
   cron: "*/5 * * * * Asia/Seoul"
