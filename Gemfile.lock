@@ -190,7 +190,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     fastimage (1.9.0)
       addressable (~> 2.3.5)
-    ffi (1.13.1)
+    ffi (1.14.2)
     file_validators (2.3.0)
       activemodel (>= 3.2)
       mime-types (>= 1.0)
@@ -920,4 +920,4 @@ DEPENDENCIES
   wkhtmltoimage-binary (~> 0.12.2)
 
 BUNDLED WITH
-   2.1.4
+   2.2.14
