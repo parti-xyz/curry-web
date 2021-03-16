@@ -1,6 +1,6 @@
 class CommentOrderJob
   include Sidekiq::Worker
-  sidekiq_options lock: :until_executed
+  sidekiq_options lock: :until_executed, lock_expiration: 2.hours.to_i, on_conflict: :raise, retry: 3
 
   def perform
     ready_comments = Comment.where(mailing: :ready).after(1.weeks.ago)

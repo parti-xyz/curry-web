@@ -1,6 +1,6 @@
 class CrawlingJob
   include Sidekiq::Worker
-  sidekiq_options lock: :until_executed
+  sidekiq_options lock: :until_executed, lock_expiration: 2.hours.to_i, on_conflict: :raise, retry: 3
 
   def perform(id)
     source = Article.find_by(id: id)
