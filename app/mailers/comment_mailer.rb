@@ -32,12 +32,12 @@ class CommentMailer < ApplicationMailer
     end
 
     headers['X-PARTI-ORDERS'] = @orders.map(&:id).to_json
+   
+    campainer_email = User.find_by(id: @commentable.user_id).email if use_sample
 
-    mail(to: @agent.email, template_name: template_name)
-    
-    if use_sample
-      campainer = User.find_by(id: @commentable.user_id)
-      mail(to: campainer.email, template_name: template_name)
-    end
+    mail(
+      to: @agent.email,
+      bcc: campainer_email ,
+      template_name: template_name)
   end
 end
