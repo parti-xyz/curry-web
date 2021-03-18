@@ -249,7 +249,7 @@ class CampaignsController < ApplicationController
         :special_slug, :sign_form_intro,
         (:template if params[:action] == 'create'),
         :slug, :title_to_agent, :message_to_agent,
-        :agent_id, :css, :need_stance, :ga_id)
+        :agent_id, :css, :need_stance, :ga_id, :use_sample_mail)
   end
 
   def reset_meta_tags_for_show
