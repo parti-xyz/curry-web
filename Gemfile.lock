@@ -173,7 +173,7 @@ GEM
     dry-inflector (0.2.0)
     enumerize (2.3.1)
       activesupport (>= 3.2)
-    equalizer (0.0.10)
+    equalizer (0.0.11)
     erubi (1.9.0)
     erubis (2.7.0)
     et-orbi (1.2.4)
@@ -181,22 +181,25 @@ GEM
     exception_notification (4.4.3)
       actionmailer (>= 4.0, < 7)
       activesupport (>= 4.0, < 7)
-    excon (0.76.0)
+    excon (0.79.0)
     execjs (2.7.0)
     exifr (1.2.6)
     faker (2.14.0)
       i18n (>= 1.6, < 2)
-    faraday (0.9.2)
+    faraday (0.17.4)
       multipart-post (>= 1.2, < 3)
     fastimage (1.9.0)
       addressable (~> 2.3.5)
     ffi (1.14.2)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
     file_validators (2.3.0)
       activemodel (>= 3.2)
       mime-types (>= 1.0)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
-    fog (1.41.0)
+    fog (2.0.0)
       fog-aliyun (>= 0.1.0)
       fog-atmos
       fog-aws (>= 0.6.0)
@@ -213,6 +216,7 @@ GEM
       fog-json
       fog-local
       fog-openstack
+      fog-ovirt
       fog-powerdns (>= 0.1.1)
       fog-profitbricks
       fog-rackspace
@@ -229,7 +233,7 @@ GEM
       fog-xenserver
       fog-xml (~> 0.1.1)
       ipaddress (~> 0.5)
-      json (>= 1.8, < 2.0)
+      json (~> 2.0)
     fog-aliyun (0.3.19)
       aliyun-sdk (~> 0.8.0)
       fog-core
@@ -277,7 +281,7 @@ GEM
       fog-core
       fog-json
       fog-xml
-    fog-internet-archive (0.0.1)
+    fog-internet-archive (0.0.2)
       fog-core
       fog-json
       fog-xml
@@ -293,6 +297,12 @@ GEM
       fog-core (>= 1.45, <= 2.1.0)
       fog-json (>= 1.0)
       ipaddress (>= 0.8)
+    fog-ovirt (2.0.1)
+      activesupport
+      fog-core
+      fog-json
+      fog-xml
+      ovirt-engine-sdk (>= 4.3.1)
     fog-powerdns (0.2.0)
       fog-core
       fog-json
@@ -334,7 +344,7 @@ GEM
     fog-voxel (0.1.0)
       fog-core
       fog-xml
-    fog-vsphere (3.4.0)
+    fog-vsphere (3.5.0)
       fog-core
       rbvmomi (>= 1.9, < 3)
     fog-xenserver (1.0.0)
@@ -413,15 +423,17 @@ GEM
     html_truncator (0.4.2)
       nokogiri (~> 1.5)
     htmlentities (4.3.4)
-    http (1.0.4)
+    http (4.4.1)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
-      http-form_data (~> 1.0.1)
-      http_parser.rb (~> 0.6.0)
+      http-form_data (~> 2.2)
+      http-parser (~> 1.2.0)
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    http-form_data (1.0.3)
+    http-form_data (2.3.0)
+    http-parser (1.2.3)
+      ffi-compiler (>= 1.0, < 2.0)
     http_parser.rb (0.6.0)
     httpclient (2.8.3)
     hurley (0.2)
@@ -444,7 +456,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-slick-rails (1.9.0)
       railties (>= 3.1)
-    json (1.8.6)
+    json (2.5.1)
     jwt (1.5.6)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
@@ -503,7 +515,7 @@ GEM
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2020.0512)
+    mime-types-data (3.2021.0225)
     mimemagic (0.3.5)
     mini_magick (4.10.1)
     mini_mime (1.0.2)
@@ -583,6 +595,8 @@ GEM
     optimist (3.0.1)
     orm_adapter (0.5.0)
     os (0.9.6)
+    ovirt-engine-sdk (4.4.1)
+      json (>= 1, < 3)
     popper_js (1.16.0)
     premailer (1.13.1)
       addressable
@@ -651,7 +665,7 @@ GEM
       json (>= 1.8)
       nokogiri (~> 1.5)
       optimist (~> 3.0)
-    rdoc (4.3.0)
+    rdoc (6.3.0)
     redactor2_rails (0.1.4)
       devise
       mime-types
@@ -704,9 +718,8 @@ GEM
       tilt
     scoped_search (3.3.0)
       activerecord (>= 3.2.0)
-    sdoc (0.4.2)
-      json (~> 1.7, >= 1.7.7)
-      rdoc (~> 4.0)
+    sdoc (2.0.4)
+      rdoc (>= 5.0)
     seed-fu (2.3.9)
       activerecord (>= 3.1)
       activesupport (>= 3.1)
@@ -755,15 +768,15 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.10)
     timecop (0.8.1)
-    twitter (5.17.0)
+    twitter (7.0.0)
       addressable (~> 2.3)
       buftok (~> 0.2.0)
-      equalizer (= 0.0.10)
-      faraday (~> 0.9.0)
-      http (~> 1.0)
+      equalizer (~> 0.0.11)
+      http (~> 4.0)
+      http-form_data (~> 2.0)
       http_parser.rb (~> 0.6.0)
-      json (~> 1.8)
       memoizable (~> 0.4.0)
+      multipart-post (~> 2.0)
       naught (~> 1.0)
       simple_oauth (~> 0.3.0)
     tzinfo (1.2.7)
@@ -790,13 +803,15 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webrick (1.7.0)
     webrobots (0.1.2)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     wkhtmltoimage-binary (0.12.5)
-    xml-simple (1.1.5)
-    xmlrpc (0.3.0)
+    xml-simple (1.1.8)
+    xmlrpc (0.3.2)
+      webrick
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.4.0)
@@ -820,7 +835,7 @@ DEPENDENCIES
   bootstrap3-datetimepicker-rails
   browser (~> 2.0, >= 2.0.2)
   bulk_insert
-  bundler (= 2.1.4)
+  bundler (= 2.2.14)
   by_star (~> 2.2, >= 2.2.1)
   byebug
   cancancan (~> 1.10)
@@ -837,7 +852,7 @@ DEPENDENCIES
   faker
   fastimage (~> 1.9)
   file_validators (~> 2.0, >= 2.0.2)
-  fog
+  fog (~> 2.0)
   font-awesome-sass
   friendly_id (~> 5.3)
   geocoder (~> 1.6, >= 1.6.3)
@@ -857,6 +872,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-slick-rails
+  json (~> 2.5, >= 2.5.1)
   kaminari (~> 1.2, >= 1.2.1)
   letter_opener_web (~> 1.4)
   magnific-popup-rails (~> 1.1)
@@ -898,7 +914,7 @@ DEPENDENCIES
   ruby_dig (~> 0.0.2)
   sass-rails (~> 5.0)
   scoped_search (~> 3.2, >= 3.2.2)
-  sdoc (~> 0.4.0)
+  sdoc (~> 2.0, >= 2.0.4)
   seed-fu (~> 2.3, >= 2.3.5)
   sequenced (~> 3.1, >= 3.1.1)
   sidekiq (~> 6.1, >= 6.1.2)
@@ -911,7 +927,7 @@ DEPENDENCIES
   sqlite3
   streamio-ffmpeg
   timecop (~> 0.8.0)
-  twitter (~> 5.16)
+  twitter (~> 7.0)
   uglifier (>= 1.3.0)
   unicorn
   unobtrusive_flash (~> 3.1)
