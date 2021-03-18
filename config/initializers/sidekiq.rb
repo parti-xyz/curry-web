@@ -12,6 +12,9 @@ if ENV['SIDEKIQ'] == "true" or (!Rails.env.development? && !Rails.env.test?)
 
   Sidekiq.configure_server do |config|
     config.redis = redis_config
+    config.death_handlers << ->(job, _ex) do
+      SidekiqUniqueJobs::Digests.delete_by_digest(job['unique_digest']) if job['unique_digest']
+    end
   end
   Sidekiq.configure_client do |config|
     config.redis = redis_config
