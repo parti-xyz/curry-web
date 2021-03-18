@@ -7,18 +7,18 @@ class CommentMailer < ApplicationMailer
     @comments = []
     @orders = []
     @statement_key = nil
-    params_items.each do |params|
-      comment = Comment.find_by(id: params['comment_id'])
-      next if comment.blank?
-      statement_key = StatementKey.find_by(id: params['statement_key_id'])
-      next if statement_key.blank?
-      @statement_key = statement_key
-      order = Order.find_by(id: params['order_id'])
-      next if order.blank?
+    # params_items.each do |params|
+    #   comment = Comment.find_by(id: params['comment_id'])
+    #   next if comment.blank?
+    #   statement_key = StatementKey.find_by(id: params['statement_key_id'])
+    #   next if statement_key.blank?
+    #   @statement_key = statement_key
+    #   order = Order.find_by(id: params['order_id'])
+    #   next if order.blank?
 
-      @comments << comment
-      @orders << order
-    end
+    #   @comments << comment
+    #   @orders << order
+    # end
 
     @agent = Agent.find_by(id: agent_id)
     return if @agent.blank? || @agent.email.blank?
@@ -32,12 +32,12 @@ class CommentMailer < ApplicationMailer
     end
 
     headers['X-PARTI-ORDERS'] = @orders.map(&:id).to_json
+   
+    campainer_email = User.find_by(id: @commentable.user_id).email if use_sample
 
-    mail(to: @agent.email, template_name: template_name)
-    
-    if use_sample
-      campainer = User.find_by(id: @commentable.user_id)
-      mail(to: campainer.email, template_name: template_name)
-    end
+    mail(
+      to: @agent.email,
+      bcc: campainer_email ,
+      template_name: template_name)
   end
 end
