@@ -4,7 +4,7 @@ gem 'rails', '~> 5.2', '>= 5.2.4.4'
 gem 'unicorn'
 gem 'puma', '4.3.5'
 gem 'rb-readline'
-gem 'bundler', '2.1.4'
+gem 'bundler', '2.2.14'
 gem 'font-awesome-sass'
 
 # database
@@ -64,7 +64,7 @@ gem 'redcarpet'
 gem 'carrierwave', '~> 0.10.0'
 gem "mini_magick", ">= 4.9.4"
 gem 'file_validators', '~> 2.0', '>= 2.0.2'
-gem "fog"
+gem 'fog', '~> 2.0'
 
 # auth
 gem 'cancancan', '~> 1.10'
@@ -74,14 +74,15 @@ gem 'omniauth-facebook', '~> 4.0'
 gem 'omniauth-twitter', '~> 1.2', '>= 1.2.1'
 gem 'omniauth-google-oauth2', '~> 0.3.1'
 gem 'omniauth-naver', '~> 0.1.0'
-gem 'twitter', '~> 5.16'
+# gem 'twitter', '~> 5.16'
+gem 'twitter', '~> 7.0'
 gem 'google-api-client', '~> 0.9.2'
 gem 'rolify'
 
 # util
 gem 'rack-cors', '~> 1.0', '>= 1.0.5'
 gem 'rails-i18n'
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc', '~> 2.0', '>= 2.0.4', group: :doc
 gem 'dotenv-rails'
 gem 'seed-fu', '~> 2.3', '>= 2.3.5'
 gem 'bcrypt', '~> 3.1', '>= 3.1.11'
@@ -93,6 +94,7 @@ gem 'identicon', '~> 0.0.5'
 gem 'rails-timeago', '~> 2.15'
 gem 'icalendar', '~> 2.5', '>= 2.5.3'
 gem 'sitemap_generator'
+gem 'json', '~> 2.5', '>= 2.5.1'
 
 # image
 gem 'exifr', '1.2.6'
