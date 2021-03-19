@@ -184,6 +184,10 @@ class Campaign < ApplicationRecord
     goal_count.present? && goal_count > 0
   end
 
+  def need_to_sample?
+    self.last_sample_at.to_date != DateTime.now.to_date && self.use_sample_mail?
+  end
+
   def goalable?
     !%w( sympathy special_map_with_assembly special_any_speech special_speech ).include?(self.template)
   end
