@@ -37,7 +37,7 @@ class CommentMailer < ApplicationMailer
 
     mail(
       to: @agent.email,
-      bcc: campainer_email ,
+      bcc: campainer_email,
       template_name: template_name)
 
     @commentable.update_columns(last_sample_at: DateTime.now) if use_sample
