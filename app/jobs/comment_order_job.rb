@@ -42,14 +42,11 @@ class CommentOrderJob
             }
           end
 
-          CommentMailer.target_agent(commentable.class.name, commentable.id, agent_id, params, commentable.use_sample?).deliver_now
+          CommentMailer.target_agent(commentable.class.name, commentable.id, agent_id, params, commentable.need_to_sample?).deliver_now
         end
 
-        Comment.where(id: comments_group).update_all(mailing: :sent)        
+        Comment.where(id: comments_group).update_all(mailing: :sent)
       end
-
-      commentable.lastsent_at = DateTime.now
-      commentable.save
     end
   end
 end

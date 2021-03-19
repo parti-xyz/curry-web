@@ -32,12 +32,14 @@ class CommentMailer < ApplicationMailer
     end
 
     headers['X-PARTI-ORDERS'] = @orders.map(&:id).to_json
-   
-    campainer_email = User.find_by(id: @commentable.user_id).email if use_sample
+
+    campainer_email = @commentable.try(:sample_email).presence if use_sample
 
     mail(
       to: @agent.email,
       bcc: campainer_email ,
       template_name: template_name)
+
+    @commentable.update_columns(last_sample_at: DateTime.now) if use_sample
   end
 end
