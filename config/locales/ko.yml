@@ -173,8 +173,6 @@ ko:
         use_signer_phone: 연락처 입력 여부
         use_signer_country: 국가 입력 여부
         use_signer_city: 지역 입력 여부
-        sample_email: 샘플 메일을 받을 주소
-        use_sample_mail: 캠페이너에게 샘플 메일을 발송합니다.
         need_stance: 촉구 대상에게 요구하는 답변 방식
         opened_at: 시작일
         ga_id: 구글 애널리틱스 추적 아이디

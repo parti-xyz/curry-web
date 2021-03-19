@@ -1,5 +1,5 @@
 class CommentMailer < ApplicationMailer
-  def target_agent(commentable_type, commentable_id, agent_id, params_items, use_sample = false)
+  def target_agent(commentable_type, commentable_id, agent_id, params_items)
     # comment_id, order_id, statement_key_id
     @commentable = commentable_type.classify.safe_constantize.try(:find_by, {id: commentable_id})
     return if @commentable.blank?
@@ -33,13 +33,9 @@ class CommentMailer < ApplicationMailer
 
     headers['X-PARTI-ORDERS'] = @orders.map(&:id).to_json
 
-    campainer_email = @commentable.try(:sample_email).presence if use_sample
-
-    mail(
-      to: @agent.email,
-      bcc: campainer_email,
-      template_name: template_name)
-
-    @commentable.update_columns(last_sample_at: DateTime.now) if use_sample
+    mail(to: @agent.email,
+    template_name: template_name)
+    # mail(to: "bounce@simulator.amazonses.com",
+    #   template_name: template_name, delivery_method: :aws_sdk)
   end
 end
