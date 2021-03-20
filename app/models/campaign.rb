@@ -185,7 +185,7 @@ class Campaign < ApplicationRecord
   end
 
   def need_to_sample?
-    self.last_sample_at.to_date != DateTime.now.to_date && self.use_sample_mail?
+    self.last_sample_at&.to_date != DateTime.now.to_date && self.use_sample_mail?
   end
 
   def goalable?
