@@ -100,8 +100,8 @@ class Comment < ApplicationRecord
   end
 
   def photo_and_map_campaign_should_check_image_attachment
-    if %w(photo map).include? commentable.try(:template) and
-        (self.persisted? ? read_attribute(:image).blank? : !self.image?)
+    if %w(photo).include?(commentable.try(:template)) &&
+        (persisted? ? read_attribute(:image).blank? : !image?)
       errors.add(:image, '을(를) 선택하세요')
     end
   end
