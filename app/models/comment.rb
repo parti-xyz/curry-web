@@ -61,26 +61,32 @@ class Comment < ApplicationRecord
   def fetch_geocode
     self.latitude = nil
     self.longitude = nil
+
+    return if full_street_address.blank?
+    street_address = full_street_address
     begin
       response = RestClient.get("https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=#{
-          CGI.escape(full_street_address)
+          CGI.escape(street_address)
         }",
         'X-NCP-APIGW-API-KEY-ID': ENV["NAVER_CLIENT_ID"],
         'X-NCP-APIGW-API-KEY': ENV["NAVER_CLIENT_SECRET"])
 
-      return unless response.code == 200
+      next unless response.code == 200
 
       data = JSON.parse(response.body)
-      return if data.blank?
+      next if data.blank?
+
       address = data["addresses"].try(:first)
-      return if address.blank?
+      next if address.blank?
 
       self.longitude = to_safe_float(address["x"])
       self.latitude = to_safe_float(address["y"])
-    rescue e
-      logger.error(e.message)
-      e.backtrace.each { |line| logger.error(line) }
-    end
+
+      return
+    end while (street_address = street_address[/(.*)\s/, 1]).present?
+  rescue e
+    logger.error(e.message)
+    e.backtrace.each { |line| logger.error(line) }
   end
 
   def smart_body(htmlable = true)
