@@ -15,7 +15,7 @@
                 %small.picket-date
                   = date_f picket.created_at
 
-              .picket-message.my-2
+              = link_to picket_campaign_path(@campaign, picket_id: picket), class: 'picket-message my-2 d-block text-reset text-decoration-none', remote: true do
                 = excerpt picket.body
 
               .d-flex.justify-content-between
@@ -36,10 +36,8 @@
                   - else
                     = picket.user_nickname
 
-              .picket-message.my-2
+              = link_to picket_campaign_path(@campaign, picket_id: picket), class: 'picket-message my-2 d-block text-reset text-decoration-none', remote: true do
                 = excerpt picket.body
-                %div
-                  %small= link_to '더 보기 >', picket_campaign_path(@campaign, picket_id: picket), remote: true, class: 'more'
 
               .d-flex.justify-content-between
                 %small.picket-date
