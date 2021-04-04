@@ -54,8 +54,8 @@ class Comment < ApplicationRecord
 
   def init_gps_by_image(gps)
     return if gps.blank?
-    self.latitude = gps.latitude
-    self.longitude = gps.longitude
+    self.latitude = to_safe_float(gps.latitude)
+    self.longitude = to_safe_float(gps.longitude)
   end
 
   def fetch_geocode
