@@ -38,6 +38,12 @@ class Api::V1::SignsController < ApplicationController
     end
   end
 
+  def index
+    campaign = Campaign.where(api_secure_key: request.headers[:HTTP_X_API_KEY]).first
+    signs = campaign.signs.order('id desc').take(8).map{ |x| { signer_name: x.user_name, body: x.body, signed_at: x.created_at, sign_count: campaign.signs.where('id <= ?', x).count } }
+    render json: signs
+  end
+
   private
 
   def has_error?(sign, attribute, type)
