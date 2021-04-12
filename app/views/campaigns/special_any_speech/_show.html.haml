@@ -44,7 +44,7 @@
   / bloc-4
   - area_stat = capture do
     - area_count_map = @campaign.comments.group(:full_street_address).count
-    - area_stat_map = Hash[Campaign::LARGE_AREA.map { |area| area_count_map[area].present? ? [area, area_count_map[area]] : nil }]
+    - area_stat_map = Hash[Campaign::LARGE_AREA.map { |area| area_count_map[area].present? ? [area, area_count_map[area]] : nil }.compact]
     = area_stat_map.map { |k,v| "#{k} #{v}"}.join(', ')
   - unless area_stat.strip.blank?
     #bloc-4.bloc.bgc-outer-space.tc-white
