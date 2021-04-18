@@ -75,7 +75,6 @@
                           - else
                             %span 무응답
                         - if statement.try(:body).present?
-                          -# %i.fa.fa-comment-dots.js-popover{ "data-placement": "top", "data-trigger": "click", "data-content": statement.body, "data-style": 'order-statement' }
                           = link_to "#anchor-order-statement-#{statement.id}", class: 'text-white' do
                             %i.fa.fa-comment-dots
                     - if campaign.opened? and (statement.blank? || statement.try(:individually_orderable?))
