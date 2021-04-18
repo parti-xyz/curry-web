@@ -317,4 +317,5 @@ Rails.application.routes.draw do
 
   post 'api/v1/signs', to: 'api/v1/signs#create'
   get 'api/v1/signs', to: 'api/v1/signs#index'
+  get 'api/v1/campaigns/:id/signs/recent', to: 'api/v1/campaigns#signs_recent'
 end
