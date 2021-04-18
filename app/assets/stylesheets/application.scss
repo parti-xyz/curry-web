@@ -16,6 +16,9 @@
 @import 'alignment'; // redactor plugin
 @import 'jssocials';
 
+@import 'order-statements';
+@import 'webui-popover-order-statement';
+
 .campaign-body, .story-body {
   img { max-width: 100%; }
 }

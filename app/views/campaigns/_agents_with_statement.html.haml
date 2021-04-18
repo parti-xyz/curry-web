@@ -1,7 +1,33 @@
+
+
 .orders.my-3
   .text-muted
     %i.fa.fa-info-circle
     촉구하면 발송되는 이메일에 촉구 대상이 응답한 내용입니다.
+
+  - any_body_agents = @campaign.any_body_agents.load
+  - if any_body_agents.any?
+    .order-statements
+      .list
+        - any_body_agents.each do |agent|
+          - statement = @campaign.cached_statement_of(agent)
+          .statement
+            %a{ id: "anchor-order-statement-#{statement.id}" }
+            .image{ style: "background-image: url(#{agent.image.md.url});" }
+            .main
+              .header
+                .label{ class: "-#{statement.stance_code}" }
+                  = statement.stance_text_human
+                .agent
+                  .name= agent.name
+                  .organization= agent.organization
+              .body.js-read-more
+                != statement.body
+
+  - if any_body_agents.any?
+    .text-muted
+      %i.fa.fa-info-circle
+      모든 촉구 대상의 응답 현황입니다.
 
   .mb-3
     .row.row-cols-2.row-cols-lg-3.no-gutters
@@ -49,7 +75,9 @@
                           - else
                             %span 무응답
                         - if statement.try(:body).present?
-                          %i.fa.fa-comment-dots.js-popover{ "data-placement": "top", "data-trigger": "hover", "data-content": statement.body }
+                          -# %i.fa.fa-comment-dots.js-popover{ "data-placement": "top", "data-trigger": "click", "data-content": statement.body, "data-style": 'order-statement' }
+                          = link_to "#anchor-order-statement-#{statement.id}", class: 'text-white' do
+                            %i.fa.fa-comment-dots
                     - if campaign.opened? and (statement.blank? || statement.try(:individually_orderable?))
                       .card-text
                         %small
