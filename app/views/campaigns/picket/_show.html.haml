@@ -24,35 +24,8 @@
       %section.section-orders.section-orders-tab
         .section-title
           캠페인 촉구
-        - if @campaign.opened?
-          .order-title
-            지금
-            %span.underline
-              #{@campaign.agents.first.name}
-              - if @campaign.agents.count > 1
-                외 #{@campaign.agents.count - 1}
-            에 촉구해 주세요
-          .order-info
-            - if @campaign.order_count >= 1
-              시민 #{@campaign.order_count}분이 참여하고 있습니다.
-            - else
-              지금 바로 촉구하여 참여해보세요.
-          .order-users
-            - order_users_with_image = User.where(id: @campaign.comments.where.not(user_id: nil).uniq.pluck(:user_id)).limit(3)
-            - if order_users_with_image.any?
-              .user-images
-                - order_users_with_image.reverse.each do |user|
-                  .user-image-sm.overlapped{ style: "background-image:url(#{asset_url(user.image.md.url)});" }
-            -if @campaign.order_count > 3
-              .more +
-              .count= @campaign.order_count - 3
-        - else
-          = render 'campaigns/order_dashboard', campaign: @campaign
 
-        - if @campaign.responded_agents.any? or @campaign.closed?
-          .orders-tab-title-h5.title-wrap
-            .title-left 촉구 응답 현황
-          = render 'campaigns/agents_with_statement', campaign: @campaign
+        = render 'campaigns/order_dashboard', campaign: @campaign
 
         - if @campaign.opened?
           .orders-tab-title-h5.title-wrap

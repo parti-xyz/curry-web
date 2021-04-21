@@ -36,7 +36,6 @@
 
             - cache "campaign-orders-show-status-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 1.hours do
               = render 'campaigns/order_dashboard', campaign: @campaign
-              = render 'campaigns/agents_with_statement', campaign: @campaign, responded_agents_only: true
 
         %section.my-5
           %h3.font-weight-bold 의견
