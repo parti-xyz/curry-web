@@ -20,19 +20,18 @@
             %h3.font-weight-bold 촉구하기
 
             - if @campaign.opened?
-              - cache "campaign-orders-show-dashbordx-#{@campaign.id}", race_condition_ttl: 30.seconds, expires_in: 1.hours do
-                .alert.alert-primary.mb-1
-                  지금
-                  = link_to [:new_comment_agent, @campaign], class: 'underline' do
-                    #{@campaign.agents.first.name}
-                    - if @campaign.agents.count > 1
-                      외 #{@campaign.agents.count - 1}
-                  에게 촉구해 보세요.
+              .alert.alert-primary.mb-1
+                지금
+                = link_to [:new_comment_agent, @campaign], class: 'underline' do
+                  #{@campaign.agents.first.name}
+                  - if @campaign.agents.count > 1
+                    외 #{@campaign.agents.count - 1}
+                에게 촉구해 보세요.
 
-                  - if @campaign.order_count >= 1
-                    시민 #{@campaign.order_count}분이 참여하였습니다.
-                  - else
-                    지금 바로 촉구에 참여해 보세요.
+                - if @campaign.order_count >= 1
+                  시민 #{@campaign.order_count}분이 참여하였습니다.
+                - else
+                  지금 바로 촉구에 참여해 보세요.
 
             - cache ["campaigns/order/show/order_dashboard", @campaign], race_condition_ttl: 30.seconds, expires_in: 1.hours do
               = render 'campaigns/order_dashboard', campaign: @campaign
