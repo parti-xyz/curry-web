@@ -6,9 +6,4 @@ class Api::V1::CampaignsController < ApplicationController
     render json: signs
   end
 
-  private
-
-  def campaigns_params
-    params.require(:cmapaign).permit(:id)
-  end
 end
