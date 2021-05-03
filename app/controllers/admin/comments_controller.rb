@@ -7,6 +7,6 @@ class Admin::CommentsController < Admin::BaseController
 
   def destroy
     @comment.destroy
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 end

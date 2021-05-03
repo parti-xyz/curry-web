@@ -91,7 +91,7 @@ class CommentsController < ApplicationController
       else
         I18n.t('messages.commented')
       end
-      
+
       flash[:sign_notice] = helpers.fill_in(@comment.commentable.thanks_mention, number: @comment.commentable.signs_count) || I18n.t('messages.signed')
       if @comment.mailing.ready?
         if @comment.target_agents.empty? { |agent| agent.email.present? }
@@ -115,7 +115,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   def new

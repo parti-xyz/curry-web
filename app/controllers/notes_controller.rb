@@ -27,7 +27,7 @@ class NotesController < ApplicationController
 
   def destroy
     @note.destroy
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   private
