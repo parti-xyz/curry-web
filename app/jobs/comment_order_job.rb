@@ -1,6 +1,6 @@
 class CommentOrderJob
   include Sidekiq::Worker
-  sidekiq_options lock: :until_executed, lock_expiration: 2.hours.to_i, on_conflict: :raise, retry: 3
+  sidekiq_options lock: :while_executing, lock_timeout: 0, on_conflict: :raise, retry: 8
 
   def perform
     ready_comments = Comment.where(mailing: :ready).after(1.weeks.ago)
@@ -41,7 +41,8 @@ class CommentOrderJob
               'statement_key_id' => statement_key.id
             }
           end
-          CommentMailer.target_agent(commentable.class.name, commentable.id, agent_id, params).deliver_now
+
+          CommentMailer.target_agent(commentable.class.name, commentable.id, agent_id, params, commentable.need_to_sample?).deliver_now
         end
 
         Comment.where(id: comments_group).update_all(mailing: :sent)

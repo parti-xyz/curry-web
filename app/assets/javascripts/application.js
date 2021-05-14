@@ -32,6 +32,7 @@
 //= require clipboard
 //= require js.cookie
 //= require imagesloaded.pkgd
+//= require readmore
 //= require parti
 
 UnobtrusiveFlash.flashOptions['timeout'] = 3000;
@@ -386,6 +387,11 @@ $(function(){
     });
   })();
 
+  new Readmore('.js-read-more', {
+    collapsedHeight: '410px',
+    moreLink: '<a href="#" class="more">더 보기</a>',
+    lessLink: '<a href="#" class="more">닫기</a>',
+  });
 });
 
 //

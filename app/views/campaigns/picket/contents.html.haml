@@ -49,11 +49,6 @@
         - else
           = render 'campaigns/order_dashboard', campaign: @campaign
 
-        - if @campaign.responded_agents.any? or @campaign.closed?
-          .orders-tab-title-h5.title-wrap
-            .title-left 촉구 응답 현황
-          = render 'campaigns/agents_with_statement', campaign: @campaign
-
         - if @campaign.opened?
           .orders-tab-title-h5.title-wrap
             .title-left 촉구하기

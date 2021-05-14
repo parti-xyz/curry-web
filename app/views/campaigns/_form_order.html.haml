@@ -27,3 +27,11 @@
     %label.radio-inline
       = f.radio_button :need_stance, false
       의견만 요구
+
+.form-group
+  = f.check_box :use_sample_mail
+  = f.label :use_sample_mail
+
+.form-group
+  = f.label :sample_email
+  = f.email_field :sample_email, class: 'form-control'

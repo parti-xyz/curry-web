@@ -13,8 +13,8 @@
           = f.email_field :commenter_email, class: 'form-control'
       - if @campaign.template == 'photo' or @campaign.template == 'map'
         .form-group
-          = f.label :image, '사진'
-          = f.file_field :image, class: 'form-control', data: { 'rule-required': true }
+          = f.label :image, "사진 #{'(선택)' if @campaign.template != 'photo'}"
+          = f.file_field :image, class: 'form-control', data: { 'rule-required': (true if @campaign.template == 'photo') }
       - if @campaign.template == 'map'
         .form-group
           = f.label :full_street_address

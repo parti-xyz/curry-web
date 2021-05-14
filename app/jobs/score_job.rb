@@ -1,6 +1,6 @@
 class ScoreJob
   include Sidekiq::Worker
-  sidekiq_options lock: :until_executed, lock_expiration: 2.hours.to_i, on_conflict: :raise, retry: 3
+  sidekiq_options lock: :while_executing, lock_timeout: 0, on_conflict: :raise, retry: 8
 
   def perform
     ActiveRecord::Base.transaction do

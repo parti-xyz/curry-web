@@ -20,7 +20,6 @@
       .orders-tab-title-h5 촉구 응답 현황
 
       = render 'campaigns/order_dashboard', campaign: @campaign
-      = render 'campaigns/agents_with_statement', campaign: @campaign
 
       - if @campaign.opened?
         .orders-tab-title-h5.title-wrap
