@@ -671,7 +671,7 @@ GEM
       devise
       mime-types
       orm_adapter
-    redcarpet (3.5.0)
+    redcarpet (3.5.1)
     redis (4.2.2)
     redis-namespace (1.8.0)
       redis (>= 3.0.4)
