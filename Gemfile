@@ -120,7 +120,7 @@ gem 'redis', '~> 4.2', '>= 4.2.2'
 gem 'redis-namespace', '~> 1.8'
 
 # crawling
-gem 'mechanize', '~> 2.7', '>= 2.7.5'
+gem 'mechanize', '~> 2.7'
 gem 'video_info', '~> 2.6'
 gem 'fastimage', '~> 1.9'
 
