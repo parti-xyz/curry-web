@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/parti-coop/branch_db.git
-  revision: f9dbb7285b369b25d8ef2697f0c083500e1c25c3
+  revision: 575f9de2215768db3305b14d0fce666382bbe3cf
   tag: v0.0.4
   specs:
     branch_db (0.0.4)
