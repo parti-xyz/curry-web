@@ -164,7 +164,8 @@ class CommentsController < ApplicationController
       :target_agent_id, :mailing,
       :toxic,
       :confirm_privacy, :confirm_third_party,
-      :test, :comment_user_id, :is_html_body
+      :test, :comment_user_id, :is_html_body,
+      :commenter_phone
     )
   end
 end

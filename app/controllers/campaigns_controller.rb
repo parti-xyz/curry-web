@@ -37,7 +37,7 @@ class CampaignsController < ApplicationController
         if @campaign.template == 'special_speech'
           @speeches = @campaign.speeches.recent.limit(browser.device.mobile? ? 4 : 8)
           @hero_speech = @campaign.speeches.sample
-        elsif %w(basic photo map).include? @campaign.template
+        elsif @campaign.picketable?
           redirect_to pickets_campaign_path(@campaign)
         end
 
@@ -129,7 +129,7 @@ class CampaignsController < ApplicationController
   end
 
   def picket_form
-    if %(basic photo map).include?(@campaign.template) and request.format.js?
+    if @campaign.picketable? && request.format.js?
       render 'campaigns/picket/picket_form'
     else
       render_404
@@ -138,7 +138,7 @@ class CampaignsController < ApplicationController
 
   def orders
     render_404 and return unless 'order' == @campaign.template
-    render template: "campaigns/#{@campaign.template}/orders"
+    render template: "campaigns/#{@campaign.template_path_name}/orders"
   end
 
   def need_to_order_agents
@@ -176,7 +176,7 @@ class CampaignsController < ApplicationController
   def signers
     render_404 and return unless @campaign.signable?
     @signs = @campaign.signs.order('id desc').page(params[:page])
-    render template: "campaigns/#{@campaign.template}/signers"
+    render template: "campaigns/#{@campaign.template_path_name}/signers"
   end
 
   def story
@@ -186,12 +186,12 @@ class CampaignsController < ApplicationController
   end
 
   def contents
-    render_404 and return unless %(basic photo map).include?(@campaign.template)
+    render_404 and return unless @campaign.picketable?
     render template: "campaigns/picket/contents"
   end
 
   def pickets
-    render_404 and return unless %(basic photo map).include?(@campaign.template)
+    render_404 and return unless @campaign.picketable?
     if params[:tag].present?
       @pickets = @campaign.comments.tagged_with(params[:tag]).recent.page(params[:page]).per(9)
     elsif params[:map_bounds].present?
@@ -205,7 +205,7 @@ class CampaignsController < ApplicationController
   end
 
   def picket
-    render_404 and return unless %(basic photo map).include?(@campaign.template)
+    render_404 and return unless @campaign.picketable?
 
     @picket = Comment.find_by(id: params[:picket_id])
     render_404 and return if @picket.blank?
@@ -219,7 +219,7 @@ class CampaignsController < ApplicationController
 
   def widget_v1_content
     @campaign = Campaign.find(params[:campaign_id])
-    render template: "campaigns/widget/v1/content/#{@campaign.template}/#{params[:component_template] || 'lg'}", layout: 'widget'
+    render template: "campaigns/widget/v1/content/#{@campaign.template_path_name}/#{params[:component_template] || 'lg'}", layout: 'widget'
   end
 
   def widget_v1_preview
@@ -245,6 +245,8 @@ class CampaignsController < ApplicationController
         :use_signer_email, :use_signer_address, :use_signer_real_name, :use_signer_phone, :use_signer_country, :use_signer_city,
         :signer_email_title, :signer_address_title, :signer_real_name_title,
         :signer_country_title,  :signer_city_title, :signer_phone_title,
+        :use_commenter_phone,
+        :commenter_phone_title,
         :agent_section_title, :agent_section_response_title, :sign_hidden, :area_id, :issue_id,
         :special_slug, :sign_form_intro,
         (:template if params[:action] == 'create'),

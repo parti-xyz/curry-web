@@ -144,6 +144,8 @@ class Campaign < ApplicationRecord
   enumerize :use_signer_country, in: [:unused, :required, :optional], default: :unused
   enumerize :use_signer_city, in: [:unused, :required, :optional], default: :unused
 
+  enumerize :use_commenter_phone, in: [:unused, :required, :optional], default: :unused
+
   acts_as_tagger
 
   belongs_to :user
@@ -327,6 +329,14 @@ class Campaign < ApplicationRecord
   def is_valid_template(template)
     return false if template.blank?
     (TEMPLATES + TEMPLATES_SPECIAL).include? template
+  end
+
+  def template_path_name
+    if picketable?
+      'picket'
+    else
+      template
+    end
   end
 
   private

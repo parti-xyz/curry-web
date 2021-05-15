@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_19_012629) do
+ActiveRecord::Schema.define(version: 2021_05_15_041121) do
 
   create_table "action_targets", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "action_assignable_id", null: false
@@ -354,6 +354,8 @@ ActiveRecord::Schema.define(version: 2021_03_19_012629) do
     t.datetime "last_sample_at"
     t.boolean "use_sample_mail"
     t.string "sample_email"
+    t.string "commenter_phone_title"
+    t.string "use_commenter_phone", default: "unused"
     t.index ["area_id"], name: "index_campaigns_on_area_id"
     t.index ["issue_id"], name: "index_campaigns_on_issue_id"
     t.index ["project_id"], name: "index_campaigns_on_project_id"
@@ -403,6 +405,7 @@ ActiveRecord::Schema.define(version: 2021_03_19_012629) do
     t.boolean "confirm_privacy", default: false
     t.datetime "confirm_third_party"
     t.boolean "is_html_body", default: false, null: false
+    t.string "commenter_phone"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["target_agent_id"], name: "index_comments_on_target_agent_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
