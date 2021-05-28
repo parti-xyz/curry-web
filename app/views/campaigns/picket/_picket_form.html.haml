@@ -19,6 +19,10 @@
         .form-group
           = f.label :full_street_address
           = f.text_field :full_street_address, class: 'form-control'
+      - unless @campaign.use_commenter_phone.unused?
+        .form-group
+          = f.label :commenter_phone, raw("#{@campaign.commenter_phone_title.presence || t('activerecord.attributes.sign.commenter_phone')} #{'&middot; 선택입력' if @campaign.use_commenter_phone.optional?}")
+          = f.text_field :commenter_phone, placeholder: '연락처', class: 'form-control', data: { 'rule-required': @campaign.use_commenter_phone.required? }
       .form-group
         = f.label :body, '나도 한마디'
         = f.hidden_field :is_html_body, value: is_redactorable?

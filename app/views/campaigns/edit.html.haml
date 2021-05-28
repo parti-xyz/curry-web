@@ -12,7 +12,7 @@
               %li.nav-item{ role: "presentation" }
                 %a.nav-link.active{ href: "#default", role: "tab", data: { toggle: "tab" }} 기본 설정
 
-              - if exist_partial?("campaigns/#{@campaign.template}/form_detail")
+              - if exist_partial?("campaigns/#{@campaign.template_path_name}/form_detail")
                 %li.nav-item{ role: "presentation" }
                   %a.nav-link{ href: "#detail", role: "tab", data: { toggle: "tab" }} 상세 설정
 
@@ -57,7 +57,7 @@
             #detail.tab-pane
               .py-3
                 = form_for @campaign do |f|
-                  = render_if_exist_partial "campaigns/#{@campaign.template}/form_detail", f: f
+                  = render_if_exist_partial "campaigns/#{@campaign.template_path_name}/form_detail", f: f
                   .form-group
                     = f.submit '저장', class: 'btn btn-primary btn-lg btn-block'
 

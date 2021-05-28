@@ -145,6 +145,8 @@ group :development, :test do
   gem 'minitest', '5.10.1'
   gem "better_errors"
   gem "binding_of_caller"
+  # gem "branch_db", path: '/Users/dalikim/workbench/branch_db'
+  gem "branch_db", github: "parti-coop/branch_db", tag: "v0.0.4"
 end
 
 group :test do

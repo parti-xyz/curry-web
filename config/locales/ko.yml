@@ -158,6 +158,7 @@ ko:
         signer_address_title: 주소 입력란 안내문구
         signer_country_title: 국가 입력란 안내문구
         signer_city_title: 지역 입력란 안내문구
+        commenter_phone_title: 연락처 입력란 안내문구
         confirm_privacy: 개인정보 제 3자 제공 추가 문구
         confirm_third_party: 개인정보 제3자 제공 동의
         agent_section_title: 촉구하기 영역 제목
@@ -173,6 +174,7 @@ ko:
         use_signer_phone: 연락처 입력 여부
         use_signer_country: 국가 입력 여부
         use_signer_city: 지역 입력 여부
+        use_commenter_phone: 연락처 입력 여부
         sample_email: 샘플 메일을 받을 주소
         use_sample_mail: 캠페이너에게 샘플 메일을 발송합니다.
         need_stance: 촉구 대상에게 요구하는 답변 방식
@@ -251,6 +253,7 @@ ko:
       comment:
         commenter_name: 이름
         commenter_email: 이메일
+        commenter_phone: 연락처
         image: 사진
         full_street_address: 주소
         body: 내용
@@ -419,6 +422,10 @@ ko:
         required: 필수 입력
         optional: 옵션 입력
       use_signer_city:
+        unused: 사용하지 않음
+        required: 필수 입력
+        optional: 옵션 입력
+      use_commenter_phone:
         unused: 사용하지 않음
         required: 필수 입력
         optional: 옵션 입력

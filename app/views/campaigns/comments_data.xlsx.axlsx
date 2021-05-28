@@ -5,6 +5,9 @@ row_definition = [
 
 if @campaign.confirm_third_party?
   row_definition << [:user_email, '이메일']
+  unless @campaign.use_commenter_phone.unused?
+    row_definition << [:commenter_phone, '연락처']
+  end
 end
 
 row_definition << [:body, '내용']
@@ -15,7 +18,7 @@ wb.add_worksheet(name: "의견 #{@campaign.comments_count}건") do |sheet|
   sheet.add_row row_titles
   @campaign.comments.earlier.each do |comment|
     sheet.add_row row_definition.map { |c|
-      if %i(user_email).include?(c[0])
+      if %i(user_email commenter_phone).include?(c[0])
         unless comment.confirm_third_party.present?
           next "(개인정보 제공 미동의)"
         end
