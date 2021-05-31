@@ -8,7 +8,7 @@
           = image_tag 'icon_thumb_up.png', class: 'choice__label choice__label__agree'
           %span.choice__count= opinion.agrees_count
       - else
-        = link_to polymorphic_url(['agree', :votes], votable_id: opinion.id, votable_type: opinion.class.name, widget: true, agenda_name: agenda_name), method: :post, remote: true, class: 'btn btn-choice btn-lg btn-agree btn-agree__before' do
+        = link_to polymorphic_url([:agree, :votes], votable_id: opinion.id, votable_type: opinion.class.name, widget: true, agenda_name: agenda_name), method: :post, remote: true, class: 'btn btn-choice btn-lg btn-agree btn-agree__before' do
           = image_tag 'icon_thumb_up.png', class: 'choice__label choice__label__agree'
           %span.choice__count= opinion.agrees_count
     .vote-button
@@ -17,7 +17,7 @@
           = image_tag 'icon_thumb_down.png', class: 'choice__label choice__label__disagree'
           %span.choice__count= opinion.disagrees_count
       - else
-        = link_to polymorphic_url(['disagree', :votes], votable_id: opinion.id, votable_type: opinion.class.name, widget: true, agenda_name: agenda_name), method: :post, remote: true, class: 'btn btn-choice btn-lg btn-disagree btn-disagree__before' do
+        = link_to polymorphic_url([:disagree, :votes], votable_id: opinion.id, votable_type: opinion.class.name, widget: true, agenda_name: agenda_name), method: :post, remote: true, class: 'btn btn-choice btn-lg btn-disagree btn-disagree__before' do
           = image_tag 'icon_thumb_down.png', class: 'choice__label choice__label__disagree'
           %span.choice__count= opinion.disagrees_count
     = link_to agent_path(opinion.agent, agenda_id: Agenda.find_by(name: agenda_name).try(:id), anchor: 'anchor-opinion-comments-list'), target: ('_wyp' if local_assigns[:widget]), class: 'header', target: '_blank' do
