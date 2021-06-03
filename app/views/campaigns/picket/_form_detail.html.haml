@@ -1,6 +1,18 @@
 %legend.m-t 팻말 상세 설정
 
 .form-group
+  = f.label :use_commenter_email
+  = f.select :use_commenter_email, Campaign.use_commenter_email.options, class: 'form-control'
+  %p.help-block
+    이메일을 받지 않거나(사용하지 않음) 반드시 받거나(필수 입력), 입력란은 보여주되 입력하지 않아도 됩니다.(옵션 입력)
+
+.form-group
+  = f.label :commenter_email_title
+  = f.text_field :commenter_email_title, class: 'form-control'
+  %p.help-block
+    팻말 입력 영역의 이메일 입력폼 제목을 정합니다. 비워두면 적절히 표시됩니다.
+
+.form-group
   = f.label :use_commenter_phone
   = f.select :use_commenter_phone, Campaign.use_commenter_phone.options, class: 'form-control'
   %p.help-block
