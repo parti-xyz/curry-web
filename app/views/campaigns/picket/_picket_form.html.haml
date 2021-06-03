@@ -8,20 +8,23 @@
         .form-group
           = f.label :commenter_name, '이름'
           = f.text_field :commenter_name, class: 'form-control', data: { 'rule-required': true }
+        -# .form-group
+        -#   = f.label :commenter_email
+        -#   = f.email_field :commenter_email, class: 'form-control'
+      - unless @campaign.use_commenter_email.unused?
         .form-group
-          = f.label :commenter_email
-          = f.email_field :commenter_email, class: 'form-control'
-      - if @campaign.template == 'photo' or @campaign.template == 'map'
-        .form-group
-          = f.label :image, "사진 #{'(선택)' if @campaign.template != 'photo'}"
-          = f.file_field :image, class: 'form-control', data: { 'rule-required': (true if @campaign.template == 'photo') }
+          = f.label :commenter_email, raw("#{@campaign.commenter_email_title.presence || t('activerecord.attributes.comment.commenter_email')} #{'&middot; 선택입력' if @campaign.use_commenter_email.optional?}")
+          = f.text_field :commenter_email, class: 'form-control', data: { 'rule-required': @campaign.use_commenter_email.required? }, value: (current_user.email if user_signed_in?)
+      .form-group
+        = f.label :image, "사진 #{'(선택)' if @campaign.template != 'photo'}"
+        = f.file_field :image, class: 'form-control', data: { 'rule-required': (true if @campaign.template == 'photo') }
       - if @campaign.template == 'map'
         .form-group
           = f.label :full_street_address
           = f.text_field :full_street_address, class: 'form-control'
       - unless @campaign.use_commenter_phone.unused?
         .form-group
-          = f.label :commenter_phone, raw("#{@campaign.commenter_phone_title.presence || t('activerecord.attributes.sign.commenter_phone')} #{'&middot; 선택입력' if @campaign.use_commenter_phone.optional?}")
+          = f.label :commenter_phone, raw("#{@campaign.commenter_phone_title.presence || t('activerecord.attributes.comment.commenter_phone')} #{'&middot; 선택입력' if @campaign.use_commenter_phone.optional?}")
           = f.text_field :commenter_phone, placeholder: '연락처', class: 'form-control', data: { 'rule-required': @campaign.use_commenter_phone.required? }
       .form-group
         = f.label :body, '나도 한마디'

@@ -30,6 +30,7 @@ class Comment < ApplicationRecord
   validate :commenter_should_be_present_if_user_is_blank
   validate :photo_and_map_campaign_should_check_image_attachment
   validates_acceptance_of :confirm_privacy
+  validate :valid_commenter
 
   before_validation :strip_whitespace
   after_validation :fetch_geocode, if: ->(obj){ obj.full_street_address.present? and obj.full_street_address_changed? }
@@ -122,5 +123,15 @@ class Comment < ApplicationRecord
     result
   rescue
     nil
+  end
+
+  def valid_commenter
+    if commentable.respond_to?(:use_commenter_email) && commentable.use_commenter_email.required? && commenter_email.blank?
+      errors.add(:commenter_email, I18n.t('errors.messages.blank'))
+    end
+
+    if commentable.respond_to?(:use_commenter_phone) && commentable.use_commenter_phone.required? && commenter_phone.blank?
+      errors.add(:commenter_phone, I18n.t('errors.messages.blank'))
+    end
   end
 end

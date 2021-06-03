@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_15_041121) do
+ActiveRecord::Schema.define(version: 2021_06_03_153836) do
 
   create_table "action_targets", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "action_assignable_id", null: false
@@ -356,6 +356,8 @@ ActiveRecord::Schema.define(version: 2021_05_15_041121) do
     t.string "sample_email"
     t.string "commenter_phone_title"
     t.string "use_commenter_phone", default: "unused"
+    t.string "commenter_email_title"
+    t.string "use_commenter_email", default: "unused"
     t.index ["area_id"], name: "index_campaigns_on_area_id"
     t.index ["issue_id"], name: "index_campaigns_on_issue_id"
     t.index ["project_id"], name: "index_campaigns_on_project_id"
