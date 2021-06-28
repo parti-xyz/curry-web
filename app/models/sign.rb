@@ -13,6 +13,7 @@ class Sign < ApplicationRecord
   validates :signer_email, uniqueness: { scope: :campaign }, if: proc { need_email_uniqueness? } # 'signer_email.present?'
   validate :open_campaign
 
+  scope :present, -> { where.not(body: [nil, '']) }
   scope :recent, -> { order(created_at: :desc) }
   scope :earlier, -> { order(created_at: :asc) }
   scope :signs_featured, -> (current_user) {
