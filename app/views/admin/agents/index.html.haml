@@ -6,7 +6,14 @@
     .panel-body
       = form_tag nil, class: 'form-inline', method: :get do
         .form-group
+          %label 키워드 :
           = text_field_tag :q, params[:q]
+        &nbsp;
+        \/
+        &nbsp;
+        .form-group
+          %label 포지션 :
+          = text_field_tag :position, params[:position]
         = submit_tag '찾기', class: 'btn btn-default btn-sm'
 
   .panel.panel-default
@@ -26,7 +33,11 @@
               %h5= agent.name
             %td= agent.organization
             %td= agent.category_text
-            %td= agent.position_name_list
+            %td
+              - agent.positions.each do |position|
+                = position.name
+                = link_to '(삭제)', resign_position_admin_agent_path(agent, position_name: position.name), data: { confirm: "정말 #{position.name}에서 삭제합니까?" }, method: :delete
+                %br
             %td.text-right
               = link_to '수정', edit_admin_agent_path(agent), class: 'btn btn-sm btn-default'
               = link_to '삭제', admin_agent_path(agent), method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'btn btn-sm btn-danger'

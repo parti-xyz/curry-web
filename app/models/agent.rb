@@ -107,11 +107,10 @@ class Agent < ApplicationRecord
 
       rebuilding_positions = Position.named(*rebuilding_position_names).to_a
 
-      self.appointments.where.not(position: rebuilding_positions).destroy_all
+      appointments.where.not(position: rebuilding_positions).destroy_all
       rebuilding_positions.each do |position|
-        if !self.appointments.exists?(position: position)
-          self.appointments.build(position: position)
-        end
+        next if appointments.exists?(position: position)
+        appointments.build(position: position)
       end
     end
     @_position_name_list_touched = false
