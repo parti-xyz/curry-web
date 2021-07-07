@@ -283,7 +283,11 @@ Rails.application.routes.draw do
       end
     end
     resources :agencies
-    resources :agents
+    resources :agents do
+      member do
+        delete :resign_position
+      end
+    end
     resources :positions
     resources :users, only: :index do
       member do
